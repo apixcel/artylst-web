@@ -1,212 +1,124 @@
 @import "tailwindcss";
 
+@theme inline {
+  --font-geist: var(--font-geist), sans-serif;
+}
+
 @theme {
-  extend: {
-    colors: {
-      // === Solids ===
-      primary: '#A434E5',
-      secondary: '#BD00FF',
-      neonBlue: '#45FFFF',
-      marioCoin: '#FFD643',
-      dark: '#000000',
-      white: '#FFFFFF',
-      muted: '#ADAEB5',
-      error: '#FF0761',
-      darkBlue: '#131631',
-      black: '#000000',
-      greeniest: '#4ADB84',
-      fog: '#DADBE7',
-      light: '#F3F4FE',
-      superLight: '#FCFCFF',
-      gold: '#FFC640',
+  --color-primary: #a434e5;
+  --color-secondary: #bd00ff;
+  --color-neonBlue: #45ffff;
+  --color-marioCoin: #ffd643;
+  --color-dark: #000000;
+  --color-white: #ffffff;
+  --color-muted: #adaeb5;
+  --color-error: #ff0761;
+  --color-darkBlue: #131631;
+  --color-black: #000000;
+  --color-greeniest: #4adb84;
+  --color-fog: #dadbe7;
+  --color-light: #f3f4fe;
+  --color-superLight: #fcfcff;
+  --color-gold: #ffc640;
 
-      // === Charities ===
-      democratsBlue: '#22418e',
-      republicanRed: '#EB3A42',
-      redCampaignRed: '#AF1E2D',
+  --color-gray20: #f3f4fe;
+  --color-gray40: #707070;
+  --color-gray50: #3e3e3e;
+  --color-gray60: #252525;
+  --color-gray60Transparent: #25252566;
+  --color-gray70: #1c1c1c;
+  --color-gray90: #101010;
 
-      // === Grays ===
-      gray20: '#F3F4FE',
-      gray40: '#707070',
-      gray50: '#3E3E3E',
-      gray60: '#252525',
-      gray60Transparent: '#25252566',
-      gray70: '#1C1C1C',
-      gray90: '#101010',
+  --color-democratsBlue: #22418e;
+  --color-republicanRed: #eb3a42;
+  --color-redCampaignRed: #af1e2d;
 
-      // === Blacks ===
-      blackTransparent40: '#00000066',
-      blackTransparent70: '#000000B2',
+  --color-level0: #141114;
+  --color-level1: #1e1b1e;
+  --color-level2: #2b262b;
+  --color-level2Transparent40: #2b262b66;
 
-      // === Background ===
-      level0: '#141114',
-      level1: '#1E1B1E',
-      level2: '#2B262B',
-      level2Transparent40: '#2B262B66',
-    },
-    fontFamily: {
-      geist: ['Geist', 'sans-serif'],
-      sans: ['Geist', 'sans-serif'], 
-    },
+  --color-blackTransparent40: #00000066;
+  --color-blackTransparent70: #000000b2;
+}
 
-  },
-
+@layer base {
+  body {
+    @apply font-geist font-[400];
+  }
 }
 
 @layer utilities {
-  /* ========== Font Family ========== */
-  .font-geist { font-family: "Geist", sans-serif !important; }
-
-  /* ========== Link Text ========== */
   .link-text {
-    font-weight: 700 !important;
-    text-decoration: none !important;
-    color: inherit !important;
+    @apply font-[700] no-underline text-inherit;
   }
 
   /* ========== Regular (weight 400) ========== */
   .text-regular-100 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 13px !important;
-    font-weight: 400 !important;
-    letter-spacing: -0.1px !important;
-    line-height: 15px !important;
+    @apply font-geist text-[13px] leading-[15px] tracking-[-0.1px];
   }
+
   .text-regular-200 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    letter-spacing: -0.1px !important;
-    line-height: 18px !important;
+    @apply text-[14px] leading-[18px] tracking-[-0.1px];
   }
+
   .text-regular-300 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 16px !important;
-    font-weight: 400 !important;
-    letter-spacing: -0.1px !important;
-    line-height: 20px !important;
+    @apply text-[16px] leading-[20px] tracking-[-0.1px];
   }
+
   .text-regular-400 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 17px !important;
-    font-weight: 400 !important;
-    letter-spacing: -0.1px !important;
-    line-height: 22px !important;
+    @apply text-[17px] leading-[22px] tracking-[-0.1px];
   }
   .text-regular-500 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 18px !important;
-    font-weight: 400 !important;
-    letter-spacing: -0.15px !important;
-    line-height: 23px !important;
+    @apply text-[18px] leading-[23px] tracking-[-0.15px];
   }
 
   /* ========== Medium (weight 500) ========== */
   .text-medium-100 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 12px !important;
-    font-weight: 500 !important;
-    letter-spacing: -0.1px !important;
-    line-height: 15px !important;
+    @apply text-[12px] leading-[15px] tracking-[-0.1px] font-[500];
   }
   .text-medium-200 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 14px !important;
-    font-weight: 500 !important;
-    letter-spacing: -0.1px !important;
-    line-height: 18px !important;
+    @apply text-[14px] leading-[18px] tracking-[-0.1px] font-[500];
   }
   .text-medium-300 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 16px !important;
-    font-weight: 500 !important;
-    letter-spacing: -0.1px !important;
-    line-height: 20px !important;
+    @apply text-[16px] leading-[20px] tracking-[-0.1px] font-[500];
   }
   .text-medium-400 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 17px !important;
-    font-weight: 500 !important;
-    letter-spacing: -0.1px !important;
-    line-height: 22px !important;
+    @apply text-[17px] leading-[22px] tracking-[-0.1px] font-[500];
   }
   .text-medium-500 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 18px !important;
-    font-weight: 500 !important;
-    letter-spacing: -0.15px !important;
-    line-height: 23px !important;
+    @apply text-[18px] leading-[23px] tracking-[-0.15px] font-[500];
   }
 
   /* ========== Bold (weight 700 unless noted) ========== */
   .text-bold-100 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 12px !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.1px !important;
-    line-height: 15px !important;
+    @apply text-[12px] leading-[15px] tracking-[-0.1px] font-[700];
   }
   .text-bold-200 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 14px !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.1px !important;
-    line-height: 18px !important;
+    @apply text-[14px] leading-[18px] tracking-[-0.1px] font-[700];
   }
   .text-bold-300 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 16px !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.1px !important;
-    line-height: 20px !important;
+    @apply text-[16px] leading-[20px] tracking-[-0.1px] font-[700];
   }
   .text-bold-400 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 17px !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.1px !important;
-    line-height: 22px !important;
+    @apply text-[17px] leading-[22px] tracking-[-0.1px] font-[700];
   }
   .text-bold-500 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 18px !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.15px !important;
-    line-height: 23px !important;
+    @apply text-[18px] leading-[23px] tracking-[-0.15px] font-[700];
   }
   .text-bold-600 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 20px !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.2px !important;
-    line-height: 25px !important;
+    @apply text-[20px] leading-[25px] tracking-[-0.2px] font-[700];
   }
   .text-bold-700 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 24px !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.2px !important;
-    line-height: 29px !important;
+    @apply text-[24px] leading-[29px] tracking-[-0.2px] font-[700];
   }
   .text-bold-800 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 28px !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.2px !important;
-    line-height: 32px !important;
+    @apply text-[28px] leading-[32px] tracking-[-0.2px] font-[700];
   }
   .text-bold-900 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 30px !important;
-    font-weight: 700 !important;
-    letter-spacing: -0.2px !important;
-    line-height: 34px !important;
+    @apply text-[30px] leading-[34px] tracking-[-0.2px] font-[700];
   }
   .text-bold-1000 {
-    font-family: "Geist", sans-serif !important;
-    font-size: 36px !important;
-    font-weight: 800 !important; 
-    letter-spacing: -0.2px !important;
-    line-height: 46px !important;
+    @apply text-[36px] leading-[46px] tracking-[-0.2px] font-[800];
   }
 }
