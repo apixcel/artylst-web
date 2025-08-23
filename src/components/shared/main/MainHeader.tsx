@@ -6,7 +6,7 @@ const MainHeader = () => {
       <nav className="flex items-center justify-between">
         {/* logo */}
         <Link className="text-bold-400 text-primary" href="/">
-          MainHeader Logo
+          Artylst
         </Link>
 
         {/* nav links */}
