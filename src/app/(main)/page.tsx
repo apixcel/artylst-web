@@ -1,5 +1,12 @@
+import { BrowseFavoriteStars, PersonalizedVideos } from "@/components";
+
 const HomePage = () => {
-  return <div className="">HomePage</div>;
+  return (
+    <div>
+      <BrowseFavoriteStars />
+      <PersonalizedVideos />
+    </div>
+  );
 };
 
 export default HomePage;

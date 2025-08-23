@@ -1,5 +1,9 @@
 const BusinessHomePage = () => {
-  return <div>BusinessHomePage</div>;
+  return (
+    <div>
+      <div className="wrapper-inner">BusinessHomePage</div>
+    </div>
+  );
 };
 
 export default BusinessHomePage;

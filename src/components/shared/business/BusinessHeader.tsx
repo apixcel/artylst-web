@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const BusinessHeader = () => {
   return (
-    <header>
+    <header className="px-[40px]">
       <nav className="flex items-center justify-between">
         <Link className="text-bold-400 text-primary" href="/">
           BusinessHeader Logo

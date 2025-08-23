@@ -2,6 +2,7 @@ import { ClientProviders } from "@/provider/ClientProviders";
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
+import "swiper/css";
 
 const geist = Geist({
   variable: "--font-geist",

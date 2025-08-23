@@ -6,49 +6,77 @@
 
 @theme {
   --color-primary: #a434e5;
+  --color-primary-hover: #eb3d88;
   --color-secondary: #bd00ff;
-  --color-neonBlue: #45ffff;
-  --color-marioCoin: #ffd643;
+  --color-neon-blue: #45ffff;
+  --color-mario-coin: #ffd643;
   --color-dark: #000000;
   --color-white: #ffffff;
   --color-muted: #adaeb5;
   --color-error: #ff0761;
-  --color-darkBlue: #131631;
+  --color-dark-blue: #131631;
   --color-black: #000000;
   --color-greeniest: #4adb84;
   --color-fog: #dadbe7;
   --color-light: #f3f4fe;
-  --color-superLight: #fcfcff;
+  --color-super-light: #fcfcff;
   --color-gold: #ffc640;
 
-  --color-gray20: #f3f4fe;
-  --color-gray40: #707070;
-  --color-gray50: #3e3e3e;
-  --color-gray60: #252525;
-  --color-gray60Transparent: #25252566;
-  --color-gray70: #1c1c1c;
-  --color-gray90: #101010;
+  --color-gray-20: #f3f4fe;
+  --color-gray-40: #707070;
+  --color-gray-50: #3e3e3e;
+  --color-gray-60: #252525;
+  --color-gray-60-transparent: #25252566;
+  --color-gray-70: #1c1c1c;
+  --color-gray-90: #101010;
 
-  --color-democratsBlue: #22418e;
-  --color-republicanRed: #eb3a42;
-  --color-redCampaignRed: #af1e2d;
+  --color-democrats-blue: #22418e;
+  --color-republican-red: #eb3a42;
+  --color-red-campaign-red: #af1e2d;
 
-  --color-level0: #141114;
-  --color-level1: #1e1b1e;
-  --color-level2: #2b262b;
-  --color-level2Transparent40: #2b262b66;
+  --color-level-0: #141114;
+  --color-level-1: #1e1b1e;
+  --color-level-2: #2b262b;
+  --color-level-2-transparent-40: #2b262b66;
 
-  --color-blackTransparent40: #00000066;
-  --color-blackTransparent70: #000000b2;
+  --color-black-transparent-40: #00000066;
+  --color-black-transparent-70: #000000b2;
 }
 
 @layer base {
   body {
-    @apply font-geist font-[400];
+    @apply font-geist font-[400] text-[14px] bg-black text-light;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-[500];
+  }
+  h1 {
+    @apply text-[28px] leading-[40px];
+  }
+  h2 {
+    @apply text-[20px] leading-[28px] font-[700];
+  }
+}
+
+@layer components {
+  .wrapper {
+    @apply max-w-[1280px] mx-auto xl:px-0 md:px-[54px] px-[20px];
+  }
+  .wrapper-inner {
+    @apply max-w-[1120px] mx-auto;
   }
 }
 
 @layer utilities {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
   .link-text {
     @apply font-[700] no-underline text-inherit;
   }
