@@ -1,5 +1,9 @@
 const BusinessFooter = () => {
-  return <footer>BusinessFooter</footer>;
+  return (
+    <footer>
+      <div className="wrapper">footer</div>
+    </footer>
+  );
 };
 
 export default BusinessFooter;
