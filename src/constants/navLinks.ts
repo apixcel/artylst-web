@@ -1,11 +1,7 @@
 export const navLinks = [
   {
-    label: "Categories",
-    href: "/browse",
-  },
-  {
-    label: "For kids",
-    href: "/kids",
+    label: "Browse artists",
+    href: "/artists",
   },
   {
     label: "For business",
@@ -16,7 +12,7 @@ export const navLinks = [
     href: "/about",
   },
   {
-    label: "Join as talent",
+    label: "Join as artists",
     href: "/enroll",
   },
 ];
