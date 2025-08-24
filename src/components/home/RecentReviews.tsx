@@ -3,7 +3,6 @@
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, FreeMode } from "swiper/modules";
-import "swiper/css";
 import "swiper/css/navigation";
 
 const recentReviews = [
@@ -73,10 +72,10 @@ const RecentReviews = () => {
 
         {/* Swiper controls */}
         <div className="flex items-center gap-2">
-          <button className="recent-prev disabled:text-muted p-1.5 rounded-full bg-gray-70 hover:bg-gray-50 border border-gray-50">
+          <button className="recent-prev nav-button">
             <ChevronLeft className="w-5 h-5" />
           </button>
-          <button className="recent-next disabled:text-muted p-1.5 rounded-full bg-gray-70 hover:bg-gray-50 border border-gray-50">
+          <button className="recent-next nav-button">
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>

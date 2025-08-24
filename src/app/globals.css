@@ -22,12 +22,15 @@
   --color-light: #f3f4fe;
   --color-super-light: #fcfcff;
   --color-gold: #ffc640;
+  --color-lime: #c5ff47;
 
   --color-gray-20: #f3f4fe;
   --color-gray-40: #707070;
   --color-gray-50: #3e3e3e;
+  --color-gray-55: #3f3b45;
   --color-gray-60: #252525;
   --color-gray-60-transparent: #25252566;
+  --color-fog-transparent-24: #f2f1f327;
   --color-gray-70: #1c1c1c;
   --color-gray-90: #101010;
 
@@ -64,6 +67,8 @@
   --color-brand-900: #1f1755;
   --color-accent: #ff5c93;
   --color-ink: #edecfb;
+
+  --breakpoint-desktop: 90rem;
 }
 
 @layer base {
@@ -105,9 +110,16 @@
       linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
     background-size: 24px 24px;
   }
+  .nav-button {
+    @apply disabled:text-muted disabled:bg-gray-50 p-1.5 rounded-full bg-gray-70 hover:bg-gray-50 border border-gray-50;
+  }
 
   .flex-center {
     @apply flex items-center justify-center;
+  }
+
+  .footer-social-link {
+    @apply flex justify-center items-center w-[44px] h-[44px] rounded-full border border-gray-55;
   }
 
   .link-text {
