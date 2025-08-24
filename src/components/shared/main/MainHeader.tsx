@@ -5,7 +5,7 @@ import { NavSearch } from "@/components";
 
 const MainHeader = () => {
   return (
-    <header className="max-w-[1280px] mx-auto w-full xl:px-0 px-[20px] py-[12px]">
+    <header className="max-w-[1280px] mx-auto w-full desktop:px-0 px-[20px] py-[12px]">
       <nav className="flex items-center justify-between lg:mb-0 mb-4">
         {/* menu toggle button */}
         <button className="lg:hidden">

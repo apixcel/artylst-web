@@ -3,47 +3,45 @@ import { BrowseSlider } from "@/components";
 const favoriteStars = [
   {
     name: "Actors",
-    image: "/images/favorite-stars/actors.avif",
+    image: "/images/categories/actors.jpg",
     route: "/browse/actors",
   },
   {
     name: "Reality TV",
-    image: "/images/favorite-stars/reality-tv.png",
+    image: "/images/categories/reality-tv.jpeg",
     route: "/browse/reality-tv",
   },
   {
     name: "Athletes",
-    image: "/images/favorite-stars/athletes.png",
+    image: "/images/categories/athletes.jpg",
     route: "/browse/athletes",
   },
   {
     name: "Comedians",
-    image: "/images/favorite-stars/comedians.jpg",
+    image: "/images/categories/comedians.png",
     route: "/browse/comedians",
   },
   {
-    name: "Musicians",
-    image: "/images/favorite-stars/musicians.jpeg",
-    route: "/browse/musicians",
-  },
-  {
     name: "Creators",
-    image: "/images/favorite-stars/creators.png",
+    image: "/images/categories/creators.jpg",
     route: "/browse/creators",
   },
   {
+    name: "Wrestlers",
+    image: "/images/categories/wrestlers.jpeg",
+    route: "/browse/athletes/wrestlers",
+  },
+  {
     name: "For business",
-    image: "/images/favorite-stars/for-business.jpg",
+    image: "/images/categories/for-business.jpg",
     route: "/business",
   },
 ];
 
-const BrowseFavoriteStars = () => {
+const BrowseCategories = () => {
   return (
     <section className="mb-[64px]">
-      <h1 className="text-center mb-[32px] sm:max-w-full max-w-[330px] sm:mx-0 mx-auto">
-        Personalized videos from your favorite stars
-      </h1>
+      <h2 className="mb-[20px]">Categories</h2>
 
       <BrowseSlider
         items={favoriteStars}
@@ -54,4 +52,4 @@ const BrowseFavoriteStars = () => {
   );
 };
 
-export default BrowseFavoriteStars;
+export default BrowseCategories;

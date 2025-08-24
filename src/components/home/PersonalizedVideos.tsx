@@ -3,8 +3,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Grid } from "swiper/modules";
+import { Grid, FreeMode } from "swiper/modules";
 import "swiper/css/grid";
+import "swiper/css/free-mode";
 
 const personalizedVideosData = [
   {
@@ -40,39 +41,38 @@ const PersonalizedVideos = () => {
 
       <div>
         <Swiper
-          modules={[Grid]}
+          modules={[Grid, FreeMode]}
           spaceBetween={16}
-          slidesPerView={4}
-          grid={{
-            rows: 1,
+          slidesPerView={2}
+          grid={{ rows: 2, fill: "row" }}
+          breakpoints={{
+            640: { slidesPerView: 1.9, grid: { rows: 1 } },
+            768: { slidesPerView: 2.2, grid: { rows: 1 } },
+            1024: { slidesPerView: 2.8, grid: { rows: 1 } },
+            1280: { slidesPerView: 3.8, grid: { rows: 1 } },
+            1440: { slidesPerView: 4, grid: { rows: 1 } },
           }}
-          // breakpoints={{
-          //     1440: { slidesPerView: 8 },
-          //     1280: { slidesPerView: 7.5 },
-          //     1024: { slidesPerView: 7.3 },
-          //     768: { slidesPerView: 5.9 },
-          //     640: { slidesPerView: 5.3 },
-          //     480: { slidesPerView: 4 },
-          //     420: { slidesPerView: 3.5 },
-          //     320: { slidesPerView: 3 },
-          //   }}
+          observer
+          observeParents
+          freeMode={true}
         >
           {personalizedVideosData.map((video) => (
-            <SwiperSlide key={video.title}>
-              <Link href={video.route} className="relative">
-                <div className="relative">
+            <SwiperSlide key={video.route}>
+              <Link href={video.route} className="relative block">
+                <div className="relative aspect-[4/3]">
                   <Image
                     src={video.image}
                     alt={video.title}
-                    width={600}
-                    height={600}
+                    fill
                     className="object-cover rounded-[24px]"
+                    sizes="(min-width:1440px)25vw,(min-width:1280px)26vw,(min-width:1024px)33vw,(min-width:768px)45vw,90vw"
                   />
                 </div>
-                <div className="absolute top-[28px] left-[28px]">
+
+                <div className="absolute sm:top-[28px] sm:left-[28px] top-[20px] left-[20px]">
                   <p className="hidden sm:block">{video.subTitle}</p>
                   <p className="sm:hidden">Videos for</p>
-                  <h3 className="text-[24px]">{video.title}</h3>
+                  <h3 className="sm:text-[24px] text-[20px]">{video.title}</h3>
                 </div>
               </Link>
             </SwiperSlide>

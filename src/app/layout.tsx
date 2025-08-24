@@ -1,11 +1,17 @@
 import { ClientProviders } from "@/provider/ClientProviders";
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Bricolage_Grotesque, Geist } from "next/font/google";
 import "./globals.css";
 import "swiper/css";
+import "swiper/css/free-mode";
 
 const geist = Geist({
   variable: "--font-geist",
+  subsets: ["latin"],
+});
+
+const bricolageGrotesque = Bricolage_Grotesque({
+  variable: "--font-bricolage-grotesque",
   subsets: ["latin"],
 });
 
@@ -21,7 +27,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geist.variable} antialiased`} suppressHydrationWarning={true}>
+      <body
+        className={`${geist.variable} ${bricolageGrotesque.variable} bg-base-900 antialiased bg-gradient-to-br from-brand-900/70 via-base-900 to-fuchsia-900/30`}
+        suppressHydrationWarning={true}
+      >
+        <div className="fixed inset-0 -z-10 bg-grid opacity-[.18]"></div>
         <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
