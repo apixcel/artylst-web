@@ -2,6 +2,7 @@
 
 @theme inline {
   --font-geist: var(--font-geist), sans-serif;
+  --font-bricolage-grotesque: var(--font-bricolage-grotesque), sans-serif;
 }
 
 @theme {
@@ -39,13 +40,35 @@
   --color-level-2: #2b262b;
   --color-level-2-transparent-40: #2b262b66;
 
+  --color-white-transparent-80: #ffffffcc;
   --color-black-transparent-40: #00000066;
   --color-black-transparent-70: #000000b2;
+
+  --breakpoint-desktop: 1440px;
+
+  --color-base-900: #0a0a0b;
+  --color-base-800: #0f1014;
+  --color-base-700: #151721;
+  --color-base-600: #1c1f2b;
+  --color-base-500: #242838;
+  --color-brand-DEFAULT: #5b3fff;
+  --color-brand-50: #f3f1ff;
+  --color-brand-100: #e7e3ff;
+  --color-brand-200: #cfc8ff;
+  --color-brand-300: #b6acff;
+  --color-brand-400: #9b8cff;
+  --color-brand-500: #5b3fff;
+  --color-brand-600: #4a33d0;
+  --color-brand-700: #3c29a6;
+  --color-brand-800: #2c1f7a;
+  --color-brand-900: #1f1755;
+  --color-accent: #ff5c93;
+  --color-ink: #edecfb;
 }
 
 @layer base {
   body {
-    @apply font-geist font-[400] text-[14px] bg-black text-light;
+    @apply font-geist font-[400] text-[14px]  text-light leading-[20px];
   }
   h1,
   h2,
@@ -61,11 +84,14 @@
   h2 {
     @apply text-[20px] leading-[28px] font-[700];
   }
+  h3 {
+    @apply text-[16px] leading-[18px] font-[700];
+  }
 }
 
 @layer components {
   .wrapper {
-    @apply max-w-[1280px] mx-auto xl:px-0 md:px-[54px] px-[20px];
+    @apply max-w-[1280px] mx-auto desktop:px-0 md:px-[54px] px-[20px];
   }
   .wrapper-inner {
     @apply max-w-[1120px] mx-auto;
@@ -73,6 +99,13 @@
 }
 
 @layer utilities {
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
   .flex-center {
     @apply flex items-center justify-center;
   }
