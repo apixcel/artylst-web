@@ -1,7 +1,8 @@
-#!/usr/bin/env sh
-# . "$(dirname -- "$0")/_/husky.sh"
+# !/usr/bin/env sh
 
-# echo "🔍 Checking code formatting and linting..."
+ . "$(dirname -- "$0")/_/husky.sh"
+
+ echo "🔍 Checking code formatting and linting..."
 
 # npm run check-lint || (echo "❌ Lint and type check failed 💀💀 your code sucks" && exit 1)
 
@@ -10,3 +11,4 @@
 #   echo "💡 Use 'npm run fix-format' to fix it"
 #   exit 1
 # )
+npm test
