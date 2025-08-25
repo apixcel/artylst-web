@@ -27,23 +27,6 @@ export const footerLinks = [
     ],
   },
   {
-    title: "Shop",
-    links: [
-      {
-        title: "Gift Cards",
-        route: "/gift-cards",
-      },
-      {
-        title: "For Business",
-        route: "/accessibility",
-      },
-      {
-        title: "For Kids",
-        route: "/refund-returns",
-      },
-    ],
-  },
-  {
     title: "Support",
     links: [
       {
