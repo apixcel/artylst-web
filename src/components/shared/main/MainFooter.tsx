@@ -38,21 +38,6 @@ const MainFooter = () => {
                 </Link>
               </p>
             </form>
-
-            <div className="mt-[30px] flex md:flex-row flex-col gap-[20px] items-center">
-              <Link
-                href="/enroll"
-                className="bg-primary text-white px-[20px] py-[12px] rounded-[100px] text-[16px] hover:bg-primary/80 w-full md:w-auto text-center md:text-left"
-              >
-                Join as talent
-              </Link>
-              <Link
-                href="/enroll"
-                className="bg-transparent border border-gray-55 text-white px-[20px] py-[12px] rounded-[100px] text-[16px] hover:bg-gray-55/60 w-full md:w-auto text-center md:text-left"
-              >
-                Become a partner
-              </Link>
-            </div>
           </div>
 
           {/* navigation */}
