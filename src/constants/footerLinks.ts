@@ -29,7 +29,7 @@ export const footerLinks = [
     links: [
       {
         title: "Gift Cards",
-        route: "/help",
+        route: "/gift-cards",
       },
       {
         title: "For Business",
