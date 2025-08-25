@@ -7,7 +7,7 @@ const ForgotPasswordPage = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
@@ -54,9 +54,7 @@ const ForgotPasswordPage = () => {
             {loading ? "Sending..." : "Send Reset Link"}
           </button>
 
-          {message && (
-            <p className="text-sm text-center mt-3 text-white/70">{message}</p>
-          )}
+          {message && <p className="text-sm text-center mt-3 text-white/70">{message}</p>}
         </form>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { CheckoutAddOnns, CheckoutBrief, CheckoutTier } from "@/components";
 
 const CheckoutPage: React.FC = () => {
   return (
@@ -33,161 +34,14 @@ const CheckoutPage: React.FC = () => {
             </a>
           </div>
 
-          {/* Tier select */}
-          <div className="card p-5">
-            <h2 className="font-heading text-lg">Choose a tier</h2>
-            <div className="grid md:grid-cols-3 gap-4 mt-3">
-              <label className="card p-4 cursor-pointer">
-                <input
-                  type="radio"
-                  name="tier"
-                  value="39"
-                  className="peer sr-only"
-                  defaultChecked
-                />
-                <div className="text-sm text-white/70">Mini • 10–12 tracks</div>
-                <div className="text-2xl font-heading mt-1">$39</div>
-                <ul className="mt-2 text-xs text-white/70 space-y-1">
-                  <li>Private playlist link</li>
-                  <li>30s auth video</li>
-                </ul>
-                <div className="mt-3 text-[11px] text-emerald-300/90">~48h</div>
-              </label>
+          {/* tier select */}
+          <CheckoutTier />
 
-              <label className="card p-4 cursor-pointer ring-1 ring-brand/40">
-                <input
-                  type="radio"
-                  name="tier"
-                  value="59"
-                  className="peer sr-only"
-                />
-                <div className="text-sm text-white/70">
-                  Standard • 20–24 tracks
-                </div>
-                <div className="text-2xl font-heading mt-1">$59</div>
-                <ul className="mt-2 text-xs text-white/70 space-y-1">
-                  <li>Deeper curation</li>
-                  <li>30s auth video</li>
-                </ul>
-                <div className="mt-3 text-[11px] text-emerald-300/90">~48h</div>
-              </label>
+          {/* brief */}
+          <CheckoutBrief />
 
-              <label className="card p-4 cursor-pointer">
-                <input
-                  type="radio"
-                  name="tier"
-                  value="99"
-                  className="peer sr-only"
-                />
-                <div className="text-sm text-white/70">
-                  Deep Dive • 35+ tracks
-                </div>
-                <div className="text-2xl font-heading mt-1">$99</div>
-                <ul className="mt-2 text-xs text-white/70 space-y-1">
-                  <li>1 revision within 7 days</li>
-                  <li>30s auth video</li>
-                </ul>
-                <div className="mt-3 text-[11px] text-emerald-300/90">~72h</div>
-              </label>
-            </div>
-          </div>
-
-          {/* Brief */}
-          <div className="card p-5">
-            <h2 className="font-heading text-lg">Your brief</h2>
-            <div className="grid md:grid-cols-2 gap-4 mt-3">
-              <div>
-                <label className="label">Occasion / use</label>
-                <select className="input mt-1">
-                  <option>Workout</option>
-                  <option>Study / Focus</option>
-                  <option>Chill</option>
-                  <option>Wedding</option>
-                  <option>Business ambiance</option>
-                </select>
-              </div>
-              <div>
-                <label className="label">Preferred platform</label>
-                <select className="input mt-1">
-                  <option>Spotify</option>
-                  <option>Apple Music</option>
-                  <option>YouTube Music</option>
-                </select>
-              </div>
-              <div>
-                <label className="label">Languages</label>
-                <select className="input mt-1">
-                  <option>English</option>
-                  <option>Bangla</option>
-                  <option>Both</option>
-                </select>
-              </div>
-              <div>
-                <label className="label">Delivery window</label>
-                <select className="input mt-1">
-                  <option>~48h</option>
-                  <option>~72h</option>
-                </select>
-              </div>
-              <div className="md:col-span-2">
-                <label className="label">Personal note to artist</label>
-                <textarea
-                  className="input mt-1 h-28"
-                  placeholder="Tell the artist about your vibe, artists you like, songs to include/avoid..."
-                ></textarea>
-              </div>
-            </div>
-          </div>
-
-          {/* Add-ons */}
-          <div className="card p-5">
-            <h2 className="font-heading text-lg">Add‑ons (optional)</h2>
-            <div className="mt-3 grid md:grid-cols-2 gap-3 text-sm">
-              <label className="card p-4 flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" className="mt-1 addon" data-price="12" />
-                <div>
-                  <div className="font-heading">Rush delivery</div>
-                  <div className="text-white/70 text-xs">
-                    Move to front of queue (where possible).
-                  </div>
-                </div>
-                <div className="ml-auto">$12</div>
-              </label>
-
-              <label className="card p-4 flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" className="mt-1 addon" data-price="10" />
-                <div>
-                  <div className="font-heading">Extra length</div>
-                  <div className="text-white/70 text-xs">
-                    +8–10 tracks on top of selected tier.
-                  </div>
-                </div>
-                <div className="ml-auto">$10</div>
-              </label>
-
-              <label className="card p-4 flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" className="mt-1 addon" data-price="25" />
-                <div>
-                  <div className="font-heading">Business license</div>
-                  <div className="text-white/70 text-xs">
-                    For cafés/salons/gyms. Non‑exclusive use.
-                  </div>
-                </div>
-                <div className="ml-auto">$25</div>
-              </label>
-
-              <label className="card p-4 flex items-start gap-3 cursor-pointer">
-                <input type="checkbox" className="mt-1 addon" data-price="5" />
-                <div>
-                  <div className="font-heading">High‑level mix notes</div>
-                  <div className="text-white/70 text-xs">
-                    Short rationale about sequencing.
-                  </div>
-                </div>
-                <div className="ml-auto">$5</div>
-              </label>
-            </div>
-          </div>
+          {/* add-ons */}
+          <CheckoutAddOnns />
 
           {/* Buyer info (minimal for demo) */}
           <div className="card p-5">
@@ -203,8 +57,8 @@ const CheckoutPage: React.FC = () => {
               </div>
             </div>
             <p className="text-xs text-white/60 mt-2">
-              ARTYLST will email your private playlist link and 30s authentication
-              video. We never share personal contact info.
+              ARTYLST will email your private playlist link and 30s authentication video.
+              We never share personal contact info.
             </p>
           </div>
         </section>

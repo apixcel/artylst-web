@@ -5,57 +5,59 @@ import { NavSearch } from "@/components";
 
 const MainHeader = () => {
   return (
-    <header className="max-w-[1280px] mx-auto w-full desktop:px-0 px-[20px] py-[12px]">
-      <nav className="flex items-center justify-between lg:mb-0 mb-4">
-        {/* menu toggle button */}
-        <button className="lg:hidden">
-          <Menu className="w-6 h-6" />
-        </button>
+    <header className="sticky top-0 left-0 right-0 z-50 bg-black-transparent-40 backdrop-blur-sm ">
+      <div className="max-w-[1280px] mx-auto w-full desktop:px-0 px-[20px] py-[12px]">
+        <nav className="flex items-center justify-between lg:mb-0 mb-4">
+          {/* menu toggle button */}
+          <button className="lg:hidden">
+            <Menu className="w-6 h-6" />
+          </button>
 
-        <div className="lg:flex items-center gap-4">
-          {/* logo */}
-          <Link className="font-[700] text-white text-2xl" href="/">
-            Artylst
-          </Link>
+          <div className="lg:flex items-center gap-4">
+            {/* logo */}
+            <Link className="font-[700] text-white text-2xl" href="/">
+              Artylst
+            </Link>
 
-          {/* nav links */}
-          <div>
+            {/* nav links */}
             <div>
-              <ul className="lg:flex hidden items-center">
-                {navLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link
-                      className="text-light rounded-[20px] hover:bg-level-2 text-[16px] flex-1 py-[8px] px-[12px]"
-                      href={link.href}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <div>
+                <ul className="lg:flex hidden items-center">
+                  {navLinks.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        className="text-light rounded-[20px] hover:bg-level-2 text-[16px] flex-1 py-[8px] px-[12px]"
+                        href={link.href}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div className="flex items-center justify-end gap-4 lg:flex-1">
-          {/* search */}
-          <div className="lg:block hidden max-w-[480px] w-full">
-            <NavSearch />
+          <div className="flex items-center justify-end gap-4 lg:flex-1">
+            {/* search */}
+            <div className="lg:block hidden max-w-[480px] w-full">
+              <NavSearch />
+            </div>
+
+            {/* login */}
+            <Link
+              className="text-light hover:bg-level-1 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
+              href="/login"
+            >
+              Login
+            </Link>
           </div>
+        </nav>
 
-          {/* login */}
-          <Link
-            className="text-light hover:bg-level-1 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
-            href="/login"
-          >
-            Login
-          </Link>
+        {/* search bottom mobile */}
+        <div className="lg:hidden">
+          <NavSearch />
         </div>
-      </nav>
-
-      {/* search bottom mobile */}
-      <div className="lg:hidden">
-        <NavSearch />
       </div>
     </header>
   );

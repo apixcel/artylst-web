@@ -44,7 +44,7 @@ export const footerLinks = [
       {
         title: "Privacy",
         route: "/privacy-policy",
-      }
+      },
     ],
   },
   {
@@ -65,7 +65,7 @@ export const footerLinks = [
       {
         title: "Join as artist",
         route: "/refund-returns",
-      }
+      },
     ],
   },
 ];
