@@ -1,73 +1,93 @@
 "use client";
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
+
+interface FormData {
+  subject: string;
+  requester: string;
+  language: string;
+  description: string;
+}
+
 const SubmitTicketPage = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     subject: "",
     requester: "",
     language: "",
     description: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
   };
+
   return (
-    <div className="min-h-screen  flex flex-col items-center py-12 px-4">
-      <div className=" rounded-lg shadow-md w-full max-w-4xl p-8 bg-white/5 border border-white/10">
+    <div className="min-h-screen flex flex-col items-center py-12 px-4">
+      <div className="rounded-lg shadow-md w-full max-w-4xl p-8 bg-white/5 border border-white/10">
         {/* Title */}
         <h1 className="text-4xl text-center font-bold mb-8">Submit a ticket</h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6 ">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Subject */}
           <div>
-            <label className="block text-sm font-medium  mb-1">
+            <label htmlFor="subject" className="block text-sm font-medium mb-1">
               Subject <span className="text-red-500">*</span>
             </label>
             <input
+              id="subject"
               type="text"
               name="subject"
               placeholder="Subject"
               value={formData.subject}
               onChange={handleChange}
-              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-purple-200 focus:border-purple-500"
+              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-purple-200 focus:border-purple-500 bg-transparent"
               required
             />
           </div>
 
           {/* Requester */}
           <div>
-            <label className="block text-sm font-medium   mb-1">
+            <label
+              htmlFor="requester"
+              className="block text-sm font-medium mb-1"
+            >
               Requester <span className="text-red-500">*</span>
             </label>
             <input
+              id="requester"
               type="text"
               name="requester"
               value={formData.requester}
               placeholder="Type requester"
               onChange={handleChange}
-              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-purple-200 focus:border-purple-500"
+              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-purple-200 focus:border-purple-500 bg-transparent"
               required
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-medium   mb-1">
+            <label
+              htmlFor="description"
+              className="block text-sm font-medium mb-1"
+            >
               Description <span className="text-red-500">*</span>
             </label>
             <textarea
+              id="description"
               name="description"
               value={formData.description}
               onChange={handleChange}
               rows={6}
               placeholder="Type something"
-              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-purple-200 focus:border-purple-500"
+              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-purple-200 focus:border-purple-500 bg-transparent"
               required
             />
           </div>
@@ -76,7 +96,7 @@ const SubmitTicketPage = () => {
           <div>
             <label
               htmlFor="attachment"
-              className="text-purple-500 text-sm  cursor-pointer flex items-center gap-1"
+              className="text-purple-500 text-sm cursor-pointer flex items-center gap-1"
             >
               📎 Attachment
             </label>
@@ -84,7 +104,7 @@ const SubmitTicketPage = () => {
               id="attachment"
               type="file"
               className="hidden"
-              onChange={(e) => {
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
                 const files = e.target.files;
                 if (files && files[0]) {
                   console.log("Selected file:", files[0]);
@@ -105,7 +125,7 @@ const SubmitTicketPage = () => {
           <div className="flex justify-end gap-4">
             <button
               type="button"
-              className="px-4 py-2 border border-white/10 rounded-md text-white-600 hover:bg-gray-600"
+              className="px-4 py-2 border border-white/10 rounded-md text-gray-300 hover:bg-gray-600"
             >
               Cancel
             </button>
