@@ -1,4 +1,4 @@
-import { FileText } from 'lucide-react';
+import { FileText, Frown, Smile } from 'lucide-react';
 import React from 'react';
 
 const ArticleDetailsPage = () => {
@@ -35,17 +35,17 @@ const ArticleDetailsPage = () => {
           to download your Artylst video after selecting “share”.
         </p>
 
-        <hr className="my-6" />
+        <hr className="my-6 border-white/10" />
 
         {/* Helpful Section */}
         <div className="text-center">
           <p className="font-medium mb-3">Was this article helpful?</p>
           <div className="flex justify-center gap-4">
-            <button className="px-4 py-2 border border-gray-300 rounded-md flex items-center gap-2 hover:bg-red-50">
-              <span>😞</span> No
+            <button className="px-4 py-2 border border-white/10 rounded-md flex items-center gap-2 hover:bg-purple-500">
+              <span><Frown /></span> No
             </button>
-            <button className="px-4 py-2 border border-gray-300 rounded-md flex items-center gap-2 hover:bg-green-50">
-              <span>😊</span> Yes
+            <button className="px-4 py-2 border border-white/10 rounded-md flex items-center gap-2 hover:bg-purple-500">
+              <span><Smile/></span> Yes
             </button>
           </div>
         </div>

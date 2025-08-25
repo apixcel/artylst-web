@@ -1,4 +1,3 @@
-
 "use client";
 import { useState } from "react";
 const SubmitTicketPage = () => {
@@ -50,14 +49,12 @@ const SubmitTicketPage = () => {
               type="text"
               name="requester"
               value={formData.requester}
-               placeholder="Type requester"
+              placeholder="Type requester"
               onChange={handleChange}
               className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-purple-200 focus:border-purple-500"
               required
             />
           </div>
-
-    
 
           {/* Description */}
           <div>
@@ -77,9 +74,18 @@ const SubmitTicketPage = () => {
 
           {/* Attachment */}
           <div>
-            <a href="#" className="text-purple-500 text-sm hover:underline">
+            <label
+              htmlFor="attachment"
+              className="text-purple-500 text-sm  cursor-pointer flex items-center gap-1"
+            >
               📎 Attachment
-            </a>
+            </label>
+            <input
+              id="attachment"
+              type="file"
+              className="hidden"
+              onChange={(e) => console.log("Selected file:", e.target.files[0])}
+            />
           </div>
 
           {/* reCAPTCHA Placeholder */}
