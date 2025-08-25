@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -7,9 +7,10 @@ const Login = () => {
 
   return (
     <div className="rounded-2xl bg-white/5 border border-white/10 p-6 shadow-[0_10px_30px_rgba(0,0,0,.25)] max-w-md w-full">
- 
       <h1 className="text-2xl text-center">Log in</h1>
-      <p className="text-sm text-white/70 mt- text-center">Use your account email and password</p>
+      <p className="text-sm text-white/70 mt- text-center">
+        Use your account email and password
+      </p>
 
       <form className="mt-5 space-y-4">
         {/* Email */}
@@ -82,10 +83,16 @@ const Login = () => {
         {/* Extras row */}
         <div className="flex items-center justify-between">
           <label className="text-xs text-white/70 inline-flex items-center gap-2 select-none">
-            <input type="checkbox" className="accent-[#5B3FFF] bg-white/10 border-white/20 rounded" />
+            <input
+              type="checkbox"
+              className="accent-[#5B3FFF] bg-white/10 border-white/20 rounded"
+            />
             Remember me
           </label>
-          <Link href="/forgot-password" className="text-sm text-white/70 hover:text-white underline underline-offset-4">
+          <Link
+            href="/forgot-password"
+            className="text-sm text-white/70 hover:text-white underline underline-offset-4"
+          >
             Forgot password?
           </Link>
         </div>

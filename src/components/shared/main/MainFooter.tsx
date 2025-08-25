@@ -13,7 +13,7 @@ const MainFooter = () => {
             <div className="mb-[20px]">
               <h2 className="mb-[8px]">Join our mailing list</h2>
               <p className="text-muted">
-                Be the first to know about the newest stars and best deals on Cameo
+                Be the first to know about the newest artists and best deals on Artylist
               </p>
             </div>
 
@@ -195,7 +195,7 @@ const MainFooter = () => {
       <div className="py-[40px] border-t border-gray-55">
         <div className="max-w-[1280px] mx-auto w-full desktop:px-0 px-[20px] flex lg:flex-row flex-col gap-6 lg:gap-[4px] justify-between items-center">
           <div className="flex lg:flex-row flex-col gap-[4px] items-center">
-            <p>© 2017-2025, Baron App, Inc. dba Cameo</p>
+            <p>© {new Date().getFullYear()}, Artylist</p>
             <span className="lg:block hidden">•</span>
             <div className="flex items-center gap-[4px]">
               <p>Your Privacy Choices</p>

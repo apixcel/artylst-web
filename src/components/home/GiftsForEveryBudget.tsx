@@ -35,7 +35,7 @@ const giftsForEveryBudget = [
 const GiftsForEveryBudget = () => {
   return (
     <section className="mb-[70px]">
-      <h2 className="mb-[20px]">Gifts for every budget</h2>
+      <h2 className="mb-[20px]">Tiers for every budget</h2>
 
       <Swiper
         spaceBetween={16}

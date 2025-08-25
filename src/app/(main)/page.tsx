@@ -1,27 +1,31 @@
 import {
-  BrowseCategories,
-  BrowseFavoriteStars,
+  HomeHero,
+  PrivacyStrip,
+  Categories,
   GiftsForEveryBudget,
-  PersonalizedVideos,
-  Top10,
+  PersonalizedPlaylists,
+  TopArtists,
   HowItWorks,
   RecentReviews,
   ThisIsArtylist,
-  InstantVideos,
+  InstantPlaylists,
+  FAQ,
 } from "@/components";
 
 const HomePage = () => {
   return (
     <div>
-      <BrowseFavoriteStars />
-      <PersonalizedVideos />
-      <Top10 />
-      <InstantVideos />
+      <HomeHero />
+      <PrivacyStrip />
+      <PersonalizedPlaylists />
+      <TopArtists />
+      <InstantPlaylists />
       <HowItWorks />
       <GiftsForEveryBudget />
       <RecentReviews />
-      <BrowseCategories />
+      <Categories />
       <ThisIsArtylist />
+      <FAQ />
     </div>
   );
 };
