@@ -84,7 +84,12 @@ const SubmitTicketPage = () => {
               id="attachment"
               type="file"
               className="hidden"
-              onChange={(e) => console.log("Selected file:", e.target.files[0])}
+              onChange={(e) => {
+                const files = e.target.files;
+                if (files && files[0]) {
+                  console.log("Selected file:", files[0]);
+                }
+              }}
             />
           </div>
 
