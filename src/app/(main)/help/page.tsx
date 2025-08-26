@@ -7,7 +7,7 @@ import {
   RedCarpetRewardsIcon,
   CustomerIcon,
 } from "@/icons";
-import { Search } from "lucide-react";
+import { FileText, Search } from "lucide-react";
 import Link from "next/link";
 const HelpPage = () => {
   return (
@@ -115,7 +115,7 @@ const HelpPage = () => {
               href="/help/articleDetails"
               className="flex items-start gap-2 text-purple-400 hover:underline"
             >
-              <span>📄</span>
+              <span><FileText/></span>
               <span>Can I download my Antylst video?</span>
             </Link>
             <p className="text-gray-400 text-sm mt-1">
@@ -128,7 +128,7 @@ const HelpPage = () => {
               href="/help/articleDetails"
               className="flex items-start gap-2 text-purple-400 hover:underline"
             >
-              <span>📄</span>
+              <span><FileText/></span>
               <span>How can I check the status of my Antylst video?</span>
             </Link>
             <p className="text-gray-400 text-sm mt-1">
@@ -141,7 +141,7 @@ const HelpPage = () => {
               href="/help/articleDetails"
               className="flex items-start gap-2 text-purple-400 hover:underline"
             >
-              <span>📄</span>
+              <span><FileText/></span>
               <span>When will I be charged for my Antylst video?</span>
             </Link>
             <p className="text-gray-400 text-sm mt-1">
@@ -154,7 +154,7 @@ const HelpPage = () => {
               href="/help/articleDetails"
               className="flex items-start gap-2 text-purple-400 hover:underline"
             >
-              <span>📄</span>
+              <span><FileText/></span>
               <span>How do I share my Antylst video?</span>
             </Link>
             <p className="text-gray-400 text-sm mt-1">
