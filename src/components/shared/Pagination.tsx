@@ -213,7 +213,7 @@ function Pagination({
                 <button
                   type="button"
                   key={`ellipsis-${index}`}
-                  className="h-10 w-10 cursor-default border-[1px] border-border-muted grid place-items-center"
+                  className="h-10 w-10 cursor-default border-[1px] border-border-muted grid place-items-center rounded-xl"
                   aria-hidden
                   tabIndex={-1}
                   disabled
@@ -233,7 +233,7 @@ function Pagination({
                 onClick={() => handlePageChange(pageNumber)}
                 aria-current={isActive ? "page" : undefined}
                 className={twMerge(
-                  "grid place-items-center h-10 w-10 cursor-pointer border-[1px] border-border-muted",
+                  "grid place-items-center h-10 w-10 cursor-pointer border-[1px] border-border-muted rounded-xl",
                   isActive ? "bg-primary text-white" : "hover:opacity-90"
                 )}
               >

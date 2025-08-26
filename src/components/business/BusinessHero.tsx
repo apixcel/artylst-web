@@ -18,10 +18,10 @@ const BusinessHero = () => {
           <Link
             href="/#"
             className="px-8 py-3 rounded-full font-semibold text-white 
-               bg-gradient-to-b from-purple-500 to-purple-800 
-               border border-purple-600
+               bg-gradient-to-b from-brand-1/50 to-brand-3/40 
+               border border-brand-4/10 
                shadow-md transition-all duration-300
-               hover:from-purple-400 hover:to-purple-700"
+               hover:from-brand-1/70 hover:to-brand-3/60"
           >
             Request a playlist
           </Link>

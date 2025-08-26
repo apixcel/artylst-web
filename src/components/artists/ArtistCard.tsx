@@ -293,8 +293,8 @@ const ArtistCard = ({
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between py-4 px-5 bg-black/40 backdrop-blur-sm">
-          <div className="flex items-center justify-between w-full">
+        <div className="flex flex-col items-center justify-between bg-black/40 backdrop-blur-sm">
+          <div className="flex items-center justify-between w-full py-4 px-5">
             <div className="flex items-center gap-[4px] font-[500]">
               <p className={cn("text-light", item.oldPrice && "text-greeniest")}>
                 ${item.price} {!item.oldPrice && "+"}
@@ -327,11 +327,17 @@ const ArtistCard = ({
             </div>
           </div>
 
-          <div className="mt-3 flex flex-col gap-2">
-            <Link href="/artists/122323" className="btn btn-primary flex-1">
+          <div className="mb-4 w-full sm:w-auto sm:justify-start justify-center flex sm:flex-row flex-col gap-2 sm:px-0 px-3">
+            <Link
+              href="/artists/122323"
+              className="text-center sm:text-left px-2 py-1 rounded btn-primary"
+            >
               Request playlist
             </Link>
-            <Link href="/artists/122323" className="btn btn-ghost">
+            <Link
+              href="/artists/122323"
+              className="text-center sm:text-left px-2 py-1 rounded btn-ghost"
+            >
               Profile
             </Link>
           </div>
