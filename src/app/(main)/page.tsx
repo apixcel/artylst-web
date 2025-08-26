@@ -5,11 +5,11 @@ import {
   GiftsForEveryBudget,
   PersonalizedPlaylists,
   TopArtists,
-  HowItWorks,
   RecentReviews,
   ThisIsArtylist,
   InstantPlaylists,
   FAQ,
+  HomeHowItWorks,
 } from "@/components";
 
 const HomePage = () => {
@@ -20,7 +20,7 @@ const HomePage = () => {
       <PersonalizedPlaylists />
       <TopArtists />
       <InstantPlaylists />
-      <HowItWorks />
+      <HomeHowItWorks />
       <GiftsForEveryBudget />
       <RecentReviews />
       <Categories />

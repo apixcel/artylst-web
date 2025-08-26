@@ -7,7 +7,7 @@ import {
   RedCarpetRewardsIcon,
   CustomerIcon,
 } from "@/icons";
-import { Search } from "lucide-react";
+import { FileText, Search } from "lucide-react";
 import Link from "next/link";
 const HelpPage = () => {
   return (
@@ -29,26 +29,26 @@ const HelpPage = () => {
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10 max-w-3xl w-full">
         <div className=" bg-white/5 border border-white/10 hover:border-purple-500 transition cursor-pointer rounded-lg">
-        <Link href="/help/knowledge-base">
-          <div className="flex flex-col items-center justify-center p-6 text-center">
-            <LampIcon size={64} />
-            <h2 className="font-semibold mb-2">Browse articles</h2>
-            <p className="text-gray-400 text-sm">
-              Explore How-To&apos;s and learn best practices from our knowledge base
-            </p>
-          </div>
+          <Link href="/help/knowledge-base">
+            <div className="flex flex-col items-center justify-center p-6 text-center">
+              <LampIcon size={64} />
+              <h2 className="font-semibold mb-2">Browse articles</h2>
+              <p className="text-gray-400 text-sm">
+                Explore How-To&apos;s and learn best practices from our knowledge base
+              </p>
+            </div>
           </Link>
         </div>
 
         <div className=" bg-white/5 border border-white/10 hover:border-purple-500 transition cursor-pointer rounded-lg">
-            <Link href="/help/submit-ticket">
-          <div className="flex flex-col items-center justify-center p-6 text-center">
-            <ProfileIcon size={64} />
-            <h2 className="font-semibold mb-2">Submit a ticket</h2>
-            <p className="text-gray-400 text-sm">
-              Describe your issue by filling out the support ticket form
-            </p>
-          </div>
+          <Link href="/help/submit-ticket">
+            <div className="flex flex-col items-center justify-center p-6 text-center">
+              <ProfileIcon size={64} />
+              <h2 className="font-semibold mb-2">Submit a ticket</h2>
+              <p className="text-gray-400 text-sm">
+                Describe your issue by filling out the support ticket form
+              </p>
+            </div>
           </Link>
         </div>
       </div>
@@ -115,7 +115,9 @@ const HelpPage = () => {
               href="/help/articleDetails"
               className="flex items-start gap-2 text-purple-400 hover:underline"
             >
-              <span>📄</span>
+              <span>
+                <FileText className="w-5 h-5" />
+              </span>
               <span>Can I download my Antylst video?</span>
             </Link>
             <p className="text-gray-400 text-sm mt-1">
@@ -128,7 +130,9 @@ const HelpPage = () => {
               href="/help/articleDetails"
               className="flex items-start gap-2 text-purple-400 hover:underline"
             >
-              <span>📄</span>
+              <span>
+                <FileText className="w-5 h-5" />
+              </span>
               <span>How can I check the status of my Antylst video?</span>
             </Link>
             <p className="text-gray-400 text-sm mt-1">
@@ -141,7 +145,9 @@ const HelpPage = () => {
               href="/help/articleDetails"
               className="flex items-start gap-2 text-purple-400 hover:underline"
             >
-              <span>📄</span>
+              <span>
+                <FileText className="w-5 h-5" />
+              </span>
               <span>When will I be charged for my Antylst video?</span>
             </Link>
             <p className="text-gray-400 text-sm mt-1">
@@ -154,7 +160,9 @@ const HelpPage = () => {
               href="/help/articleDetails"
               className="flex items-start gap-2 text-purple-400 hover:underline"
             >
-              <span>📄</span>
+              <span>
+                <FileText className="w-5 h-5" />
+              </span>
               <span>How do I share my Antylst video?</span>
             </Link>
             <p className="text-gray-400 text-sm mt-1">

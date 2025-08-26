@@ -138,12 +138,107 @@ const ArtistCard = ({
   item,
   index,
   variant = "default",
+  view = "grid",
 }: {
   item: Artist;
   index: number;
   variant?: "default" | "home";
+  view?: "grid" | "list";
 }) => {
   const isDefault = variant === "default";
+
+  if (view === "list") {
+    // horizontal / list layout
+    return (
+      <div className="w-full rounded-2xl bg-black/30 backdrop-blur-sm p-4 flex gap-4 items-stretch">
+        {/* image */}
+        <div className="relative shrink-0">
+          <Image
+            src={item.image}
+            alt={item.name}
+            width={120}
+            height={120}
+            className="size-[96px] sm:size-[120px] object-cover rounded-xl"
+          />
+          {!isDefault && (
+            <div className="absolute -top-2 -left-2">
+              <Crown index={index} />
+            </div>
+          )}
+        </div>
+
+        {/* middle content */}
+        <div className="flex-1 min-w-0 flex flex-col justify-between">
+          <div className="flex items-center gap-2 flex-wrap">
+            <p className="text-[16px] font-bold leading-tight uppercase font-bricolage-grotesque truncate">
+              {item.name}
+            </p>
+            <span className="text-sm text-muted">· {item.designation}</span>
+          </div>
+
+          <div className="mt-2 flex items-center gap-2 flex-wrap">
+            {item.tags.map((tag, i) => (
+              <span
+                key={i}
+                className="text-[12px] text-muted/80 bg-white/10 rounded-full px-3 py-1"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-3 flex items-center gap-4 flex-wrap">
+            <div className="flex items-center gap-1">
+              <Star className="w-[14px] h-[14px]" />
+              <p className="text-sm">{item.rating}</p>
+            </div>
+            <div className="flex items-center gap-1">
+              <span className="text-sm text-greeniest">{item.eta}h</span>
+              <span className="text-sm text-muted/80">{item.slotsLeft} slots left</span>
+            </div>
+          </div>
+        </div>
+
+        {/* right actions */}
+        <div className="shrink-0 w-full sm:w-60 flex flex-col justify-between">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-[4px] font-[500]">
+              <p className={cn("text-light", item.oldPrice && "text-greeniest")}>
+                ${item.price} {!item.oldPrice && "+"}
+              </p>
+              {item.oldPrice && (
+                <p className="text-muted line-through">${item.oldPrice}+</p>
+              )}
+            </div>
+            <div className="flex items-center gap-1">
+              <Headphones className="w-4 h-4" />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width={24}
+                height={24}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  fill="currentColor"
+                  d="M17.05 20.28c-.98.95-2.05.8-3.08.35c-1.09-.46-2.09-.48-3.24 0c-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8c1.18-.24 2.31-.93 3.57-.84c1.51.12 2.65.72 3.4 1.8c-3.12 1.87-2.38 5.98.48 7.13c-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25c.29 2.58-2.34 4.5-3.74 4.25"
+                />
+              </svg>
+              <Play className="w-4 h-4" />
+            </div>
+          </div>
+
+          <div className="mt-3 flex flex-col gap-2">
+            <Link href={`/artists/${item.id}`} className="btn btn-primary">
+              Request playlist
+            </Link>
+            <Link href={`/artists/${item.id}`} className="btn btn-ghost">
+              Profile
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="overflow-hidden bg-transparent relative rounded-2xl flex flex-col justify-between h-full">

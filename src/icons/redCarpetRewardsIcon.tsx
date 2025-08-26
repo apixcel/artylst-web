@@ -1,6 +1,10 @@
 import React from "react";
 
-const RedCarpetRewardsIcon = ({ size = 100, primaryColor = "#475867", secondaryColor = "#a434e5" }) => {
+const RedCarpetRewardsIcon = ({
+  size = 100,
+  primaryColor = "#475867",
+  secondaryColor = "#a434e5",
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -19,10 +23,7 @@ const RedCarpetRewardsIcon = ({ size = 100, primaryColor = "#475867", secondaryC
       />
 
       {/* Carpet (triangle shape) */}
-      <path
-        d="M20 80 L50 30 L80 80 Z"
-        fill={primaryColor}
-      />
+      <path d="M20 80 L50 30 L80 80 Z" fill={primaryColor} />
 
       {/* Star for rewards */}
       <path

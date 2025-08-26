@@ -10,6 +10,14 @@ const MainFooter = () => {
         <div className="flex md:flex-row flex-col justify-between gap-[40px] lg:gap-[80px] xl:gap-[40px]">
           {/* form */}
           <div className="lg:max-w-[420px] w-full">
+            <Image
+              src="/images/logo/logo-white.png"
+              alt="logo"
+              width={100}
+              height={100}
+              className="w-[80px] h-[80px] mb-[20px]"
+            />
+
             <div className="mb-[20px]">
               <h2 className="mb-[8px]">Join our mailing list</h2>
               <p className="text-muted">

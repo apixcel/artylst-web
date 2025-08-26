@@ -16,9 +16,7 @@ const SubmitTicketPage = () => {
     description: "",
   });
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
@@ -54,10 +52,7 @@ const SubmitTicketPage = () => {
 
           {/* Requester */}
           <div>
-            <label
-              htmlFor="requester"
-              className="block text-sm font-medium mb-1"
-            >
+            <label htmlFor="requester" className="block text-sm font-medium mb-1">
               Requester <span className="text-red-500">*</span>
             </label>
             <input
@@ -74,10 +69,7 @@ const SubmitTicketPage = () => {
 
           {/* Description */}
           <div>
-            <label
-              htmlFor="description"
-              className="block text-sm font-medium mb-1"
-            >
+            <label htmlFor="description" className="block text-sm font-medium mb-1">
               Description <span className="text-red-500">*</span>
             </label>
             <textarea

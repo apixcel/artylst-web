@@ -6,6 +6,13 @@
 }
 
 @theme {
+  --color-brand-1: #357697;
+  --color-brand-2: #a8c8f3;
+  --color-brand-3: #51c9c2;
+  --color-brand-4: #05ca97;
+  --color-brand-5: #059ba6;
+  --color-brand-6: #f2dfee;
+
   --color-primary: #a434e5;
   --color-primary-hover: #eb3d88;
   --color-secondary: #bd00ff;
@@ -69,6 +76,23 @@
   --color-ink: #edecfb;
 
   --breakpoint-desktop: 90rem;
+
+  --animate-ripple: ripple 2.5s ease-out infinite;
+
+  @keyframes ripple {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.6;
+    }
+    80% {
+      transform: scale(1.3);
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(1.4);
+      opacity: 0.2;
+    }
+  }
 }
 
 @layer base {
@@ -210,5 +234,24 @@
   }
   .top-artists-swiper .swiper-slide > * {
     width: 100%; /* let the card take full width */
+  }
+
+  .brand-swiper .swiper-wrapper {
+    transition-timing-function: linear 0.2s !important;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-slide {
+    display: flex;
+    width: max-content;
+    animation: slide 20s linear infinite;
   }
 }

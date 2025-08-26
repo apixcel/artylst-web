@@ -1,6 +1,10 @@
 import React from "react";
 
-const TalentIcon = ({ size = 100, primaryColor = "#475867", secondaryColor = "#a434e5" }) => {
+const TalentIcon = ({
+  size = 100,
+  primaryColor = "#475867",
+  secondaryColor = "#a434e5",
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

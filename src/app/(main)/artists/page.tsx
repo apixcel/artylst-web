@@ -9,37 +9,47 @@ import {
 } from "@/components";
 import { artistsData } from "@/constants";
 import { useState } from "react";
+import { DropdownOption } from "@/interface";
+import { cn } from "@/utils";
 
 const ArtistsPage = () => {
   const [page, setPage] = useState(1);
-  const total = 9;
+  const [view, setView] = useState<"grid" | "list">("grid");
+  const [sort, setSort] = useState<DropdownOption<string> | null>({
+    label: "Recommended",
+    value: "recommended",
+  });
+  const total = 1000;
 
   return (
     <>
-      {/* category chips */}
       <CategoryChips />
       <div className="pb-16 grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
-        {/* filters sidebar */}
         <ArtistsFilter />
-        {/* results */}
         <section>
-          {/* top bar */}
-          <ArtistTopbar />
+          {/* top bar now controls view + sort */}
+          <ArtistTopbar view={view} setView={setView} sort={sort} setSort={setSort} />
 
-          {/* grid */}
-          <div className="mt-4 grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
-            {/* cards */}
+          {/* results */}
+          <div
+            className={cn(
+              "my-4",
+              view === "grid"
+                ? "grid sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4"
+                : "flex flex-col gap-3"
+            )}
+          >
             {artistsData.map((item, index) => (
-              <ArtistCard key={item.id} item={item} index={index} />
+              <ArtistCard key={item.id} item={item} index={index} view={view} />
             ))}
           </div>
 
           <Pagination
-            currentPage={page}
-            totalPages={total}
+            totalDocs={total}
+            page={page}
+            setPage={setPage}
+            limit={10}
             onPageChange={setPage}
-            siblingCount={1}
-            boundaryCount={1}
           />
         </section>
       </div>

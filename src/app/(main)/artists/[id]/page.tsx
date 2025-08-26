@@ -1,21 +1,34 @@
 import Link from "next/link";
 import { Review } from "@/components";
 import { reviewData } from "@/constants";
+import Image from "next/image";
 
 const SingleArtistPage = () => {
   return (
     <>
       <section className="px-4 py-6">
         <div className="card overflow-hidden flex flex-col">
-          <div className="h-48 md:h-64 w-full grid place-items-center bg-white/5 border-b border-white/10 text-white/60">
-            COVER IMAGE PLACEHOLDER
+          <div className="h-48 md:h-64 w-full bg-white/5 border-b border-white/10 text-white/60 overflow-hidden">
+            <Image
+              src="/images/artists/artist-bg-img-1.jpg"
+              alt="Artist Avatar"
+              width={1000}
+              height={1000}
+              className="w-full h-full object-cover object-center"
+            />
           </div>
 
           <div className="p-4 md:p-6 grid xl:grid-cols-[180px_1fr_280px] gap-6 items-start h-full">
             {/* Avatar */}
             <div className="sm:flex gap-4 h-full">
-              <div className="h-40 w-40  mt-0 sm:h-44 sm:w-44 rounded-2xl bg-white/10 border border-white/15 grid place-items-center text-xs">
-                AVATAR
+              <div className="h-40 w-40  mt-0 sm:h-44 sm:w-44 rounded-2xl border border-white/15 overflow-hidden">
+                <Image
+                  src="/images/artists/artist-img-1.avif"
+                  alt="Artist Avatar"
+                  width={160}
+                  height={160}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
 
@@ -53,7 +66,10 @@ const SingleArtistPage = () => {
               {/* Intro video */}
               <div className="mt-5 card p-3">
                 <div className="h-40 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/60">
-                  INTRO VIDEO PLACEHOLDER
+                  <video
+                    src="/videos/artists/artist-video-intro.mp4"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <p className="text-xs text-white/60 mt-2">
                   Intro: who I am &amp; how I curate your playlist.

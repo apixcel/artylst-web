@@ -1,6 +1,10 @@
 import React from "react";
 
-const LampIcon = ({ size = 74, primaryColor = "#475867", secondaryColor = "#a434e5" }) => {
+const LampIcon = ({
+  size = 74,
+  primaryColor = "#475867",
+  secondaryColor = "#a434e5",
+}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

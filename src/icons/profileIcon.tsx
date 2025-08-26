@@ -1,12 +1,11 @@
 import React from "react";
 
-const ProfileIcon = ({ size = 64, primaryColor = "#475867", secondaryColor = "#a434e5" }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 64 64"
-    width={size}
-    height={size}
-  >
+const ProfileIcon = ({
+  size = 64,
+  primaryColor = "#475867",
+  secondaryColor = "#a434e5",
+}) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width={size} height={size}>
     <rect fill="#fff" opacity="0.01" width="64" height="64" />
 
     <circle
