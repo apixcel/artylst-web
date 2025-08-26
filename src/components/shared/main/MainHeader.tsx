@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const MainHeader = () => {
   return (
-    <header className="sticky top-0 left-0 right-0 z-50 backdrop-blur-sm border-b border-white/10">
+    <header className="sticky bg-transparent top-0 left-0 right-0 z-50 backdrop-blur-sm border-b border-white/10">
       <div className="max-w-[1280px] mx-auto w-full desktop:px-0 px-[20px] py-[12px]">
         <nav className="flex items-center justify-between lg:mb-0 mb-4">
           {/* menu toggle button */}

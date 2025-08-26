@@ -13,6 +13,8 @@
   --color-brand-5: #059ba6;
   --color-brand-6: #f2dfee;
 
+  --color-base-900: #0b0f14
+
   --color-primary: #a434e5;
   --color-primary-hover: #eb3d88;
   --color-secondary: #bd00ff;
@@ -101,7 +103,7 @@
   }
 
   body {
-    @apply font-geist font-[400] text-[14px] text-light leading-[20px];
+    @apply font-geist font-[400] text-[14px] text-light leading-[20px] bg-transparent;
   }
 
   h1,
@@ -209,12 +211,54 @@
 }
 
 @layer utilities {
-  .bg-grid {
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
+/* Business theme */
+.theme-business {
+  --color-brand-1: #6b4eff;
+  --color-brand-2: #c6b9ff;
+  --color-brand-3: #7ed0ff;
+  --color-brand-4: #4be1c8;
+  --color-brand-5: #3a8bff;
+  --color-brand-6: #efe5ff;
+}
+
+/* Enroll page theme */
+.theme-enroll {
+  --color-brand-1: #ff7a59;
+  --color-brand-2: #ffd2c6;
+  --color-brand-3: #ffc658;
+  --color-brand-4: #7fe3a2;
+  --color-brand-5: #ff9f59;
+  --color-brand-6: #fff1e9;
+}
+
+/* ===== SHARED SURFACES (reused everywhere) ===== */
+.brand-surface {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--color-brand-3) 25%, transparent) 0%, transparent 60%),
+    radial-gradient(1000px 500px at 110% 110%, color-mix(in oklab, var(--color-brand-4) 22%, transparent) 0%, transparent 55%),
+    linear-gradient(135deg, color-mix(in oklab, var(--color-brand-2) 28%, transparent) 0%, var(--color-base-900) 40%, color-mix(in oklab, var(--color-brand-5) 28%, transparent) 100%);
+}
+
+.brand-surface-strong {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--color-brand-3) 35%, transparent) 0%, transparent 65%),
+    radial-gradient(1000px 500px at 110% 110%, color-mix(in oklab, var(--color-brand-4) 32%, transparent) 0%, transparent 60%),
+    linear-gradient(135deg, color-mix(in oklab, var(--color-brand-2) 35%, transparent) 0%, var(--color-base-900) 40%, color-mix(in oklab, var(--color-brand-5) 35%, transparent) 100%);
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.brand-overlay {
+  background-image:
+    radial-gradient(circle at 20% 20%, color-mix(in oklab, var(--color-brand-6) 16%, transparent) 0 20%, transparent 40%),
+    repeating-linear-gradient(90deg, transparent 0 39px, color-mix(in oklab, var(--color-brand-2) 8%, transparent) 39px 40px);
+  background-blend-mode: soft-light, normal;
+}
 
   .nav-button {
     @apply disabled:text-muted disabled:bg-gray-50 p-1.5 rounded-full bg-gray-70 hover:bg-gray-50 border border-gray-50;
