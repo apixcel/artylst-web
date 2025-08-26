@@ -7,4 +7,8 @@ export const businessNavLinks = [
     label: "How it Works",
     href: "/about",
   },
+  {
+    label: "Join as artists",
+    href: "/enroll",
+  },
 ];

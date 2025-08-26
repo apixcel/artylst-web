@@ -10,3 +10,5 @@ npm run check-format || (
   echo "💡 Use 'npm run fix-format' to fix it"
   exit 1
 )
+npx lint-staged
+npm test

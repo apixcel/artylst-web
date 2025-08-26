@@ -13,7 +13,7 @@ import {
 
 const BusinessHomePage = () => {
   return (
-    <div>
+    <>
       <BusinessHero />
       <BusinessMetrics />
       <BusinessBrandSlider />
@@ -24,7 +24,7 @@ const BusinessHomePage = () => {
       <BusinessWhyChooseUs />
       <BusinessSecurity />
       <BusinessCTA />
-    </div>
+    </>
   );
 };
 

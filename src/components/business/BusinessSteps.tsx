@@ -25,7 +25,7 @@ const businessSteps = [
 
 const BusinessSteps = () => {
   return (
-    <section className="mb-[60px]">
+    <section id="business-steps" className="mb-[60px] scroll-mt-[100px]">
       <div className="mb-[16px]">
         <h2 className="mb-[20px] text-center font-bricolage-grotesque text-[32px] font-[500]">
           From request to results—fast

@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geist.variable} ${bricolageGrotesque.variable} bg-base-900 antialiased bg-gradient-to-br from-brand-900/70 via-base-900 to-fuchsia-900/30`}
+        className={`${geist.variable} ${bricolageGrotesque.variable} bg-base-900 antialiased bg-gradient-to-br from-brand-1/30 via-base-900 to-brand-5/30`}
         suppressHydrationWarning={true}
       >
         <div className="fixed inset-0 -z-10 bg-grid opacity-[.18]"></div>
