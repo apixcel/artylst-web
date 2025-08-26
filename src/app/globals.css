@@ -6,6 +6,15 @@
 }
 
 @theme {
+  --color-brand-1: #357697;
+  --color-brand-2: #a8c8f3;
+  --color-brand-3: #51c9c2;
+  --color-brand-4: #05ca97;
+  --color-brand-5: #059ba6;
+  --color-brand-6: #f2dfee;
+
+  --color-base-900: #0b0f14
+
   --color-primary: #a434e5;
   --color-primary-hover: #eb3d88;
   --color-secondary: #bd00ff;
@@ -69,11 +78,32 @@
   --color-ink: #edecfb;
 
   --breakpoint-desktop: 90rem;
+
+  --animate-ripple: ripple 2.5s ease-out infinite;
+
+  @keyframes ripple {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.6;
+    }
+    80% {
+      transform: scale(1.3);
+      opacity: 0.4;
+    }
+    100% {
+      transform: scale(1.4);
+      opacity: 0.2;
+    }
+  }
 }
 
 @layer base {
+  html {
+    @apply scroll-smooth;
+  }
+
   body {
-    @apply font-geist font-[400] text-[14px] text-light leading-[20px];
+    @apply font-geist font-[400] text-[14px] text-light leading-[20px] bg-transparent;
   }
 
   h1,
@@ -143,6 +173,10 @@
     @apply w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2 text-sm placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-brand-50;
   }
 
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-4 to-brand-2;
+  }
+
   .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: #555 transparent;
@@ -177,12 +211,54 @@
 }
 
 @layer utilities {
-  .bg-grid {
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
+/* Business theme */
+.theme-business {
+  --color-brand-1: #6b4eff;
+  --color-brand-2: #c6b9ff;
+  --color-brand-3: #7ed0ff;
+  --color-brand-4: #4be1c8;
+  --color-brand-5: #3a8bff;
+  --color-brand-6: #efe5ff;
+}
+
+/* Enroll page theme */
+.theme-enroll {
+  --color-brand-1: #ff7a59;
+  --color-brand-2: #ffd2c6;
+  --color-brand-3: #ffc658;
+  --color-brand-4: #7fe3a2;
+  --color-brand-5: #ff9f59;
+  --color-brand-6: #fff1e9;
+}
+
+/* ===== SHARED SURFACES (reused everywhere) ===== */
+.brand-surface {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--color-brand-3) 25%, transparent) 0%, transparent 60%),
+    radial-gradient(1000px 500px at 110% 110%, color-mix(in oklab, var(--color-brand-4) 22%, transparent) 0%, transparent 55%),
+    linear-gradient(135deg, color-mix(in oklab, var(--color-brand-2) 28%, transparent) 0%, var(--color-base-900) 40%, color-mix(in oklab, var(--color-brand-5) 28%, transparent) 100%);
+}
+
+.brand-surface-strong {
+  background:
+    radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--color-brand-3) 35%, transparent) 0%, transparent 65%),
+    radial-gradient(1000px 500px at 110% 110%, color-mix(in oklab, var(--color-brand-4) 32%, transparent) 0%, transparent 60%),
+    linear-gradient(135deg, color-mix(in oklab, var(--color-brand-2) 35%, transparent) 0%, var(--color-base-900) 40%, color-mix(in oklab, var(--color-brand-5) 35%, transparent) 100%);
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.brand-overlay {
+  background-image:
+    radial-gradient(circle at 20% 20%, color-mix(in oklab, var(--color-brand-6) 16%, transparent) 0 20%, transparent 40%),
+    repeating-linear-gradient(90deg, transparent 0 39px, color-mix(in oklab, var(--color-brand-2) 8%, transparent) 39px 40px);
+  background-blend-mode: soft-light, normal;
+}
 
   .nav-button {
     @apply disabled:text-muted disabled:bg-gray-50 p-1.5 rounded-full bg-gray-70 hover:bg-gray-50 border border-gray-50;
@@ -210,5 +286,24 @@
   }
   .top-artists-swiper .swiper-slide > * {
     width: 100%; /* let the card take full width */
+  }
+
+  .brand-swiper .swiper-wrapper {
+    transition-timing-function: linear 0.2s !important;
+  }
+
+  @keyframes slide {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-slide {
+    display: flex;
+    width: max-content;
+    animation: slide 20s linear infinite;
   }
 }

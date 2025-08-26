@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { DropdownOption } from "@/interface";
 import { Dropdown } from "@/components";
 import { Grid3X3, List } from "lucide-react";
@@ -14,9 +13,14 @@ const artistSortOptions = [
   { label: "Most orders", value: "most-orders" },
 ];
 
-const ArtistTopbar = () => {
-  const [sort, setSort] = useState<DropdownOption<string> | null>(artistSortOptions[0]);
+type Props = {
+  view: "grid" | "list";
+  setView: (v: "grid" | "list") => void;
+  sort: DropdownOption<string> | null;
+  setSort: (opt: DropdownOption<string> | null) => void;
+};
 
+const ArtistTopbar = ({ view, setView, sort, setSort }: Props) => {
   return (
     <div className="flex flex-wrap items-center gap-3 justify-between">
       <div className="text-sm text-white/80">4,725 results</div>
@@ -29,10 +33,21 @@ const ArtistTopbar = () => {
           placeholder="Choose sort"
         />
 
-        <button className="btn btn-ghost" title="Grid view">
+        {/* Grid button */}
+        <button
+          onClick={() => setView("grid")}
+          className={`btn btn-ghost ${view === "grid" ? "bg-white/10" : ""}`}
+          title="Grid view"
+        >
           <Grid3X3 className="w-4 h-4" />
         </button>
-        <button className="btn btn-ghost" title="List view">
+
+        {/* List button */}
+        <button
+          onClick={() => setView("list")}
+          className={`btn btn-ghost ${view === "list" ? "bg-white/10" : ""}`}
+          title="List view"
+        >
           <List className="w-4 h-4" />
         </button>
       </div>

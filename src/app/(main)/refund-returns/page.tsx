@@ -50,8 +50,8 @@ const Refundpage = () => {
           <li className="flex gap-2">
             <span className="text-lg">•</span>
             <span>
-              If you placed your order through the Antylst App for iOS, you will be issued a
-              credit (in USD only) for the cost of your purchase. If you prefer a refund
+              If you placed your order through the Antylst App for iOS, you will be issued
+              a credit (in USD only) for the cost of your purchase. If you prefer a refund
               instead, you can request one via Apple by going to your orders in the app
               and clicking “request refund” on the Antylst video order; you must have a
               credit balance at least equal to the refund amount, and credits in that
@@ -61,13 +61,21 @@ const Refundpage = () => {
           <li className="flex gap-2">
             <span className="text-lg">•</span>
             <span>
-             If you placed your order through the Antylst App for Android, you will be charged at the time of booking or purchase for all amounts associated with your transaction, and if your request is canceled or not fulfilled, your payment instrument will be refunded.
+              If you placed your order through the Antylst App for Android, you will be
+              charged at the time of booking or purchase for all amounts associated with
+              your transaction, and if your request is canceled or not fulfilled, your
+              payment instrument will be refunded.
             </span>
           </li>
           <li className="flex gap-2">
             <span className="text-lg">•</span>
             <span>
-              If you placed your order through our website, we may charge you in full at the time of booking, in which case if your request is not fulfilled your payment instrument will be refunded. Or we may place a pre-authorization hold on your payment instrument and then immediately charge you when your video is fulfilled; if it&#39;s not fulfilled, then the hold will be released.
+              If you placed your order through our website, we may charge you in full at
+              the time of booking, in which case if your request is not fulfilled your
+              payment instrument will be refunded. Or we may place a pre-authorization
+              hold on your payment instrument and then immediately charge you when your
+              video is fulfilled; if it&#39;s not fulfilled, then the hold will be
+              released.
             </span>
           </li>
         </ul>
