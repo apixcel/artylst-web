@@ -20,7 +20,7 @@ const businessMetrics = [
 const BusinessMetrics = () => {
   return (
     <section className="wrapper-inner mb-[60px]">
-      <div className="grid lg:grid-cols-4 gap-[16px]">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[16px]">
         {businessMetrics.map((metric) => (
           <div
             key={metric.title}

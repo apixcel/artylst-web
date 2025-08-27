@@ -25,7 +25,7 @@ const BusinessSecurity = () => {
         <h2 className="mb-[20px] text-center font-bricolage-grotesque text-xl font-semibold">
           Security
         </h2>
-        <div className="grid grid-cols-3 gap-[40px]">
+        <div className="grid md:grid-cols-3 gap-[20px]">
           {security.map((item) => (
             <div
               key={item.title}

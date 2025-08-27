@@ -24,19 +24,27 @@ const estimateEarnings = [
 const EnrollEarningEstimatior = () => {
   return (
     <section className="mb-[60px]">
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-4 mb-[20px]">
-        {estimateEarnings.map((earning) => (
-          <div key={earning.id} className="p-[20px] rounded-[24px] text-center">
-            <h3 className="font-bold mt-[8px] mb-[2px] font-bricolage-grotesque">
-              {earning.title}
-            </h3>
-            <p className="text-sm text-muted">{earning.earnings}</p>
-          </div>
-        ))}
+      <div className="wrapper-inner">
+        <h2 className="text-[24px] text-center font-bold mb-[20px] font-bricolage-grotesque">
+          Earning estimate
+        </h2>
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-[20px]">
+          {estimateEarnings.map((earning) => (
+            <div
+              key={earning.id}
+              className="py-[24px] px-[20px] rounded-[24px] text-center card"
+            >
+              <h3 className="font-bold mb-[12px] font-bricolage-grotesque">
+                {earning.title}
+              </h3>
+              <p className="text-[16px] text-muted">{earning.earnings}</p>
+            </div>
+          ))}
+        </div>
+        <p className="text-sm text-muted text-center">
+          *Illustrative only. Actual earnings depend on orders & tiers.
+        </p>
       </div>
-      <p className="text-sm text-muted">
-        *Illustrative only. Actual earnings depend on orders & tiers.
-      </p>
     </section>
   );
 };

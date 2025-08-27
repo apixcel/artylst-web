@@ -4,6 +4,7 @@ export { default as BrowseSlider } from "./shared/BrowseSlider";
 export { default as Pagination } from "./shared/Pagination";
 export { default as Dropdown } from "./shared/Dropdown";
 export { default as Review } from "./shared/Review";
+export { default as MobileNav } from "./shared/MobileNav";
 
 // shared/main
 export { default as MainHeader } from "./shared/main/MainHeader";
@@ -33,6 +34,7 @@ export { default as CategoryChips } from "./artists/CategoryChips";
 export { default as ArtistsFilter } from "./artists/ArtistsFilter";
 export { default as ArtistTopbar } from "./artists/ArtistTopbar";
 export { default as ArtistCard } from "./artists/ArtistCard";
+export { default as ArtistIntroVideo } from "./artists/ArtistIntroVideo";
 
 // checkout
 export { default as CheckoutBrief } from "./checkout/CheckoutBrief";
@@ -59,3 +61,8 @@ export { default as BusinessWhyChooseUs } from "./business/BusinessWhyChooseUs";
 export { default as BusinessBrandHelped } from "./business/BusinessBrandHelped";
 export { default as BusinessSecurity } from "./business/BusinessSecurity";
 export { default as BusinessCTA } from "./business/BusinessCTA";
+
+// dashboard
+export { default as Sidebar } from "./dashboard/Sidebar";
+export { default as MobTopBar } from "./dashboard/MobTopBar";
+export { default as DeskTopBar } from "./dashboard/DeskTopBar";

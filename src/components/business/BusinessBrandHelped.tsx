@@ -24,7 +24,7 @@ const BusinessBrandHelped = () => {
       <div className="wrapper">
         <h2 className="mb-[20px]">Brands we’ve helped</h2>
 
-        <div className="grid grid-cols-3 gap-[40px] relative">
+        <div className="grid lg:grid-cols-3 sm:grid-cols-2 gap-[20px] relative">
           {brands.map((brand) => (
             <div
               key={brand.name}
