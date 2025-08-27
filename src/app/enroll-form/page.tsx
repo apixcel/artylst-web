@@ -51,8 +51,13 @@ const EnrollFormPage = () => {
       {/* wrapper */}
       <div className="flex-1 flex h-full">
         {/* left side */}
-        <div className="w-1/2 bg-brand-5/10">
-          <h1>EnrollFormPage</h1>
+        <div className="w-1/2 bg-brand-5/10 flex items-center justify-center">
+          <div className="max-w-[500px]">
+            <h1 className="font-bricolage-grotesque text-[44px] leading-[50px] mb-[20px]">
+              You&apos;re <span className="gradient-text">famous enough</span> to join
+              Artylst
+            </h1>
+          </div>
         </div>
 
         {/* right side */}
