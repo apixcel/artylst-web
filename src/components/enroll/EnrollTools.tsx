@@ -34,15 +34,23 @@ const tools = [
 const EnrollTools = () => {
   return (
     <section className="mb-[60px]">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-[20px]">
-        {tools.map((tool) => (
-          <div key={tool.id} className="p-[20px] rounded-[24px] text-center">
-            <h3 className="font-bold mt-[8px] mb-[2px] font-bricolage-grotesque">
-              {tool.title}
-            </h3>
-            <p className="text-sm text-muted">{tool.description}</p>
-          </div>
-        ))}
+      <div className="wrapper">
+        <h2 className="text-[24px] text-center font-bold mb-[20px] font-bricolage-grotesque">
+          Tools
+        </h2>
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mb-[20px]">
+          {tools.map((tool) => (
+            <div
+              key={tool.id}
+              className="p-[20px] rounded-[24px] text-center border border-white/10 bg-brand-2/10"
+            >
+              <h3 className="font-bold mb-[12px] font-bricolage-grotesque text-[16px] sm:text-[20px]">
+                {tool.title}
+              </h3>
+              <p className="text-[14px] sm:text-[16px] text-muted">{tool.description}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );

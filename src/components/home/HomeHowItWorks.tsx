@@ -45,7 +45,7 @@ const HomeHowItWorks = () => {
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[16px]">
         {homeHowItWorks.map((item, index) => (
-          <div key={item.id} className="py-[22px] px-[26px] rounded-[16px] bg-level-1">
+          <div key={item.id} className="py-[22px] px-[26px] rounded-[16px] bg-brand-2/10">
             <div className="flex items-center gap-[8px] mb-[16px]">
               Step <ArrowRight className="w-[16px] h-[16px]" />
               <p className="text-[18px] font-[500] font-bricolage-grotesque border border-gray-55 w-[24px] h-[24px] flex-center rounded-full inline-block">

@@ -134,7 +134,7 @@
   }
 
   .wrapper-inner {
-    @apply max-w-[1120px] mx-auto;
+    @apply max-w-[1120px] mx-auto desktop:px-0 md:px-[54px] px-[20px];
   }
 
   .card {

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Review } from "@/components";
+import { ArtistIntroVideo, Review } from "@/components";
 import { reviewData } from "@/constants";
 import Image from "next/image";
 
@@ -65,12 +65,7 @@ const SingleArtistPage = () => {
 
               {/* Intro video */}
               <div className="mt-5 card p-3">
-                <div className="h-40 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/60">
-                  <video
-                    src="/videos/artists/artist-video-intro.mp4"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <ArtistIntroVideo />
                 <p className="text-xs text-white/60 mt-2">
                   Intro: who I am &amp; how I curate your playlist.
                 </p>
@@ -152,18 +147,42 @@ const SingleArtistPage = () => {
       <section className="px-4 py-6 lg:flex-row flex-col flex gap-4">
         <div className="card p-5 lg:w-1/2">
           <h3 className="font-heading">Sample vibes I love</h3>
-          <div className="mt-3 grid sm:grid-cols-2 gap-3 text-xs">
-            <div className="h-24 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/60">
-              IMAGE PLACEHOLDER
+          <div className="mt-3 grid sm:grid-cols-2 gap-3">
+            <div className="rounded-xl border border-white/10 overflow-hidden">
+              <Image
+                src="/images/artists/artist-vibe-img-1.jpg"
+                alt="Artist Avatar"
+                width={460}
+                height={460}
+                className="w-full h-[200px] object-cover"
+              />
             </div>
-            <div className="h-24 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/60">
-              IMAGE PLACEHOLDER
+            <div className="rounded-xl border border-white/10 overflow-hidden">
+              <Image
+                src="/images/artists/artist-vibe-img-1.jpg"
+                alt="Artist Avatar"
+                width={460}
+                height={460}
+                className="w-full h-[200px] object-cover"
+              />
             </div>
-            <div className="h-24 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/60">
-              IMAGE PLACEHOLDER
+            <div className="rounded-xl border border-white/10 overflow-hidden">
+              <Image
+                src="/images/artists/artist-vibe-img-1.jpg"
+                alt="Artist Avatar"
+                width={460}
+                height={460}
+                className="w-full h-[200px] object-cover"
+              />
             </div>
-            <div className="h-24 rounded-xl bg-white/5 border border-white/10 grid place-items-center text-white/60">
-              IMAGE PLACEHOLDER
+            <div className="rounded-xl border border-white/10 overflow-hidden">
+              <Image
+                src="/images/artists/artist-vibe-img-1.jpg"
+                alt="Artist Avatar"
+                width={460}
+                height={460}
+                className="w-full h-[200px] object-cover"
+              />
             </div>
           </div>
         </div>

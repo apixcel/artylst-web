@@ -26,29 +26,22 @@ const enrollTiers = [
 
 const EnrollTiers = () => {
   return (
-    <section className="mb-[60px]">
+    <section className="mb-[60px] px-[20px]">
       <h2 className="mb-[20px] text-center font-bricolage-grotesque text-[32px] font-[500]">
         Set your tiers & keep control
       </h2>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-[20px]">
+      <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-[20px]">
         {enrollTiers.map((tier) => (
           <div
             key={tier.id}
-            className="border border-white/10 rounded-[24px] flex items-center"
+            className="border border-white/10 rounded-[24px] flex items-center relative bg-[linear-gradient(180deg,rgb(0,0,0)_0%,rgba(18,17,20,0.64)_100%)]"
           >
-            <div className="w-1/2 pl-[20px] relative">
-              <h3 className="font-bold mt-[8px] mb-[10px] text-[24px]">{tier.title}</h3>
-              <p className="text-sm text-muted">{tier.description}</p>
-              <p className="text-sm text-muted">{tier.earnings}</p>
-              <div className="absolute z-10 right-0 left-0 bottom-0">
-                <Image
-                  src="/images/enroll/section-bg.png"
-                  alt={tier.title}
-                  width={1000}
-                  height={1000}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+            <div className="w-1/2 pl-[20px]">
+              <h3 className="font-bold mt-[8px] mb-[10px] text-[24px] font-bricolage-grotesque">
+                {tier.title}
+              </h3>
+              <p className="text-sm text-muted mb-[10px]">{tier.description}</p>
+              <p className="text-[16px]">{tier.earnings}</p>
             </div>
             <div className="w-1/2">
               <Image
@@ -57,6 +50,16 @@ const EnrollTiers = () => {
                 width={1000}
                 height={1000}
                 className="w-full h-full object-cover"
+              />
+            </div>
+
+            <div className="absolute z-10 right-0 left-0 bottom-0">
+              <Image
+                src="/images/enroll/section-bg.png"
+                alt={tier.title}
+                width={1000}
+                height={1000}
+                className="w-full h-full"
               />
             </div>
           </div>

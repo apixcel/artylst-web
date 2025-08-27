@@ -11,10 +11,10 @@ import {
 } from "@/components";
 const EnrollPage = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen ">
       <EnrollHeader />
-      <div className="flex-1 -mt-[170px] pt-[85px] customer-stories">
-        <div className="">
+      <div className="flex-1 pt-[85px] -mt-[170px] customer-stories">
+        <div className="lg:pt-0 pt-[85px]">
           <EnrollHero />
           <EnrollWhyChooseUs />
           <EnrollHowItWorks />

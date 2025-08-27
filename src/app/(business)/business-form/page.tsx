@@ -42,7 +42,7 @@ const BusinessFormPage = () => {
       {/* wrapper */}
       <div className="flex-1 flex h-full">
         {/* left side */}
-        <div className="w-1/2 bg-brand-5/10 flex items-center justify-center">
+        <div className="hidden lg:flex w-1/2 bg-brand-5/10 items-center justify-center">
           <div className="max-w-[300px] flex flex-col items-center justify-center gap-[20px] mx-auto relative">
             <Image
               src="/images/business/business-form-phone-frame.png"
@@ -51,10 +51,10 @@ const BusinessFormPage = () => {
               height={500}
               className="w-full h-full object-cover"
             />
-            <span className="absolute bottom-30 -left-40">
+            <span className="absolute bottom-30 -left-26 xl:-left-40">
               <BusinessFormCouldBeBrand />
             </span>
-            <span className="absolute bottom-6 -left-26">
+            <span className="absolute bottom-6 xl:-left-26 -left-16">
               <BusinessFormArrow />
             </span>
 
@@ -74,9 +74,9 @@ const BusinessFormPage = () => {
         </div>
 
         {/* right side */}
-        <div className="w-1/2 py-8 pl-14 bg-black/50 flex items-center">
+        <div className="lg:w-1/2 w-full py-8 sm:px-14 px-6 bg-black/50 flex lg:justify-start justify-center items-center">
           <div>
-            <h1 className="font-bricolage-grotesque text-[44px] mb-[20px]">
+            <h1 className="font-bricolage-grotesque text-[32px] text-center sm:text-left sm:text-[44px] mb-[20px]">
               Get started
             </h1>
 
@@ -111,7 +111,7 @@ const BusinessFormPage = () => {
               {/* submit button */}
               <button
                 type="submit"
-                className="text-[16px] font-[500] bg-light text-black px-[32px] py-[16px] rounded-[100px] hover:bg-light/80 transition-all duration-300"
+                className="text-[16px] font-[500] bg-light text-black sm:px-[32px] px-6 sm:py-[16px] py-3 rounded-[100px] hover:bg-light/80 transition-all duration-300"
               >
                 Sign Up
               </button>

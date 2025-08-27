@@ -18,7 +18,7 @@ const enrollWhyChooseUs = [
 const EnrollWhyChooseUs = () => {
   return (
     <section className="wrapper-inner mb-[60px]">
-      <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
         {enrollWhyChooseUs.map((item) => (
           <div
             key={item.label}

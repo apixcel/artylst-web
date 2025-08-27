@@ -51,19 +51,23 @@ const EnrollFormPage = () => {
       {/* wrapper */}
       <div className="flex-1 flex h-full">
         {/* left side */}
-        <div className="w-1/2 bg-brand-5/10 flex items-center justify-center">
+        <div className="lg:flex hidden w-1/2 bg-brand-5/10 items-center justify-center px-[20px]">
           <div className="max-w-[500px]">
             <h1 className="font-bricolage-grotesque text-[44px] leading-[50px] mb-[20px]">
               You&apos;re <span className="gradient-text">famous enough</span> to join
               Artylst
             </h1>
+            <p className="text-muted text-[16px]">
+              We&apos;re looking for artists who are passionate about their music and have
+              a strong following.
+            </p>
           </div>
         </div>
 
         {/* right side */}
-        <div className="w-1/2 py-8 pl-14 bg-black/50 flex items-center">
+        <div className="lg:w-1/2 w-full py-8 sm:px-14 px-6 bg-black/50 flex lg:justify-start justify-center items-center">
           <div>
-            <h1 className="font-bricolage-grotesque text-[44px] mb-[20px]">
+            <h1 className="font-bricolage-grotesque text-[32px] text-center sm:text-left sm:text-[44px] mb-[20px]">
               Start earning today
             </h1>
 
@@ -84,6 +88,11 @@ const EnrollFormPage = () => {
                     options={genderOptions}
                     onChange={setGender}
                     placeholder="Choose gender"
+                    className="w-full"
+                    buttonClassName="w-full bg-brand-2/10"
+                    panelClassName="w-full "
+                    optionClassName="w-full "
+                    matchButtonWidth={false}
                   />
                 </div>
 
@@ -118,7 +127,7 @@ const EnrollFormPage = () => {
                       Date of birth
                     </label>
                   </div>
-                  <input className="enroll-input" type="date" />
+                  <input className="enroll-input" type="text" placeholder="DD/MM/YYYY" />
                 </div>
 
                 {/* email */}

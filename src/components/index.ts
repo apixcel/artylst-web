@@ -33,6 +33,7 @@ export { default as CategoryChips } from "./artists/CategoryChips";
 export { default as ArtistsFilter } from "./artists/ArtistsFilter";
 export { default as ArtistTopbar } from "./artists/ArtistTopbar";
 export { default as ArtistCard } from "./artists/ArtistCard";
+export { default as ArtistIntroVideo } from "./artists/ArtistIntroVideo";
 
 // checkout
 export { default as CheckoutBrief } from "./checkout/CheckoutBrief";

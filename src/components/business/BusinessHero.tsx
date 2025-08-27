@@ -2,10 +2,10 @@ import Link from "next/link";
 
 const BusinessHero = () => {
   return (
-    <section className="flex justify-center items-center py-[60px]">
+    <section className="flex justify-center items-center py-[20px] sm:py-[40px] lg:py-[60px]">
       <div className="max-w-[700px] text-center px-[20px]">
         <h1 className="text-[40px] xl:text-[44px] leading-[48px] font-[500] mb-[20px]">
-          <span className="gradient-text">Your brand, your sound—</span>
+          <span className="gradient-text">Your brand, your sound</span>{" "}
           <span>custom playlists by real artists.</span>
         </h1>
         <p className="text-muted text-[16px] lg:px-0 px-[40px]">

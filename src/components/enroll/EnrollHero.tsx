@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const EnrollHero = () => {
   return (
-    <section className="wrapper my-[32px] pt-[32px]">
+    <section className="wrapper my-[32px] lg:pt-[32px]">
       <div className="flex items-center gap-[40px] xl:gap-[60px] mb-[60px]">
         <div className="w-full lg:w-1/2 lg:max-w-full max-w-[500px]">
           <h1 className="font-bricolage-grotesque text-[36px] xl:text-[44px] font-[500] mb-[20px]">
