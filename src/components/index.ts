@@ -4,6 +4,7 @@ export { default as BrowseSlider } from "./shared/BrowseSlider";
 export { default as Pagination } from "./shared/Pagination";
 export { default as Dropdown } from "./shared/Dropdown";
 export { default as Review } from "./shared/Review";
+export { default as MobileNav } from "./shared/MobileNav";
 
 // shared/main
 export { default as MainHeader } from "./shared/main/MainHeader";

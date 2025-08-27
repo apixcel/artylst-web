@@ -21,7 +21,6 @@ export default function ArtistIntroVideo({
   poster,
   className = "relative",
   videoClassName = "w-full h-40 object-cover",
-  autoPlay = true,
   muted = true,
   rounded = true,
   loop = false,
@@ -37,22 +36,6 @@ export default function ArtistIntroVideo({
     setIsPlaying(!v.paused && !v.ended);
   }, []);
 
-  const attemptPlay = useCallback(async () => {
-    const v = videoRef.current;
-    if (!v) return;
-    try {
-      v.muted = muted;
-      v.playsInline = true;
-
-      if (v.paused) {
-        await v.play();
-      }
-    } catch {
-    } finally {
-      syncState();
-    }
-  }, [muted, syncState]);
-
   useEffect(() => {
     const v = videoRef.current;
     if (!v) return;
@@ -63,7 +46,6 @@ export default function ArtistIntroVideo({
     const onEnded = () => setIsPlaying(false);
     const onError = () => setError("There was a problem loading the video.");
     const onLoadedMeta = () => {
-      if (autoPlay) attemptPlay();
       syncState();
     };
 
@@ -74,8 +56,7 @@ export default function ArtistIntroVideo({
     v.addEventListener("loadedmetadata", onLoadedMeta);
     v.addEventListener("error", onError);
 
-    if (autoPlay) attemptPlay();
-    else syncState();
+    syncState();
 
     return () => {
       v.removeEventListener("play", onPlay);
@@ -85,11 +66,12 @@ export default function ArtistIntroVideo({
       v.removeEventListener("loadedmetadata", onLoadedMeta);
       v.removeEventListener("error", onError);
     };
-  }, [attemptPlay, syncState, autoPlay]);
+  }, [syncState]);
 
   const togglePlay = useCallback(async () => {
     const v = videoRef.current;
     if (!v) return;
+
     try {
       if (v.paused) {
         v.muted = muted;
@@ -98,6 +80,9 @@ export default function ArtistIntroVideo({
       } else {
         v.pause();
       }
+    } catch (err) {
+      console.error("Error playing video:", err);
+      setError("Failed to play video");
     } finally {
       syncState();
     }
@@ -119,7 +104,6 @@ export default function ArtistIntroVideo({
           width={1280}
           height={720}
           {...(loop ? { loop: true } : {})}
-          {...(autoPlay ? { autoPlay: true } : {})}
         >
           {hasLoadedSrc && (
             <>
