@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 const useCase = [
   {
     title: "Yoga & Wellness",
@@ -17,15 +15,17 @@ const useCase = [
 
 const BusinessUseCase = () => {
   return (
-    <section className="mb-[60px] bg-light/10 p-10">
+    <section className="mb-[60px] bg-white/10 p-10">
       <div className="wrapper">
         <div className="grid grid-cols-3 gap-[16px]">
           {useCase.map((item, i) => (
             <div key={i} className="flex flex-col items-center justify-center relative">
-              <h3 className="text-[24px] font-bricolage-grotesque font-bold text-white mb-[16px]">
+              <h3 className="text-[24px] font-bricolage-grotesque font-bold text-business-use-case-text mb-[16px]">
                 {item.title}
               </h3>
-              <p className="text-[16px] text-muted">{item.description}</p>
+              <p className="text-[16px] text-business-use-case-text">
+                {item.description}
+              </p>
             </div>
           ))}
         </div>

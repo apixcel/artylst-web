@@ -7,7 +7,7 @@ const BusinessLayout = ({ children }: { children: React.ReactNode }) => {
       <main className="flex-1 ">
         {/* grid overlay */}
         <div className="absolute inset-0 bg-grid opacity-[.18] pointer-events-none" />
-        <div className="pt-[85px] relative z-10">{children}</div>
+        <div className="pt-[32px] relative z-10">{children}</div>
       </main>
 
       <BusinessFooter />
