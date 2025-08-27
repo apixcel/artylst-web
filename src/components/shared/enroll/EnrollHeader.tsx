@@ -13,53 +13,48 @@ const EnrollHeader = () => {
             <Menu className="w-6 h-6" />
           </button>
 
-          <div className="lg:flex items-center gap-4">
-            {/* desktop logo */}
-            <Link className="lg:block hidden font-[700] text-white text-2xl" href="/">
-              <Image
-                src="/images/logo/logo-white.png"
-                alt="logo"
-                width={100}
-                height={100}
-                className="w-[60px] h-[60px]"
-              />
-            </Link>
+          {/* desktop logo */}
+          <Link className="lg:block hidden font-[700] text-white text-2xl" href="/">
+            <Image
+              src="/images/logo/logo-white.png"
+              alt="logo"
+              width={100}
+              height={100}
+              className="w-[60px] h-[60px]"
+            />
+          </Link>
 
-            {/* mobile logo */}
-            <Link className="lg:hidden font-[700] text-white text-2xl" href="/">
-              <Image
-                src="/images/logo/logo-no-text-large.png"
-                alt="logo"
-                width={100}
-                height={100}
-                className="w-[40px] h-[40px]"
-              />
-            </Link>
+          {/* mobile logo */}
+          <Link className="lg:hidden font-[700] text-white text-2xl" href="/">
+            <Image
+              src="/images/logo/logo-no-text-large.png"
+              alt="logo"
+              width={100}
+              height={100}
+              className="w-[40px] h-[40px]"
+            />
+          </Link>
 
-            {/* nav links */}
-            <div>
-              <div>
-                <ul className="lg:flex hidden items-center">
-                  {enrollNavLinks.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        className="text-light rounded-[20px] hover:bg-level-2 text-[16px] flex-1 py-[8px] px-[12px]"
-                        href={link.href}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
+          {/* nav links */}
 
-          <div className="flex items-center justify-end gap-4 lg:flex-1">
+          <ul className="lg:flex hidden items-center">
+            {enrollNavLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  className="text-light rounded-[20px] hover:bg-level-2 text-[16px] flex-1 py-[8px] px-[12px]"
+                  href={link.href}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex items-center justify-end gap-4">
             {/* login */}
             <Link
               className="text-light hover:bg-level-1 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
-              href="/login"
+              href="/enroll-form"
             >
               Apply as Artist
             </Link>

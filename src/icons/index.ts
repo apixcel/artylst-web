@@ -3,3 +3,5 @@ export { default as LampIcon } from "./lampIcon";
 export { default as TalentIcon } from "./talentIcon";
 export { default as CustomerIcon } from "./customerIcon";
 export { default as RedCarpetRewardsIcon } from "./redCarpetRewardsIcon";
+export { default as BusinessFormCouldBeBrand } from "./businessFormCouldBeBrand";
+export { default as BusinessFormArrow } from "./businessFormArrow";

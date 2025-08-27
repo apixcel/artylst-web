@@ -17,18 +17,20 @@ const enrollWhyChooseUs = [
 
 const EnrollWhyChooseUs = () => {
   return (
-    <section className="grid md:grid-cols-3 grid-cols-1 gap-4 mb-[60px]">
-      {enrollWhyChooseUs.map((item) => (
-        <div
-          key={item.label}
-          className="flex flex-col items-center justify-center card p-[20px] rounded-[24px] text-center hover:bg-white/10"
-        >
-          <h3 className="font-bold mt-[8px] mb-[2px] font-bricolage-grotesque">
-            {item.label}
-          </h3>
-          <p className="text-sm text-muted">{item.description}</p>
-        </div>
-      ))}
+    <section className="wrapper-inner mb-[60px]">
+      <div className="grid md:grid-cols-3 grid-cols-1 gap-4">
+        {enrollWhyChooseUs.map((item) => (
+          <div
+            key={item.label}
+            className="flex flex-col items-center justify-center p-[20px] rounded-[24px] text-center bg-brand-4/10 border border-brand-4/20"
+          >
+            <h3 className="font-bold mt-[8px] mb-[8px] text-lg font-bricolage-grotesque">
+              {item.label}
+            </h3>
+            <p className="text-sm text-muted">{item.description}</p>
+          </div>
+        ))}
+      </div>
     </section>
   );
 };

@@ -59,3 +59,8 @@ export { default as BusinessWhyChooseUs } from "./business/BusinessWhyChooseUs";
 export { default as BusinessBrandHelped } from "./business/BusinessBrandHelped";
 export { default as BusinessSecurity } from "./business/BusinessSecurity";
 export { default as BusinessCTA } from "./business/BusinessCTA";
+
+// dashboard
+export { default as Sidebar } from "./dashboard/Sidebar";
+export { default as MobTopBar } from "./dashboard/MobTopBar";
+export { default as DeskTopBar } from "./dashboard/DeskTopBar";

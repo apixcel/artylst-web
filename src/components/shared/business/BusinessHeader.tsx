@@ -55,10 +55,10 @@ const BusinessHeader = () => {
           </div>
 
           <div className="flex items-center justify-end gap-4 lg:flex-1">
-            {/* login */}
+            {/* start a request */}
             <Link
               className="text-light hover:bg-level-1 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
-              href="/login"
+              href="/business-form"
             >
               Start a request
             </Link>

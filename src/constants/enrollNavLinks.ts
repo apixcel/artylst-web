@@ -9,6 +9,6 @@ export const enrollNavLinks = [
   },
   {
     label: "How it Works",
-    href: "/about",
+    href: "/enroll/#artist-steps",
   },
 ];

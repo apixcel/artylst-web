@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const EnrollCTA = () => {
   return (
-    <section className="mb-[64px]">
+    <section className="wrapper mb-[64px]">
       <div className="p-[24px] card bg-fog-transparent-24 flex items-center justify-between gap-[60px]">
         <div>
           <h1 className="font-bricolage-grotesque">Ready to curate?</h1>
