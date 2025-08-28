@@ -66,3 +66,6 @@ export { default as BusinessCTA } from "./business/BusinessCTA";
 export { default as Sidebar } from "./dashboard/Sidebar";
 export { default as MobTopBar } from "./dashboard/MobTopBar";
 export { default as DeskTopBar } from "./dashboard/DeskTopBar";
+export { default as ProfileSettings } from "./dashboard/business/ProfileSettings";
+export { default as PaymentMethods } from "./dashboard/business/PaymentMethods";
+export { default as LoginAndSecurity } from "./dashboard/business/LoginAndSecurity";
