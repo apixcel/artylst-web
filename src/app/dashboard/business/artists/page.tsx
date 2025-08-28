@@ -1,7 +1,398 @@
-import React from "react";
+"use client";
 
-const page = () => {
-  return <div>page</div>;
+import React, { useMemo, useState } from "react";
+import Link from "next/link";
+import { Search, Filter, Flame, Eye, BadgeCheck, MessageSquare } from "lucide-react";
+
+const Chip = ({
+  children,
+  className = "",
+}: React.PropsWithChildren<{ className?: string }>) => (
+  <span
+    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs border border-white/10 bg-white/5 ${className}`}
+  >
+    {children}
+  </span>
+);
+
+const Card = ({
+  children,
+  className = "",
+}: React.PropsWithChildren<{ className?: string }>) => (
+  <div className={`rounded-2xl p-5 border border-white/10 bg-white/5 ${className}`}>
+    {children}
+  </div>
+);
+
+export type Artist = {
+  id: number;
+  name: string;
+  handle: string;
+  img: string;
+  tags: string[];
+  platform: "Spotify" | "Apple Music" | "YouTube Music";
+  price: number; // Standard tier
+  eta: string; // e.g. "2–3d"
+  rating: number; // 4.8
+  accepting: boolean;
+  recommended?: boolean;
+  popular?: boolean; // this week
+  views?: number; // for Most browsed
+  orders?: number;
 };
 
-export default page;
+const ARTISTS: Artist[] = Array.from({ length: 12 }).map((_, i) => {
+  const base: Artist = {
+    id: 200 + i,
+    name: `Artist ${i + 1}`,
+    handle: `handle${i + 1}`,
+    img: `https://i.pravatar.cc/300?img=${40 + i}`,
+    tags:
+      i % 3 === 0
+        ? ["Lo‑fi", "Chill"]
+        : i % 3 === 1
+          ? ["Uplifting", "Pop"]
+          : ["Jazz", "Lounge"],
+    platform: (i % 3 === 0
+      ? "Spotify"
+      : i % 3 === 1
+        ? "Apple Music"
+        : "YouTube Music") as Artist["platform"],
+    price: [89, 99, 119, 79][i % 4],
+    eta: ["1–2d", "2–3d", "3–4d"][i % 3],
+    rating: [4.7, 4.8, 4.9, 4.6][i % 4],
+    accepting: i % 5 !== 0,
+    recommended: i % 4 === 0 || i % 4 === 1,
+    popular: i % 3 === 0,
+    views: 500 + i * 37,
+    orders: 20 + ((i * 3) % 40),
+  };
+  return base;
+});
+
+const ALL_VIBES = [
+  "All",
+  "Lo‑fi",
+  "Chill",
+  "Uplifting",
+  "Pop",
+  "Jazz",
+  "Lounge",
+  "Focus",
+  "Ambient",
+];
+const PLATFORMS = ["All", "Spotify", "Apple Music", "YouTube Music"] as const;
+
+const ArtistCard = ({ a }: { a: Artist }) => (
+  <div className="group rounded-2xl bg-white/5 border border-white/10 p-4 hover:bg-white/10 transition">
+    <div className="relative h-40 rounded-xl overflow-hidden">
+      <div className={`absolute inset-0 bg-[url(${a.img})] bg-cover bg-center`} />
+      <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
+        <div className="font-heading">{a.name}</div>
+        <div className="text-xs text-white/70">@{a.handle}</div>
+      </div>
+      {/* Badges */}
+      <div className="absolute top-2 left-2 flex gap-2">
+        {a.recommended && <Chip className="bg-white/10">Recommended</Chip>}
+        {a.popular && (
+          <Chip className="bg-yellow-500/10 text-yellow-400 border-yellow-500/20 inline-flex items-center gap-1">
+            <Flame className="h-3.5 w-3.5" /> Popular
+          </Chip>
+        )}
+      </div>
+    </div>
+
+    <div className="mt-3 flex flex-wrap gap-2">
+      {a.tags.slice(0, 2).map((t) => (
+        <Chip key={t}>{t}</Chip>
+      ))}
+      {a.accepting ? (
+        <Chip className="bg-green-500/10 text-green-400 border-green-500/20">
+          Accepting
+        </Chip>
+      ) : (
+        <Chip className="bg-yellow-500/10 text-yellow-400 border-yellow-500/20">
+          Waitlist
+        </Chip>
+      )}
+    </div>
+    <div className="mt-2 text-xs text-white/60">
+      Avg. ETA: {a.eta} • {a.platform}
+    </div>
+
+    <div className="mt-2 text-sm flex items-center justify-between">
+      <div>
+        <div className="text-white/70">Standard</div>
+        <div className="font-heading">${a.price}</div>
+      </div>
+      <div className="text-xs text-white/60">
+        ★ {a.rating} • {a.orders} orders
+      </div>
+    </div>
+
+    <div className="mt-3 flex gap-2">
+      <Link
+        href={`/dashboard/business/artists/${a.handle}`}
+        className="flex-1 px-3 py-2 rounded-lg bg-white/10 text-sm text-center"
+      >
+        View
+      </Link>
+      <Link
+        href={`/orders/new?artist=${a.handle}`}
+        className="flex-1 px-3 py-2 rounded-lg bg-white/10 text-sm text-center"
+      >
+        Request
+      </Link>
+    </div>
+  </div>
+);
+
+export default function BusinessArtistsPage() {
+  const [q, setQ] = useState("");
+  const [vibe, setVibe] = useState("All");
+  const [platform, setPlatform] = useState<(typeof PLATFORMS)[number]>("All");
+  const [tab, setTab] = useState<"all" | "recommended" | "popular" | "browsed">("all");
+  const [sort, setSort] = useState("recommended");
+
+  const recommended = useMemo(() => ARTISTS.filter((a) => a.recommended), []);
+  const popular = useMemo(() => ARTISTS.filter((a) => a.popular), []);
+  const browsed = useMemo(
+    () => [...ARTISTS].sort((a, b) => (b.views || 0) - (a.views || 0)).slice(0, 8),
+    []
+  );
+
+  const allFiltered = useMemo(() => {
+    let list = [...ARTISTS];
+    if (q)
+      list = list.filter((a) =>
+        `${a.name} ${a.handle}`.toLowerCase().includes(q.toLowerCase())
+      );
+    if (vibe !== "All") list = list.filter((a) => a.tags.includes(vibe));
+    if (platform !== "All") list = list.filter((a) => a.platform === platform);
+
+    if (sort === "price") list.sort((a, b) => a.price - b.price);
+    else if (sort === "eta") list.sort((a, b) => a.eta.localeCompare(b.eta));
+    else if (sort === "rating") list.sort((a, b) => b.rating - a.rating);
+
+    return list;
+  }, [q, vibe, platform, sort]);
+
+  const SectionHeader = ({
+    title,
+    subtitle,
+    actionHref,
+  }: {
+    title: string;
+    subtitle?: string;
+    actionHref?: string;
+  }) => (
+    <div className="flex items-center justify-between mb-3">
+      <div>
+        <div className="font-heading">{title}</div>
+        {subtitle && <div className="text-xs text-white/60">{subtitle}</div>}
+      </div>
+      {actionHref && (
+        <Link href={actionHref} className="text-sm text-white/70 underline">
+          View all
+        </Link>
+      )}
+    </div>
+  );
+
+  return (
+    <section className="p-6 space-y-6">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
+        <div>
+          <h1 className="text-2xl md:text-3xl font-heading">Artists</h1>
+          <p className="text-white/70 text-sm mt-1">
+            Curated for businesses • Private playlists + 30s auth video
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <Link href="/orders/new" className="px-3 py-2 rounded-lg bg-brand-500 text-sm">
+            Create a brief
+          </Link>
+          <Link
+            href="/favorites"
+            className="px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-sm"
+          >
+            Favorites
+          </Link>
+        </div>
+      </div>
+
+      {/* Tabs */}
+      <div className="flex items-center gap-2 overflow-x-auto">
+        {[
+          { key: "all", label: "All" },
+          { key: "recommended", label: "Recommended" },
+          { key: "popular", label: "Popular" },
+          { key: "browsed", label: "Most browsed" },
+        ].map((t) => (
+          <button
+            key={t.key}
+            onClick={() => setTab(t.key as typeof tab)}
+            className={`px-3 py-1.5 rounded-full text-sm border ${tab === t.key ? "bg-white/20 border-white/20" : "bg-white/5 border-white/10"}`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Filter bar */}
+      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 grid gap-3 md:grid-cols-4">
+        {/* Search */}
+        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+          <Search className="h-4 w-4 text-white/60" />
+          <input
+            className="bg-transparent flex-1 py-2 outline-none"
+            placeholder="Search artists"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+          />
+        </div>
+        {/* Vibe */}
+        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+          <Filter className="h-4 w-4 text-white/60" />
+          <select
+            className="bg-transparent flex-1 py-2 outline-none"
+            value={vibe}
+            onChange={(e) => setVibe(e.target.value)}
+          >
+            {ALL_VIBES.map((v) => (
+              <option key={v} value={v} className="bg-[#0b0b0f]">
+                {v}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* Platform */}
+        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+          <span className="text-white/60 text-sm">Platform</span>
+          <select
+            className="bg-transparent flex-1 py-2 outline-none"
+            value={platform}
+            onChange={(e) => setPlatform(e.target.value as (typeof PLATFORMS)[number])}
+          >
+            {PLATFORMS.map((p) => (
+              <option key={p} value={p} className="bg-[#0b0b0f]">
+                {p}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* Sort */}
+        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+          <span className="text-white/60 text-sm">Sort</span>
+          <select
+            className="bg-transparent flex-1 py-2 outline-none"
+            value={sort}
+            onChange={(e) => setSort(e.target.value)}
+          >
+            <option value="recommended" className="bg-[#0b0b0f]">
+              Recommended
+            </option>
+            <option value="price" className="bg-[#0b0b0f]">
+              Lowest price
+            </option>
+            <option value="eta" className="bg-[#0b0b0f]">
+              Fastest ETA
+            </option>
+            <option value="rating" className="bg-[#0b0b0f]">
+              Top rated
+            </option>
+          </select>
+        </div>
+      </div>
+
+      {/* Recommended carousel */}
+      {(tab === "all" || tab === "recommended") && (
+        <Card>
+          <SectionHeader
+            title="Recommended for your business"
+            subtitle="Based on Café & Workplace vibes"
+            actionHref="#all-recommended"
+          />
+          <div className="flex gap-4 overflow-x-auto snap-x">
+            {recommended.map((a) => (
+              <div key={a.id} className="min-w-[260px] snap-start">
+                <ArtistCard a={a} />
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
+
+      {/* Popular grid */}
+      {(tab === "all" || tab === "popular") && (
+        <Card>
+          <SectionHeader title="Popular this week" subtitle="Trending now" />
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {popular.slice(0, 8).map((a) => (
+              <ArtistCard key={a.id} a={a} />
+            ))}
+          </div>
+        </Card>
+      )}
+
+      {/* Most browsed (horizontal) */}
+      {(tab === "all" || tab === "browsed") && (
+        <Card>
+          <SectionHeader title="Most browsed" subtitle="By views in the last 30 days" />
+          <div className="flex gap-4 overflow-x-auto snap-x">
+            {browsed.map((a) => (
+              <div key={a.id} className="min-w-[260px] snap-start">
+                <div className="relative">
+                  <ArtistCard a={a} />
+                  <div className="absolute top-3 right-3 text-[11px] px-2 py-0.5 rounded-full bg-black/60 border border-white/10 inline-flex items-center gap-1">
+                    <Eye className="h-3.5 w-3.5" /> {a.views}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      )}
+
+      {/* All artists grid */}
+      <Card>
+        <SectionHeader title="All artists" subtitle={`${allFiltered.length} found`} />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {allFiltered.map((a) => (
+            <ArtistCard key={a.id} a={a} />
+          ))}
+        </div>
+        {allFiltered.length === 0 && (
+          <div className="py-12 text-center text-white/70">
+            No artists match your filters
+          </div>
+        )}
+        <div className="mt-4 text-center">
+          <button className="px-4 py-2 rounded-lg bg-white/10 border border-white/10 text-sm">
+            Load more
+          </button>
+        </div>
+      </Card>
+
+      {/* Footer helper */}
+      <div className="rounded-xl border border-white/10 bg-white/5 p-4 flex items-start gap-3">
+        <BadgeCheck className="h-5 w-5 text-green-400 mt-0.5" />
+        <div className="text-sm">
+          <div className="font-heading">Tip</div>
+          <div className="text-white/70">
+            Use filters to match your vibe and platform, then click <em>Request</em> to
+            send a brief. Every delivery includes a private playlist link + a 30s
+            authentication video.
+          </div>
+        </div>
+        <Link
+          href="/messages"
+          className="ml-auto px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-sm inline-flex items-center gap-2"
+        >
+          <MessageSquare className="h-4 w-4" /> Need help?
+        </Link>
+      </div>
+    </section>
+  );
+}

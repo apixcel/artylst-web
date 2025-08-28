@@ -158,7 +158,7 @@ export default function Dropdown<TValue = string>({
           onKeyDown={onListKeyDown}
           className={cn(
             "absolute z-10 mt-2 max-h-56 overflow-auto rounded-[8px] p-2 text-light shadow-lg focus:outline-none bg-gray-70 border border-white/10",
-            matchButtonWidth && "min-w-[var(--btn-w)]",
+            matchButtonWidth && "min-w-[var(--btn-w)] custom-scrollbar",
             panelClassName
           )}
           style={{
