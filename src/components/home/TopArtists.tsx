@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import "swiper/css/navigation";
 import { ArtistCard } from "@/components";
 import { artistsData } from "@/constants";
 

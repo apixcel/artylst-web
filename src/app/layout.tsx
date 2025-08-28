@@ -4,6 +4,7 @@ import { Bricolage_Grotesque, Geist } from "next/font/google";
 import "./globals.css";
 import "swiper/css";
 import "swiper/css/free-mode";
+import "swiper/css/navigation";
 
 const geist = Geist({
   variable: "--font-geist",

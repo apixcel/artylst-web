@@ -2,7 +2,20 @@
 
 import React, { useMemo, useState } from "react";
 import Link from "next/link";
-import { Search, Filter, Flame, Eye, BadgeCheck, MessageSquare } from "lucide-react";
+import {
+  Search,
+  Filter,
+  Flame,
+  Eye,
+  BadgeCheck,
+  MessageSquare,
+  ChevronRight,
+  ChevronLeft,
+} from "lucide-react";
+import { DropdownOption } from "@/interface/dropdown.interface";
+import { Dropdown } from "@/components";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { FreeMode, Navigation } from "swiper/modules";
 
 const Chip = ({
   children,
@@ -81,7 +94,10 @@ const ALL_VIBES = [
   "Focus",
   "Ambient",
 ];
-const PLATFORMS = ["All", "Spotify", "Apple Music", "YouTube Music"] as const;
+
+const PLATFORMS = ["All", "Spotify", "Apple Music", "YouTube Music"];
+
+const SORT_OPTIONS = ["recommended", "price", "eta", "rating"];
 
 const ArtistCard = ({ a }: { a: Artist }) => (
   <div className="group rounded-2xl bg-white/5 border border-white/10 p-4 hover:bg-white/10 transition">
@@ -161,22 +177,6 @@ export default function BusinessArtistsPage() {
     []
   );
 
-  const allFiltered = useMemo(() => {
-    let list = [...ARTISTS];
-    if (q)
-      list = list.filter((a) =>
-        `${a.name} ${a.handle}`.toLowerCase().includes(q.toLowerCase())
-      );
-    if (vibe !== "All") list = list.filter((a) => a.tags.includes(vibe));
-    if (platform !== "All") list = list.filter((a) => a.platform === platform);
-
-    if (sort === "price") list.sort((a, b) => a.price - b.price);
-    else if (sort === "eta") list.sort((a, b) => a.eta.localeCompare(b.eta));
-    else if (sort === "rating") list.sort((a, b) => b.rating - a.rating);
-
-    return list;
-  }, [q, vibe, platform, sort]);
-
   const SectionHeader = ({
     title,
     subtitle,
@@ -210,12 +210,15 @@ export default function BusinessArtistsPage() {
           </p>
         </div>
         <div className="flex items-center gap-2">
-          <Link href="/orders/new" className="px-3 py-2 rounded-lg bg-brand-500 text-sm">
+          <Link
+            href="/orders/new"
+            className="px-3 py-2 rounded-lg bg-brand-4/70 text-sm hover:bg-brand-4/60 transition"
+          >
             Create a brief
           </Link>
           <Link
             href="/favorites"
-            className="px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-sm"
+            className="px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-sm hover:bg-white/20 transition"
           >
             Favorites
           </Link>
@@ -233,7 +236,7 @@ export default function BusinessArtistsPage() {
           <button
             key={t.key}
             onClick={() => setTab(t.key as typeof tab)}
-            className={`px-3 py-1.5 rounded-full text-sm border ${tab === t.key ? "bg-white/20 border-white/20" : "bg-white/5 border-white/10"}`}
+            className={`px-3 py-1.5 rounded-full text-sm border ${tab === t.key ? "bg-brand-4/20 border-brand-4/20" : "bg-white/5 border-white/10"}`}
           >
             {t.label}
           </button>
@@ -253,56 +256,37 @@ export default function BusinessArtistsPage() {
           />
         </div>
         {/* Vibe */}
-        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
           <Filter className="h-4 w-4 text-white/60" />
-          <select
-            className="bg-transparent flex-1 py-2 outline-none"
-            value={vibe}
-            onChange={(e) => setVibe(e.target.value)}
-          >
-            {ALL_VIBES.map((v) => (
-              <option key={v} value={v} className="bg-[#0b0b0f]">
-                {v}
-              </option>
-            ))}
-          </select>
+          <Dropdown
+            value={{ label: vibe, value: vibe } as DropdownOption<string>}
+            options={ALL_VIBES.map((t) => ({ label: t, value: t }))}
+            onChange={(e) => setVibe(e.value)}
+            className="w-full"
+            buttonClassName="bg-transparent border-transparent w-full"
+          />
         </div>
         {/* Platform */}
-        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
           <span className="text-white/60 text-sm">Platform</span>
-          <select
-            className="bg-transparent flex-1 py-2 outline-none"
-            value={platform}
-            onChange={(e) => setPlatform(e.target.value as (typeof PLATFORMS)[number])}
-          >
-            {PLATFORMS.map((p) => (
-              <option key={p} value={p} className="bg-[#0b0b0f]">
-                {p}
-              </option>
-            ))}
-          </select>
+          <Dropdown
+            value={{ label: platform, value: platform } as DropdownOption<string>}
+            options={PLATFORMS.map((p) => ({ label: p, value: p }))}
+            onChange={(e) => setPlatform(e.value as (typeof PLATFORMS)[number])}
+            className="w-full"
+            buttonClassName="bg-transparent border-transparent w-full"
+          />
         </div>
         {/* Sort */}
-        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
           <span className="text-white/60 text-sm">Sort</span>
-          <select
-            className="bg-transparent flex-1 py-2 outline-none"
-            value={sort}
-            onChange={(e) => setSort(e.target.value)}
-          >
-            <option value="recommended" className="bg-[#0b0b0f]">
-              Recommended
-            </option>
-            <option value="price" className="bg-[#0b0b0f]">
-              Lowest price
-            </option>
-            <option value="eta" className="bg-[#0b0b0f]">
-              Fastest ETA
-            </option>
-            <option value="rating" className="bg-[#0b0b0f]">
-              Top rated
-            </option>
-          </select>
+          <Dropdown
+            value={{ label: sort, value: sort } as DropdownOption<string>}
+            options={SORT_OPTIONS.map((t) => ({ label: t, value: t }))}
+            onChange={(e) => setSort(e.value)}
+            className="w-full"
+            buttonClassName="bg-transparent border-transparent w-full"
+          />
         </div>
       </div>
 
@@ -312,15 +296,38 @@ export default function BusinessArtistsPage() {
           <SectionHeader
             title="Recommended for your business"
             subtitle="Based on Café & Workplace vibes"
-            actionHref="#all-recommended"
+            actionHref="/artists"
           />
-          <div className="flex gap-4 overflow-x-auto snap-x">
+          <Swiper
+            spaceBetween={16}
+            slidesPerView={1}
+            modules={[FreeMode, Navigation]}
+            breakpoints={{
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 4 },
+            }}
+            navigation={{
+              nextEl: ".recommended-next",
+              prevEl: ".recommended-prev",
+            }}
+            className="group business-recommended-artists-swiper"
+          >
             {recommended.map((a) => (
-              <div key={a.id} className="min-w-[260px] snap-start">
+              <SwiperSlide key={a.id}>
                 <ArtistCard a={a} />
-              </div>
+              </SwiperSlide>
             ))}
-          </div>
+
+            {/* navigation */}
+            <div className="group-hover:opacity-100 opacity-0 transition-opacity duration-300 absolute top-1/2 -translate-y-1/2 w-full z-30">
+              <button className="recommended-prev nav-button left-8 absolute">
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button className="recommended-next nav-button right-8 absolute">
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </Swiper>
         </Card>
       )}
 
@@ -328,11 +335,36 @@ export default function BusinessArtistsPage() {
       {(tab === "all" || tab === "popular") && (
         <Card>
           <SectionHeader title="Popular this week" subtitle="Trending now" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Swiper
+            spaceBetween={16}
+            slidesPerView={1}
+            modules={[FreeMode, Navigation]}
+            breakpoints={{
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 3 },
+            }}
+            navigation={{
+              nextEl: ".popular-next",
+              prevEl: ".popular-prev",
+            }}
+            className="group business-popular-artists-swiper"
+          >
             {popular.slice(0, 8).map((a) => (
-              <ArtistCard key={a.id} a={a} />
+              <SwiperSlide key={a.id}>
+                <ArtistCard a={a} />
+              </SwiperSlide>
             ))}
-          </div>
+
+            {/* navigation */}
+            <div className="group-hover:opacity-100 opacity-0 transition-opacity duration-300 absolute top-1/2 -translate-y-1/2 w-full z-30">
+              <button className="popular-prev nav-button left-8 absolute">
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button className="popular-next nav-button right-8 absolute">
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </Swiper>
         </Card>
       )}
 
@@ -340,40 +372,43 @@ export default function BusinessArtistsPage() {
       {(tab === "all" || tab === "browsed") && (
         <Card>
           <SectionHeader title="Most browsed" subtitle="By views in the last 30 days" />
-          <div className="flex gap-4 overflow-x-auto snap-x">
+          <Swiper
+            spaceBetween={16}
+            slidesPerView={1}
+            modules={[FreeMode, Navigation]}
+            breakpoints={{
+              768: { slidesPerView: 2 },
+              1024: { slidesPerView: 5 },
+            }}
+            navigation={{
+              nextEl: ".browsed-next",
+              prevEl: ".browsed-prev",
+            }}
+            className="group business-browsed-artists-swiper"
+          >
             {browsed.map((a) => (
-              <div key={a.id} className="min-w-[260px] snap-start">
+              <SwiperSlide key={a.id}>
                 <div className="relative">
                   <ArtistCard a={a} />
                   <div className="absolute top-3 right-3 text-[11px] px-2 py-0.5 rounded-full bg-black/60 border border-white/10 inline-flex items-center gap-1">
                     <Eye className="h-3.5 w-3.5" /> {a.views}
                   </div>
                 </div>
-              </div>
+              </SwiperSlide>
             ))}
-          </div>
+
+            {/* navigation */}
+            <div className="group-hover:opacity-100 opacity-0 transition-opacity duration-300 absolute top-1/2 -translate-y-1/2 w-full z-30">
+              <button className="browsed-prev nav-button left-8 absolute">
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button className="browsed-next nav-button right-8 absolute">
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+          </Swiper>
         </Card>
       )}
-
-      {/* All artists grid */}
-      <Card>
-        <SectionHeader title="All artists" subtitle={`${allFiltered.length} found`} />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {allFiltered.map((a) => (
-            <ArtistCard key={a.id} a={a} />
-          ))}
-        </div>
-        {allFiltered.length === 0 && (
-          <div className="py-12 text-center text-white/70">
-            No artists match your filters
-          </div>
-        )}
-        <div className="mt-4 text-center">
-          <button className="px-4 py-2 rounded-lg bg-white/10 border border-white/10 text-sm">
-            Load more
-          </button>
-        </div>
-      </Card>
 
       {/* Footer helper */}
       <div className="rounded-xl border border-white/10 bg-white/5 p-4 flex items-start gap-3">

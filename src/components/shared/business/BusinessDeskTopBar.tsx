@@ -1,9 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
+import { UserDropdown } from "@/components";
 
-const DeskTopBar = () => {
+const BusinessDeskTopBar = ({
+  user,
+}: {
+  user: { name: string; email: string; image: string };
+}) => {
   return (
-    <header className="sticky top-0 z-20 backdrop-blur-xl  border-b border-white/10 bg-gradient-to-r from-brand-3/10 to-base-900/10">
+    <header className="sticky top-0 z-20 bg-base-900 backdrop-blur-xl  border-b border-white/10 bg-gradient-to-r from-brand-4/10 to-base-900/10">
       <div className="px-6 py-4 flex items-center gap-4">
         <Link href="/">
           <Image
@@ -37,9 +42,19 @@ const DeskTopBar = () => {
             </svg>
           </div>
         </div>
+
+        <UserDropdown
+          user={user}
+          align="right"
+          onLogout={() => console.log("logout")}
+          items={[
+            { type: "link", label: "Settings", href: "/dashboard/business/settings" },
+          ]}
+          className="ml-auto"
+        />
       </div>
     </header>
   );
 };
 
-export default DeskTopBar;
+export default BusinessDeskTopBar;
