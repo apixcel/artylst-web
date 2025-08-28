@@ -135,7 +135,7 @@ const FavoritesPage = () => {
           />
         </div>
         {/* Tag */}
-        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
           <Filter className="h-4 w-4 text-white/60" />
           <Dropdown
             value={{ label: tag, value: tag } as DropdownOption<string>}
@@ -147,7 +147,7 @@ const FavoritesPage = () => {
           />
         </div>
         {/* Sort */}
-        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
           <span className="text-white/60 text-sm">Sort</span>
           <Dropdown
             className="w-full"

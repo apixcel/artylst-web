@@ -5,13 +5,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/utils";
 import { businessDashboardLink } from "@/constants";
+import { SidebarUserCard } from "@/components";
 
-const Sidebar = ({
+const BusinessSidebar = ({
   isOpen,
   setIsOpen,
+  user,
 }: {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  user: { name: string; email: string; image: string };
 }) => {
   const pathname = usePathname();
 
@@ -69,28 +72,14 @@ const Sidebar = ({
 
       {/* Footer */}
       <div className="mt-auto p-3">
+        <SidebarUserCard isOpen={isOpen} user={user} />
+
         <div
           className={cn(
-            "rounded-xl border border-white/10 bg-gradient-to-tr from-brand-1/15 to-brand-5/10",
-            isOpen ? "p-4" : "p-2"
+            "text-[11px] text-center text-white/50 mt-3",
+            !isOpen && "text-center"
           )}
         >
-          {isOpen ? (
-            <>
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-xl bg-[url('https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp')] bg-cover"></div>
-                <div className="flex flex-col gap-1">
-                  <div className="text-xs text-white/60">Business</div>
-                  <div className="text-sm font-heading">aida@gmail.com</div>
-                </div>
-              </div>
-            </>
-          ) : (
-            <div className="h-10 w-10 rounded-xl bg-[url('https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp')] bg-cover"></div>
-          )}
-        </div>
-
-        <div className={cn("text-[11px] text-white/50 mt-3", !isOpen && "text-center")}>
           {isOpen ? "© 2025 ARTYLST" : "© 2025"}
         </div>
       </div>
@@ -98,4 +87,4 @@ const Sidebar = ({
   );
 };
 
-export default Sidebar;
+export default BusinessSidebar;

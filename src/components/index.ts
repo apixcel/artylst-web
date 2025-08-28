@@ -5,15 +5,20 @@ export { default as Pagination } from "./shared/Pagination";
 export { default as Dropdown } from "./shared/Dropdown";
 export { default as Review } from "./shared/Review";
 export { default as MobileNav } from "./shared/MobileNav";
+export { default as UserDropdown } from "./shared/UserDropdown";
+export { default as ArtistDeskTopBar } from "./shared/artist/ArtistDeskTopBar";
+export { default as BusinessDeskTopBar } from "./shared/business/BusinessDeskTopBar";
 
 // shared/main
 export { default as MainHeader } from "./shared/main/MainHeader";
 export { default as MainFooter } from "./shared/main/MainFooter";
 // shared/business
 export { default as BusinessHeader } from "./shared/business/BusinessHeader";
+export { default as BusinessSidebar } from "./shared/business/BusinessSidebar";
 export { default as BusinessFooter } from "./shared/business/BusinessFooter";
 // shared/enroll
-export { default as EnrollHeader } from "./shared/enroll/EnrollHeader";
+export { default as EnrollHeader } from "./shared/artist/EnrollHeader";
+export { default as ArtistSidebar } from "./shared/artist/ArtistSidebar";
 
 /* home */
 export { default as HomeHero } from "./home/HomeHero";
@@ -63,9 +68,9 @@ export { default as BusinessSecurity } from "./business/BusinessSecurity";
 export { default as BusinessCTA } from "./business/BusinessCTA";
 
 // dashboard
-export { default as Sidebar } from "./dashboard/Sidebar";
 export { default as MobTopBar } from "./dashboard/MobTopBar";
-export { default as DeskTopBar } from "./dashboard/DeskTopBar";
 export { default as ProfileSettings } from "./dashboard/business/ProfileSettings";
 export { default as PaymentMethods } from "./dashboard/business/PaymentMethods";
 export { default as LoginAndSecurity } from "./dashboard/business/LoginAndSecurity";
+export { default as SidebarUserCard } from "./dashboard/SidebarUserCard";
+export { default as DashboardArtistCard } from "./dashboard/DashboardArtistCard";
