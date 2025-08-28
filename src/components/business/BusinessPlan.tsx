@@ -8,9 +8,11 @@ const BusinessPlan = () => {
         <h2 className="font-heading text-xl mb-3">Pricing</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div className="card p-5">
-            <div className="text-sm text-white/70">Starter</div>
-            <div className="text-2xl font-heading mt-1">$49</div>
-            <ul className="mt-3 text-sm text-white/75 space-y-1">
+            <h2 className="text-[16px] text-muted text-center font-bricolage-grotesque uppercase mb-3">
+              Starter
+            </h2>
+            <h3 className="text-2xl text-center mb-3">$49</h3>
+            <ul className="text-sm text-light space-y-1 text-center">
               <li>• 1 playlist</li>
               <li>• 30s auth video</li>
               <li>• 1 revision</li>
@@ -21,9 +23,11 @@ const BusinessPlan = () => {
           </div>
 
           <div className="card p-5 border-brand/40">
-            <div className="text-sm text-white/70">Business</div>
-            <div className="text-2xl font-heading mt-1">$99</div>
-            <ul className="mt-3 text-sm text-white/75 space-y-1">
+            <h2 className="text-[16px] text-muted text-center font-bricolage-grotesque uppercase mb-3">
+              Business
+            </h2>
+            <h3 className="text-2xl text-center mb-3">$99</h3>
+            <ul className="text-sm text-light space-y-1 text-center">
               <li>• 2 dayparts</li>
               <li>• 30s auth video</li>
               <li>• 2 revisions</li>
@@ -34,9 +38,11 @@ const BusinessPlan = () => {
           </div>
 
           <div className="card p-5">
-            <div className="text-sm text-white/70">Premium</div>
-            <div className="text-2xl font-heading mt-1">$149</div>
-            <ul className="mt-3 text-sm text-white/75 space-y-1">
+            <h2 className="text-[16px] text-muted text-center font-bricolage-grotesque uppercase mb-3">
+              Premium
+            </h2>
+            <h3 className="text-2xl text-center mb-3">$149</h3>
+            <ul className="text-sm text-light space-y-1 text-center">
               <li>• 3+ dayparts</li>
               <li>• 30s auth video</li>
               <li>• Priority curation</li>

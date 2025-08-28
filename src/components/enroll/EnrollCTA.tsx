@@ -29,7 +29,7 @@ const EnrollCTA = () => {
             mailto:talent@artylst.com
           </Link>
           <Link
-            href="/artists"
+            href="/enroll-form"
             className="text-[16px] font-[500] bg-light text-black sm:px-[32px] px-[20px] sm:py-[16px] py-[12px] rounded-[100px] hover:bg-light/80 transition-all duration-300"
           >
             Apply as Artist

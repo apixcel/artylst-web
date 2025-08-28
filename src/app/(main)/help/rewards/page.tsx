@@ -47,7 +47,7 @@ const RewardsPage = () => {
               </a>
             </li>
           </ul>
-          <a href="#" className="text-purple-500 hover:underline text-md">
+          <a href="#" className="text-brand-4 hover:underline text-md">
             View all 7
           </a>
         </div>

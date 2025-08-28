@@ -31,7 +31,7 @@ const BusinessCTA = () => {
             Contact us
           </Link>
           <Link
-            href="/business/request"
+            href="/business-form"
             className="text-[16px] font-[500] bg-light text-black px-[20px] sm:px-[32px] py-[12px] sm:py-[16px] rounded-[100px] hover:bg-light/80 transition-all duration-300"
           >
             Start a request
