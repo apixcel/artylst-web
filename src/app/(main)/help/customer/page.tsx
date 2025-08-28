@@ -47,7 +47,7 @@ const CustomerPage = () => {
               </a>
             </li>
           </ul>
-          <a href="#" className="text-purple-500 hover:underline text-md">
+          <a href="#" className="text-brand-4 hover:underline text-md">
             View all 11
           </a>
         </div>
@@ -86,7 +86,7 @@ const CustomerPage = () => {
               </a>
             </li>
           </ul>
-          <a href="#" className="text-purple-500 hover:underline text-md">
+          <a href="#" className="text-brand-4 hover:underline text-md">
             View all 4
           </a>
         </div>
@@ -125,7 +125,7 @@ const CustomerPage = () => {
               </a>
             </li>
           </ul>
-          <a href="#" className="text-purple-500 hover:underline text-md">
+          <a href="#" className="text-brand-4 hover:underline text-md">
             View all 9
           </a>
         </div>
@@ -165,7 +165,7 @@ const CustomerPage = () => {
               </a>
             </li>
           </ul>
-          <a href="#" className="text-purple-500 hover:underline text-md">
+          <a href="#" className="text-brand-4 hover:underline text-md">
             View all 3
           </a>
         </div>
@@ -204,7 +204,7 @@ const CustomerPage = () => {
               </a>
             </li>
           </ul>
-          <a href="#" className="text-purple-500 hover:underline text-md">
+          <a href="#" className="text-brand-4 hover:underline text-md">
             View all 12
           </a>
         </div>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const CustomerIcon = ({ size = 100, secondaryColor = "#a434e5" }) => {
+const CustomerIcon = ({ size = 100, secondaryColor = "#05ca97" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

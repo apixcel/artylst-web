@@ -7,7 +7,7 @@ const Artylstpage = () => {
       {/* Section Title */}
       <div className="flex items-center gap-3 mb-6">
         <h2 className="text-xl font-semibold text-white">
-          I&#39;m aTalent on Cameo <span>(2)</span>
+          I&#39;m a Talent on Artylst <span>(2)</span>
         </h2>
       </div>
 
@@ -55,7 +55,7 @@ const Artylstpage = () => {
               </a>
             </li>
           </ul>
-          <a href="#" className="text-purple-500 hover:underline text-md">
+          <a href="#" className="text-brand-4 hover:underline text-md">
             View all 4
           </a>
         </div>
@@ -102,7 +102,7 @@ const Artylstpage = () => {
               </a>
             </li>
           </ul>
-          <a href="#" className="text-purple-500 hover:underline text-md">
+          <a href="#" className="text-brand-4 hover:underline text-md">
             View all 9
           </a>
         </div>

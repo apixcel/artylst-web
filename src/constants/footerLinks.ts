@@ -52,7 +52,7 @@ export const footerLinks = [
     links: [
       {
         title: "Browse artists",
-        route: "/help",
+        route: "/artists",
       },
       {
         title: "How it works",
@@ -60,11 +60,11 @@ export const footerLinks = [
       },
       {
         title: "For business",
-        route: "/refund-returns",
+        route: "/business",
       },
       {
         title: "Join as artist",
-        route: "/refund-returns",
+        route: "/enroll-form",
       },
     ],
   },

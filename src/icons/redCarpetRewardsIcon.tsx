@@ -3,7 +3,7 @@ import React from "react";
 const RedCarpetRewardsIcon = ({
   size = 100,
   primaryColor = "#475867",
-  secondaryColor = "#a434e5",
+  secondaryColor = "#05ca97",
 }) => {
   return (
     <svg

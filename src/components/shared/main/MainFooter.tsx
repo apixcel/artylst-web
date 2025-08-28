@@ -34,7 +34,7 @@ const MainFooter = () => {
                 />
                 <button
                   type="submit"
-                  className="absolute right-[10px] top-1/2 -translate-y-1/2 rounded-full bg-primary flex-center w-[36px] h-[36px]"
+                  className="absolute right-[10px] top-1/2 -translate-y-1/2 rounded-full bg-brand-4/80 flex-center w-[36px] h-[36px]"
                 >
                   <ArrowRightIcon className="w-5  h-5 text-white" />
                 </button>
