@@ -1,7 +1,20 @@
+import Link from "next/link";
+import Image from "next/image";
+
 const DeskTopBar = () => {
   return (
     <header className="sticky top-0 z-20 backdrop-blur-xl  border-b border-white/10 bg-gradient-to-r from-brand-3/10 to-base-900/10">
       <div className="px-6 py-4 flex items-center gap-4">
+        <Link href="/">
+          <Image
+            src="/images/logo/logo-white.png"
+            alt="logo"
+            width={100}
+            height={24}
+            className="w-[60px] h-auto"
+          />
+        </Link>
+
         <div className="hidden md:flex items-center gap-2 flex-1 max-w-2xl">
           <div className="relative flex-1">
             <input
@@ -23,13 +36,6 @@ const DeskTopBar = () => {
               />
             </svg>
           </div>
-        </div>
-        <div className="ml-auto flex items-center gap-3">
-          <div className="text-right hidden sm:block">
-            <div className="text-xs text-white/60">Admin</div>
-            <div className="text-sm font-heading">you@artylst</div>
-          </div>
-          <div className="h-10 w-10 rounded-xl bg-[url('https://i.pravatar.cc/100?img=16')] bg-cover"></div>
         </div>
       </div>
     </header>

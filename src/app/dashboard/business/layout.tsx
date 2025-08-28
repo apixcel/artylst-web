@@ -4,12 +4,12 @@ import { DeskTopBar, MobTopBar, Sidebar } from "@/components";
 import { useState } from "react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   return (
     <div className="flex min-h-screen">
       {/* desktop sidebar */}
-      <Sidebar />
+      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
 
       {/* mobile top bar */}
       <MobTopBar />
@@ -19,6 +19,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
         <DeskTopBar />
         <main className="p-6">{children}</main>
       </div>
+      {/* <footer>© 2025 ARTYLST</footer> */}
     </div>
   );
 };

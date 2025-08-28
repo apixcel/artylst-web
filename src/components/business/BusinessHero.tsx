@@ -16,7 +16,7 @@ const BusinessHero = () => {
 
         <div className="my-[20px] flex sm:flex-row flex-col justify-center items-center gap-[16px]">
           <Link
-            href="/#"
+            href="/business-form"
             className="px-8 py-3 rounded-full font-semibold text-white 
                bg-gradient-to-b from-brand-1/50 to-brand-3/40 
                border border-brand-4/10 

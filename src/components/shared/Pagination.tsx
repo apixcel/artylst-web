@@ -34,7 +34,7 @@ const PaginationText = ({
   const end = Math.min(currentPage * limit, totalDocs);
 
   return (
-    <p className={twMerge("text-sm text-primary", className)}>
+    <p className={twMerge("text-sm text-light", className)}>
       Showing <span className="font-medium">{start}</span> to{" "}
       <span className="font-medium">{end}</span> of{" "}
       <span className="font-medium">{totalDocs}</span> items
@@ -114,7 +114,7 @@ const Pagination = ({
         <button
           type="button"
           onClick={() => handlePageChange(currentPage - 1)}
-          className="cursor-pointer hover:text-brand-4 disabled:text-muted border-white/20 "
+          className="cursor-pointer hover:text-brand-4 disabled:text-muted border-white/20"
           aria-label="Previous page"
           disabled={currentPage <= 1}
         >

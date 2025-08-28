@@ -25,7 +25,7 @@ const ArticleDetailsPage = () => {
         <p className="mb-6">
           <span className="font-semibold">Artylst.com:</span> You can go to your orders
           page from the Artylst site,{" "}
-          <a href="#" className="text-purple-500 hover:underline">
+          <a href="#" className="text-brand-4 hover:underline">
             Artylst.com/orders
           </a>
           , and tap the “view” button on your completed Artylst video. From there,
@@ -39,13 +39,13 @@ const ArticleDetailsPage = () => {
         <div className="text-center">
           <p className="font-medium mb-3">Was this article helpful?</p>
           <div className="flex justify-center gap-4">
-            <button className="px-4 py-2 border border-white/10 rounded-md flex items-center gap-2 hover:bg-purple-500">
+            <button className="px-4 py-2 border border-white/10 rounded-md flex items-center gap-2 hover:bg-brand-4/80">
               <span>
                 <Frown />
               </span>{" "}
               No
             </button>
-            <button className="px-4 py-2 border border-white/10 rounded-md flex items-center gap-2 hover:bg-purple-500">
+            <button className="px-4 py-2 border border-white/10 rounded-md flex items-center gap-2 hover:bg-brand-4/80">
               <span>
                 <Smile />
               </span>{" "}
@@ -66,25 +66,25 @@ const ArticleDetailsPage = () => {
           <ul className="space-y-2  text-sm">
             <li className="flex items-center gap-2">
               <FileText />{" "}
-              <a href="#" className="hover:underline text-purple-500">
+              <a href="#" className="hover:underline text-brand-4">
                 How can I check the status of my Artylst video?
               </a>
             </li>
             <li className="flex items-center gap-2">
               <FileText />{" "}
-              <a href="#" className="hover:underline text-purple-500">
+              <a href="#" className="hover:underline text-brand-4">
                 Can I edit the instructions after I send my Artylst video request?
               </a>
             </li>
             <li className="flex items-center gap-2">
               <FileText />{" "}
-              <a href="#" className="hover:underline text-purple-500">
+              <a href="#" className="hover:underline text-brand-4">
                 How do I cancel my Artylst video request?
               </a>
             </li>
             <li className="flex items-center gap-2">
               <FileText />{" "}
-              <a href="#" className="hover:underline text-purple-500">
+              <a href="#" className="hover:underline text-brand-4">
                 My Artylst video expired! What do I do?
               </a>
             </li>
@@ -96,25 +96,25 @@ const ArticleDetailsPage = () => {
           <ul className="space-y-2  text-sm">
             <li className="flex items-center gap-2">
               <FileText />{" "}
-              <a href="#" className="hover:underline text-purple-500">
+              <a href="#" className="hover:underline text-brand-4">
                 How do I share my Artylst video?
               </a>
             </li>
             <li className="flex items-center gap-2">
               <FileText />{" "}
-              <a href="#" className="hover:underline text-purple-500">
+              <a href="#" className="hover:underline text-brand-4">
                 Is there a limit to how long I can use my business video?
               </a>
             </li>
             <li className="flex items-center gap-2">
               <FileText />{" "}
-              <a href="#" className="hover:underline text-purple-500">
+              <a href="#" className="hover:underline text-brand-4">
                 How will I receive my Artylst video?
               </a>
             </li>
             <li className="flex items-center gap-2">
               <FileText />{" "}
-              <a href="#" className="hover:underline text-purple-500">
+              <a href="#" className="hover:underline text-brand-4">
                 When will I be charged for my Artylst video?
               </a>
             </li>

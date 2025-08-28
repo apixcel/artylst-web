@@ -45,7 +45,7 @@ const SubmitTicketPage = () => {
               placeholder="Subject"
               value={formData.subject}
               onChange={handleChange}
-              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-purple-200 focus:border-purple-500 bg-transparent"
+              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-light focus:border-brand-4 bg-transparent"
               required
             />
           </div>
@@ -62,7 +62,7 @@ const SubmitTicketPage = () => {
               value={formData.requester}
               placeholder="Type requester"
               onChange={handleChange}
-              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-purple-200 focus:border-purple-500 bg-transparent"
+              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-light focus:border-brand-4 bg-transparent"
               required
             />
           </div>
@@ -79,7 +79,7 @@ const SubmitTicketPage = () => {
               onChange={handleChange}
               rows={6}
               placeholder="Type something"
-              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-purple-200 focus:border-purple-500 bg-transparent"
+              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-light focus:border-brand-4 bg-transparent"
               required
             />
           </div>
@@ -88,7 +88,7 @@ const SubmitTicketPage = () => {
           <div>
             <label
               htmlFor="attachment"
-              className="text-purple-500 text-sm cursor-pointer flex items-center gap-1"
+              className="text-brand-4 text-sm cursor-pointer flex items-center gap-1"
             >
               📎 Attachment
             </label>
@@ -123,7 +123,7 @@ const SubmitTicketPage = () => {
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-violet-600 text-white rounded-md hover:bg-violet-800"
+              className="px-4 py-2 bg-brand-4 text-white rounded-md hover:bg-brand-4/80"
             >
               Submit
             </button>

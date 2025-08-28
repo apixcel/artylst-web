@@ -119,20 +119,33 @@ function AccordionItem({
         aria-controls={id}
       >
         <ChevronRight
-          className={`h-4 w-4 shrink-0 mt-[4px] transition-transform ${open ? "rotate-90" : "rotate-0"}`}
+          className={`h-4 w-4 shrink-0 mt-[4px] transition-transform duration-300 ${open ? "rotate-90" : "rotate-0"}`}
           aria-hidden="true"
         />
         <span className="font-medium text-[16px]">{question}</span>
       </button>
 
-      {/* Simple, reliable toggle */}
+      {/* Smooth open/close */}
       <div
         id={id}
         role="region"
         aria-hidden={!open}
-        className={`${open ? "block" : "hidden"} px-11 pb-4 text-sm`}
+        className={`
+          grid overflow-hidden px-11
+          transition-[grid-template-rows] duration-300 ease-out
+          ${open ? "grid-rows-[1fr] pb-4" : "grid-rows-[0fr] pb-0"}
+        `}
       >
-        <p className="leading-relaxed text-muted text-base">{answer}</p>
+        <div className="min-h-0">
+          <p
+            className={`
+              leading-relaxed text-muted text-base
+              transition-opacity duration-300 ${open ? "opacity-100" : "opacity-0"}
+            `}
+          >
+            {answer}
+          </p>
+        </div>
       </div>
     </div>
   );
