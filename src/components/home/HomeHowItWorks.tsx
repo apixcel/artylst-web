@@ -37,7 +37,7 @@ const HomeHowItWorks = () => {
         <h2 className="mb-[4px]">How Artylist works</h2>
         <p>
           Get a personalized playlist in just four steps.{" "}
-          <Link href="/about" className="underline font-[500]">
+          <Link href="/about-us" className="underline font-[500]">
             Learn more
           </Link>
         </p>

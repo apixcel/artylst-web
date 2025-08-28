@@ -6,23 +6,15 @@ export const footerLinks = [
     links: [
       {
         title: "About",
-        route: "/about",
+        route: "/about-us",
       },
       {
         title: "Team",
-        route: "/about",
-      },
-      {
-        title: "Jobs",
-        route: "/about",
+        route: "/team",
       },
       {
         title: "Blog",
-        route: "/about",
-      },
-      {
-        title: "Press",
-        route: "/press",
+        route: "https://medium.com/artlst",
       },
     ],
   },
