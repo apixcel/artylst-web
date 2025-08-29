@@ -6,7 +6,7 @@ const ArtistDeskTopBar = ({
   user: { name: string; email: string; image: string };
 }) => {
   return (
-    <header className="sticky top-0 z-20 bg-base-900 backdrop-blur-xl  border-b border-white/10 bg-gradient-to-r from-brand-4/10 to-base-900/10">
+    <header className="sticky top-0 z-20 backdrop-blur-xl border-b border-white/10 bg-gradient-to-r from-brand-3/10 to-base-900/10">
       <div className="px-6 py-4 flex items-center gap-4">
         <div className="hidden md:flex items-center gap-2 flex-1 max-w-2xl">
           <div className="relative flex-1">
