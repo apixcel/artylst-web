@@ -1,13 +1,6 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
-import { GoogleIcon } from "@/icons";
 
 const ProfileSettings = () => {
-  const [isNameEditing, setIsNameEditing] = useState(false);
-  const [isCompanyNameEditing, setIsCompanyNameEditing] = useState(false);
-  const [isEmailEditing, setIsEmailEditing] = useState(false);
   return (
     <div>
       {/* profile photo */}
@@ -39,69 +32,48 @@ const ProfileSettings = () => {
         <div className="flex justify-between items-start gap-10">
           <div className="flex flex-col gap-2 flex-1">
             <h3 className="font-bricolage-grotesque">Name</h3>
-            {isNameEditing ? (
+            <div className="flex items-center gap-4 justify-between">
               <input
                 className="w-full bg-white/10 rounded-lg px-3 py-2"
                 placeholder="Full name"
+                readOnly
+                value={"Aida Kirakosyan"}
               />
-            ) : (
-              <p className="text-sm text-muted">Aida Kirakosyan</p>
-            )}
+              <button className="btn btn-primary">Edit</button>
+            </div>
           </div>
-
-          <button
-            className="btn btn-primary"
-            onClick={() => setIsNameEditing(!isNameEditing)}
-          >
-            {isNameEditing ? "Save" : "Edit"}
-          </button>
         </div>
 
         {/* company name */}
         <div className="flex justify-between items-start gap-10">
           <div className="flex flex-col gap-2 flex-1">
             <h3 className="font-bricolage-grotesque">Company Name</h3>
-            {isCompanyNameEditing ? (
+            <div className="flex items-center gap-4 justify-between w-full">
               <input
                 className="w-full bg-white/10 rounded-lg px-3 py-2"
                 placeholder="Company name"
+                value={"Aida Kirakosyan Company"}
+                readOnly
               />
-            ) : (
-              <p className="text-sm text-muted">Aida Kirakosyan Company</p>
-            )}
+              <button className="btn btn-primary">Edit</button>
+            </div>
           </div>
-
-          <button
-            className="btn btn-primary"
-            onClick={() => setIsCompanyNameEditing(!isCompanyNameEditing)}
-          >
-            {isCompanyNameEditing ? "Save" : "Edit"}
-          </button>
         </div>
-      </div>
 
-      {/* email and integrated platforms */}
-      <div className="flex flex-col gap-6">
         {/* email */}
         <div className="flex justify-between items-start gap-10">
           <div className="flex flex-col gap-2 flex-1">
             <h3 className="font-bricolage-grotesque">Email</h3>
-            {isEmailEditing ? (
+            <div className="flex items-center gap-4 justify-between w-full">
               <input
                 className="w-full bg-white/10 rounded-lg px-3 py-2"
                 placeholder="Email"
+                value={"aida@gmail.com"}
+                readOnly
               />
-            ) : (
-              <p className="text-sm text-muted">aida@gmail.com</p>
-            )}
+              <button className="btn btn-primary">Edit</button>
+            </div>
           </div>
-
-          <button
-            className="btn btn-primary"
-            onClick={() => setIsEmailEditing(!isEmailEditing)}
-          >
-            {isEmailEditing ? "Save" : "Edit"}
-          </button>
         </div>
       </div>
     </div>

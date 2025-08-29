@@ -77,19 +77,19 @@ const Sidebar = ({
         >
           {isOpen ? (
             <>
-              <div className="text-sm font-heading">Status</div>
-              <div className="mt-2 flex items-center gap-2 text-xs text-white/70">
-                <span className="h-2 w-2 rounded-full bg-emerald-400"></span> All systems
-                operational
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-xl bg-[url('https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp')] bg-cover"></div>
+                <div className="flex flex-col gap-1">
+                  <div className="text-xs text-white/60">Business</div>
+                  <div className="text-sm font-heading">aida@gmail.com</div>
+                </div>
               </div>
             </>
           ) : (
-            <span
-              className="block h-2 w-2 rounded-full bg-emerald-400 mx-auto"
-              title="All systems operational"
-            />
+            <div className="h-10 w-10 rounded-xl bg-[url('https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp')] bg-cover"></div>
           )}
         </div>
+
         <div className={cn("text-[11px] text-white/50 mt-3", !isOpen && "text-center")}>
           {isOpen ? "© 2025 ARTYLST" : "© 2025"}
         </div>

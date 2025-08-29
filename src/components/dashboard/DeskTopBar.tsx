@@ -37,13 +37,6 @@ const DeskTopBar = () => {
             </svg>
           </div>
         </div>
-        <div className="ml-auto flex items-center gap-3">
-          <div className="text-right hidden sm:block">
-            <div className="text-xs text-white/60">Admin</div>
-            <div className="text-sm font-heading">you@artylst</div>
-          </div>
-          <div className="h-10 w-10 rounded-xl bg-[url('https://i.pravatar.cc/100?img=16')] bg-cover"></div>
-        </div>
       </div>
     </header>
   );

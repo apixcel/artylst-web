@@ -9,7 +9,7 @@ export const mainNavLinks = [
   },
   {
     label: "How it Works",
-    href: "/about",
+    href: "/about-us",
   },
   {
     label: "Join as artists",
