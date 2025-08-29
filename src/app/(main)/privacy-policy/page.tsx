@@ -3,7 +3,7 @@ import React from "react";
 
 const Privacypage = () => {
   return (
-    <div className="wrapper max-w-3xl" id="top">
+    <div className="" id="top">
       <section className="py-16 text-white">
         {/* Title */}
         <h1 className="text-center text-4xl font-bold mb-6">Privacy Policy</h1>
@@ -20,7 +20,7 @@ const Privacypage = () => {
         </p>
 
         {/* Intro */}
-        <p className="max-w-3xl mx-auto mb-12 text-gray-200 leading-relaxed">
+        <p className=" mx-auto mb-12 text-gray-200 leading-relaxed">
           We value your trust and take your privacy seriously. This Privacy Policy
           describes the types of information we collect, how we use it, with whom we may
           share it, and the choices available to you regarding our use of your personal
@@ -31,7 +31,7 @@ const Privacypage = () => {
         </p>
 
         {/* Table of Contents */}
-        <div className="max-w-3xl mx-auto">
+        <div className=" mx-auto">
           <h2 className="text-2xl font-semibold mb-4">Table of Contents</h2>
           <ol className="grid grid-cols-1 sm:grid-cols-2 gap-3 list-decimal list-inside">
             <li>

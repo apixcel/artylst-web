@@ -7,7 +7,7 @@ const Refundpage = () => {
       <p className="text-gray-400 mb-8 text-xl">Last Updated: November 27, 2024</p>
 
       {/* Content */}
-      <div className="space-y-8 leading-relaxed text-lg max-w-4xl">
+      <div className="space-y-8 leading-relaxed text-lg">
         {/* Intro */}
         <p>
           Here&#39;s the short version: if your video booking request isn&#39;t fulfilled,
