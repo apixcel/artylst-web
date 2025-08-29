@@ -1,5 +1,3 @@
-import Link from "next/link";
-import Image from "next/image";
 import { UserDropdown } from "@/components";
 
 const BusinessDeskTopBar = ({
@@ -8,18 +6,8 @@ const BusinessDeskTopBar = ({
   user: { name: string; email: string; image: string };
 }) => {
   return (
-    <header className="sticky top-0 z-20 bg-base-900 backdrop-blur-xl  border-b border-white/10 bg-gradient-to-r from-brand-4/10 to-base-900/10">
+    <header className="sticky top-0 z-20 backdrop-blur-xl border-b border-white/10 bg-gradient-to-r from-brand-3/10 to-base-900/10">
       <div className="px-6 py-4 flex items-center gap-4">
-        <Link href="/">
-          <Image
-            src="/images/logo/logo-white.png"
-            alt="logo"
-            width={100}
-            height={24}
-            className="w-[60px] h-auto"
-          />
-        </Link>
-
         <div className="hidden md:flex items-center gap-2 flex-1 max-w-2xl">
           <div className="relative flex-1">
             <input

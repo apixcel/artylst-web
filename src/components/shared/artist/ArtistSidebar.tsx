@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/utils";
 import { artistDashboardLink } from "@/constants";
 import { SidebarUserCard } from "@/components";
+import Image from "next/image";
 
 const ArtistSidebar = ({
   isOpen,
@@ -21,29 +22,44 @@ const ArtistSidebar = ({
   return (
     <aside
       className={cn(
-        "hidden lg:flex shrink-0 flex-col border-r border-white/10 bg-gradient-to-b from-brand-3/10 to-base-900/10 backdrop-blur-xl sticky top-0 h-screen overflow-y-auto transition-all duration-300",
+        "hidden lg:flex shrink-0 flex-col border-r border-white/10 bg-gradient-to-b from-brand-3/10 to-base-900/10 backdrop-blur-xl sticky top-0 h-screen overflow-y-auto transition-all duration-300 custom-scrollbar",
         isOpen ? "w-72" : "w-20"
       )}
     >
-      {/* toggle */}
-      <div
-        className={cn(
-          "px-3 py-6 flex items-center gap-3",
-          isOpen ? "justify-end" : "justify-center"
+      <div className="flex items-center justify-center">
+        {/* logo */}
+        {isOpen && (
+          <Link href="/" className="flex justify-center w-full">
+            <Image
+              src="/images/logo/logo-white.png"
+              alt="logo"
+              width={100}
+              height={24}
+              className="w-[60px] h-auto"
+            />
+          </Link>
         )}
-      >
-        {/* Toggle button — always visible */}
-        <button
-          className="text-white/60 hover:text-white rounded-lg p-2 mb-auto"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
-        >
-          {isOpen ? (
-            <ChevronLeft className="w-5 h-5" />
-          ) : (
-            <ChevronRight className="w-5 h-5" />
+
+        {/* toggle */}
+        <div
+          className={cn(
+            "px-3 py-6 flex items-center gap-3 float-right",
+            isOpen ? "justify-end ml-auto" : "justify-center"
           )}
-        </button>
+        >
+          {/* Toggle button — always visible */}
+          <button
+            className="text-white/60 hover:text-white rounded-lg p-2 mb-auto"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
+          >
+            {isOpen ? (
+              <ChevronLeft className="w-5 h-5" />
+            ) : (
+              <ChevronRight className="w-5 h-5" />
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Nav */}

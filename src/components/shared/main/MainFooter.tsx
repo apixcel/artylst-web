@@ -2,6 +2,7 @@ import { ArrowRightIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { footerLinks } from "@/constants";
+import { TiktokIcon, TwitterIcon } from "@/icons";
 
 const MainFooter = () => {
   return (
@@ -132,33 +133,12 @@ const MainFooter = () => {
                 </Link>
                 {/* tiktok */}
                 <Link href="#" className="footer-social-link">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={17}
-                    height={17}
-                    viewBox="0 0 48 48"
-                  >
-                    <path
-                      fill="currentColor"
-                      fillRule="evenodd"
-                      d="m23.757 4.627l-.62 28.989c-.012 3.257-2.624 5.946-5.909 5.946c-3.292 0-5.91-2.702-5.91-5.97c0-2.253 1.226-3.95 2.749-4.964a2 2 0 1 1 2.216 3.33c-.642.428-.964.978-.964 1.634c0 1.117.883 1.97 1.91 1.97s1.909-.853 1.909-1.97v-.042l.625-29.26v-.003c.032-1.402.872-2.99 2.62-3.447a10.6 10.6 0 0 1 5.326 0c1.773.462 2.508 2.051 2.671 3.212c.647 4.608 5.343 8.798 10.45 9.312c1.009.1 2.96.632 3.454 2.695c.132.554.216 1.215.216 2.002s-.084 1.45-.216 2.002c-.492 2.058-2.438 2.677-3.756 2.61c-3.287-.166-6.845-.952-9.838-2.334l.266 13.213v.04c0 7.653-6.117 13.908-13.728 13.908S3.5 41.245 3.5 33.592C3.5 26.35 8.595 21.4 14.75 20.06a2 2 0 1 1 .85 3.908c-4.622 1.007-8.1 4.56-8.1 9.625c0 5.5 4.384 9.908 9.728 9.908c5.338 0 9.718-4.397 9.729-9.888l-.339-16.779a2 2 0 0 1 3.224-1.621c2.47 1.912 6.611 3.204 10.629 3.452q.028-.254.029-.603a6 6 0 0 0-.042-.715l-.027-.003c-6.661-.669-13.05-6.027-14.007-12.699a6.6 6.6 0 0 0-2.667-.018"
-                      clipRule="evenodd"
-                    ></path>
-                  </svg>
+                  <TiktokIcon />
                 </Link>
+
                 {/* twitter */}
                 <Link href="#" className="footer-social-link">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={17}
-                    height={17}
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      fill="currentColor"
-                      d="M10.488 14.651L15.25 21h7l-7.858-10.478L20.93 3h-2.65l-5.117 5.886L8.75 3h-7l7.51 10.015L2.32 21h2.65zM16.25 19L5.75 5h2l10.5 14z"
-                    ></path>
-                  </svg>
+                  <TwitterIcon />
                 </Link>
                 {/* facebook */}
                 <Link href="#" className="footer-social-link">
