@@ -147,7 +147,7 @@ const OrdersPage = () => {
       </div>
 
       {/* Filter bar */}
-      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 backdrop-blur-2xl grid gap-3 md:grid-cols-4">
+      <div className="rounded-2xl p-4 border border-white/10 bg-brand-2/10 backdrop-blur-2xl grid gap-3 md:grid-cols-4">
         <div className="md:col-span-1">
           <label className="text-muted mr-2">Status</label>
           <Dropdown
@@ -180,7 +180,7 @@ const OrdersPage = () => {
       </div>
 
       {/* Table */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-white/5 overflow-x-auto">
+      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 overflow-x-auto">
         <table className="w-full">
           <thead className="text-muted border-b border-white/10">
             <tr>
@@ -279,7 +279,7 @@ const OrdersPage = () => {
       </div>
 
       {/* Legend & helpers */}
-      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 text-xs text-white/70 flex flex-wrap gap-3">
+      <div className="rounded-2xl p-4 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 text-xs text-white/70 flex flex-wrap gap-3 backdrop-blur-2xl">
         <div className="inline-flex items-center gap-2">
           <span className="chip bg-yellow-500/10 text-yellow-500">In progress</span> Work
           started • ETA active

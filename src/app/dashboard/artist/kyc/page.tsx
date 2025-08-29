@@ -15,7 +15,7 @@ const ArtistKycPage = () => {
       <h1 className="dashboard-page-title">KYC &amp; Payout</h1>
 
       {/* Status */}
-      <div className="rounded-2xl p-5 border border-white/10 bg-brand-1/20 flex items-center justify-between">
+      <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 flex items-center justify-between backdrop-blur-2xl">
         <div>
           <h3 className="font-bricolage-grotesque">Verification status</h3>
           <p className="text-muted">Complete all steps to enable payouts.</p>
@@ -27,7 +27,7 @@ const ArtistKycPage = () => {
 
       <div className="grid md:grid-cols-2 gap-4">
         {/* Identity */}
-        <div className="rounded-2xl p-6 border border-white/10 bg-white/5 space-y-3">
+        <div className="rounded-2xl p-6 border border-white/10 space-y-3 bg-gradient-to-b from-brand-2/10 to-brand-5/10 backdrop-blur-xl">
           <h3 className="font-bricolage-grotesque">Identity verification</h3>
           <ul className="text-muted space-y-2 mb-5">
             <li className="flex items-center gap-1.5">
@@ -47,7 +47,7 @@ const ArtistKycPage = () => {
         </div>
 
         {/* Payouts */}
-        <div className="rounded-2xl p-6 border border-white/10 bg-white/5 space-y-3">
+        <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-5/10 space-y-3 backdrop-blur-xl">
           <h3 className="font-bricolage-grotesque">Payouts</h3>
           <div className="text-muted">
             Connect Stripe to receive payouts. Artylst never stores bank details.

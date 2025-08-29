@@ -40,14 +40,14 @@ const ArtistAvailabilityPage = () => {
     <section className="p-6 space-y-6">
       <div className="flex items-end justify-between">
         <div>
-          <h1 className="text-2xl md:text-3xl font-heading">Availability</h1>
-          <p className="text-white/60 text-sm mt-1">
+          <h1 className="dashboard-page-title">Availability</h1>
+          <p className="text-muted text-sm mt-1">
             Set your turnaround, queue limits and time off
           </p>
         </div>
         <button
           onClick={() => setOpen((v) => !v)}
-          className={`px-3 py-2 rounded-lg border border-white/10 inline-flex items-center gap-2 ${open ? "bg-emerald-500 hover:bg-emerald-600" : "bg-white/10 hover:bg-white/15"}`}
+          className={`px-3 py-2 rounded-lg border border-white/10 inline-flex items-center gap-2 ${open ? "bg-brand-4/80 hover:bg-brand-4/90" : "bg-white/10 hover:bg-white/15"}`}
         >
           {open ? (
             <PlayCircle className="h-4 w-4" />
@@ -60,8 +60,8 @@ const ArtistAvailabilityPage = () => {
 
       <div className="grid md:grid-cols-2 gap-4">
         {/* Turnaround & queue */}
-        <div className="rounded-2xl p-6 border border-white/10 bg-white/5 space-y-4">
-          <div className="font-heading">Turnaround</div>
+        <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 space-y-4 backdrop-blur-xl">
+          <h3 className="font-bricolage-grotesque">Turnaround</h3>
           <div className="mt-1 grid grid-cols-3 gap-2 text-sm">
             {[
               { label: "48‑72h", value: "48-72h" },
@@ -91,20 +91,20 @@ const ArtistAvailabilityPage = () => {
             />
           </div>
 
-          <div className="rounded-xl p-4 border border-white/10 bg-white/5 text-xs text-white/70 flex items-center gap-2">
+          <div className="rounded-xl p-4 border border-white/10 bg-brand-1/5 text-xs text-muted flex items-center gap-2">
             <Clock className="h-3 w-3" /> Your SLA will show as{" "}
-            <span className="text-white">{turnaround}</span> on your public profile.
+            <span className="text-muted">{turnaround}</span> on your public profile.
           </div>
         </div>
 
         {/* Auto-accept & pause rules */}
-        <div className="rounded-2xl p-6 border border-white/10 bg-white/5 space-y-4">
-          <div className="font-heading">Auto‑accept</div>
-          <div className="text-sm text-white/70">
+        <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 space-y-4 backdrop-blur-xl">
+          <h3 className="font-bricolage-grotesque">Auto‑accept</h3>
+          <div className="text-sm text-muted">
             Auto accept new orders until queue limit, then pause.
           </div>
           <label className="mt-2 inline-flex items-center gap-2 text-sm">
-            <input type="checkbox" defaultChecked className="accent-white" /> Enable
+            <input type="checkbox" defaultChecked className="accent-brand-4" /> Enable
           </label>
 
           <div>
@@ -128,10 +128,10 @@ const ArtistAvailabilityPage = () => {
       </div>
 
       {/* Weekly schedule */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-white/5">
-        <div className="font-heading flex items-center gap-2">
+      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-1/10 to-brand-4/8 space-y-4 backdrop-blur-xl">
+        <h3 className="font-bricolage-grotesque flex items-center gap-2">
           <CalendarDays className="h-4 w-4" /> Weekly schedule
-        </div>
+        </h3>
         <div className="mt-3 grid sm:grid-cols-2 gap-2">
           {"Mon Tue Wed Thu Fri Sat Sun".split(" ").map((d) => (
             <DayRow key={d} day={d} />
@@ -140,8 +140,8 @@ const ArtistAvailabilityPage = () => {
       </div>
 
       {/* Time off / blackout dates */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-white/5">
-        <div className="font-heading">Time off</div>
+      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-4/8 to-brand-1/10 backdrop-blur-xl">
+        <h3 className="font-bricolage-grotesque">Time off</h3>
         <div className="grid sm:grid-cols-3 gap-3 mt-3">
           <div>
             <label className="text-sm text-white/60">Start</label>

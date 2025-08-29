@@ -46,7 +46,7 @@ const MiniStat = ({
   value: string;
   icon: React.ElementType;
 }) => (
-  <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/15">
+  <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10">
     <div className="flex items-center gap-2 text-muted text-base">
       <Icon className="h-5 w-5" /> {label}
     </div>
@@ -150,7 +150,7 @@ const ArtistCard = ({
     </div>
     <Link
       href={`/artists/${slug}`}
-      className="inline-flex items-center gap-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-sm"
+      className="inline-flex justify-center items-center gap-2 px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-sm"
     >
       View profile <ArrowRight className="h-4 w-4" />
     </Link>
@@ -254,7 +254,7 @@ const DashboardArtistPage = () => {
 
       {/* Setup checklist + Earnings snapshot */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-5/10 backdrop-blur-xl">
+        <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-xl">
           <h3 className="font-bricolage-grotesque flex items-center gap-2">
             <Settings className="h-5 w-5" /> Get set up
           </h3>
@@ -268,7 +268,7 @@ const DashboardArtistPage = () => {
           </p>
         </div>
 
-        <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-5/10 backdrop-blur-xl">
+        <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-xl">
           <h3 className="font-bricolage-grotesque flex items-center gap-2">
             <Wallet className="h-5 w-5" /> Earnings snapshot
           </h3>
@@ -290,7 +290,7 @@ const DashboardArtistPage = () => {
 
       {/* Queue + Messages */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-5/10 to-brand-4/10 backdrop-blur-xl">
+        <div className="rounded-2xl p-6 border border-white/10 bg-brand-1/10 backdrop-blur-xl">
           <h3 className="font-bricolage-grotesque">Your queue</h3>
           <div className="mt-3 space-y-3 text-sm">
             {queue.map((o) => (
@@ -306,7 +306,7 @@ const DashboardArtistPage = () => {
             </Link>
           </div>
         </div>
-        <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-5/10 to-brand-4/10 backdrop-blur-xl">
+        <div className="rounded-2xl p-6 border border-white/10 bg-brand-1/10 backdrop-blur-xl">
           <h3 className="font-bricolage-grotesque flex items-center gap-2">
             <MessageSquare className="h-5 w-5" /> Inbox
           </h3>
@@ -330,7 +330,7 @@ const DashboardArtistPage = () => {
       </div>
 
       {/* Guidelines & tips (from docs) */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-r from-brand-5/10 to-brand-2/10 backdrop-blur-xl">
+      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-r from-brand-1/10 to-brand-4/8 backdrop-blur-xl">
         <div className="flex items-center justify-between">
           <h3 className="font-bricolage-grotesque flex items-center gap-2">
             <Sparkles className="h-5 w-5" /> Best practices
@@ -362,7 +362,7 @@ const DashboardArtistPage = () => {
       </div>
 
       {/* Similar to you (based on genres / orders) */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-2/10 backdrop-blur-xl">
+      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-4/8 to-brand-1/10 backdrop-blur-xl">
         <h3 className="font-bricolage-grotesque mb-3 flex items-center gap-2">
           <Headphones className="h-5 w-5" /> Similar to you
         </h3>
@@ -374,7 +374,7 @@ const DashboardArtistPage = () => {
       </div>
 
       {/* Quick actions */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-r from-brand-5/10 to-brand-2/10 backdrop-blur-xl">
+      <div className="rounded-2xl p-6 border border-white/10 bg-brand-1/10 backdrop-blur-xl">
         <h3 className="font-bricolage-grotesque mb-3">Quick actions</h3>
         <div className="flex flex-wrap gap-2 text-sm">
           <Link

@@ -20,7 +20,7 @@ import {
   Youtube,
 } from "lucide-react";
 import { TiktokIcon } from "@/icons";
-import { Dropdown } from "@/components";
+import { Dropdown, MultiDropdown } from "@/components";
 import { DropdownOption } from "@/interface";
 
 const genresOptions: DropdownOption<string>[] = [
@@ -42,10 +42,7 @@ const ArtistProfilePage = () => {
   const [bio, setBio] = useState("Grammy‑winning producer...");
   const publicUrl = `https://lystn.app/${handle.replace("@", "")}`;
 
-  const [genres, setGenres] = useState<DropdownOption<string>>({
-    label: "Select genres",
-    value: "",
-  });
+  const [genres, setGenres] = useState<DropdownOption<string>[]>([]);
 
   return (
     <section className="p-6 space-y-6">
@@ -57,7 +54,7 @@ const ArtistProfilePage = () => {
           </p>
         </div>
         <div className="flex gap-2">
-          <Link href="/tiers" className="btn-tertiary btn gap-1">
+          <Link href="/dashboard/artist/tiers" className="btn-tertiary btn gap-1">
             <Tally5 className="h-4 w-4" /> Manage tiers
           </Link>
           <button className="btn-secondary">Save changes</button>
@@ -65,7 +62,7 @@ const ArtistProfilePage = () => {
       </div>
 
       {/* Completeness meter */}
-      <div className="rounded-2xl p-5 border border-white/10 bg-white/5 backdrop-blur-2xl">
+      <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 backdrop-blur-2xl">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Sparkles className="h-5 w-5" /> Profile completeness
@@ -93,7 +90,7 @@ const ArtistProfilePage = () => {
 
       <div className="grid md:grid-cols-3 gap-4">
         {/* Left: Form */}
-        <div className="md:col-span-2 rounded-2xl p-6 border border-white/10 bg-white/5 space-y-6">
+        <div className="md:col-span-2 rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-6">
           {/* Media */}
           <div className="flex flex-col gap-4">
             {/* cover photo */}
@@ -166,6 +163,7 @@ const ArtistProfilePage = () => {
                   rows={4}
                   className="w-full mt-1 bg-white/10 border border-white/10 rounded-lg px-3 py-3"
                   value={bio}
+                  readOnly
                   onChange={(e) => setBio(e.target.value)}
                 />
 
@@ -184,26 +182,12 @@ const ArtistProfilePage = () => {
           <div className="border-b border-white/10 pb-4">
             <label className="text-sm text-muted block mb-1">Genres & tags</label>
 
-            <Dropdown
-              value={genres}
-              onChange={(value) => setGenres(value)}
+            <MultiDropdown
               options={genresOptions}
-              buttonClassName="w-full"
+              values={genres}
+              onChange={setGenres}
               className="w-full"
             />
-
-            {/* Selected genres preview */}
-            {(() => {
-              const selectedLabels = Array.isArray(genres)
-                ? genres.filter((g) => g?.value).map((g) => g.label)
-                : genres?.value
-                  ? [genres.label]
-                  : [];
-
-              return selectedLabels.length ? (
-                <p className="mt-2 text-sm text-white/70">{selectedLabels.join(", ")}</p>
-              ) : null;
-            })()}
           </div>
 
           {/* Locale */}
@@ -220,6 +204,7 @@ const ArtistProfilePage = () => {
               <input
                 className="w-full mt-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
                 value="GMT+6 (Dhaka)"
+                readOnly
               />
             </div>
             <div>
@@ -368,7 +353,7 @@ const ArtistProfilePage = () => {
         </div>
 
         {/* Right: Live Preview */}
-        <aside className="rounded-2xl p-6 border border-white/10 bg-white/5 space-y-3">
+        <aside className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 space-y-3">
           <div className="font-heading">Preview</div>
           <div className="rounded-xl p-4 border border-white/10 bg-white/5">
             <div className="h-24 rounded-lg bg-black/30 grid place-items-center text-white/60">

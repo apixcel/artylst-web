@@ -1,4 +1,4 @@
-import { Plus, Trash2, Info } from "lucide-react";
+import { Info } from "lucide-react";
 
 const TierCard = ({
   title,
@@ -9,7 +9,7 @@ const TierCard = ({
   songs: string;
   price: string;
 }) => (
-  <div className="rounded-2xl p-6 border border-white/10 bg-white/5 space-y-3">
+  <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-4/8 space-y-3 backdrop-blur-2xl">
     <div className="font-heading flex items-center justify-between">{title}</div>
     <div>
       <label className="text-sm text-white/60">Songs</label>
@@ -67,23 +67,23 @@ const ArtistTiersPage = () => {
       </div>
 
       {/* Preview & reminder */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-white/5">
-        <div className="font-heading mb-3">Preview (public)</div>
+      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-4/8 to-brand-1/10 backdrop-blur-2xl">
+        <h3 className="font-bricolage-grotesque mb-3">Preview (public)</h3>
         <div className="grid sm:grid-cols-3 gap-4 text-sm">
           <div className="p-4 rounded-xl border border-white/10 bg-white/5">
-            <div className="font-medium">Mini</div>
-            <p className="text-white/60">10 songs • $49</p>
+            <h4 className="font-medium text-base mb-1">Mini</h4>
+            <p className="text-muted">10 songs • $49</p>
           </div>
           <div className="p-4 rounded-xl border border-white/10 bg-white/5">
-            <div className="font-medium">Standard</div>
-            <p className="text-white/60">20 songs • $89</p>
+            <h4 className="font-medium text-base mb-1">Standard</h4>
+            <p className="text-muted">20 songs • $89</p>
           </div>
           <div className="p-4 rounded-xl border border-white/10 bg-white/5">
-            <div className="font-medium">Deep Dive</div>
-            <p className="text-white/60">40 songs • $159</p>
+            <h4 className="font-medium text-base mb-1">Deep Dive</h4>
+            <p className="text-muted">40 songs • $159</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 text-xs text-white/60 mt-4">
+        <div className="flex items-center gap-2 text-xs text-muted mt-4">
           <Info className="h-3 w-3" /> Artylst takes a 20% service fee on each
           transaction.
         </div>

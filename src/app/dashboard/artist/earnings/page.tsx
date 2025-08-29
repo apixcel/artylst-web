@@ -47,22 +47,22 @@ const ArtistEarningsPage = () => {
 
       {/* Key balances */}
       <div className="grid md:grid-cols-3 gap-4">
-        <div className="rounded-2xl p-5 border border-white/10 bg-white/5 backdrop-blur-2xl">
+        <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 backdrop-blur-2xl">
           <div className="text-muted text-sm">Available</div>
           <div className="text-2xl font-heading mt-1">$1,120</div>
         </div>
-        <div className="rounded-2xl p-5 border border-white/10 bg-white/5 backdrop-blur-2xl">
+        <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 backdrop-blur-2xl">
           <div className="text-muted text-sm">Pending</div>
           <div className="text-2xl font-heading mt-1">$220</div>
         </div>
-        <div className="rounded-2xl p-5 border border-white/10 bg-white/5 backdrop-blur-2xl">
+        <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 backdrop-blur-2xl">
           <div className="text-muted text-sm">30-day total</div>
           <div className="text-2xl font-heading mt-1">$2,340</div>
         </div>
       </div>
 
       {/* Chart */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-white/5 backdrop-blur-2xl">
+      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl">
         <div className="flex items-center justify-between mb-4">
           <h3 className="font-bricolage-grotesque flex items-center gap-2">
             <DollarSign className="h-5 w-5" /> Net earnings
@@ -100,7 +100,7 @@ const ArtistEarningsPage = () => {
 
       {/* Payout info */}
       <div className="grid md:grid-cols-2 gap-4">
-        <div className="rounded-2xl p-5 border border-white/10 bg-white/5 backdrop-blur-2xl">
+        <div className="rounded-2xl p-5 border border-white/10 bg-gradient-to-b from-brand-1/10 to-brand-4/8 backdrop-blur-2xl">
           <h3 className="font-bricolage-grotesque flex items-center gap-2">
             <Wallet className="h-5 w-5" /> Next payout
           </h3>
@@ -109,7 +109,7 @@ const ArtistEarningsPage = () => {
             (Bank of America)
           </p>
         </div>
-        <div className="rounded-2xl p-5 border border-white/10 bg-white/5 backdrop-blur-2xl">
+        <div className="rounded-2xl p-5 border border-white/10 bg-gradient-to-b from-brand-1/10 to-brand-4/8 backdrop-blur-2xl">
           <h3 className="font-bricolage-grotesque flex items-center gap-2">
             <Calendar className="h-5 w-5" /> Last payout
           </h3>
@@ -118,7 +118,7 @@ const ArtistEarningsPage = () => {
       </div>
 
       {/* Ledger */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-white/5 overflow-x-auto backdrop-blur-2xl">
+      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-4/8 to-brand-1/10 overflow-x-auto backdrop-blur-2xl">
         <h3 className="font-bricolage-grotesque mb-3">Ledger</h3>
         <table className="min-w-full text-sm">
           <thead className="text-muted border-b border-white/10">

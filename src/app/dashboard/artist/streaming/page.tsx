@@ -26,7 +26,7 @@ const ServiceCard = ({
   action: string;
   primary?: boolean;
 }) => (
-  <div className="rounded-2xl p-6 border border-white/20 bg-brand-1/20 space-y-2">
+  <div className="rounded-2xl p-6 border border-white/10 bg-brand-2/10 space-y-2 backdrop-blur-2xl">
     <div className="flex items-center justify-between">
       <h3 className="font-bricolage-grotesque">{name}</h3>
       {status === "connected" ? (
@@ -99,7 +99,7 @@ const ArtistStreamingPage = () => {
       </div>
 
       {/* Default platform selection */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-brand-6/10">
+      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-5/10 backdrop-blur-xl">
         <h3 className="font-bricolage-grotesque mb-2">Default platform</h3>
         <Dropdown
           value={defaultPlatform}

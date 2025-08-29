@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { DollarSign, MessageSquare, ShieldCheck, Video } from "lucide-react";
+import { DashboardArtistDeliverStepProgress } from "@/components";
 
 const ArtistDeliverPage = () => {
   return (
@@ -10,7 +11,7 @@ const ArtistDeliverPage = () => {
 
       {/* Order overview */}
       <div className="grid md:grid-cols-3 gap-4">
-        <div className="md:col-span-2 rounded-2xl p-6 border border-white/10 bg-white/5 backdrop-blur-2xl space-y-6">
+        <div className="md:col-span-2 rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-6">
           <div>
             <div className="text-sm text-muted">Buyer brief</div>
             <div className="text-sm">
@@ -18,6 +19,7 @@ const ArtistDeliverPage = () => {
             </div>
           </div>
 
+          {/* Order details */}
           <div className="grid sm:grid-cols-3 gap-3 text-sm">
             <div className="p-3 rounded-lg bg-white/5 border border-white/10">
               <h4 className="text-muted mb-1">Buyer</h4>
@@ -33,7 +35,14 @@ const ArtistDeliverPage = () => {
             </div>
           </div>
 
-          {/* Inputs */}
+          {/* Progress steps */}
+          <DashboardArtistDeliverStepProgress
+            current={3}
+            steps={["Brief", "Build playlist", "Deliver"]}
+            className="mx-auto"
+          />
+
+          {/* Playlist url */}
           <div>
             <label className="text-sm text-muted">Playlist URL</label>
             <input
@@ -67,7 +76,7 @@ const ArtistDeliverPage = () => {
         </div>
 
         {/* Sidebar */}
-        <aside className="rounded-2xl p-6 border border-white/10 bg-white/5 backdrop-blur-2xl space-y-4">
+        <aside className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-4">
           <h3 className="font-bricolage-grotesque">Quality checklist</h3>
           <ul className="list-disc list-inside text-sm text-muted space-y-1">
             <li>No explicit (per brief)</li>
