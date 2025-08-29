@@ -59,7 +59,7 @@ const EnrollHeader = () => {
               {enrollNavLinks.map((link) => (
                 <li key={link.href}>
                   <Link
-                    className="text-light rounded-[20px] hover:bg-level-2 text-[16px] flex-1 py-[8px] px-[12px]"
+                    className="text-light rounded-[20px] hover:bg-brand-2/20 text-[16px] flex-1 py-[8px] px-[12px]"
                     href={link.href}
                   >
                     {link.label}
@@ -72,8 +72,8 @@ const EnrollHeader = () => {
           <div className="flex items-center justify-end gap-4 lg:flex-1">
             {/* apply as artist */}
             <Link
-              className="text-light hover:bg-level-1 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
-              href="/enroll-form"
+              className="text-light hover:bg-brand-2/20 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
+              href="/join-as-artist"
             >
               Apply as Artist
             </Link>

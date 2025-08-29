@@ -55,22 +55,18 @@ const MainHeader = () => {
             </Link>
 
             {/* nav links */}
-            <div>
-              <div>
-                <ul className="lg:flex hidden items-center">
-                  {mainNavLinks.map((link) => (
-                    <li key={link.href}>
-                      <Link
-                        className="text-light rounded-[20px] hover:bg-level-2 text-[16px] flex-1 py-[8px] px-[12px]"
-                        href={link.href}
-                      >
-                        {link.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+            <ul className="lg:flex hidden items-center">
+              {mainNavLinks.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    className="text-light rounded-[20px] hover:bg-brand-2/10 text-[16px] flex-1 py-[8px] px-[12px]"
+                    href={link.href}
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
           <div className="flex items-center justify-end gap-4 lg:flex-1">
@@ -81,7 +77,7 @@ const MainHeader = () => {
 
             {/* login */}
             <Link
-              className="text-light hover:bg-level-1 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
+              className="text-light hover:bg-brand-2/10 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
               href="/login"
             >
               Login

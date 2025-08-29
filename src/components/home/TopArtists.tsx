@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import "swiper/css/navigation";
 import { ArtistCard } from "@/components";
 import { artistsData } from "@/constants";
 
@@ -13,7 +12,7 @@ export default function TopArtists() {
     <section className="mb-16">
       <div className="flex items-center justify-between mb-5">
         <h2 className="text-2xl font-semibold">Top Artists on Artylst</h2>
-        <Link className="underline" href="/leaderboard">
+        <Link className="underline" href="/top-artists">
           View all
         </Link>
       </div>

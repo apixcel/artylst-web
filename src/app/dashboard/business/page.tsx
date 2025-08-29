@@ -98,127 +98,131 @@ const DashboardBusinessPage = () => {
         </div>
       </div>
 
-      {/* Quick actions */}
-      <div className="grid sm:grid-cols-4 gap-3">
-        <Link
-          href="/orders/new"
-          className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
-        >
-          <div>
-            <div className="font-heading">New Order</div>
-            <div className="text-xs text-white/60">Create a brief</div>
-          </div>
-          <Plus className="h-4 w-4" />
-        </Link>
-        <Link
-          href="/artists"
-          className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
-        >
-          <div>
-            <div className="font-heading">Browse Artists</div>
-            <div className="text-xs text-white/60">Find the right vibe</div>
-          </div>
-          <Search className="h-4 w-4" />
-        </Link>
-        <Link
-          href="/messages"
-          className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
-        >
-          <div>
-            <div className="font-heading">Messages</div>
-            <div className="text-xs text-white/60">Reply faster</div>
-          </div>
-          <MessageSquare className="h-4 w-4" />
-        </Link>
-        <Link
-          href="/receipts"
-          className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
-        >
-          <div>
-            <div className="font-heading">Receipts</div>
-            <div className="text-xs text-white/60">Download invoices</div>
-          </div>
-          <FileText className="h-4 w-4" />
-        </Link>
-      </div>
-
       {/* Two-column: Left (In progress + Deadlines), Right (Spend chart + Activity) */}
-      <div className="grid lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2 space-y-4">
-          {/* In progress */}
-          <Card>
-            <div className="flex items-center justify-between">
-              <div className="font-heading">In progress</div>
-              <Link
-                href="/orders"
-                className="text-sm text-white/70 hover:underline flex items-center gap-1"
-              >
-                View all <ArrowUpRight className="h-4 w-4" />
-              </Link>
-            </div>
-            <div className="mt-3 space-y-3">
-              <div className="rounded-xl p-4 border border-white/10 bg-white/5 flex items-center gap-4">
-                <div className="h-12 w-12 rounded-xl bg-[url('https://i.pravatar.cc/100?img=44')] bg-cover" />
-                <div className="flex-1 min-w-0">
-                  <div className="font-heading truncate">Order #2341 • Sloane Rivers</div>
-                  <div className="text-xs text-white/60 flex items-center gap-2 mt-1">
-                    <span>ETA: Aug 28</span>
-                    <Chip>In progress</Chip>
-                    <Chip className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">
-                      Due in 1d
-                    </Chip>
-                  </div>
-                </div>
-                <Link href="/orders/2341" className="px-3 py-2 rounded-lg bg-white/10">
-                  Open
-                </Link>
+      <div className="grid lg:grid-cols-3 gap-4 items-stretch">
+        <div className="lg:col-span-2 flex flex-col gap-4 self-stretch">
+          {/* Quick actions */}
+          <div className="grid sm:grid-cols-4 gap-3">
+            <Link
+              href="/orders/new"
+              className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
+            >
+              <div>
+                <div className="font-heading">New Order</div>
+                <div className="text-xs text-white/60">Create a brief</div>
               </div>
-              <div className="rounded-xl p-4 border border-white/10 bg-white/5 flex items-center gap-4">
-                <div className="h-12 w-12 rounded-xl bg-[url('https://i.pravatar.cc/100?img=12')] bg-cover" />
-                <div className="flex-1 min-w-0">
-                  <div className="font-heading truncate">Order #2342 • Marta</div>
-                  <div className="text-xs text-white/60 flex items-center gap-2 mt-1">
-                    <span>ETA: Aug 31</span>
-                    <Chip>In progress</Chip>
-                    <Chip className="bg-green-500/10 text-green-500 border-green-500/20">
-                      On track
-                    </Chip>
-                  </div>
-                </div>
-                <Link href="/orders/2342" className="px-3 py-2 rounded-lg bg-white/10">
-                  Open
-                </Link>
+              <Plus className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/artists"
+              className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
+            >
+              <div>
+                <div className="font-heading">Browse Artists</div>
+                <div className="text-xs text-white/60">Find the right vibe</div>
               </div>
-            </div>
-          </Card>
+              <Search className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/messages"
+              className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
+            >
+              <div>
+                <div className="font-heading">Messages</div>
+                <div className="text-xs text-white/60">Reply faster</div>
+              </div>
+              <MessageSquare className="h-4 w-4" />
+            </Link>
+            <Link
+              href="/receipts"
+              className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
+            >
+              <div>
+                <div className="font-heading">Receipts</div>
+                <div className="text-xs text-white/60">Download invoices</div>
+              </div>
+              <FileText className="h-4 w-4" />
+            </Link>
+          </div>
 
-          {/* Upcoming deadlines */}
-          <Card>
-            <div className="font-heading mb-3">Upcoming deadlines</div>
-            <div className="grid sm:grid-cols-2 gap-3 text-sm">
-              <div className="rounded-xl p-4 border border-white/10 bg-white/5">
-                <div className="flex items-center justify-between">
-                  <div className="font-medium">#2341 • Sloane Rivers</div>
-                  <Chip className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">
-                    1d left
-                  </Chip>
-                </div>
-                <div className="text-white/60 mt-1">Due Aug 28 • Spotify</div>
+          {/* In progress */}
+          <div className="space-y-4">
+            <Card>
+              <div className="flex items-center justify-between">
+                <div className="font-heading">In progress</div>
+                <Link
+                  href="/orders"
+                  className="text-sm text-white/70 hover:underline flex items-center gap-1"
+                >
+                  View all <ArrowUpRight className="h-4 w-4" />
+                </Link>
               </div>
-              <div className="rounded-xl p-4 border border-white/10 bg-white/5">
-                <div className="flex items-center justify-between">
-                  <div className="font-medium">#2342 • Marta</div>
-                  <Chip className="bg-green-500/10 text-green-500 border-green-500/20">
-                    3d left
-                  </Chip>
+              <div className="mt-3 space-y-3">
+                <div className="rounded-xl p-4 border border-white/10 bg-white/5 flex items-center gap-4">
+                  <div className="h-12 w-12 rounded-xl bg-[url('https://i.pravatar.cc/100?img=44')] bg-cover" />
+                  <div className="flex-1 min-w-0">
+                    <div className="font-heading truncate">
+                      Order #2341 • Sloane Rivers
+                    </div>
+                    <div className="text-xs text-white/60 flex items-center gap-2 mt-1">
+                      <span>ETA: Aug 28</span>
+                      <Chip>In progress</Chip>
+                      <Chip className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">
+                        Due in 1d
+                      </Chip>
+                    </div>
+                  </div>
+                  <Link href="/orders/2341" className="px-3 py-2 rounded-lg bg-white/10">
+                    Open
+                  </Link>
                 </div>
-                <div className="text-white/60 mt-1">Due Aug 31 • Apple Music</div>
+                <div className="rounded-xl p-4 border border-white/10 bg-white/5 flex items-center gap-4">
+                  <div className="h-12 w-12 rounded-xl bg-[url('https://i.pravatar.cc/100?img=12')] bg-cover" />
+                  <div className="flex-1 min-w-0">
+                    <div className="font-heading truncate">Order #2342 • Marta</div>
+                    <div className="text-xs text-white/60 flex items-center gap-2 mt-1">
+                      <span>ETA: Aug 31</span>
+                      <Chip>In progress</Chip>
+                      <Chip className="bg-green-500/10 text-green-500 border-green-500/20">
+                        On track
+                      </Chip>
+                    </div>
+                  </div>
+                  <Link href="/orders/2342" className="px-3 py-2 rounded-lg bg-white/10">
+                    Open
+                  </Link>
+                </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+
+            {/* Upcoming deadlines */}
+            <Card>
+              <div className="font-heading mb-3">Upcoming deadlines</div>
+              <div className="grid sm:grid-cols-2 gap-3 text-sm">
+                <div className="rounded-xl p-4 border border-white/10 bg-white/5">
+                  <div className="flex items-center justify-between">
+                    <div className="font-medium">#2341 • Sloane Rivers</div>
+                    <Chip className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">
+                      1d left
+                    </Chip>
+                  </div>
+                  <div className="text-white/60 mt-1">Due Aug 28 • Spotify</div>
+                </div>
+                <div className="rounded-xl p-4 border border-white/10 bg-white/5">
+                  <div className="flex items-center justify-between">
+                    <div className="font-medium">#2342 • Marta</div>
+                    <Chip className="bg-green-500/10 text-green-500 border-green-500/20">
+                      3d left
+                    </Chip>
+                  </div>
+                  <div className="text-white/60 mt-1">Due Aug 31 • Apple Music</div>
+                </div>
+              </div>
+            </Card>
+          </div>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-4 flex flex-col self-stretch">
           {/* Spend snapshot */}
           <Card>
             <div className="font-heading">Spending (Last 60 days)</div>

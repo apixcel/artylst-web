@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { ChevronLeft } from "lucide-react";
 
 const genderOptions = [
   { label: "He/him", value: "he-him" },
@@ -16,6 +17,7 @@ const genderOptions = [
 const EnrollFormPage = () => {
   const [gender, setGender] = useState<DropdownOption<string> | null>(null);
   const router = useRouter();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push("/dashboard/artist");
@@ -24,7 +26,7 @@ const EnrollFormPage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       {/* header */}
-      <div className="border-b border-white/10 px-6 py-2">
+      <div className="border-b border-white/10 px-6 py-2 flex items-center gap-4 lg:justify-between">
         {/* desktop logo */}
         <Link className="lg:block hidden font-[700] text-white text-2xl" href="/">
           <Image
@@ -46,6 +48,16 @@ const EnrollFormPage = () => {
             className="w-[40px] h-[40px]"
           />
         </Link>
+
+        <div className="w-1/2">
+          <button
+            onClick={() => router.back()}
+            className="text-light hover:text-muted inline-flex items-center gap-1 cursor-pointer"
+          >
+            <ChevronLeft className="w-5 h-5" />
+            Back
+          </button>
+        </div>
       </div>
 
       {/* wrapper */}
@@ -83,13 +95,14 @@ const EnrollFormPage = () => {
 
                 {/* gender */}
                 <div className="w-full">
+                  <label className="text-[16px] font-[500] block mb-[8px]">Gender</label>
                   <Dropdown
                     value={gender}
                     options={genderOptions}
                     onChange={setGender}
                     placeholder="Choose gender"
                     className="w-full"
-                    buttonClassName="w-full bg-brand-2/10"
+                    buttonClassName="w-full bg-brand-2/10 py-4 rounded-2xl px-4 py-3"
                     panelClassName="w-full "
                     optionClassName="w-full "
                     matchButtonWidth={false}
