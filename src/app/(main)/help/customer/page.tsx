@@ -3,7 +3,7 @@ import React from "react";
 
 const CustomerPage = () => {
   return (
-    <div className=" rounded-lg shadow p-6  mx-auto">
+    <div className="wrapper-inner rounded-lg shadow p-6  mx-auto">
       {/* Section Title */}
       <div className="flex items-center gap-3 mb-6">
         <h2 className="text-xl font-semibold text-white">
@@ -24,7 +24,7 @@ const CustomerPage = () => {
           <ul className="space-y-2 text-white">
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm ">
                 How can I check the status of my Artylst video?
@@ -32,7 +32,7 @@ const CustomerPage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 Can I edit the instructions after I send my Artylst video request?
@@ -40,7 +40,7 @@ const CustomerPage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 How do I cancel my Artylst video request?
@@ -63,7 +63,7 @@ const CustomerPage = () => {
           <ul className="space-y-2 text-white">
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 When will I be charged for my Artylst video?
@@ -71,7 +71,7 @@ const CustomerPage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 Which payment methods are accepted?
@@ -79,7 +79,7 @@ const CustomerPage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 Where&apos;s my refund?
@@ -102,7 +102,7 @@ const CustomerPage = () => {
           <ul className="space-y-2 text-white">
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 I’m not happy with my business video. Is there anything you can do?
@@ -110,7 +110,7 @@ const CustomerPage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 What celebrities are available for business videos?
@@ -118,7 +118,7 @@ const CustomerPage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 Can I edit my business video or remove the watermark?
@@ -141,7 +141,7 @@ const CustomerPage = () => {
           <ul className="space-y-2 text-white">
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 I sent a Artylst DM to a celebrity, but they didn&#39;t respond. What
@@ -150,7 +150,7 @@ const CustomerPage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 How do I send a Artylst DM?
@@ -158,7 +158,7 @@ const CustomerPage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 What&apos;s a Artylst Direct Message?
@@ -181,7 +181,7 @@ const CustomerPage = () => {
           <ul className="space-y-2 text-white">
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 When is the physical card sent?
@@ -189,7 +189,7 @@ const CustomerPage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 What happens if the Artylst expires?
@@ -197,7 +197,7 @@ const CustomerPage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 How do I purchase a physical card?

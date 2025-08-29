@@ -3,7 +3,7 @@ import React from "react";
 
 const RewardsPage = () => {
   return (
-    <div className=" rounded-lg shadow p-6  mx-auto">
+    <div className="wrapper-inner rounded-lg shadow p-6  mx-auto">
       {/* Section Title */}
       <div className="flex items-center gap-3 mb-6">
         <h2 className="text-xl font-semibold text-white">
@@ -24,7 +24,7 @@ const RewardsPage = () => {
           <ul className="space-y-2 text-white">
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm ">
                 How do I check my balance?
@@ -32,7 +32,7 @@ const RewardsPage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 How do I earn points?
@@ -40,7 +40,7 @@ const RewardsPage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 How do I join Red Carpet Rewards?

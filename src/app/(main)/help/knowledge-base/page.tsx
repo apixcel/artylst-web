@@ -5,7 +5,7 @@ import Artylstpage from "../artylst/page";
 
 const KnowledgeBase = () => {
   return (
-    <section>
+    <section className="wrapper-inner">
       <CustomerPage />
       <Artylstpage />
       <RewardsPage />

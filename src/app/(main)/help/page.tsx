@@ -11,8 +11,10 @@ import { FileText, Search } from "lucide-react";
 import Link from "next/link";
 const HelpPage = () => {
   return (
-    <div className="min-h-screen text-white flex flex-col items-center py-16 px-6">
-      <h1 className="text-3xl font-bold mb-6">Hi, how can we help you?</h1>
+    <div className="wrapper-inner min-h-screen text-white flex flex-col items-center py-16 px-6">
+      <h1 className="text-[36px] xl:text-[40px] font-[500] mb-[20px]">
+        Hi, how can we help you?
+      </h1>
 
       {/* Search Bar */}
       <div className="max-w-[480px] w-full">
@@ -32,8 +34,8 @@ const HelpPage = () => {
           <Link href="/help/knowledge-base">
             <div className="flex flex-col items-center justify-center p-6 text-center">
               <LampIcon size={64} />
-              <h2 className="font-semibold mb-2">Browse articles</h2>
-              <p className="text-gray-400 text-sm">
+              <h2 className="font-[500]mb-2">Browse articles</h2>
+              <p className="text-gray-400 ">
                 Explore How-To&apos;s and learn best practices from our knowledge base
               </p>
             </div>
@@ -44,8 +46,8 @@ const HelpPage = () => {
           <Link href="/help/submit-ticket">
             <div className="flex flex-col items-center justify-center p-6 text-center">
               <ProfileIcon size={64} />
-              <h2 className="font-semibold mb-2">Submit a ticket</h2>
-              <p className="text-gray-400 text-sm">
+              <h2 className="font-[500]mb-2">Submit a ticket</h2>
+              <p className="text-gray-400">
                 Describe your issue by filling out the support ticket form
               </p>
             </div>
