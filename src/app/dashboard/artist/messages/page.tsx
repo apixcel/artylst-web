@@ -221,7 +221,7 @@ const MessagesPage = () => {
 
   return (
     <section className="space-y-6">
-      <h1 className="text-2xl md:text-3xl font-heading">Messages</h1>
+      <h1 className="dashboard-title">Messages</h1>
 
       <div className="grid md:grid-cols-3 gap-4">
         {/* LEFT: Thread list */}
@@ -301,17 +301,17 @@ const MessagesPage = () => {
         </div>
 
         {/* RIGHT: Active conversation */}
-        <div className="md:col-span-2 rounded-2xl p-4 border border-white/10 bg-white/5 flex flex-col min-h-[620px]">
+        <div className="md:col-span-2 rounded-2xl p-4 border border-white/10 bg-white/5 flex flex-col min-h-[620px] backdrop-blur-2xl">
           {/* Header */}
           <div className="flex items-start justify-between">
             <div>
-              <div className="text-sm text-white/60">
+              <div className="text-sm text-muted">
                 #{activeThread.orderId} • {activeThread.artist}
               </div>
               <div className="mt-1 flex items-center gap-2">
                 <StatusChip status={activeThread.status} />
                 <Link
-                  href={`/orders/${activeThread.orderId}`}
+                  href={`/dashboard/artist/orders/${activeThread.orderId}`}
                   className="text-xs underline inline-flex items-center gap-1"
                 >
                   <FileText className="h-3.5 w-3.5" /> View order

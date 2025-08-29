@@ -132,4 +132,18 @@ export const artistsData = [
     username: "/cerspence",
     tags: ["Lo-fi", "Chill", "Focus"],
   },
+  {
+    id: "11",
+    name: "cer spence / Spencer Goldman",
+    designation: "comedian",
+    image: "/images/artists/artist-10.jpg",
+    price: 55,
+    oldPrice: 110,
+    eta: 48,
+    slotsLeft: 2,
+    rating: 4.94,
+    reviews: 1200,
+    username: "/cerspence",
+    tags: ["Lo-fi", "Chill", "Focus"],
+  },
 ];

@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import Link from "next/link";
-import { Dropdown } from "@/components"; // keeping your component usage
+import { Dropdown } from "@/components";
 import { Pagination } from "@/components";
 import { DropdownOption } from "@/interface";
 import { Download, Search, AlertTriangle } from "lucide-react";
@@ -127,10 +127,8 @@ const OrdersPage = () => {
       {/* Header + actions */}
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
         <div>
-          <h1 className="text-2xl md:text-3xl font-heading">My Orders</h1>
-          <p className="text-white/60 text-sm mt-1">
-            Track, review and request revisions
-          </p>
+          <h1 className="text-2xl md:text-3xl font-bricolage-grotesque">My Orders</h1>
+          <p className="text-muted text-sm mt-1">Track, review and request revisions</p>
         </div>
         <div className="flex items-center gap-3">
           <button
@@ -149,7 +147,7 @@ const OrdersPage = () => {
       </div>
 
       {/* Filter bar */}
-      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 grid gap-3 md:grid-cols-4">
+      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 backdrop-blur-2xl grid gap-3 md:grid-cols-4">
         <div className="md:col-span-1">
           <label className="text-muted mr-2">Status</label>
           <Dropdown
@@ -171,7 +169,7 @@ const OrdersPage = () => {
           <Dropdown value={tier} options={tierOptions} onChange={(v) => setTier(v)} />
         </div>
         <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
-          <Search className="h-4 w-4 text-white/60" />
+          <Search className="h-4 w-4 text-muted" />
           <input
             className="bg-transparent flex-1 py-2 outline-none"
             placeholder="Search by order, artist, tier"
@@ -184,7 +182,7 @@ const OrdersPage = () => {
       {/* Table */}
       <div className="rounded-2xl p-6 border border-white/10 bg-white/5 overflow-x-auto">
         <table className="w-full">
-          <thead className="text-white/60 border-b border-white/10">
+          <thead className="text-muted border-b border-white/10">
             <tr>
               <th className="py-2 pr-4">
                 <input

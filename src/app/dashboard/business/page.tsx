@@ -57,7 +57,7 @@ const DashboardBusinessPage = () => {
   return (
     <section className="space-y-6">
       {/* Announcements / System notice */}
-      <div className="rounded-xl border border-white/10 bg-gradient-to-r from-brand-600/15 to-brand-1/15 p-4 flex items-start justify-between gap-3">
+      <div className="rounded-xl border border-white/10 bg-gradient-to-r from-brand-2/15 to-brand-6/15 p-4 flex items-start justify-between gap-3">
         <div className="flex items-start gap-2">
           <Bell className="h-4 w-4 mt-0.5" />
           <div>
@@ -75,25 +75,25 @@ const DashboardBusinessPage = () => {
       </div>
 
       {/* Header */}
-      <h1 className="text-2xl md:text-3xl font-heading">Welcome back, Arif</h1>
+      <h1 className="dashboard-title">Welcome back, Arif</h1>
 
       {/* KPI cards */}
       <div>
         <div className="grid md:grid-cols-3 gap-4">
           <Card>
-            <div className="text-white/70 text-sm">Active orders</div>
+            <div className="text-muted text-sm">Active orders</div>
             <div className="text-2xl font-heading mt-1">2</div>
-            <div className="text-xs text-white/60 mt-2">On track: 2 • Due today: 1</div>
+            <div className="text-xs text-muted mt-2">On track: 2 • Due today: 1</div>
           </Card>
           <Card>
-            <div className="text-white/70 text-sm">Delivered</div>
+            <div className="text-muted text-sm">Delivered</div>
             <div className="text-2xl font-heading mt-1">8</div>
-            <div className="text-xs text-white/60 mt-2">Pending review: 2</div>
+            <div className="text-xs text-muted mt-2">Pending review: 2</div>
           </Card>
           <Card>
-            <div className="text-white/70 text-sm">Revisions</div>
+            <div className="text-muted text-sm">Revisions</div>
             <div className="text-2xl font-heading mt-1">1</div>
-            <div className="text-xs text-white/60 mt-2">Avg. turnaround: 2d</div>
+            <div className="text-xs text-muted mt-2">Avg. turnaround: 2d</div>
           </Card>
         </div>
       </div>
@@ -108,8 +108,8 @@ const DashboardBusinessPage = () => {
               className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
             >
               <div>
-                <div className="font-heading">New Order</div>
-                <div className="text-xs text-white/60">Create a brief</div>
+                <div className="font-bricolage-grotesque">New Order</div>
+                <div className="text-xs text-muted">Create a brief</div>
               </div>
               <Plus className="h-4 w-4" />
             </Link>
@@ -118,8 +118,8 @@ const DashboardBusinessPage = () => {
               className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
             >
               <div>
-                <div className="font-heading">Browse Artists</div>
-                <div className="text-xs text-white/60">Find the right vibe</div>
+                <div className="font-bricolage-grotesque">Browse Artists</div>
+                <div className="text-xs text-muted">Find the right vibe</div>
               </div>
               <Search className="h-4 w-4" />
             </Link>
@@ -128,8 +128,8 @@ const DashboardBusinessPage = () => {
               className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
             >
               <div>
-                <div className="font-heading">Messages</div>
-                <div className="text-xs text-white/60">Reply faster</div>
+                <div className="font-bricolage-grotesque">Messages</div>
+                <div className="text-xs text-muted">Reply faster</div>
               </div>
               <MessageSquare className="h-4 w-4" />
             </Link>
@@ -138,8 +138,8 @@ const DashboardBusinessPage = () => {
               className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
             >
               <div>
-                <div className="font-heading">Receipts</div>
-                <div className="text-xs text-white/60">Download invoices</div>
+                <div className="font-bricolage-grotesque">Receipts</div>
+                <div className="text-xs text-muted">Download invoices</div>
               </div>
               <FileText className="h-4 w-4" />
             </Link>
@@ -149,10 +149,10 @@ const DashboardBusinessPage = () => {
           <div className="space-y-4">
             <Card>
               <div className="flex items-center justify-between">
-                <div className="font-heading">In progress</div>
+                <div className="font-bricolage-grotesque">In progress</div>
                 <Link
                   href="/orders"
-                  className="text-sm text-white/70 hover:underline flex items-center gap-1"
+                  className="text-sm text-muted hover:underline flex items-center gap-1"
                 >
                   View all <ArrowUpRight className="h-4 w-4" />
                 </Link>
@@ -161,10 +161,10 @@ const DashboardBusinessPage = () => {
                 <div className="rounded-xl p-4 border border-white/10 bg-white/5 flex items-center gap-4">
                   <div className="h-12 w-12 rounded-xl bg-[url('https://i.pravatar.cc/100?img=44')] bg-cover" />
                   <div className="flex-1 min-w-0">
-                    <div className="font-heading truncate">
+                    <div className="font-bricolage-grotesque truncate">
                       Order #2341 • Sloane Rivers
                     </div>
-                    <div className="text-xs text-white/60 flex items-center gap-2 mt-1">
+                    <div className="text-xs text-muted flex items-center gap-2 mt-1">
                       <span>ETA: Aug 28</span>
                       <Chip>In progress</Chip>
                       <Chip className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">
@@ -179,8 +179,10 @@ const DashboardBusinessPage = () => {
                 <div className="rounded-xl p-4 border border-white/10 bg-white/5 flex items-center gap-4">
                   <div className="h-12 w-12 rounded-xl bg-[url('https://i.pravatar.cc/100?img=12')] bg-cover" />
                   <div className="flex-1 min-w-0">
-                    <div className="font-heading truncate">Order #2342 • Marta</div>
-                    <div className="text-xs text-white/60 flex items-center gap-2 mt-1">
+                    <div className="font-bricolage-grotesque truncate">
+                      Order #2342 • Marta
+                    </div>
+                    <div className="text-xs text-muted flex items-center gap-2 mt-1">
                       <span>ETA: Aug 31</span>
                       <Chip>In progress</Chip>
                       <Chip className="bg-green-500/10 text-green-500 border-green-500/20">
@@ -197,7 +199,7 @@ const DashboardBusinessPage = () => {
 
             {/* Upcoming deadlines */}
             <Card>
-              <div className="font-heading mb-3">Upcoming deadlines</div>
+              <div className="font-bricolage-grotesque mb-3">Upcoming deadlines</div>
               <div className="grid sm:grid-cols-2 gap-3 text-sm">
                 <div className="rounded-xl p-4 border border-white/10 bg-white/5">
                   <div className="flex items-center justify-between">
@@ -206,7 +208,7 @@ const DashboardBusinessPage = () => {
                       1d left
                     </Chip>
                   </div>
-                  <div className="text-white/60 mt-1">Due Aug 28 • Spotify</div>
+                  <div className="text-muted mt-1">Due Aug 28 • Spotify</div>
                 </div>
                 <div className="rounded-xl p-4 border border-white/10 bg-white/5">
                   <div className="flex items-center justify-between">
@@ -215,7 +217,7 @@ const DashboardBusinessPage = () => {
                       3d left
                     </Chip>
                   </div>
-                  <div className="text-white/60 mt-1">Due Aug 31 • Apple Music</div>
+                  <div className="text-muted mt-1">Due Aug 31 • Apple Music</div>
                 </div>
               </div>
             </Card>
@@ -225,7 +227,7 @@ const DashboardBusinessPage = () => {
         <div className="space-y-4 flex flex-col self-stretch">
           {/* Spend snapshot */}
           <Card>
-            <div className="font-heading">Spending (Last 60 days)</div>
+            <div className="font-bricolage-grotesque">Spending (Last 60 days)</div>
             <div className="h-40 mt-3">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -262,7 +264,7 @@ const DashboardBusinessPage = () => {
                 </LineChart>
               </ResponsiveContainer>
             </div>
-            <div className="flex items-center justify-between mt-3 text-sm text-white/70">
+            <div className="flex items-center justify-between mt-3 text-sm text-muted">
               <div>MTD: $435</div>
               <div>Avg/Order: $86</div>
             </div>

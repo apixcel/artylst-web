@@ -40,6 +40,7 @@ export { default as ArtistsFilter } from "./artists/ArtistsFilter";
 export { default as ArtistTopbar } from "./artists/ArtistTopbar";
 export { default as ArtistCard } from "./artists/ArtistCard";
 export { default as ArtistIntroVideo } from "./artists/ArtistIntroVideo";
+export { default as TopArtistSteps } from "./artists/TopArtistSteps";
 
 // checkout
 export { default as CheckoutBrief } from "./checkout/CheckoutBrief";
@@ -74,3 +75,9 @@ export { default as PaymentMethods } from "./dashboard/business/PaymentMethods";
 export { default as LoginAndSecurity } from "./dashboard/business/LoginAndSecurity";
 export { default as SidebarUserCard } from "./dashboard/SidebarUserCard";
 export { default as DashboardArtistCard } from "./dashboard/DashboardArtistCard";
+export { default as DashboardArtistDeliverStepper } from "./dashboard/artist/DashboardArtistDeliverStepper";
+
+// about-us
+export { default as AboutUsSteps } from "./about-us/AboutUsSteps";
+export { default as AboutUsBrandSlider } from "./about-us/AboutUsBrandSlider";
+export { default as AboutVideo } from "./about-us/AboutVideo";
