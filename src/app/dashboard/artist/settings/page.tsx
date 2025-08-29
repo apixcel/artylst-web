@@ -1,7 +1,6 @@
 import LoginAndSecurity from "@/components/dashboard/artist/LoginAndSecurity";
 import ProfileSettings from "@/components/dashboard/artist/ProfileSettings";
 
-
 const page = () => {
   return (
     <section className="space-y-6">

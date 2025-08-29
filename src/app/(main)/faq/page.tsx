@@ -153,10 +153,10 @@ export default function FAQThreeSection() {
 
   return (
     <section className="w-full max-w-5xl mx-auto mb-[60px]">
-      <h2 className="text-2xl font-semibold tracking-tight mb-2">
+      <h2 className="text-2xl font-semibold tracking-tight mb-2 text-center">
         Frequently Asked Questions
       </h2>
-      <p className="text-muted mb-8">
+      <p className="text-muted mb-8 md:w-[500px] max-w-full mx-auto text-center">
         We’ve grouped our FAQs into three main categories for your convenience. Browse
         through each section to quickly find what you’re looking for.
       </p>

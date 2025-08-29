@@ -1,8 +1,8 @@
-import React from 'react'
+import React from "react";
 
 const TopArtistPage = () => {
-    //https://www.cameo.com/l/leaderboard
-    /*
+  //https://www.cameo.com/l/leaderboard
+  /*
     title
     description
 
@@ -10,10 +10,8 @@ const TopArtistPage = () => {
 
     how its work(already has to home page jsut copy and paste here)
     then faq
-    */ 
-  return (
-    <div>TopArtistPage</div>
-  )
-}
+    */
+  return <div>TopArtistPage</div>;
+};
 
-export default TopArtistPage
+export default TopArtistPage;
