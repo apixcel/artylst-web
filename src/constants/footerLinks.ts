@@ -27,7 +27,7 @@ export const footerLinks = [
       },
       {
         title: "FAQ",
-        route: "/accessibility",
+        route: "/faq",
       },
       {
         title: "Refunds & return",
