@@ -3,7 +3,7 @@ import React from "react";
 
 const Artylstpage = () => {
   return (
-    <div className=" rounded-lg shadow p-6  mx-auto">
+    <div className="wrapper-inner rounded-lg shadow p-6  mx-auto">
       {/* Section Title */}
       <div className="flex items-center gap-3 mb-6">
         <h2 className="text-xl font-semibold text-white">
@@ -24,7 +24,7 @@ const Artylstpage = () => {
           <ul className="space-y-2 text-white">
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm ">
                 What percentage do I earn from each completed Cameo Video?
@@ -32,7 +32,7 @@ const Artylstpage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 How do I donate to a charity?
@@ -40,7 +40,7 @@ const Artylstpage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 Can I arrange for a fan to get a refund?
@@ -48,7 +48,7 @@ const Artylstpage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 How do I get paid?
@@ -71,7 +71,7 @@ const Artylstpage = () => {
           <ul className="space-y-2 text-white">
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 How do I complete a Cameo Video?
@@ -79,7 +79,7 @@ const Artylstpage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 How do I decline a Cameo Video?
@@ -87,7 +87,7 @@ const Artylstpage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 How do I send a fan a Direct Message?
@@ -95,7 +95,7 @@ const Artylstpage = () => {
             </li>
             <li className="flex items-center gap-2">
               <span>
-                <FileText />
+                <FileText className="w-5 h-5" />
               </span>
               <a href="#" className="hover:underline text-sm">
                 How do I complete a Cameo Video request that has expired?

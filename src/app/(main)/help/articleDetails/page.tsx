@@ -3,7 +3,7 @@ import React from "react";
 
 const ArticleDetailsPage = () => {
   return (
-    <div className="bg-white/5 border border-white/10 rounded-lg shadow max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3">
+    <div className=" wrapper-innerbg-white/5 border border-white/10 rounded-lg shadow max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3">
       {/* Left Content */}
       <div className="col-span-2 p-6 ">
         <h1 className="font-semibold text-lg mb-4">Can I download my Artylst video?</h1>
@@ -65,25 +65,25 @@ const ArticleDetailsPage = () => {
           <h3 className="font-semibold text-white mb-3">Articles in this folder -</h3>
           <ul className="space-y-2  text-sm">
             <li className="flex items-center gap-2">
-              <FileText />{" "}
+              <FileText className="w-5 h-5" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 How can I check the status of my Artylst video?
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FileText />{" "}
+              <FileText className="w-5 h-5" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 Can I edit the instructions after I send my Artylst video request?
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FileText />{" "}
+              <FileText className="w-5 h-5" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 How do I cancel my Artylst video request?
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FileText />{" "}
+              <FileText className="w-5 h-5" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 My Artylst video expired! What do I do?
               </a>
@@ -95,25 +95,25 @@ const ArticleDetailsPage = () => {
           <h3 className="font-semibold text-white mb-3">You may like to read -</h3>
           <ul className="space-y-2  text-sm">
             <li className="flex items-center gap-2">
-              <FileText />{" "}
+              <FileText className="w-5 h-5" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 How do I share my Artylst video?
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FileText />{" "}
+              <FileText className="w-5 h-5" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 Is there a limit to how long I can use my business video?
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FileText />{" "}
+              <FileText className="w-5 h-5" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 How will I receive my Artylst video?
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FileText />{" "}
+              <FileText className="w-5 h-5" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 When will I be charged for my Artylst video?
               </a>

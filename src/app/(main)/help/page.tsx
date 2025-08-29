@@ -11,7 +11,7 @@ import { FileText, Search } from "lucide-react";
 import Link from "next/link";
 const HelpPage = () => {
   return (
-    <div className="min-h-screen text-white flex flex-col items-center py-16 px-6">
+    <div className="wrapper-inner min-h-screen text-white flex flex-col items-center py-16 px-6">
       <h1 className="text-[36px] xl:text-[40px] font-[500] mb-[20px]">
         Hi, how can we help you?
       </h1>
