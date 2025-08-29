@@ -6,19 +6,19 @@ const Login = () => {
   const [showPw, setShowPw] = useState(false);
 
   return (
-    <div className="rounded-2xl bg-white/5 border border-white/10 p-6 shadow-[0_10px_30px_rgba(0,0,0,.25)] max-w-md w-full">
-      <h1 className="text-2xl text-center">Log in</h1>
-      <p className="text-sm text-white/70 mt- text-center">
+    <div className="rounded-2xl bg-gradient-to-b from-brand-2/10 to-brand-1/10 border border-white/10 p-6 max-w-md w-full">
+      <h1 className="text-2xl text-center font-bricolage-grotesque">Log in</h1>
+      <p className="text-sm text-muted text-center">
         Use your account email and password
       </p>
 
       <form className="mt-5 space-y-4">
         {/* Email */}
         <label className="block">
-          <span className="text-sm text-white/70">Email</span>
+          <span className="text-sm text-muted">Email</span>
           <div className="relative mt-1">
             <input
-              className="w-full bg-white/10 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[#5B3FFF]/40 rounded-xl pl-10 pr-4 py-2.5 placeholder-white/40"
+              className="w-full bg-white/10 border border-white/10 focus:outline-none focus:ring-1 focus:ring-light rounded-xl pl-10 pr-4 py-2.5 placeholder-white/40"
               type="email"
               inputMode="email"
               autoComplete="email"
@@ -48,7 +48,7 @@ const Login = () => {
           <span className="text-sm text-white/70">Password</span>
           <div className="relative mt-1">
             <input
-              className="w-full bg-white/10 border border-white/10 focus:outline-none focus:ring-2 focus:ring-[#5B3FFF]/40 rounded-xl pl-10 pr-12 py-2.5 placeholder-white/40"
+              className="w-full bg-white/10 border border-white/10 focus:outline-none focus:ring-1 focus:ring-light rounded-xl pl-10 pr-12 py-2.5 placeholder-white/40"
               type={showPw ? "text" : "password"}
               autoComplete="current-password"
               placeholder="••••••••"
@@ -85,7 +85,7 @@ const Login = () => {
           <label className="text-xs text-white/70 inline-flex items-center gap-2 select-none">
             <input
               type="checkbox"
-              className="accent-[#5B3FFF] bg-white/10 border-white/20 rounded"
+              className="accent-brand-4 bg-white/10 border-white/20 rounded"
             />
             Remember me
           </label>
@@ -100,13 +100,13 @@ const Login = () => {
         {/* CTA */}
         <button
           type="submit"
-          className="w-full px-4 py-2.5 rounded-xl bg-[#5B3FFF] hover:bg-[#4A33D0] shadow-[0_10px_40px_rgba(91,63,255,.35)] text-sm font-medium"
+          className="w-full px-4 py-2.5 rounded-xl bg-brand-4/80 hover:bg-brand-4/70 text-sm font-medium"
         >
           Continue
         </button>
 
         {/* tiny policy line */}
-        <p className="text-[11px] text-white/50 text-center">
+        <p className="text-[11px] text-muted text-center">
           ARTYLST protects your privacy. We never share personal contact info.
         </p>
       </form>
