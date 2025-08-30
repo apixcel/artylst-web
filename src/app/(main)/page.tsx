@@ -10,6 +10,7 @@ import {
   InstantPlaylists,
   FAQ,
   HomeHowItWorks,
+  HomeRecentlyViewed,
 } from "@/components";
 
 const faqs = [
@@ -63,6 +64,7 @@ const HomePage = () => {
       <PersonalizedPlaylists />
       <TopArtists />
       <InstantPlaylists />
+      <HomeRecentlyViewed />
       <HomeHowItWorks />
       <GiftsForEveryBudget />
       <RecentReviews />

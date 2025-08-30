@@ -25,7 +25,7 @@ const BusinessCTA = () => {
         </div>
         <div className="flex xl:flex-row lg:flex-col items-center gap-[16px]">
           <Link
-            href="/contact"
+            href="/help/submit-ticket"
             className="text-[16px] bg-transparent font-[500] text-light px-[20px] sm:px-[32px] py-[12px] sm:py-[16px] border border-white/10 rounded-[100px] hover:bg-white/10 transition-all duration-300 font-bricolage-grotesque"
           >
             Contact us

@@ -1,4 +1,5 @@
 "use client";
+import { Paperclip } from "lucide-react";
 import { useState, ChangeEvent, FormEvent } from "react";
 
 interface FormData {
@@ -28,7 +29,7 @@ const SubmitTicketPage = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center py-12 px-4">
-      <div className="rounded-lg shadow-md w-full max-w-4xl p-8 bg-white/5 border border-white/10">
+      <div className="rounded-lg shadow-md w-full max-w-4xl p-8 bg-gradient-to-b from-brand-2/10 to-brand-1/10 border border-white/10">
         {/* Title */}
         <h1 className="text-4xl text-center font-bold mb-8">Submit a ticket</h1>
 
@@ -45,7 +46,7 @@ const SubmitTicketPage = () => {
               placeholder="Subject"
               value={formData.subject}
               onChange={handleChange}
-              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-light focus:border-brand-4 bg-transparent"
+              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring-1 focus:ring-light focus:border-brand-4 bg-transparent"
               required
             />
           </div>
@@ -62,7 +63,7 @@ const SubmitTicketPage = () => {
               value={formData.requester}
               placeholder="Type requester"
               onChange={handleChange}
-              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-light focus:border-brand-4 bg-transparent"
+              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring-1 focus:ring-light focus:border-brand-4 bg-transparent"
               required
             />
           </div>
@@ -79,7 +80,7 @@ const SubmitTicketPage = () => {
               onChange={handleChange}
               rows={6}
               placeholder="Type something"
-              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring focus:ring-light focus:border-brand-4 bg-transparent"
+              className="w-full border border-white/10 rounded-md px-4 py-2 focus:ring-1 focus:ring-light focus:border-brand-4 bg-transparent"
               required
             />
           </div>
@@ -88,9 +89,9 @@ const SubmitTicketPage = () => {
           <div>
             <label
               htmlFor="attachment"
-              className="text-brand-4 text-sm cursor-pointer flex items-center gap-1"
+              className="text-brand-4 text-sm cursor-pointer flex items-center gap-2"
             >
-              📎 Attachment
+              <Paperclip className="w-4 h-4" /> Attachment
             </label>
             <input
               id="attachment"
@@ -107,7 +108,7 @@ const SubmitTicketPage = () => {
 
           {/* reCAPTCHA Placeholder */}
           <div className="flex items-center gap-2">
-            <input type="checkbox" id="captcha" className="w-4 h-4" />
+            <input type="checkbox" id="captcha" className="w-4 h-4 accent-brand-4" />
             <label htmlFor="captcha" className="text-sm">
               I&apos;m not a robot
             </label>
@@ -117,7 +118,7 @@ const SubmitTicketPage = () => {
           <div className="flex justify-end gap-4">
             <button
               type="button"
-              className="px-4 py-2 border border-white/10 rounded-md text-gray-300 hover:bg-gray-600"
+              className="px-4 py-2 border border-white/10 rounded-md bg-brand-2/10 hover:bg-brand-2/5"
             >
               Cancel
             </button>

@@ -13,6 +13,7 @@ export type ArtistIntroVideoProps = {
   muted?: boolean;
   rounded?: boolean;
   loop?: boolean;
+  shieldIdm?: boolean;
 };
 
 export default function ArtistIntroVideo({
@@ -24,11 +25,15 @@ export default function ArtistIntroVideo({
   muted = true,
   rounded = true,
   loop = false,
+  shieldIdm = false,
 }: ArtistIntroVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [hasLoadedSrc] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [hovered, setHovered] = useState(false);
+  const [blobUrl, setBlobUrl] = useState<string | null>(null);
+  const [blobWebmUrl, setBlobWebmUrl] = useState<string | null>(null);
+  const [didSwapToBlob, setDidSwapToBlob] = useState(false);
 
   const syncState = useCallback(() => {
     const v = videoRef.current;
@@ -45,9 +50,7 @@ export default function ArtistIntroVideo({
     const onPause = () => setIsPlaying(false);
     const onEnded = () => setIsPlaying(false);
     const onError = () => setError("There was a problem loading the video.");
-    const onLoadedMeta = () => {
-      syncState();
-    };
+    const onLoadedMeta = () => syncState();
 
     v.addEventListener("play", onPlay);
     v.addEventListener("playing", onPlaying);
@@ -68,11 +71,57 @@ export default function ArtistIntroVideo({
     };
   }, [syncState]);
 
+  // Cleanup blob URLs on unmount or source change
+  useEffect(() => {
+    return () => {
+      if (blobUrl) URL.revokeObjectURL(blobUrl);
+      if (blobWebmUrl) URL.revokeObjectURL(blobWebmUrl);
+    };
+  }, [blobUrl, blobWebmUrl]);
+
+  const swapToBlobIfNeeded = useCallback(async () => {
+    if (!shieldIdm || didSwapToBlob) return;
+
+    try {
+      // Important: CORS must allow fetch from this origin
+      // (Access-Control-Allow-Origin for cross-origin assets)
+      const headers: HeadersInit = {
+        // You can add non-cache headers if you want
+        // "Cache-Control": "no-store",
+      };
+
+      if (srcMp4) {
+        const res = await fetch(srcMp4, { headers, credentials: "omit" });
+        if (!res.ok) throw new Error(`MP4 fetch failed: ${res.status}`);
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
+        setBlobUrl(url);
+      }
+
+      if (srcWebm) {
+        const resW = await fetch(srcWebm, { headers, credentials: "omit" });
+        if (!resW.ok) throw new Error(`WEBM fetch failed: ${resW.status}`);
+        const blobW = await resW.blob();
+        const urlW = URL.createObjectURL(blobW);
+        setBlobWebmUrl(urlW);
+      }
+
+      setDidSwapToBlob(true);
+    } catch (e) {
+      console.error(e);
+      setError("Secure load failed; falling back to direct stream.");
+      // If blob swap fails, we simply keep normal URLs.
+    }
+  }, [shieldIdm, didSwapToBlob, srcMp4, srcWebm]);
+
   const togglePlay = useCallback(async () => {
     const v = videoRef.current;
     if (!v) return;
 
     try {
+      // On first interaction, swap to blob URLs to avoid IDM hook
+      await swapToBlobIfNeeded();
+
       if (v.paused) {
         v.muted = muted;
         v.playsInline = true;
@@ -86,10 +135,14 @@ export default function ArtistIntroVideo({
     } finally {
       syncState();
     }
-  }, [muted, syncState]);
+  }, [muted, syncState, swapToBlobIfNeeded]);
 
   return (
-    <div className={className}>
+    <div
+      className={className}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
       <div
         className={["relative", rounded ? "rounded-xl overflow-hidden" : ""].join(" ")}
       >
@@ -103,26 +156,37 @@ export default function ArtistIntroVideo({
           controls={false}
           width={1280}
           height={720}
+          // hides native download/extra controls in some browsers (not a security measure)
+          controlsList="nodownload noplaybackrate"
           {...(loop ? { loop: true } : {})}
         >
-          {hasLoadedSrc && (
+          {/* Prefer blob URLs once created */}
+          {didSwapToBlob ? (
+            <>
+              {blobWebmUrl && <source src={blobWebmUrl} type="video/webm" />}
+              {blobUrl && <source src={blobUrl} type="video/mp4" />}
+            </>
+          ) : (
             <>
               {srcWebm && <source src={srcWebm} type="video/webm" />}
-              <source src={srcMp4} type="video/mp4" />
+              {srcMp4 && <source src={srcMp4} type="video/mp4" />}
             </>
           )}
           Your browser does not support the video tag.
         </video>
 
-        <button
-          type="button"
-          onClick={togglePlay}
-          aria-label={isPlaying ? "Pause video" : "Play video"}
-          aria-pressed={isPlaying}
-          className="absolute bottom-2 left-2 bg-black/60 text-white text-sm px-3 py-1 rounded-full backdrop-blur-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
-        >
-          {isPlaying ? <Pause size={16} aria-hidden /> : <Play size={16} aria-hidden />}
-        </button>
+        {/* Center play/pause control (auto-hide unless hover) */}
+        {(!isPlaying || hovered) && (
+          <button
+            type="button"
+            onClick={togglePlay}
+            aria-label={isPlaying ? "Pause video" : "Play video"}
+            aria-pressed={isPlaying}
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white text-black text-sm px-3 py-3 rounded-full backdrop-blur-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 transition-opacity"
+          >
+            {isPlaying ? <Pause size={16} aria-hidden /> : <Play size={16} aria-hidden />}
+          </button>
+        )}
 
         {error && (
           <div className="absolute inset-x-0 bottom-0 m-2 rounded-md bg-red-600/90 text-white text-xs px-2 py-1 shadow">

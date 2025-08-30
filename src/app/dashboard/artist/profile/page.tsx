@@ -20,7 +20,7 @@ import {
   Youtube,
 } from "lucide-react";
 import { TiktokIcon } from "@/icons";
-import { Dropdown, MultiDropdown } from "@/components";
+import { MultiDropdown } from "@/components";
 import { DropdownOption } from "@/interface";
 
 const genresOptions: DropdownOption<string>[] = [

@@ -1,17 +1,23 @@
 import React from "react";
-import { CheckoutAddOnns, CheckoutBrief, CheckoutTier } from "@/components";
+import {
+  CheckoutAddOnns,
+  CheckoutBrief,
+  CheckoutTier,
+  ArtistCheckoutProgress,
+} from "@/components";
+import { Star } from "lucide-react";
+import Link from "next/link";
 
 const CheckoutPage: React.FC = () => {
   return (
     <>
       {/* Progress */}
-      <section className="py-5">
-        <div className="flex items-center gap-2 text-xs">
-          <span className="chip">1. Choose tier</span>
-          <span className="chip">2. Brief</span>
-          <span className="chip">3. Add‑ons</span>
-          <span className="chip">4. Pay</span>
-        </div>
+      <section className="py-8">
+        <ArtistCheckoutProgress
+          current={3}
+          steps={["1. Choose tier", "2. Brief", "3. Add‑ons", "4. Pay"]}
+          className="mx-auto"
+        />
       </section>
 
       {/* Main */}
@@ -19,19 +25,29 @@ const CheckoutPage: React.FC = () => {
         {/* LEFT: form */}
         <section className="space-y-6">
           {/* Artist summary */}
-          <div className="card p-4 flex items-center gap-4">
-            <div className="h-14 w-14 rounded-xl bg-white/10 border border-white/10 grid place-items-center text-[10px]">
+          <div className="card p-4 flex items-center gap-4 bg-gradient-to-b from-brand-2/10 to-brand-1/10">
+            <div className="h-14 w-14 rounded-full bg-white/10 border border-white/10 grid place-items-center text-[10px]">
               IMG
             </div>
             <div className="flex-1">
-              <div className="font-heading">Artist Name</div>
-              <div className="text-xs text-white/60">
-                Singer • Indie • ★ 4.9 • ~48h ETA
+              <span className="font-heading text-base mb-1 inline-block">
+                Artist Name
+              </span>
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="chip flex items-center gap-1 text-[11px] bg-mario-coin/15 border border-mario-coin/40">
+                  <Star className="w-3 h-3 text-gold" /> <span>4.9</span> (1.2k)
+                </span>
+                <span className="chip bg-brand-4/10 border border-brand-4/40 text-[11px]">
+                  48h ETA
+                </span>
               </div>
             </div>
-            <a className="text-sm text-white/70 underline" href="artist.html">
+            <Link
+              className="text-sm text-muted hover:text-light underline"
+              href="/artists/1"
+            >
               View profile
-            </a>
+            </Link>
           </div>
 
           {/* tier select */}
@@ -44,7 +60,7 @@ const CheckoutPage: React.FC = () => {
           <CheckoutAddOnns />
 
           {/* Buyer info (minimal for demo) */}
-          <div className="card p-5">
+          <div className="card p-5 bg-gradient-to-b from-brand-4/8 to-brand-1/10 backdrop-blur-2xl">
             <h2 className="font-heading text-lg">Your info</h2>
             <div className="grid md:grid-cols-2 gap-4 mt-3">
               <div>
@@ -65,8 +81,8 @@ const CheckoutPage: React.FC = () => {
 
         {/* RIGHT: summary */}
         <aside className="space-y-3">
-          <div className="card p-5">
-            <div className="font-heading">Order summary</div>
+          <div className="card p-5 bg-gradient-to-b from-brand-2/10 to-brand-1/10">
+            <h2 className="font-bricolage-grotesque">Order summary</h2>
             <div className="mt-3 space-y-2 text-sm" id="summary">
               <div className="flex justify-between">
                 <span>Selected tier</span>
@@ -98,9 +114,9 @@ const CheckoutPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="card p-4">
+          <div className="card p-4 bg-gradient-to-b from-brand-1/10 to-brand-1/10">
             <div className="font-heading text-sm">What you’ll receive</div>
-            <ul className="mt-2 text-sm text-white/75 space-y-1">
+            <ul className="mt-2 text-sm text-muted space-y-1">
               <li>• Private playlist link (Spotify/Apple/YTM)</li>
               <li>• 30s authentication video (saying your name)</li>
               <li>• Privacy‑first delivery via ARTYLST</li>

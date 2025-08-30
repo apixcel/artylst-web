@@ -3,7 +3,7 @@ export const reviewData = [
     id: 1,
     rating: 5,
     name: "Sophie",
-    image: "/images/review/sophie.png",
+    image: "/images/team/team-2.jpeg",
     review:
       "We cannot thank you enough! Sophie was beyond thrilled to get your message and it really helped her get through a little bit of missing home!",
   },
@@ -11,7 +11,7 @@ export const reviewData = [
     id: 2,
     rating: 5,
     name: "Jean",
-    image: "/images/review/jean.png",
+    image: "/images/team/team-1.jpg",
     review:
       "I surprised my best friend with a pep talk when she was feeling down. Mr Macqueen's message was beyond what either of us expected!",
   },
@@ -19,7 +19,7 @@ export const reviewData = [
     id: 3,
     rating: 5,
     name: "Eileen",
-    image: "/images/review/eileen.png",
+    image: "/images/team/team-3.jpeg",
     review:
       "She's watched it multiple times, shared it with friends and family, and continues to tell everyone about it. Thank you so much for making her day/month/year!",
   },

@@ -23,10 +23,10 @@ const HomeHero = () => {
           </p>
 
           <div className="my-[20px] flex items-center gap-[16px]">
-            <Link href="/artists" className="btn btn-primary">
+            <Link href="/artists" className="btn-secondary">
               Explore Artists
             </Link>
-            <Link href="/artists" className="btn btn-ghost">
+            <Link href="#how-artylst-works" className="btn btn-ghost">
               How it works
             </Link>
           </div>

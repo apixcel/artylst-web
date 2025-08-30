@@ -6,7 +6,6 @@ import { useSetSearchParams } from "@/hooks";
 
 const VIBES = ["Workout", "Study/Focus", "Chill", "Wedding", "Party"] as const;
 const PLATFORMS = ["Spotify", "Apple", "YTM"] as const;
-const LANGUAGES = ["English", "Bangla", "Spanish", "Hindi"] as const;
 
 type Eta = "24" | "48" | "72" | null;
 
@@ -41,7 +40,6 @@ const ArtistsFilter = () => {
     setSelectedCats(getSet("category"));
     setSelectedVibes(getSet("vibes"));
     setSelectedPlatforms(getSet("platforms"));
-    setSelectedLangs(getSet("languages"));
     setCommercial(searchParams.get("commercial") === "1");
     setRefresh(searchParams.get("refresh") === "1");
     setEta((searchParams.get("eta") as Eta) ?? null);
@@ -92,7 +90,6 @@ const ArtistsFilter = () => {
       category: joinOrUndef(selectedCats),
       vibes: joinOrUndef(selectedVibes),
       platforms: joinOrUndef(selectedPlatforms),
-      languages: joinOrUndef(selectedLangs),
       commercial: commercial ? "1" : undefined,
       refresh: refresh ? "1" : undefined,
       eta: eta ?? undefined,
@@ -231,24 +228,6 @@ const ArtistsFilter = () => {
           <button className="btn btn-ghost" onClick={() => quickPrice(100, undefined)}>
             $100+
           </button>
-        </div>
-      </div>
-
-      {/* Language */}
-      <div className="mt-5">
-        <div className="filter-title">Language</div>
-        <div className="mt-2 space-y-2 text-sm">
-          {LANGUAGES.map((l) => (
-            <label key={l} className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="language"
-                checked={Array.from(selectedLangs)[0] === l}
-                onChange={() => setSelectedLangs(new Set([l]))}
-              />
-              <span>{l}</span>
-            </label>
-          ))}
         </div>
       </div>
 

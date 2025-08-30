@@ -26,7 +26,7 @@ const ThisIsArtylist = () => {
 
       <div className="grid md:grid-cols-3 lg:gap-[24px] gap-[24px] md:gap-[16px]">
         {thisIsArtylist.map((item) => (
-          <div key={item.id}>
+          <div key={item.id} className="border border-white/10 rounded-[24px] p-[24px]">
             <h3 className="mb-[4px]">{item.title}</h3>
             <p className="text-muted">{item.description}</p>
           </div>

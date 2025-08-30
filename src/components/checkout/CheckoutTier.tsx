@@ -1,82 +1,50 @@
 "use client";
 
+import { Check } from "lucide-react";
+import { cn } from "@/utils";
+import { artistPricingData } from "@/constants";
 import { useState } from "react";
 
 const CheckoutTier = () => {
-  const [selected, setSelected] = useState<"39" | "59" | "99">("59");
+  const [selected, setSelected] = useState<number>(artistPricingData[1].price);
+
+  const handleSelect = (price: number) => {
+    setSelected(price);
+  };
 
   return (
-    <div className="card p-5">
-      <h2 className="font-heading text-lg">Choose a tier</h2>
-      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4 mt-3">
-        {/* Mini */}
-        <label
-          className={`card p-4 cursor-pointer ${
-            selected === "39" ? "ring-1 ring-brand/40" : ""
-          }`}
-        >
-          <input
-            type="radio"
-            name="tier"
-            value="39"
-            className="peer sr-only"
-            checked={selected === "39"}
-            onChange={() => setSelected("39")}
-          />
-          <div className="text-sm text-white/70">Mini • 10–12 tracks</div>
-          <div className="text-2xl font-heading mt-1">$39</div>
-          <ul className="mt-2 text-xs text-white/70 space-y-1">
-            <li>Private playlist link</li>
-            <li>30s auth video</li>
-          </ul>
-          <div className="mt-3 text-[11px] text-emerald-300/90">~48h</div>
-        </label>
+    <div className="card p-5 bg-brand-1/10">
+      <h2 className="font-bricolage-grotesque mb-[20px]">Choose a tier</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-4 xl:grid-cols-3 gap-4">
+        {artistPricingData.map((tier, index) => (
+          <div
+            key={tier.id}
+            className={cn(
+              "card bg-gradient-to-b from-brand-1/10 to-brand-4/8 text-center p-5 flex flex-col",
+              index === 0 && "xl:col-span-1 sm:col-span-2 col-span-1",
+              index === 1 && "xl:col-span-1 sm:col-span-2 col-span-1",
+              index === 2 && "xl:col-span-1 sm:col-span-2 col-span-1 sm:col-start-2",
+              selected === tier.price && "border-brand-4/80 border"
+            )}
+            onClick={() => handleSelect(tier.price)}
+          >
+            <div>
+              <h4 className="text-[16px] text-muted text-center font-bricolage-grotesque uppercase mb-3">
+                {tier.name}
+              </h4>
+              <h3 className="text-2xl mb-6">${tier.price}</h3>
+            </div>
 
-        {/* Standard */}
-        <label
-          className={`card p-4 cursor-pointer ${
-            selected === "59" ? "ring-1 ring-brand/40" : ""
-          }`}
-        >
-          <input
-            type="radio"
-            name="tier"
-            value="59"
-            className="peer sr-only"
-            checked={selected === "59"}
-            onChange={() => setSelected("59")}
-          />
-          <div className="text-sm text-white/70">Standard • 20–24 tracks</div>
-          <div className="text-2xl font-heading mt-1">$59</div>
-          <ul className="mt-2 text-xs text-white/70 space-y-1">
-            <li>Deeper curation</li>
-            <li>30s auth video</li>
-          </ul>
-          <div className="mt-3 text-[11px] text-emerald-300/90">~48h</div>
-        </label>
-
-        {/* Deep Dive */}
-        <label
-          className={`card p-4 cursor-pointer ${
-            selected === "99" ? "ring-1 ring-brand/40" : ""
-          }`}
-        >
-          <input
-            type="radio"
-            name="tier"
-            value="99"
-            className="peer sr-only"
-            checked={selected === "99"}
-            onChange={() => setSelected("99")}
-          />
-          <div className="text-sm text-white/70">Deep Dive • 35+ tracks</div>
-          <div className="text-2xl font-heading mt-1">$99</div>
-          <ul className="mt-2 text-xs text-white/70 space-y-1">
-            <li>1 revision within 7 days</li>
-            <li>30s auth video</li>
-          </ul>
-          <div className="mt-3 text-[11px] text-emerald-300/90">~72h</div>
-        </label>
+            <ul className="text-muted space-y-1.5 mb-[20px]">
+              {tier.description.map((description) => (
+                <li className="flex gap-2 text-left" key={description}>
+                  <Check className="w-4 h-4 text-brand-4/80" />
+                  {description}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
     </div>
   );

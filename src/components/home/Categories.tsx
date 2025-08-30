@@ -9,7 +9,7 @@ const Categories = () => {
         <p>Singers, Producers, DJs, Guitarists, Indie, Hip‑hop, R&B, Lo‑fi</p>
       </div>
 
-      <div className="p-[24px] card flex items-center justify-between gap-[60px]">
+      <div className="p-[24px] border border-white/10 rounded-[24px] bg-brand-1/8 flex items-center justify-between gap-[60px]">
         <div>
           <h1 className="font-bricolage-grotesque">Custom sound for your business</h1>
           <p className="text-muted">

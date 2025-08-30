@@ -42,7 +42,7 @@ const CheckoutBrief = () => {
   const [deliveryWindowSort, setDeliveryWindowSort] =
     useState<DropdownOption<string> | null>(deliveryWindowOptions[0]);
   return (
-    <div className="card p-5">
+    <div className="card p-5 bg-gradient-to-b from-brand-1/10 to-brand-1/10">
       <h2 className="font-heading text-lg">Your brief</h2>
       <div className="grid sm:grid-cols-2 gap-4 mt-3">
         {/* occasion */}

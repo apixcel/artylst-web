@@ -40,7 +40,7 @@ const CheckoutAddOnns = () => {
   const [selected, setSelected] = useState<string | null>(null);
 
   return (
-    <div className="card p-5">
+    <div className="card p-5 bg-gradient-to-b from-brand-1/10 to-brand-4/8 backdrop-blur-2xl">
       <h2 className="font-heading text-lg">Add-ons (optional)</h2>
 
       <fieldset className="mt-3 grid sm:grid-cols-2 gap-3 text-sm">
