@@ -2,19 +2,22 @@
 
 import { createPortal } from "react-dom";
 import { cn } from "@/utils";
-import { X } from "lucide-react";
 import { forwardRef, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { X } from "lucide-react";
+import { SidebarUserCard } from "..";
 
-export type NavLink = { label: string; href: string };
+export type NavLink = { label: string; route: string; icon: React.ElementType };
+export type User = { name: string; email: string; image: string };
 
-type MobileNavProps = {
+type DashboardMobileNavProps = {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
   navLinks: NavLink[];
   brand?: React.ReactNode;
   portal?: boolean;
+  user: User;
 };
 
 const Overlay = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
@@ -29,12 +32,13 @@ const Overlay = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
   );
 };
 
-const Drawer = forwardRef<HTMLDivElement, MobileNavProps>(
+const Drawer = forwardRef<HTMLDivElement, DashboardMobileNavProps>(
   (
     {
       isOpen,
       setIsOpen,
       navLinks,
+      user,
       brand = (
         <Link href="/" aria-label="Home">
           <Image
@@ -54,7 +58,7 @@ const Drawer = forwardRef<HTMLDivElement, MobileNavProps>(
       ref={ref}
       className={cn(
         "fixed lg:hidden top-0 left-0 h-dvh w-[375px] max-w-[86vw] z-[9999]",
-        "bg-level-0 text-white shadow-2xl ring-1 ring-black/10",
+        "bg-gradient-to-b from-brand-3/10 to-base-900/10 backdrop-blur-2xl text-white shadow-2xl ring-1 ring-black/10",
         "transition-transform duration-300 will-change-transform",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}
@@ -62,7 +66,7 @@ const Drawer = forwardRef<HTMLDivElement, MobileNavProps>(
       aria-modal="true"
       aria-label="Mobile navigation"
     >
-      <div className="sticky top-0 flex items-center justify-between px-5 py-4 bg-level-0/95 backdrop-blur border-b border-white/10">
+      <div className="sticky top-0 flex items-center justify-between px-5 py-4 bg-gradient-to-b from-brand-3/10 to-base-900/10 backdrop-blur-2xl border-b border-white/10">
         <div className="flex items-center gap-2">{brand}</div>
         <button
           onClick={() => setIsOpen(false)}
@@ -74,32 +78,50 @@ const Drawer = forwardRef<HTMLDivElement, MobileNavProps>(
       </div>
 
       <nav className="flex-1 overflow-y-auto pb-8">
-        <ul>
+        <ul className="p-4 flex flex-col gap-2">
           {navLinks.map((l) => (
-            <li key={l.href}>
+            <li key={l.route} onClick={() => setIsOpen(false)}>
               <Link
-                href={l.href}
-                onClick={() => setIsOpen(false)}
-                className="flex items-center justify-between px-6 py-4 text-sm font-medium hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40"
+                href={l.route}
+                className={cn(
+                  "group flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-white/10",
+                  window.location.pathname === l.route ? "bg-white/10" : ""
+                )}
               >
-                <span className="truncate">{l.label}</span>
+                <l.icon className={cn("text-muted group-hover:light h-5 w-5")} />
+                <span className="font-heading">{l.label}</span>
               </Link>
             </li>
           ))}
         </ul>
       </nav>
+
+      {/* Footer */}
+      <div className="mt-auto p-3">
+        <SidebarUserCard isOpen={isOpen} user={user} />
+
+        <div
+          className={cn(
+            "text-[11px] text-center text-white/50 mt-3",
+            !isOpen && "text-center"
+          )}
+        >
+          {isOpen ? "© 2025 ARTYLST" : "© 2025"}
+        </div>
+      </div>
     </aside>
   )
 );
 Drawer.displayName = "Drawer";
 
-const MobileNav = ({
+const DashboardMobileNav = ({
   isOpen,
   setIsOpen,
+  portal = true,
   navLinks,
   brand,
-  portal = true,
-}: MobileNavProps) => {
+  user,
+}: DashboardMobileNavProps) => {
   const drawerRef = useRef<HTMLDivElement>(null);
 
   // Close on ESC
@@ -141,6 +163,7 @@ const MobileNav = ({
         navLinks={navLinks}
         brand={brand}
         portal={portal}
+        user={user}
       />
     </>
   );
@@ -148,4 +171,4 @@ const MobileNav = ({
   return portal ? createPortal(content, document.body) : content;
 };
 
-export default MobileNav;
+export default DashboardMobileNav;

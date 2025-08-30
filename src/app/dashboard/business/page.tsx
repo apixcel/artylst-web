@@ -20,6 +20,7 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
+import Image from "next/image";
 
 const spendData = [
   { name: "Jul 1", spend: 80 },
@@ -79,18 +80,18 @@ const DashboardBusinessPage = () => {
 
       {/* KPI cards */}
       <div>
-        <div className="grid md:grid-cols-3 gap-4">
-          <Card>
+        <div className="grid sm:grid-cols-4 md:grid-cols-3 gap-4">
+          <Card className="md:col-span-1 sm:col-span-2 text-center">
             <div className="text-muted text-sm">Active orders</div>
             <div className="text-2xl font-heading mt-1">2</div>
             <div className="text-xs text-muted mt-2">On track: 2 • Due today: 1</div>
           </Card>
-          <Card>
+          <Card className="md:col-span-1 sm:col-span-2 text-center">
             <div className="text-muted text-sm">Delivered</div>
             <div className="text-2xl font-heading mt-1">8</div>
             <div className="text-xs text-muted mt-2">Pending review: 2</div>
           </Card>
-          <Card>
+          <Card className="md:col-span-1 sm:col-span-2 sm:col-start-2 text-center">
             <div className="text-muted text-sm">Revisions</div>
             <div className="text-2xl font-heading mt-1">1</div>
             <div className="text-xs text-muted mt-2">Avg. turnaround: 2d</div>
@@ -99,8 +100,8 @@ const DashboardBusinessPage = () => {
       </div>
 
       {/* Two-column: Left (In progress + Deadlines), Right (Spend chart + Activity) */}
-      <div className="grid lg:grid-cols-3 gap-4 items-stretch">
-        <div className="lg:col-span-2 flex flex-col gap-4 self-stretch">
+      <div className="grid desktop:grid-cols-3 gap-4 items-stretch">
+        <div className="desktop:col-span-2 flex flex-col gap-4 self-stretch">
           {/* Quick actions */}
           <div className="grid sm:grid-cols-4 gap-3">
             <Link
@@ -164,7 +165,7 @@ const DashboardBusinessPage = () => {
                     <div className="font-bricolage-grotesque truncate">
                       Order #2341 • Sloane Rivers
                     </div>
-                    <div className="text-xs text-muted flex items-center gap-2 mt-1">
+                    <div className="text-xs text-muted flex items-center flex-wrap gap-2 mt-1">
                       <span>ETA: Aug 28</span>
                       <Chip>In progress</Chip>
                       <Chip className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20">
@@ -182,7 +183,7 @@ const DashboardBusinessPage = () => {
                     <div className="font-bricolage-grotesque truncate">
                       Order #2342 • Marta
                     </div>
-                    <div className="text-xs text-muted flex items-center gap-2 mt-1">
+                    <div className="text-xs text-muted flex items-center flex-wrap gap-2 mt-1">
                       <span>ETA: Aug 31</span>
                       <Chip>In progress</Chip>
                       <Chip className="bg-green-500/10 text-green-500 border-green-500/20">
@@ -298,15 +299,19 @@ const DashboardBusinessPage = () => {
           <div className="font-heading">Recommended for your business</div>
           <div className="text-sm text-white/70">Based on Café & Workplace vibes</div>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+        <div className="grid sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
           {[60, 61, 62, 63].map((n) => (
             <Link
               key={n}
               href={`/artists/${n}`}
               className="rounded-2xl bg-white/5 border border-white/10 p-4 hover:bg-white/10"
             >
-              <div
-                className={`h-40 rounded-xl bg-[url(https://i.pravatar.cc/300?img=${n})] bg-cover`}
+              <Image
+                src={`https://i.pravatar.cc/300?img=${n}`}
+                alt={`Artist ${n}`}
+                width={160}
+                height={160}
+                className={`h-40 rounded-xl w-full object-cover`}
               />
               <div className="mt-3 font-heading">Artist {n}</div>
               <div className="text-xs text-white/60">@handle{n}</div>

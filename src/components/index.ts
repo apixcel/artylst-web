@@ -5,9 +5,10 @@ export { default as Pagination } from "./shared/Pagination";
 export { default as Dropdown } from "./shared/Dropdown";
 export { default as Review } from "./shared/Review";
 export { default as MobileNav } from "./shared/MobileNav";
+export { default as DashboardMobileNav } from "./shared/DashboardMobileNav";
 export { default as UserDropdown } from "./shared/UserDropdown";
 export { default as ArtistDeskTopBar } from "./shared/artist/ArtistDeskTopBar";
-export { default as BusinessDeskTopBar } from "./shared/business/BusinessDeskTopBar";
+export { default as BusinessTopBar } from "./shared/business/BusinessTopBar";
 export { default as MultiDropdown } from "./shared/MultiDropdown";
 
 // shared/main
@@ -77,14 +78,13 @@ export { default as AboutUsBrandSlider } from "./about-us/AboutUsBrandSlider";
 export { default as AboutVideo } from "./about-us/AboutVideo";
 
 // dashboard
-export { default as MobTopBar } from "./dashboard/MobTopBar";
 export { default as SidebarUserCard } from "./dashboard/SidebarUserCard";
 export { default as DashboardArtistCard } from "./dashboard/DashboardArtistCard";
 
 // dashboard/business
-export { default as ProfileSettings } from "./dashboard/business/ProfileSettings";
-export { default as PaymentMethods } from "./dashboard/business/PaymentMethods";
-export { default as LoginAndSecurity } from "./dashboard/business/LoginAndSecurity";
+export { default as BusinessProfileSettings } from "./dashboard/business/BusinessProfileSettings";
+export { default as BusinessPaymentMethods } from "./dashboard/business/BusinessPaymentMethods";
+export { default as BusinessLoginAndSecurity } from "./dashboard/business/BusinessLoginAndSecurity";
 
 // dashboard/artist
 export { default as DashboardArtistDeliverStepProgress } from "./dashboard/artist/deliver/DashboardArtistDeliverStepProgress";

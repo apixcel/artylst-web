@@ -149,28 +149,35 @@ const OrdersPage = () => {
       </div>
 
       {/* Filter bar */}
-      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 grid gap-3 md:grid-cols-4">
-        <div className="md:col-span-1">
+      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 gap-3 flex items-end sm:justify-start md:justify-between flex-wrap">
+        <div className="flex flex-col gap-1">
           <label className="text-muted mr-2">Status</label>
           <Dropdown
             value={status}
             options={statusOptions}
             onChange={(v) => setStatus(v)}
+            buttonClassName="md:w-50 w-40"
           />
         </div>
-        <div className="md:col-span-1">
+        <div className="flex flex-col gap-1">
           <label className="text-muted mr-2">Platform</label>
           <Dropdown
             value={platform}
             options={platformOptions}
             onChange={(v) => setPlatform(v)}
+            buttonClassName="md:w-50 w-40"
           />
         </div>
-        <div className="md:col-span-1">
+        <div className="flex flex-col gap-1">
           <label className="text-muted mr-2">Tier</label>
-          <Dropdown value={tier} options={tierOptions} onChange={(v) => setTier(v)} />
+          <Dropdown
+            value={tier}
+            options={tierOptions}
+            onChange={(v) => setTier(v)}
+            buttonClassName="md:w-50 w-40"
+          />
         </div>
-        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+        <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3 flex-1">
           <Search className="h-4 w-4 text-white/60" />
           <input
             className="bg-transparent flex-1 py-2 outline-none"
@@ -186,7 +193,7 @@ const OrdersPage = () => {
         <table className="w-full">
           <thead className="text-white/60 border-b border-white/10">
             <tr>
-              <th className="py-2 pr-4">
+              <th className="py-2 desktop:pr-4 xl:pr-1">
                 <input
                   type="checkbox"
                   className="accent-brand-4 w-4 h-4"
@@ -227,7 +234,7 @@ const OrdersPage = () => {
                 </td>
                 <td className="py-3 pr-6">
                   {row.status === "in_progress" && (
-                    <span className="chip bg-yellow-500/10 text-yellow-500">
+                    <span className="chip bg-yellow-500/10 text-yellow-500 text-center">
                       In progress
                     </span>
                   )}

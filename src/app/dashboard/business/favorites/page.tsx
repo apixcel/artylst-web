@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Heart, MessageSquare, Search, Plus, Filter } from "lucide-react";
 import { Dropdown } from "@/components";
 import { DropdownOption } from "@/interface";
+import Image from "next/image";
 
 // ----- Demo data (replace with API) -----
 const FAVORITES = [
@@ -123,17 +124,7 @@ const FavoritesPage = () => {
       </div>
 
       {/* Filters */}
-      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 grid gap-3 md:grid-cols-3">
-        {/* Search */}
-        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
-          <Search className="h-4 w-4 text-white/60" />
-          <input
-            className="bg-transparent flex-1 py-2 outline-none"
-            placeholder="Search by name or handle"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-          />
-        </div>
+      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 grid gap-3 grid-cols-2 xl:grid-cols-3">
         {/* Tag */}
         <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
           <Filter className="h-4 w-4 text-white/60" />
@@ -158,6 +149,16 @@ const FavoritesPage = () => {
             onChange={(e) => setSort(e.value)}
           />
         </div>
+        {/* Search */}
+        <div className="xl:col-span-1 col-span-2 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+          <Search className="h-4 w-4 text-white/60" />
+          <input
+            className="bg-transparent flex-1 py-2 outline-none"
+            placeholder="Search by name or handle"
+            value={q}
+            onChange={(e) => setQ(e.target.value)}
+          />
+        </div>
       </div>
 
       {/* Collections (quick filters) */}
@@ -176,14 +177,20 @@ const FavoritesPage = () => {
       </div>
 
       {/* Grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {filtered.map((a) => (
           <div
             key={a.id}
             className="group rounded-2xl bg-white/5 border border-white/10 p-4 hover:bg-white/10 transition"
           >
             <div className="relative h-40 rounded-xl overflow-hidden">
-              <div className={`absolute inset-0 bg-[url(${a.img})] bg-cover bg-center`} />
+              <Image
+                src={a.img}
+                alt={`Artist ${a.name}`}
+                width={160}
+                height={160}
+                className={`h-40 rounded-xl w-full object-cover`}
+              />
               {/* Top-right actions */}
               <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition">
                 <button

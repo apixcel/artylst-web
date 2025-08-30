@@ -1,4 +1,8 @@
-import { LoginAndSecurity, PaymentMethods, ProfileSettings } from "@/components";
+import {
+  BusinessLoginAndSecurity,
+  BusinessPaymentMethods,
+  BusinessProfileSettings,
+} from "@/components";
 
 const SettingsPage = () => {
   return (
@@ -6,9 +10,9 @@ const SettingsPage = () => {
       <div className="max-w-[1440px] mx-auto">
         <h1 className="dashboard-title mb-4">Settings</h1>
         <div className="rounded-2xl p-6 border border-white/10 bg-white/5 backdrop-blur-2xl">
-          <ProfileSettings />
-          <PaymentMethods />
-          <LoginAndSecurity />
+          <BusinessProfileSettings />
+          <BusinessPaymentMethods />
+          <BusinessLoginAndSecurity />
         </div>
       </div>
     </section>

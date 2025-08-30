@@ -16,6 +16,7 @@ import { DropdownOption } from "@/interface/dropdown.interface";
 import { Dropdown } from "@/components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
+import Image from "next/image";
 
 const Chip = ({
   children,
@@ -102,7 +103,14 @@ const SORT_OPTIONS = ["recommended", "price", "eta", "rating"];
 const ArtistCard = ({ a }: { a: Artist }) => (
   <div className="group rounded-2xl bg-white/5 border border-white/10 p-4 hover:bg-white/10 transition">
     <div className="relative h-40 rounded-xl overflow-hidden">
-      <div className={`absolute inset-0 bg-[url(${a.img})] bg-cover bg-center`} />
+      <Image
+        src={a.img}
+        alt={`Artist ${a.name}`}
+        width={160}
+        height={160}
+        className={`h-40 rounded-xl w-full object-cover`}
+      />
+
       <div className="absolute inset-x-0 bottom-0 p-3 bg-gradient-to-t from-black/60 to-transparent">
         <div className="font-heading">{a.name}</div>
         <div className="text-xs text-white/70">@{a.handle}</div>
@@ -244,48 +252,47 @@ export default function BusinessArtistsPage() {
       </div>
 
       {/* Filter bar */}
-      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 grid gap-3 md:grid-cols-4">
+      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 gap-3 flex items-end justify-start xl:justify-between flex-wrap">
+        {/* Vibe */}
+        <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
+          <Filter className="h-4 w-4 text-white/60" />
+          <Dropdown
+            value={{ label: vibe, value: vibe } as DropdownOption<string>}
+            options={ALL_VIBES.map((t) => ({ label: t, value: t }))}
+            onChange={(e) => setVibe(e.value)}
+            buttonClassName="bg-transparent border-transparent xl:w-50 md:w-37 w-45"
+          />
+        </div>
+        {/* Platform */}
+        <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
+          <span className="text-white/60 text-sm">Platform</span>
+          <Dropdown
+            value={{ label: platform, value: platform } as DropdownOption<string>}
+            options={PLATFORMS.map((p) => ({ label: p, value: p }))}
+            onChange={(e) => setPlatform(e.value as (typeof PLATFORMS)[number])}
+            buttonClassName="bg-transparent border-transparent xl:w-50 md:w-37 w-45"
+          />
+        </div>
+
+        {/* Sort */}
+        <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
+          <label className="text-white/60 text-sm">Sort</label>
+          <Dropdown
+            value={{ label: sort, value: sort } as DropdownOption<string>}
+            options={SORT_OPTIONS.map((t) => ({ label: t, value: t }))}
+            onChange={(e) => setSort(e.value)}
+            buttonClassName="bg-transparent border-transparent xl:w-50 md:w-37 w-60"
+          />
+        </div>
+
         {/* Search */}
-        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+        <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3 flex-1">
           <Search className="h-4 w-4 text-white/60" />
           <input
             className="bg-transparent flex-1 py-2 outline-none"
             placeholder="Search artists"
             value={q}
             onChange={(e) => setQ(e.target.value)}
-          />
-        </div>
-        {/* Vibe */}
-        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
-          <Filter className="h-4 w-4 text-white/60" />
-          <Dropdown
-            value={{ label: vibe, value: vibe } as DropdownOption<string>}
-            options={ALL_VIBES.map((t) => ({ label: t, value: t }))}
-            onChange={(e) => setVibe(e.value)}
-            className="w-full"
-            buttonClassName="bg-transparent border-transparent w-full"
-          />
-        </div>
-        {/* Platform */}
-        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
-          <span className="text-white/60 text-sm">Platform</span>
-          <Dropdown
-            value={{ label: platform, value: platform } as DropdownOption<string>}
-            options={PLATFORMS.map((p) => ({ label: p, value: p }))}
-            onChange={(e) => setPlatform(e.value as (typeof PLATFORMS)[number])}
-            className="w-full"
-            buttonClassName="bg-transparent border-transparent w-full"
-          />
-        </div>
-        {/* Sort */}
-        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
-          <span className="text-white/60 text-sm">Sort</span>
-          <Dropdown
-            value={{ label: sort, value: sort } as DropdownOption<string>}
-            options={SORT_OPTIONS.map((t) => ({ label: t, value: t }))}
-            onChange={(e) => setSort(e.value)}
-            className="w-full"
-            buttonClassName="bg-transparent border-transparent w-full"
           />
         </div>
       </div>
@@ -303,8 +310,9 @@ export default function BusinessArtistsPage() {
             slidesPerView={1}
             modules={[FreeMode, Navigation]}
             breakpoints={{
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 4 },
+              640: { slidesPerView: 2 },
+              1280: { slidesPerView: 3 },
+              1440: { slidesPerView: 4 },
             }}
             navigation={{
               nextEl: ".recommended-next",
@@ -340,8 +348,8 @@ export default function BusinessArtistsPage() {
             slidesPerView={1}
             modules={[FreeMode, Navigation]}
             breakpoints={{
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              640: { slidesPerView: 2 },
+              1440: { slidesPerView: 3 },
             }}
             navigation={{
               nextEl: ".popular-next",
@@ -377,8 +385,9 @@ export default function BusinessArtistsPage() {
             slidesPerView={1}
             modules={[FreeMode, Navigation]}
             breakpoints={{
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 5 },
+              640: { slidesPerView: 2 },
+              1280: { slidesPerView: 3 },
+              1440: { slidesPerView: 4 },
             }}
             navigation={{
               nextEl: ".browsed-next",
@@ -411,10 +420,12 @@ export default function BusinessArtistsPage() {
       )}
 
       {/* Footer helper */}
-      <div className="rounded-xl border border-white/10 bg-white/5 p-4 flex items-start gap-3">
-        <BadgeCheck className="h-5 w-5 text-green-400 mt-0.5" />
-        <div className="text-sm">
-          <div className="font-heading">Tip</div>
+      <div className="rounded-xl border border-white/10 bg-white/5 p-4 sm:flex-row flex-col flex items-start gap-4">
+        <div className="text-sm flex-1">
+          <div className="font-heading flex items-center gap-2 mb-2">
+            <BadgeCheck className="h-5 w-5 text-green-400 mt-0.5" />
+            Tip
+          </div>
           <div className="text-white/70">
             Use filters to match your vibe and platform, then click <em>Request</em> to
             send a brief. Every delivery includes a private playlist link + a 30s
@@ -423,7 +434,7 @@ export default function BusinessArtistsPage() {
         </div>
         <Link
           href="/messages"
-          className="ml-auto px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-sm inline-flex items-center gap-2"
+          className="px-4 py-2 rounded-lg bg-white/10 border border-white/10 inline-flex items-center gap-2"
         >
           <MessageSquare className="h-4 w-4" /> Need help?
         </Link>

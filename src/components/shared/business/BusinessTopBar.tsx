@@ -1,13 +1,25 @@
 import { UserDropdown } from "@/components";
+import { AlignJustify } from "lucide-react";
 
-const BusinessDeskTopBar = ({
+const BusinessTopBar = ({
   user,
+  isMobileMenuOpen,
+  setIsMobileMenuOpen,
 }: {
   user: { name: string; email: string; image: string };
+  isMobileMenuOpen: boolean;
+  setIsMobileMenuOpen: (isMobileMenuOpen: boolean) => void;
 }) => {
   return (
     <header className="sticky top-0 z-20 backdrop-blur-xl border-b border-white/10 bg-gradient-to-r from-brand-3/10 to-base-900/10">
       <div className="px-6 py-4 flex items-center gap-4">
+        <button
+          className="lg:hidden"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          <AlignJustify className="h-6 w-6" />
+        </button>
+
         <div className="hidden md:flex items-center gap-2 flex-1 max-w-2xl">
           <div className="relative flex-1">
             <input
@@ -45,4 +57,4 @@ const BusinessDeskTopBar = ({
   );
 };
 
-export default BusinessDeskTopBar;
+export default BusinessTopBar;
