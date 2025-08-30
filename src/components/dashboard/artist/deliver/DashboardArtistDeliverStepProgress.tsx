@@ -28,7 +28,7 @@ export default function DashboardArtistDeliverStepProgress({
           return (
             <li key={label} className="flex items-center gap-3 flex-1">
               {/* Node */}
-              <div className="flex items-center gap-2">
+              <div className="flex sm:flex-row flex-col items-center gap-2">
                 <div
                   className={clsx(
                     "size-8 rounded-full border flex items-center justify-center text-xs font-medium transition-colors",
@@ -53,7 +53,7 @@ export default function DashboardArtistDeliverStepProgress({
 
               {/* Connector (skip after last) */}
               {idx < steps.length - 1 && (
-                <div className="flex-1 h-[2px] relative">
+                <div className="flex-1 h-[2px] relative sm:block hidden">
                   {/* base line */}
                   <div className="absolute inset-0 rounded-full bg-white/15" />
                   {/* filled line */}

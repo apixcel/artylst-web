@@ -88,5 +88,7 @@ export { default as BusinessLoginAndSecurity } from "./dashboard/business/Busine
 
 // dashboard/artist
 export { default as DashboardArtistDeliverStepProgress } from "./dashboard/artist/deliver/DashboardArtistDeliverStepProgress";
+export { default as ArtistProfileSettings } from "./dashboard/artist/ArtistProfileSettings";
+export { default as ArtistLoginAndSecurity } from "./dashboard/artist/ArtistLoginAndSecurity";
 // tiers
 export { default as TiersPricingForm } from "./dashboard/artist/tiers/TiersPricingForm";

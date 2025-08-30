@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import Link from "next/link";
-import { Dropdown } from "@/components";
+import { Dropdown } from "@/components"; // keeping your component usage
 import { Pagination } from "@/components";
 import { DropdownOption } from "@/interface";
 import { Download, Search, AlertTriangle } from "lucide-react";
@@ -127,8 +127,10 @@ const OrdersPage = () => {
       {/* Header + actions */}
       <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3">
         <div>
-          <h1 className="text-2xl md:text-3xl font-bricolage-grotesque">My Orders</h1>
-          <p className="text-muted text-sm mt-1">Track, review and request revisions</p>
+          <h1 className="text-2xl md:text-3xl font-heading">My Orders</h1>
+          <p className="text-white/60 text-sm mt-1">
+            Track, review and request revisions
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <button
@@ -147,29 +149,36 @@ const OrdersPage = () => {
       </div>
 
       {/* Filter bar */}
-      <div className="rounded-2xl p-4 border border-white/10 bg-brand-2/10 backdrop-blur-2xl grid gap-3 md:grid-cols-4">
-        <div className="md:col-span-1">
+      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 gap-3 flex items-end sm:justify-start md:justify-between flex-wrap">
+        <div className="flex flex-col gap-1">
           <label className="text-muted mr-2">Status</label>
           <Dropdown
             value={status}
             options={statusOptions}
             onChange={(v) => setStatus(v)}
+            buttonClassName="md:w-50 w-40"
           />
         </div>
-        <div className="md:col-span-1">
+        <div className="flex flex-col gap-1">
           <label className="text-muted mr-2">Platform</label>
           <Dropdown
             value={platform}
             options={platformOptions}
             onChange={(v) => setPlatform(v)}
+            buttonClassName="md:w-50 w-40"
           />
         </div>
-        <div className="md:col-span-1">
+        <div className="flex flex-col gap-1">
           <label className="text-muted mr-2">Tier</label>
-          <Dropdown value={tier} options={tierOptions} onChange={(v) => setTier(v)} />
+          <Dropdown
+            value={tier}
+            options={tierOptions}
+            onChange={(v) => setTier(v)}
+            buttonClassName="md:w-50 w-40"
+          />
         </div>
-        <div className="md:col-span-1 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
-          <Search className="h-4 w-4 text-muted" />
+        <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3 flex-1">
+          <Search className="h-4 w-4 text-white/60" />
           <input
             className="bg-transparent flex-1 py-2 outline-none"
             placeholder="Search by order, artist, tier"
@@ -180,11 +189,11 @@ const OrdersPage = () => {
       </div>
 
       {/* Table */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 overflow-x-auto">
+      <div className="rounded-2xl p-6 border border-white/10 bg-white/5 overflow-x-auto">
         <table className="w-full">
-          <thead className="text-muted border-b border-white/10">
+          <thead className="text-white/60 border-b border-white/10">
             <tr>
-              <th className="py-2 pr-4">
+              <th className="py-2 desktop:pr-4 xl:pr-1">
                 <input
                   type="checkbox"
                   className="accent-brand-4 w-4 h-4"
@@ -225,7 +234,7 @@ const OrdersPage = () => {
                 </td>
                 <td className="py-3 pr-6">
                   {row.status === "in_progress" && (
-                    <span className="chip bg-yellow-500/10 text-yellow-500">
+                    <span className="chip min-w-22 inline-block bg-yellow-500/10 text-yellow-500 text-center">
                       In progress
                     </span>
                   )}
@@ -243,13 +252,13 @@ const OrdersPage = () => {
                   <div className="flex items-center gap-2">
                     <Link
                       className="px-2 py-1 rounded bg-white/10 text-xs"
-                      href={`/dashboard/business/orders/${row.id}`}
+                      href={`/dashboard/artist/orders/${row.id}`}
                     >
                       Open
                     </Link>
                     <Link
                       className="px-2 py-1 rounded bg-white/10 text-xs"
-                      href={`/messages?order=${row.id}`}
+                      href={`/dashboard/artist/messages?order=${row.id}`}
                     >
                       Message
                     </Link>
@@ -279,7 +288,7 @@ const OrdersPage = () => {
       </div>
 
       {/* Legend & helpers */}
-      <div className="rounded-2xl p-4 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 text-xs text-white/70 flex flex-wrap gap-3 backdrop-blur-2xl">
+      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 text-xs text-white/70 flex flex-wrap gap-3">
         <div className="inline-flex items-center gap-2">
           <span className="chip bg-yellow-500/10 text-yellow-500">In progress</span> Work
           started • ETA active

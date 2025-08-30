@@ -234,7 +234,7 @@ export default function BusinessArtistsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto">
+      <div className="flex items-center gap-2 overflow-x-auto w-full">
         {[
           { key: "all", label: "All" },
           { key: "recommended", label: "Recommended" },
@@ -244,7 +244,11 @@ export default function BusinessArtistsPage() {
           <button
             key={t.key}
             onClick={() => setTab(t.key as typeof tab)}
-            className={`px-3 py-1.5 rounded-full text-sm border ${tab === t.key ? "bg-brand-4/20 border-brand-4/20" : "bg-white/5 border-white/10"}`}
+            className={`px-3 py-1.5 rounded-full text-sm whitespace-nowrap border ${
+              tab === t.key
+                ? "bg-brand-4/20 border-brand-4/20"
+                : "bg-white/5 border-white/10"
+            }`}
           >
             {t.label}
           </button>

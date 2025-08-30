@@ -32,7 +32,7 @@ const ArtistEarningsPage = () => {
   ];
 
   return (
-    <section className="p-6 space-y-6">
+    <section className="space-y-6">
       <div className="flex items-end justify-between">
         <div>
           <h1 className="dashboard-title">Earnings</h1>
@@ -46,16 +46,16 @@ const ArtistEarningsPage = () => {
       </div>
 
       {/* Key balances */}
-      <div className="grid md:grid-cols-3 gap-4">
-        <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 backdrop-blur-2xl">
+      <div className="grid sm:grid-cols-3 gap-4">
+        <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 backdrop-blur-2xl text-center">
           <div className="text-muted text-sm">Available</div>
           <div className="text-2xl font-heading mt-1">$1,120</div>
         </div>
-        <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 backdrop-blur-2xl">
+        <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 backdrop-blur-2xl text-center">
           <div className="text-muted text-sm">Pending</div>
           <div className="text-2xl font-heading mt-1">$220</div>
         </div>
-        <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 backdrop-blur-2xl">
+        <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 backdrop-blur-2xl text-center">
           <div className="text-muted text-sm">30-day total</div>
           <div className="text-2xl font-heading mt-1">$2,340</div>
         </div>
@@ -63,7 +63,7 @@ const ArtistEarningsPage = () => {
 
       {/* Chart */}
       <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 items-center justify-between mb-4">
           <h3 className="font-bricolage-grotesque flex items-center gap-2">
             <DollarSign className="h-5 w-5" /> Net earnings
           </h3>

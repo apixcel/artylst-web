@@ -61,10 +61,10 @@ const ArtistStreamingPage = () => {
   );
 
   return (
-    <section className="p-6 space-y-6">
+    <section className="space-y-6">
       <h1 className="dashboard-page-title">Streaming Connections</h1>
 
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-4">
         <ServiceCard
           name="Spotify"
           desc="Create private playlists"

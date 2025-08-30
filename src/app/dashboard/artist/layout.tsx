@@ -1,6 +1,7 @@
 "use client";
 
-import { ArtistDeskTopBar, ArtistSidebar } from "@/components";
+import { ArtistDeskTopBar, ArtistSidebar, DashboardMobileNav } from "@/components";
+import { artistDashboardLink } from "@/constants";
 import { useState } from "react";
 
 const user = {
@@ -11,6 +12,7 @@ const user = {
 
 const ArtistDashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <div className="flex min-h-screen">
@@ -19,9 +21,21 @@ const ArtistDashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
       <div className="flex-1 flex flex-col min-w-0">
         {/* desktop top bar */}
-        <ArtistDeskTopBar user={user} />
+        <ArtistDeskTopBar
+          user={user}
+          isMobileMenuOpen={isMobileMenuOpen}
+          setIsMobileMenuOpen={setIsMobileMenuOpen}
+        />
         <main className="p-6">{children}</main>
       </div>
+
+      {/* mobile sidebar */}
+      <DashboardMobileNav
+        isOpen={isMobileMenuOpen}
+        setIsOpen={setIsMobileMenuOpen}
+        navLinks={artistDashboardLink}
+        user={user}
+      />
     </div>
   );
 };

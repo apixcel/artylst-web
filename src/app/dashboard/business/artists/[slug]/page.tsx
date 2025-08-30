@@ -156,7 +156,7 @@ const BusinessArtistDetailPage = () => {
   };
 
   return (
-    <section className="p-6 space-y-6">
+    <section className="space-y-6">
       {/* Breadcrumb */}
       <div className="flex items-center gap-2 text-sm text-white/70">
         <Link
@@ -175,9 +175,9 @@ const BusinessArtistDetailPage = () => {
           className="h-40 md:h-56 w-full bg-cover bg-center"
           style={{ backgroundImage: `url(${artist.banner})` }}
         />
-        <div className="p-5 md:p-6 bg-white/5 border-t border-white/10 flex items-start gap-4">
+        <div className="p-5 md:p-6 bg-white/5 border-t border-white/10 flex flex-col sm:flex-row items-start gap-4">
           <div
-            className="h-16 w-16 rounded-xl bg-cover bg-center"
+            className="h-16 w-16 rounded-full bg-cover bg-center"
             style={{ backgroundImage: `url(${artist.avatar})` }}
           />
           <div className="flex-1 min-w-0">
@@ -225,7 +225,7 @@ const BusinessArtistDetailPage = () => {
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-4">
+      <div className="grid xl:grid-cols-3 gap-4">
         {/* Left column */}
         <div className="lg:col-span-2 space-y-4">
           {/* Tiers & commercial terms */}
