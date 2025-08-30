@@ -127,8 +127,12 @@
     @apply inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs border border-white/10 bg-white/5;
   }
 
+  .chip-active {
+    @apply bg-brand-4/80 text-white hover:bg-brand-4/90;
+  }
+
   .btn {
-    @apply inline-flex items-center justify-center rounded-xl px-3.5 py-2 text-sm;
+    @apply inline-flex items-center justify-center rounded-lg px-3.5 py-2 text-sm;
   }
 
   .btn-primary {
@@ -339,7 +343,7 @@
   }
 
   .footer-social-link {
-    @apply flex justify-center items-center w-[44px] h-[44px] rounded-full border border-gray-55;
+    @apply flex justify-center items-center w-[44px] h-[44px] rounded-full border border-gray-55 hover:bg-brand-4/20 hover:border-brand-4/20 transition-all duration-300;
   }
 
   .link-text {

@@ -9,3 +9,6 @@ export { default as MasterCardIcon } from "./masterCard";
 export { default as LinkedinIcon } from "./linkedin";
 export { default as TwitterIcon } from "./twitter";
 export { default as TiktokIcon } from "./tiktok";
+export { default as InstagramIcon } from "./instagram";
+export { default as FacebookIcon } from "./facebook";
+export { default as EmailIcon } from "./email";

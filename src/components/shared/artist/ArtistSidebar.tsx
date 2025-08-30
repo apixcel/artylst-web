@@ -29,7 +29,7 @@ const ArtistSidebar = ({
       <div className="flex items-center justify-center">
         {/* logo */}
         {isOpen && (
-          <Link href="/" className="flex justify-center w-full">
+          <Link href="/" className="flex justify-start w-full p-2">
             <Image
               src="/images/logo/logo-white.png"
               alt="logo"

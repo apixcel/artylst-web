@@ -37,7 +37,7 @@ const ArtistDeliverPage = () => {
 
           {/* Progress steps */}
           <DashboardArtistDeliverStepProgress
-            current={3}
+            current={2}
             steps={["Brief", "Build playlist", "Deliver"]}
             className="mx-auto"
           />

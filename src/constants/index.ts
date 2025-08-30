@@ -8,3 +8,5 @@ export * from "./footerLinks";
 export * from "./categoriesData";
 export * from "./artistsData";
 export * from "./reviewData";
+export * from "./artistPricingData";
+export * from "./businessPricingData";

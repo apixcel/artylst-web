@@ -1,4 +1,4 @@
-import { FileText, Frown, Smile } from "lucide-react";
+import { FileText, Frown, Printer, Smile } from "lucide-react";
 import React from "react";
 
 const ArticleDetailsPage = () => {
@@ -58,32 +58,32 @@ const ArticleDetailsPage = () => {
       {/* Right Sidebar */}
       <div className="p-6 bg-white/6 rounded-r-lg">
         <button className="flex items-center gap-2 text-sm text-white mb-6">
-          🖨 Print
+          <Printer className="max-w-5 max-h-5 w-full h-full" /> Print
         </button>
 
         <div className="mb-6">
           <h3 className="font-semibold text-white mb-3">Articles in this folder -</h3>
           <ul className="space-y-2  text-sm">
             <li className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />{" "}
+              <FileText className="max-w-5 max-h-5 w-full h-full" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 How can I check the status of my Artylst video?
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />{" "}
+              <FileText className="max-w-5 max-h-5 w-full h-full" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 Can I edit the instructions after I send my Artylst video request?
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />{" "}
+              <FileText className="max-w-5 max-h-5 w-full h-full" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 How do I cancel my Artylst video request?
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />{" "}
+              <FileText className="max-w-5 max-h-5 w-full h-full" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 My Artylst video expired! What do I do?
               </a>
@@ -95,25 +95,25 @@ const ArticleDetailsPage = () => {
           <h3 className="font-semibold text-white mb-3">You may like to read -</h3>
           <ul className="space-y-2  text-sm">
             <li className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />{" "}
+              <FileText className="max-w-5 max-h-5 w-full h-full" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 How do I share my Artylst video?
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />{" "}
+              <FileText className="max-w-5 max-h-5 w-full h-full" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 Is there a limit to how long I can use my business video?
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />{" "}
+              <FileText className="max-w-5 max-h-5 w-full h-full" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 How will I receive my Artylst video?
               </a>
             </li>
             <li className="flex items-center gap-2">
-              <FileText className="w-5 h-5" />{" "}
+              <FileText className="max-w-5 max-h-5 w-full h-full" />{" "}
               <a href="#" className="hover:underline text-brand-4">
                 When will I be charged for my Artylst video?
               </a>

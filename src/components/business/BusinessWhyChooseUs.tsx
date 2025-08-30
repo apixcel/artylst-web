@@ -5,21 +5,25 @@ const features = [
     feature: "Custom curation",
     artylst: "By real artists, on-brief",
     generic: "Preset mood lists",
+    other: "AI-generated playlists",
   },
   {
     feature: "Authentication",
     artylst: "30s artist video",
     generic: "None",
+    other: "Basic profile check",
   },
   {
     feature: "Privacy",
     artylst: "No personal info shared",
     generic: "Often email exchanges",
+    other: "Data shared with partners",
   },
   {
     feature: "Refresh",
     artylst: "One-click monthly refresh",
     generic: "Manual updates",
+    other: "Limited seasonal refresh",
   },
 ];
 
@@ -28,7 +32,7 @@ const BusinessWhyChooseUs = () => {
     <section className="mb-[60px]">
       <div className="wrapper">
         <h2 className="mb-[20px] text-center font-bricolage-grotesque text-xl font-semibold">
-          Why ARTYLST vs generic playlists
+          Why ARTYLST vs others
         </h2>
 
         <div className="overflow-x-auto">
@@ -38,6 +42,7 @@ const BusinessWhyChooseUs = () => {
                 <th className="py-3 px-4">Feature</th>
                 <th className="py-3 px-4">ARTYLST</th>
                 <th className="py-3 px-4">Generic service</th>
+                <th className="py-3 px-4">Other service</th>
               </tr>
             </thead>
             <tbody>
@@ -49,6 +54,7 @@ const BusinessWhyChooseUs = () => {
                   <td className="py-3 px-4">{item.feature}</td>
                   <td className="py-3 px-4">{item.artylst}</td>
                   <td className="py-3 px-4">{item.generic}</td>
+                  <td className="py-3 px-4">{item.other}</td>
                 </tr>
               ))}
             </tbody>

@@ -1,5 +1,3 @@
-import { title } from "process";
-
 export const footerLinks = [
   {
     title: "Company",
@@ -34,8 +32,16 @@ export const footerLinks = [
         route: "/refund-returns",
       },
       {
-        title: "Privacy",
+        title: "Terms of Service",
+        route: "/terms-of-service",
+      },
+      {
+        title: "Privacy Policy",
         route: "/privacy-policy",
+      },
+      {
+        title: "Accessibility",
+        route: "/accessibility",
       },
     ],
   },
@@ -48,7 +54,7 @@ export const footerLinks = [
       },
       {
         title: "How it works",
-        route: "/accessibility",
+        route: "/about-us",
       },
       {
         title: "For business",
@@ -56,7 +62,7 @@ export const footerLinks = [
       },
       {
         title: "Join as artist",
-        route: "/enroll-form",
+        route: "/join-as-artist",
       },
     ],
   },

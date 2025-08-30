@@ -11,9 +11,9 @@ const Review = ({ review }: { review: IReview }) => {
               <Image
                 src={review.image}
                 alt={review.name}
-                width={40}
-                height={40}
-                className="rounded-full"
+                width={50}
+                height={50}
+                className="rounded-full object-cover w-[40px] h-[40px]"
               />
             ) : (
               <div className="h-10 w-10 rounded-full bg-white/10 border border-white/10 grid place-items-center text-xs">

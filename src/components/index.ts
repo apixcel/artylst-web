@@ -34,6 +34,7 @@ export { default as ThisIsArtylist } from "./home/ThisIsArtylist";
 export { default as InstantPlaylists } from "./home/InstantPlaylists";
 export { default as FAQ } from "./home/FAQ";
 export { default as ContactForm } from "./home/ContactForm";
+export { default as HomeRecentlyViewed } from "./home/HomeRecentlyViewed";
 
 // artists
 export { default as CategoryChips } from "./artists/CategoryChips";
@@ -42,6 +43,7 @@ export { default as ArtistTopbar } from "./artists/ArtistTopbar";
 export { default as ArtistCard } from "./artists/ArtistCard";
 export { default as ArtistIntroVideo } from "./artists/ArtistIntroVideo";
 export { default as TopArtistSteps } from "./artists/TopArtistSteps";
+export { default as ArtistCheckoutProgress } from "./artists/ArtistCheckoutProgress";
 
 // checkout
 export { default as CheckoutBrief } from "./checkout/CheckoutBrief";
@@ -69,16 +71,22 @@ export { default as BusinessBrandHelped } from "./business/BusinessBrandHelped";
 export { default as BusinessSecurity } from "./business/BusinessSecurity";
 export { default as BusinessCTA } from "./business/BusinessCTA";
 
-// dashboard
-export { default as MobTopBar } from "./dashboard/MobTopBar";
-export { default as ProfileSettings } from "./dashboard/business/ProfileSettings";
-export { default as PaymentMethods } from "./dashboard/business/PaymentMethods";
-export { default as LoginAndSecurity } from "./dashboard/business/LoginAndSecurity";
-export { default as SidebarUserCard } from "./dashboard/SidebarUserCard";
-export { default as DashboardArtistCard } from "./dashboard/DashboardArtistCard";
-export { default as DashboardArtistDeliverStepProgress } from "./dashboard/artist/DashboardArtistDeliverStepProgress";
-
 // about-us
 export { default as AboutUsSteps } from "./about-us/AboutUsSteps";
 export { default as AboutUsBrandSlider } from "./about-us/AboutUsBrandSlider";
 export { default as AboutVideo } from "./about-us/AboutVideo";
+
+// dashboard
+export { default as MobTopBar } from "./dashboard/MobTopBar";
+export { default as SidebarUserCard } from "./dashboard/SidebarUserCard";
+export { default as DashboardArtistCard } from "./dashboard/DashboardArtistCard";
+
+// dashboard/business
+export { default as ProfileSettings } from "./dashboard/business/ProfileSettings";
+export { default as PaymentMethods } from "./dashboard/business/PaymentMethods";
+export { default as LoginAndSecurity } from "./dashboard/business/LoginAndSecurity";
+
+// dashboard/artist
+export { default as DashboardArtistDeliverStepProgress } from "./dashboard/artist/deliver/DashboardArtistDeliverStepProgress";
+// tiers
+export { default as TiersPricingForm } from "./dashboard/artist/tiers/TiersPricingForm";

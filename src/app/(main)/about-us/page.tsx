@@ -61,10 +61,10 @@ const AboutPage = () => {
             ARTYLST is <i>music-first</i>, privacy-first, and built on secure escrow.
           </p>
           <div className="mt-5 flex gap-3">
-            <Link href="/for-business" className="btn btn-primary">
+            <Link href="/business" className="btn btn-secondary">
               For Business
             </Link>
-            <Link href="/join-as-artist" className="btn bg-white/10 hover:bg-white/15">
+            <Link href="/join-as-artist" className="btn btn-tertiary">
               Join as Artist
             </Link>
           </div>
@@ -131,18 +131,18 @@ const AboutPage = () => {
       {/* from idea to marketplace */}
       <section className="wrapper-inner border border-white/10 rounded-xl bg-gradient-to-br from-brand-2/20 via-brand-3/15 to-brand-5/20  p-6 flex flex-col justify-between transition-colors mb-[40px]">
         <h2 className="font-heading text-xl mb-3">From idea to marketplace</h2>
-        <div className="p-6">
-          <ol className="relative border-l border-white/10 pl-6 space-y-6 text-sm">
+        <div className="px-6 py-4">
+          <ol className="relative border-l border-brand-4/20 my-2 pl-6 space-y-6 text-sm">
             <li>
-              <span className="absolute -left-2 top-0 h-4 w-4 rounded-full bg-brand shadow-glow"></span>
+              <span className="absolute -left-1.5 top-0 h-3 w-3 rounded-full bg-brand-4 shadow-glow"></span>
               <b>Concept</b> — Personalized, private playlists with authentication.
             </li>
             <li>
-              <span className="absolute -left-2 top-0 h-4 w-4 rounded-full bg-brand shadow-glow"></span>
+              <span className="absolute -left-1.5 top-1/2 -translate-y-1/2 h-3 w-3 rounded-full bg-brand-4 shadow-glow"></span>
               <b>Pilot</b> — Early artists, coffee shops & yoga studios.
             </li>
             <li>
-              <span className="absolute -left-2 top-0 h-4 w-4 rounded-full bg-brand shadow-glow"></span>
+              <span className="absolute -left-1.5 h-3 bottom-0 w-3 rounded-full bg-brand-4 shadow-glow"></span>
               <b>Launch</b> — Web app (mobile-friendly), escrow & payouts.
             </li>
           </ol>

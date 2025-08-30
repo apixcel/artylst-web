@@ -36,9 +36,9 @@ const TeamPage = () => {
       {/* leadership */}
       <section id="leadership" className="max-w-6xl mx-auto px-4 py-8">
         <h2 className="mb-3 font-bricolage-grotesque text-2xl">Leadership</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid sm:grid-cols-4 lg:grid-cols-3 gap-4">
           {/* founder */}
-          <div>
+          <div className="lg:col-span-1 col-span-2">
             <div className="mb-3 lg:h-[230px] h-[200px] overflow-hidden rounded-xl">
               <Image
                 src="/images/team/team-1.jpg"
@@ -58,13 +58,15 @@ const TeamPage = () => {
               <div className="mt-2 flex gap-2">
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.linkedin.com"
                 >
                   <LinkedinIcon />
                 </Link>
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.twitter.com"
                 >
                   <TwitterIcon />
                 </Link>
@@ -72,7 +74,7 @@ const TeamPage = () => {
             </div>
           </div>
           {/* co-founder */}
-          <div>
+          <div className="lg:col-span-1 col-span-2">
             <div className="mb-3 lg:h-[230px] h-[200px] overflow-hidden rounded-xl">
               <Image
                 src="/images/team/team-2.jpeg"
@@ -91,13 +93,15 @@ const TeamPage = () => {
               <div className="mt-2 flex gap-2">
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.linkedin.com"
                 >
                   <LinkedinIcon />
                 </Link>
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.twitter.com"
                 >
                   <TwitterIcon />
                 </Link>
@@ -105,7 +109,7 @@ const TeamPage = () => {
             </div>
           </div>
           {/* head of music */}
-          <div>
+          <div className="lg:col-span-1 col-span-2 sm:col-start-2">
             <div className="mb-3 h-[230px] overflow-hidden rounded-xl">
               <Image
                 src="/images/team/team-3.jpeg"
@@ -124,7 +128,8 @@ const TeamPage = () => {
               <div className="mt-2 flex gap-2">
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.linkedin.com"
                 >
                   <LinkedinIcon />
                 </Link>
@@ -161,13 +166,15 @@ const TeamPage = () => {
               <div className="mt-2 flex gap-2">
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.linkedin.com"
                 >
                   <LinkedinIcon />
                 </Link>
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.twitter.com"
                 >
                   <TwitterIcon />
                 </Link>
@@ -191,13 +198,15 @@ const TeamPage = () => {
               <div className="mt-2 flex gap-2">
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.linkedin.com"
                 >
                   <LinkedinIcon />
                 </Link>
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.twitter.com"
                 >
                   <TwitterIcon />
                 </Link>
@@ -221,13 +230,15 @@ const TeamPage = () => {
               <div className="mt-2 flex gap-2">
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.linkedin.com"
                 >
                   <LinkedinIcon />
                 </Link>
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.twitter.com"
                 >
                   <TwitterIcon />
                 </Link>
@@ -251,13 +262,15 @@ const TeamPage = () => {
               <div className="mt-2 flex gap-2">
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.linkedin.com"
                 >
                   <LinkedinIcon />
                 </Link>
                 <Link
                   className="w-[32px] h-[32px] flex-center bg-white/5 rounded-full hover:bg-brand-4/10"
-                  href="#"
+                  target="_blank"
+                  href="https://www.twitter.com"
                 >
                   <TwitterIcon />
                 </Link>

@@ -1,3 +1,4 @@
+import { cn } from "@/utils";
 import Image from "next/image";
 
 const enrollTiers = [
@@ -30,11 +31,16 @@ const EnrollTiers = () => {
       <h2 className="mb-[20px] text-center font-bricolage-grotesque text-[32px] font-[500]">
         Set your tiers & keep control
       </h2>
-      <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-[20px]">
-        {enrollTiers.map((tier) => (
+      <div className="grid lg:grid-cols-4 xl:grid-cols-3 gap-4 mb-[20px]">
+        {enrollTiers.map((tier, index) => (
           <div
             key={tier.id}
-            className="border border-white/10 rounded-[24px] flex items-center relative bg-[linear-gradient(180deg,rgb(0,0,0)_0%,rgba(18,17,20,0.64)_100%)]"
+            className={cn(
+              "border border-white/10 rounded-[24px] flex items-center relative bg-[linear-gradient(180deg,rgb(0,0,0)_0%,rgba(18,17,20,0.64)_100%)]",
+              index === 0 && "xl:col-span-1 lg:col-span-2 col-span-1",
+              index === 1 && "xl:col-span-1 lg:col-span-2 col-span-1",
+              index === 2 && "xl:col-span-1 lg:col-span-2 lg:col-start-2 col-span-1"
+            )}
           >
             <div className="w-1/2 pl-[20px]">
               <h3 className="font-bold mt-[8px] mb-[10px] text-[24px] font-bricolage-grotesque">
