@@ -1,12 +1,12 @@
 import { MasterCardIcon } from "@/icons";
 
-const PaymentMethods = () => {
+const BusinessPaymentMethods = () => {
   return (
     <div>
       {/* payment methods */}
-      <div className="flex flex-col gap-4 border-b border-white/10 pb-4 mb-4">
+      <div className="flex flex-col sm:gap-4 gap-8 border-b border-white/10 pb-4 mb-4">
         {/* payment info */}
-        <div className="flex justify-between items-start gap-10">
+        <div className="flex justify-between items-start gap-4 sm:gap-10 flex-col sm:flex-row">
           <div className="flex flex-col gap-2 flex-1">
             <h2 className="text-2xl font-bricolage-grotesque">Payment method</h2>
 
@@ -36,4 +36,4 @@ const PaymentMethods = () => {
   );
 };
 
-export default PaymentMethods;
+export default BusinessPaymentMethods;

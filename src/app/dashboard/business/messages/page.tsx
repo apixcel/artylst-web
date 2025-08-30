@@ -223,7 +223,7 @@ const MessagesPage = () => {
     <section className="space-y-6">
       <h1 className="text-2xl md:text-3xl font-heading">Messages</h1>
 
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid xl:grid-cols-3 gap-4">
         {/* LEFT: Thread list */}
         <div className="rounded-2xl p-4 border border-white/10 bg-white/5 flex flex-col">
           <div className="flex items-center justify-between">
@@ -301,7 +301,7 @@ const MessagesPage = () => {
         </div>
 
         {/* RIGHT: Active conversation */}
-        <div className="md:col-span-2 rounded-2xl p-4 border border-white/10 bg-white/5 flex flex-col min-h-[620px]">
+        <div className="xl:col-span-2 rounded-2xl p-4 border border-white/10 bg-white/5 flex flex-col min-h-[620px]">
           {/* Header */}
           <div className="flex items-start justify-between">
             <div>

@@ -293,15 +293,15 @@ const ReceiptsPage = () => {
 
       {/* Totals */}
       <div className="grid md:grid-cols-3 gap-4">
-        <div className="rounded-2xl p-5 border border-white/10 bg-white/5">
+        <div className="rounded-2xl p-5 border border-white/10 bg-white/5 text-center">
           <div className="text-white/70 text-sm">Gross</div>
           <div className="text-2xl font-heading mt-1">{formatMoney(totals.gross)}</div>
         </div>
-        <div className="rounded-2xl p-5 border border-white/10 bg-white/5">
+        <div className="rounded-2xl p-5 border border-white/10 bg-white/5 text-center">
           <div className="text-white/70 text-sm">Artylst Fees</div>
           <div className="text-2xl font-heading mt-1">{formatMoney(totals.fees)}</div>
         </div>
-        <div className="rounded-2xl p-5 border border-white/10 bg-white/5">
+        <div className="rounded-2xl p-5 border border-white/10 bg-white/5 text-center">
           <div className="text-white/70 text-sm">Net (after fees)</div>
           <div className="text-2xl font-heading mt-1">{formatMoney(totals.net)}</div>
         </div>

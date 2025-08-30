@@ -1,7 +1,8 @@
 "use client";
 
-import { BusinessDeskTopBar, MobTopBar, BusinessSidebar } from "@/components";
+import { BusinessSidebar, BusinessTopBar, DashboardMobileNav } from "@/components";
 import { useState } from "react";
+import { businessDashboardLink } from "@/constants";
 
 const user = {
   name: "Example Business Name",
@@ -11,21 +12,30 @@ const user = {
 
 const BusinessDashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
     <div className="flex min-h-screen">
       {/* desktop sidebar */}
       <BusinessSidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} user={user} />
 
-      {/* mobile top bar */}
-      <MobTopBar />
-
       <div className="flex-1 flex flex-col min-w-0">
         {/* desktop top bar */}
-        <BusinessDeskTopBar user={user} />
+        <BusinessTopBar
+          user={user}
+          isMobileMenuOpen={isMobileMenuOpen}
+          setIsMobileMenuOpen={setIsMobileMenuOpen}
+        />
         <main className="p-6">{children}</main>
       </div>
-      {/* <footer>© 2025 ARTYLST</footer> */}
+
+      {/* mobile sidebar */}
+      <DashboardMobileNav
+        isOpen={isMobileMenuOpen}
+        setIsOpen={setIsMobileMenuOpen}
+        navLinks={businessDashboardLink}
+        user={user}
+      />
     </div>
   );
 };
