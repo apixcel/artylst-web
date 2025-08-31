@@ -1,13 +1,13 @@
 import Image from "next/image";
 
-const ProfileSettings = () => {
+const ArtistProfileSettings = () => {
   return (
     <div>
       {/* profile photo */}
       <div className="border-b border-white/10 pb-4 mb-4">
         <h3 className="font-bricolage-grotesque">Profile Photo</h3>
 
-        <div className="flex items-center justify-between gap-4 mt-4">
+        <div className="flex items-center justify-between gap-4 mt-4 flex-col sm:flex-row">
           {/* avatar */}
           <div className="w-20 h-20 rounded-full bg-white/10 border border-white/10 overflow-hidden">
             <Image
@@ -80,4 +80,4 @@ const ProfileSettings = () => {
   );
 };
 
-export default ProfileSettings;
+export default ArtistProfileSettings;

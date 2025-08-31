@@ -193,7 +193,7 @@ const OrdersPage = () => {
         <table className="w-full">
           <thead className="text-white/60 border-b border-white/10">
             <tr>
-              <th className="py-2 desktop:pr-4 xl:pr-1">
+              <th className="py-2 2xl:pr-4 desktop:pr-2 xl:pr-1">
                 <input
                   type="checkbox"
                   className="accent-brand-4 w-4 h-4"
@@ -234,7 +234,7 @@ const OrdersPage = () => {
                 </td>
                 <td className="py-3 pr-6">
                   {row.status === "in_progress" && (
-                    <span className="chip bg-yellow-500/10 text-yellow-500 text-center">
+                    <span className="chip min-w-22 inline-block bg-yellow-500/10 text-yellow-500 text-center">
                       In progress
                     </span>
                   )}
@@ -258,7 +258,7 @@ const OrdersPage = () => {
                     </Link>
                     <Link
                       className="px-2 py-1 rounded bg-white/10 text-xs"
-                      href={`/messages?order=${row.id}`}
+                      href={`/dashboard/business/messages?order=${row.id}`}
                     >
                       Message
                     </Link>

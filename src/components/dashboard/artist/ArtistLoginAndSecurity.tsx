@@ -1,12 +1,12 @@
-const LoginAndSecurity = () => {
+const ArtistLoginAndSecurity = () => {
   return (
     <div>
       <h2 className="mb-4 text-2xl font-bricolage-grotesque">Login & Security</h2>
       {/* password */}
       <div className="flex flex-col gap-8 pb-4 mb-4">
         {/* password */}
-        <div className="flex justify-between items-start gap-10">
-          <div className="flex flex-col gap-2 flex-1">
+        <div className="flex sm:justify-between items-start sm:gap-10 gap-4 flex-col sm:flex-row">
+          <div className="flex flex-col gap-2 sm:flex-1 sm:w-auto w-full">
             <h3 className="font-bricolage-grotesque">Password</h3>
             <div className="flex flex-col gap-3">
               <input
@@ -24,11 +24,11 @@ const LoginAndSecurity = () => {
             </div>
           </div>
 
-          <button className="btn btn-primary">Change Password</button>
+          <button className="btn btn-primary w-full sm:w-auto">Change Password</button>
         </div>
 
         {/* security */}
-        <div className="flex justify-between items-start gap-10">
+        <div className="flex justify-between items-start sm:gap-10 gap-4 flex-col sm:flex-row">
           <div className="flex flex-col gap-2 flex-1">
             <h3 className="font-bricolage-grotesque">Security</h3>
             <div className="flex flex-col gap-2">
@@ -44,7 +44,7 @@ const LoginAndSecurity = () => {
         </div>
 
         {/* delete account */}
-        <div className="flex justify-between items-start gap-10">
+        <div className="flex sm:justify-between items-start sm:gap-10 gap-4 flex-col sm:flex-row">
           <div className="flex flex-col gap-2 flex-1">
             <h3 className="font-bricolage-grotesque">Delete your account</h3>
             <p className="text-sm text-muted">
@@ -62,4 +62,4 @@ const LoginAndSecurity = () => {
   );
 };
 
-export default LoginAndSecurity;
+export default ArtistLoginAndSecurity;

@@ -47,10 +47,10 @@ const MiniStat = ({
   icon: React.ElementType;
 }) => (
   <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10">
-    <div className="flex items-center gap-2 text-muted text-base">
+    <div className="flex xl:flex-row flex-col items-center gap-2 text-muted text-base">
       <Icon className="h-5 w-5" /> {label}
     </div>
-    <div className="text-2xl font-heading mt-1">{value}</div>
+    <div className="text-2xl font-heading mt-1 text-center xl:text-left">{value}</div>
   </div>
 );
 
@@ -228,9 +228,9 @@ const DashboardArtistPage = () => {
   ];
 
   return (
-    <section className="p-6 space-y-6">
+    <section className="space-y-6">
       {/* Greeting */}
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex items-start justify-between gap-4 flex-wrap">
         <h1 className="text-2xl md:text-3xl font-heading">Welcome back, Sloane</h1>
         <Link
           href="/dashboard/artist/deliver"
@@ -241,7 +241,7 @@ const DashboardArtistPage = () => {
       </div>
 
       {/* KPI row */}
-      <div className="grid md:grid-cols-4 gap-4">
+      <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4">
         <MiniStat
           label="Open orders"
           value={String(metrics.openOrders)}
@@ -253,7 +253,7 @@ const DashboardArtistPage = () => {
       </div>
 
       {/* Setup checklist + Earnings snapshot */}
-      <div className="grid md:grid-cols-2 gap-4">
+      <div className="grid xl:grid-cols-2 gap-4">
         <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-xl">
           <h3 className="font-bricolage-grotesque flex items-center gap-2">
             <Settings className="h-5 w-5" /> Get set up
@@ -366,7 +366,7 @@ const DashboardArtistPage = () => {
         <h3 className="font-bricolage-grotesque mb-3 flex items-center gap-2">
           <Headphones className="h-5 w-5" /> Similar to you
         </h3>
-        <div className="grid md:grid-cols-4 gap-4">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
           {similar.map((a) => (
             <ArtistCard key={a.slug} {...a} />
           ))}

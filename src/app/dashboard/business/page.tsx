@@ -105,7 +105,7 @@ const DashboardBusinessPage = () => {
           {/* Quick actions */}
           <div className="grid sm:grid-cols-4 gap-3">
             <Link
-              href="/orders/new"
+              href="/dashboard/business/orders"
               className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
             >
               <div>
@@ -125,7 +125,7 @@ const DashboardBusinessPage = () => {
               <Search className="h-4 w-4" />
             </Link>
             <Link
-              href="/messages"
+              href="/dashboard/business/messages"
               className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
             >
               <div>
@@ -135,7 +135,7 @@ const DashboardBusinessPage = () => {
               <MessageSquare className="h-4 w-4" />
             </Link>
             <Link
-              href="/receipts"
+              href="/dashboard/business/receipts"
               className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
             >
               <div>
@@ -152,7 +152,7 @@ const DashboardBusinessPage = () => {
               <div className="flex items-center justify-between">
                 <div className="font-bricolage-grotesque">In progress</div>
                 <Link
-                  href="/orders"
+                  href="/dashboard/business/orders"
                   className="text-sm text-muted hover:underline flex items-center gap-1"
                 >
                   View all <ArrowUpRight className="h-4 w-4" />
@@ -173,7 +173,10 @@ const DashboardBusinessPage = () => {
                       </Chip>
                     </div>
                   </div>
-                  <Link href="/orders/2341" className="px-3 py-2 rounded-lg bg-white/10">
+                  <Link
+                    href="/dashboard/business/orders/2341"
+                    className="px-3 py-2 rounded-lg bg-white/10"
+                  >
                     Open
                   </Link>
                 </div>
@@ -191,7 +194,10 @@ const DashboardBusinessPage = () => {
                       </Chip>
                     </div>
                   </div>
-                  <Link href="/orders/2342" className="px-3 py-2 rounded-lg bg-white/10">
+                  <Link
+                    href="/dashboard/business/orders/2342"
+                    className="px-3 py-2 rounded-lg bg-white/10"
+                  >
                     Open
                   </Link>
                 </div>

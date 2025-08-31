@@ -11,7 +11,7 @@ import Link from "next/link";
 
 const ArtistKycPage = () => {
   return (
-    <section className="p-6 space-y-6">
+    <section className="space-y-6">
       <h1 className="dashboard-page-title">KYC &amp; Payout</h1>
 
       {/* Status */}

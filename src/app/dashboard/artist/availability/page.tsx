@@ -12,8 +12,8 @@ import {
 } from "lucide-react";
 
 const DayRow = ({ day }: { day: string }) => (
-  <div className="flex items-center justify-between p-3 rounded-lg bg-white/5 border border-white/10 text-sm">
-    <div className="w-24 text-white/80">{day}</div>
+  <div className="flex items-center sm:flex-row flex-col gap-3 sm:gap-0 justify-between p-3 rounded-lg bg-white/5 border border-white/10 text-sm">
+    <div className="w-24 text-white/80 text-center sm:text-left">{day}</div>
     <label className="flex items-center gap-2">
       <input type="checkbox" defaultChecked className="accent-white" />
       Accept orders
@@ -37,8 +37,8 @@ const ArtistAvailabilityPage = () => {
   const [turnaround, setTurnaround] = useState("5-7d");
 
   return (
-    <section className="p-6 space-y-6">
-      <div className="flex items-end justify-between">
+    <section className="space-y-6">
+      <div className="flex sm:flex-row flex-col gap-4 sm:items-end justify-between">
         <div>
           <h1 className="dashboard-page-title">Availability</h1>
           <p className="text-muted text-sm mt-1">
@@ -47,7 +47,7 @@ const ArtistAvailabilityPage = () => {
         </div>
         <button
           onClick={() => setOpen((v) => !v)}
-          className={`px-3 py-2 rounded-lg border border-white/10 inline-flex items-center gap-2 ${open ? "bg-brand-4/80 hover:bg-brand-4/90" : "bg-white/10 hover:bg-white/15"}`}
+          className={`px-3 py-2 rounded-lg border border-white/10 inline-flex justify-center sm:justify-start items-center gap-2 ${open ? "bg-brand-4/80 hover:bg-brand-4/90" : "bg-white/10 hover:bg-white/15"}`}
         >
           {open ? (
             <PlayCircle className="h-4 w-4" />
@@ -91,9 +91,12 @@ const ArtistAvailabilityPage = () => {
             />
           </div>
 
-          <div className="rounded-xl p-4 border border-white/10 bg-brand-1/5 text-xs text-muted flex items-center gap-2">
-            <Clock className="h-3 w-3" /> Your SLA will show as{" "}
-            <span className="text-muted">{turnaround}</span> on your public profile.
+          <div className="rounded-xl p-4 border border-white/10 bg-brand-1/5 text-xs text-muted flex gap-2">
+            <Clock className="h-3 w-3 mt-[2px]" />
+            <span className="text-muted">
+              Your SLA will show as <span className="text-light">{turnaround}</span> on
+              your public profile.
+            </span>
           </div>
         </div>
 
@@ -132,7 +135,7 @@ const ArtistAvailabilityPage = () => {
         <h3 className="font-bricolage-grotesque flex items-center gap-2">
           <CalendarDays className="h-4 w-4" /> Weekly schedule
         </h3>
-        <div className="mt-3 grid sm:grid-cols-2 gap-2">
+        <div className="mt-3 grid xl:grid-cols-2 gap-2">
           {"Mon Tue Wed Thu Fri Sat Sun".split(" ").map((d) => (
             <DayRow key={d} day={d} />
           ))}

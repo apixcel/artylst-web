@@ -4,14 +4,14 @@ import { DashboardArtistDeliverStepProgress } from "@/components";
 
 const ArtistDeliverPage = () => {
   return (
-    <section className="p-6 space-y-6">
+    <section className="space-y-6">
       <h1 className="text-2xl md:text-3xl font-bricolage-grotesque">
         Deliver • Order #2341
       </h1>
 
       {/* Order overview */}
-      <div className="grid md:grid-cols-3 gap-4">
-        <div className="md:col-span-2 rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-6">
+      <div className="grid xl:grid-cols-3 gap-4">
+        <div className="xl:col-span-2 rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-6">
           <div>
             <div className="text-sm text-muted">Buyer brief</div>
             <div className="text-sm">
@@ -91,14 +91,16 @@ const ArtistDeliverPage = () => {
 
           {/* Tips */}
           <div className="text-xs text-muted space-y-2">
-            <div className="flex items-center gap-1">
-              <Video className="h-3 w-3" /> Add personal video to authenticate playlist
+            <div className="flex gap-1">
+              <Video className="mt-[2px] h-3 w-3" /> Add personal video to authenticate
+              playlist
             </div>
-            <div className="flex items-center gap-1">
-              <ShieldCheck className="h-3 w-3" /> Never share personal contact info
+            <div className="flex gap-1">
+              <ShieldCheck className="mt-[2px] h-3 w-3" /> Never share personal contact
+              info
             </div>
-            <div className="flex items-center gap-1">
-              <DollarSign className="h-3 w-3" /> Payout released after submission
+            <div className="flex gap-1">
+              <DollarSign className="mt-[2px] h-3 w-3" /> Payout released after submission
             </div>
           </div>
 

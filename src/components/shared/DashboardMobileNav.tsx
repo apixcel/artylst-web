@@ -25,7 +25,7 @@ const Overlay = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) 
     <div
       onClick={onClose}
       className={cn(
-        "fixed lg:hidden inset-0 z-[9998] bg-black/60 backdrop-blur-[2px] transition-opacity duration-300",
+        "fixed lg:hidden inset-0 z-40 bg-black/60 backdrop-blur-[2px] transition-opacity duration-300",
         isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
       )}
     />
@@ -57,7 +57,7 @@ const Drawer = forwardRef<HTMLDivElement, DashboardMobileNavProps>(
     <aside
       ref={ref}
       className={cn(
-        "fixed lg:hidden top-0 left-0 h-dvh w-[375px] max-w-[86vw] z-[9999]",
+        "fixed lg:hidden top-0 left-0 h-dvh w-[375px] max-w-[86vw] z-40 overflow-y-auto",
         "bg-gradient-to-b from-brand-3/10 to-base-900/10 backdrop-blur-2xl text-white shadow-2xl ring-1 ring-black/10",
         "transition-transform duration-300 will-change-transform",
         isOpen ? "translate-x-0" : "-translate-x-full"
@@ -66,7 +66,7 @@ const Drawer = forwardRef<HTMLDivElement, DashboardMobileNavProps>(
       aria-modal="true"
       aria-label="Mobile navigation"
     >
-      <div className="sticky top-0 flex items-center justify-between px-5 py-4 bg-gradient-to-b from-brand-3/10 to-base-900/10 backdrop-blur-2xl border-b border-white/10">
+      <div className="sticky !z-[9999] top-0 flex items-center justify-between px-5 py-4 bg-gradient-to-r from-brand-3/10 to-base-900/10 backdrop-blur-2xl border-b border-white/10 bg-base-900">
         <div className="flex items-center gap-2">{brand}</div>
         <button
           onClick={() => setIsOpen(false)}
@@ -77,7 +77,7 @@ const Drawer = forwardRef<HTMLDivElement, DashboardMobileNavProps>(
         </button>
       </div>
 
-      <nav className="flex-1 overflow-y-auto pb-8">
+      <nav className="flex-1 overflow-y-auto pb-8 z-30 relative">
         <ul className="p-4 flex flex-col gap-2">
           {navLinks.map((l) => (
             <li key={l.route} onClick={() => setIsOpen(false)}>

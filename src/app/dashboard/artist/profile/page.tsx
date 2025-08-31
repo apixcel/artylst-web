@@ -45,8 +45,8 @@ const ArtistProfilePage = () => {
   const [genres, setGenres] = useState<DropdownOption<string>[]>([]);
 
   return (
-    <section className="p-6 space-y-6">
-      <div className="flex items-end justify-between">
+    <section className="space-y-6">
+      <div className="flex md:items-end flex-col md:flex-row justify-between gap-4">
         <div>
           <h1 className="dashboard-page-title">Public Profile</h1>
           <p className="text-muted text-sm mt-1">
@@ -88,9 +88,9 @@ const ArtistProfilePage = () => {
         </ul>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-4">
+      <div className="grid xl:grid-cols-3 gap-4">
         {/* Left: Form */}
-        <div className="md:col-span-2 rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-6">
+        <div className="xl:col-span-2 rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-6">
           {/* Media */}
           <div className="flex flex-col gap-4">
             {/* cover photo */}
@@ -158,7 +158,7 @@ const ArtistProfilePage = () => {
                 Bio <span className="text-muted">(max 300)</span>
               </label>
 
-              <div className="flex gap-2 items-end mt-1">
+              <div className="flex sm:flex-row flex-col gap-2 items-end mt-1">
                 <textarea
                   rows={4}
                   className="w-full mt-1 bg-white/10 border border-white/10 rounded-lg px-3 py-3"
@@ -167,7 +167,7 @@ const ArtistProfilePage = () => {
                   onChange={(e) => setBio(e.target.value)}
                 />
 
-                <button className="bg-brand-4/60 px-3 rounded-lg flex gap-2 py-3 items-center hover:bg-brand-4/70">
+                <button className="bg-brand-4/60 px-3 rounded-lg flex gap-2 py-3 items-center hover:bg-brand-4/70 w-full sm:w-auto sm:justify-start justify-center">
                   <Pencil className="h-4 w-4" /> Edit
                 </button>
               </div>
@@ -215,7 +215,7 @@ const ArtistProfilePage = () => {
               />
             </div>
 
-            <button className="bg-brand-4/60 px-3 rounded-lg flex gap-2 py-3 items-center w-full col-span-3 justify-center hover:bg-brand-4/70">
+            <button className="bg-brand-4/60 px-3 rounded-lg flex gap-2 py-3 items-center w-full sm:col-span-3 justify-center hover:bg-brand-4/70">
               <Pencil className="h-4 w-4" /> Edit
             </button>
           </div>
@@ -296,7 +296,7 @@ const ArtistProfilePage = () => {
               />
             </div>
 
-            <button className="bg-brand-4/60 px-3 rounded-lg flex gap-2 py-3 items-center w-full col-span-3 justify-center hover:bg-brand-4/70">
+            <button className="bg-brand-4/60 px-3 rounded-lg flex gap-2 py-3 items-center w-full sm:col-span-3 justify-center hover:bg-brand-4/70">
               <Pencil className="h-4 w-4" /> Edit
             </button>
           </div>

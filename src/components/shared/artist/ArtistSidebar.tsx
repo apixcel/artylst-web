@@ -23,7 +23,7 @@ const ArtistSidebar = ({
     <aside
       className={cn(
         "hidden lg:flex shrink-0 flex-col border-r border-white/10 bg-gradient-to-b from-brand-3/10 to-base-900/10 backdrop-blur-xl sticky top-0 h-screen overflow-y-auto transition-all duration-300 custom-scrollbar",
-        isOpen ? "w-72" : "w-20"
+        isOpen ? "desktop:w-72 w-64" : "desktop:w-20"
       )}
     >
       <div className="flex items-center justify-center">

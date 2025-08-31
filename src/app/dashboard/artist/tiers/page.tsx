@@ -3,7 +3,7 @@ import { Info } from "lucide-react";
 
 const ArtistTiersPage = () => {
   return (
-    <section className="p-6 space-y-6">
+    <section className="space-y-6">
       <div>
         <h1 className="text-2xl md:text-3xl font-bricolage-grotesque">Pricing Tiers</h1>
         <p className="text-muted text-sm mt-1">

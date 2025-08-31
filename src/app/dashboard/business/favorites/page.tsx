@@ -167,7 +167,7 @@ const FavoritesPage = () => {
           <button
             key={t}
             onClick={() => setTag(tag === t ? "All" : t)}
-            className={`px-3 py-1 rounded-full text-xs border ${
+            className={`px-3 py-1 rounded-full text-xs whitespace-nowrap border ${
               tag === t ? "bg-white/20 border-white/20" : "bg-white/5 border-white/10"
             }`}
           >
