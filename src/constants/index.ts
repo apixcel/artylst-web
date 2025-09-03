@@ -10,3 +10,4 @@ export * from "./artistsData";
 export * from "./reviewData";
 export * from "./artistPricingData";
 export * from "./businessPricingData";
+export * from "./vibesData";

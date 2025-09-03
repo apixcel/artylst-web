@@ -1,29 +1,17 @@
 import {
-  BusinessBrandHelped,
-  BusinessBrandSlider,
-  BusinessCTA,
+  // BusinessBrandSlider,
   BusinessHero,
-  BusinessMetrics,
-  BusinessPlan,
-  BusinessSecurity,
   BusinessSteps,
   BusinessUseCase,
-  BusinessWhyChooseUs,
 } from "@/components";
 
 const BusinessHomePage = () => {
   return (
     <>
       <BusinessHero />
-      <BusinessMetrics />
-      <BusinessBrandSlider />
+      {/* <BusinessBrandSlider /> */}
       <BusinessUseCase />
       <BusinessSteps />
-      <BusinessBrandHelped />
-      <BusinessPlan />
-      <BusinessWhyChooseUs />
-      <BusinessSecurity />
-      <BusinessCTA />
     </>
   );
 };

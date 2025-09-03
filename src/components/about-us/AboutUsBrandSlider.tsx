@@ -15,6 +15,7 @@ const brandSliders = [
 const AboutUsBrandSlider = () => {
   return (
     <section className="overflow-hidden relative w-full mb-[60px]">
+      <h2 className="text-center mb-[20px]">Trusted By</h2>
       <div className="flex gap-12 animate-slide">
         {[...brandSliders, ...brandSliders].map((brand, i) => (
           <div key={i} className="flex items-center justify-center flex-shrink-0">

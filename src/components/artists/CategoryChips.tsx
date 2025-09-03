@@ -25,12 +25,12 @@ const CategoryChips = () => {
 
   return (
     <section className="max-w-7xl mx-auto py-4">
-      <div className="flex items-center gap-2 overflow-x-auto no-scrollbar">
+      <div className="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2">
         {categories.map((category) => (
           <button
             key={category.value}
             onClick={() => handleCategoryClick(category.value)}
-            className={`chip ${activeCategories.includes(category.value) && "chip-active"}`}
+            className={`chip whitespace-nowrap ${activeCategories.includes(category.value) && "chip-active"}`}
           >
             {category.label}
           </button>

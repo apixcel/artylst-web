@@ -1,18 +1,18 @@
 "use client";
 
-import Link from "next/link";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Navigation } from "swiper/modules";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { ArtistCard } from "@/components";
 import { artistsData } from "@/constants";
+import Link from "next/link";
+import { FreeMode, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import ArtistCard from "../artists/ArtistCard";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function TopArtists() {
+const FeaturedArtists = () => {
   return (
     <section className="mb-16">
       <div className="flex items-center justify-between mb-5">
-        <h2 className="text-2xl font-semibold">Top Artists on ARTYLST</h2>
-        <Link className="underline" href="/top-artists">
+        <h2 className="text-2xl font-semibold">Featured Artists on ARTYLST</h2>
+        <Link className="underline" href="/featured-artists">
           View all
         </Link>
       </div>
@@ -22,8 +22,8 @@ export default function TopArtists() {
         slidesPerView={1}
         modules={[FreeMode, Navigation]}
         navigation={{
-          nextEl: ".instant-next",
-          prevEl: ".instant-prev",
+          nextEl: ".featured-next",
+          prevEl: ".featured-prev",
         }}
         breakpoints={{
           1440: { slidesPerView: 5.8 },
@@ -47,14 +47,16 @@ export default function TopArtists() {
 
         {/* navigation */}
         <div className="group-hover:opacity-100 opacity-0 transition-opacity duration-300 absolute top-1/2 -translate-y-1/2 w-full z-30">
-          <button className="instant-prev nav-button left-8 absolute">
+          <button className="featured-prev nav-button left-8 absolute">
             <ChevronLeft className="w-5 h-5" />
           </button>
-          <button className="instant-next nav-button right-8 absolute">
+          <button className="featured-next nav-button right-8 absolute">
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
       </Swiper>
     </section>
   );
-}
+};
+
+export default FeaturedArtists;

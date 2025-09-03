@@ -1,41 +1,40 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode } from "swiper/modules";
 
-const giftsForEveryBudget = [
+const pricingForEveryBudget = [
   {
     id: 1,
-    title: "Under $25",
-    image: "/images/gifts-for-every-budget/img-1.jpg",
+    title: "$25",
+    bgColor: "bg-cyan/80",
     route: "/tags/25-or-less",
   },
   {
     id: 2,
-    title: "Under $50",
-    image: "/images/gifts-for-every-budget/img-2.jpg",
+    title: "$50",
+    bgColor: "bg-turquoise/80",
     route: "/tags/50-or-less",
   },
   {
     id: 3,
-    title: "Under $100",
-    image: "/images/gifts-for-every-budget/img-3.jpg",
+    title: "$100",
+    bgColor: "bg-azure/80",
     route: "/tags/100-or-less",
   },
   {
     id: 4,
-    title: "Under $150",
-    image: "/images/gifts-for-every-budget/img-4.jpg",
+    title: "$150",
+    bgColor: "bg-light-blue/80",
     route: "/tags/150-or-less",
   },
 ];
 
-const GiftsForEveryBudget = () => {
+const PricingForEveryBudget = () => {
   return (
     <section className="mb-[70px]">
-      <h2 className="mb-[20px]">Tiers for every budget</h2>
+      <h2 className="mb-[20px]">Pricing for Every Budget</h2>
 
       <Swiper
         spaceBetween={16}
@@ -50,16 +49,13 @@ const GiftsForEveryBudget = () => {
           1440: { slidesPerView: 4, grid: { rows: 1 } },
         }}
       >
-        {giftsForEveryBudget.map((item) => (
+        {pricingForEveryBudget.map((item) => (
           <SwiperSlide key={item.id}>
             <Link href={item.route}>
-              <Image
-                src={item.image}
-                alt={item.title}
-                width={500}
-                height={400}
-                className="rounded-[16px]"
-              />
+              <div className={`rounded-[12px] ${item.bgColor} py-10 px-5`}>
+                <span className="mb-[8px] inline-block">Under</span>
+                <h3 className="text-2xl font-bold">{item.title}</h3>
+              </div>
             </Link>
           </SwiperSlide>
         ))}
@@ -68,4 +64,4 @@ const GiftsForEveryBudget = () => {
   );
 };
 
-export default GiftsForEveryBudget;
+export default PricingForEveryBudget;

@@ -1,5 +1,3 @@
-"use client";
-
 const features = [
   {
     feature: "Custom curation",
@@ -27,7 +25,7 @@ const features = [
   },
 ];
 
-const BusinessWhyChooseUs = () => {
+const WhyChooseUs = () => {
   return (
     <section className="mb-[60px]">
       <div className="wrapper">
@@ -65,4 +63,4 @@ const BusinessWhyChooseUs = () => {
   );
 };
 
-export default BusinessWhyChooseUs;
+export default WhyChooseUs;

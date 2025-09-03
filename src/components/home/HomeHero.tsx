@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { Play, X } from "lucide-react";
 
 const HomeHero = () => {
@@ -13,31 +12,17 @@ const HomeHero = () => {
       <div className="flex items-center justify-between gap-[40px] xl:gap-[60px]">
         {/* content */}
         <div className="lg:w-1/2">
-          <h1 className="text-[36px] xl:text-[40px] font-[500] mb-[20px]">
-            Personalized playlists from your favorite artists
+          <h1 className="text-[36px] xl:text-[40px] font-[500] mb-[20px] text-turquoise">
+            Let your favorite DJ build you the perfect playlist for any place or occasion
           </h1>
-          <p>
-            Fans and businesses request a custom playlist. Artists deliver a private
-            streaming link with a 30-second authentication video. ARTYLST protects privacy
-            with secure escrow.
+          <p className="text-light-blue">
+            Whether you&apos;re a fan or a business, now you can have your favorite artist
+            build you your very own private playlist, personalized just for you. If that
+            wasn&apos;t cool enough, with every order purchased you will receive a 30
+            second authentication video with your private streaming link so you can always
+            be sure that your playlist was truly built by your favorite artist just for
+            you.
           </p>
-
-          <div className="my-[20px] flex items-center gap-[16px]">
-            <Link href="/artists" className="btn-secondary">
-              Explore Artists
-            </Link>
-            <Link href="#how-artylst-works" className="btn btn-ghost">
-              How it works
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-[8px] flex-wrap">
-            <span className="chip">Workout</span>
-            <span className="chip">Study / Focus</span>
-            <span className="chip">Chill</span>
-            <span className="chip">Wedding</span>
-            <span className="chip">Trending Vibes</span>
-          </div>
         </div>
 
         {/* thumbnail + animated play button */}
