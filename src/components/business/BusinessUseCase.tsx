@@ -1,15 +1,15 @@
 const useCase = [
   {
     title: "Yoga & Wellness",
-    description: "Ambient flows, breath-paced, instructor-friendly.",
+    description: "Downtempo, Ambient Flows, Instructor-Friendly",
   },
   {
     title: "Hospitality",
-    description: "Daypart playlists from brunch to late-night lounge.",
+    description: "Music playlist for everything from Brunch to Late-Night Lounges",
   },
   {
     title: "Retail & Clinics",
-    description: "On-brand sound to lift dwell time & comfort.",
+    description: "On-Brand sound from waiting rooms to retail storefronts",
   },
 ];
 

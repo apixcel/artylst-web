@@ -5,13 +5,13 @@ const BusinessHero = () => {
     <section className="flex justify-center items-center py-[20px] sm:py-[40px] lg:py-[60px]">
       <div className="max-w-[700px] text-center px-[20px]">
         <h1 className="text-[40px] xl:text-[44px] leading-[48px] font-[500] mb-[20px]">
-          <span className="gradient-text">Your brand, your sound</span>{" "}
-          <span>custom playlists by real artists.</span>
+          <span className="gradient-text">Private playlist </span>{" "}
+          <span>as custom and unique as your business</span>
         </h1>
         <p className="text-muted text-[16px] lg:px-0 px-[40px]">
-          Yoga studios, cafés, salons, retail floors—get a private playlist aligned with
-          your brand. Delivery includes a 30-second authentication video. ARTYLST handles
-          escrow, privacy and payouts.
+          Yoga Studios, Lounge Bars, Retail Floors, Waiting Rooms-get a custom playlist
+          from an artist that matches the vibe. Can’t narrow it down? Allow us to find the
+          perfect artist based on your answers to our quick request form.
         </p>
 
         <div className="my-[20px] flex sm:flex-row flex-col justify-center items-center gap-[16px]">
@@ -26,10 +26,10 @@ const BusinessHero = () => {
             Request a playlist
           </Link>
           <Link
-            href="#business-steps"
+            href="/artists"
             className="text-[16px] bg-transparent font-[500] text-light px-[32px] py-[16px] border border-white/10 rounded-[100px] hover:bg-white/10 transition-all duration-300 font-bricolage-grotesque"
           >
-            See how it works
+            Browse artists
           </Link>
         </div>
       </div>

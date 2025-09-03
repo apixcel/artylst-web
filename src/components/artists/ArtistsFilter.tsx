@@ -1,10 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { categories } from "@/constants";
+import { categories, VIBES } from "@/constants";
 import { useSetSearchParams } from "@/hooks";
 
-const VIBES = ["Workout", "Study/Focus", "Chill", "Wedding", "Party"] as const;
 const PLATFORMS = ["Spotify", "Apple", "YTM"] as const;
 
 type Eta = "24" | "48" | "72" | null;
@@ -141,16 +140,16 @@ const ArtistsFilter = () => {
         <div className="filter-title">Vibes</div>
         <div className="mt-2 flex flex-wrap gap-2">
           {VIBES.map((v) => {
-            const active = selectedVibes.has(v);
+            const active = selectedVibes.has(v.value);
             return (
               <button
-                key={v}
+                key={v.value}
                 type="button"
                 className={`chip ${active ? "chip-active" : ""}`}
-                onClick={() => setSelectedVibes(toggleInSet(selectedVibes, v))}
+                onClick={() => setSelectedVibes(toggleInSet(selectedVibes, v.value))}
                 aria-pressed={active}
               >
-                {v}
+                {v.label}
               </button>
             );
           })}
@@ -228,29 +227,6 @@ const ArtistsFilter = () => {
           <button className="btn btn-ghost" onClick={() => quickPrice(100, undefined)}>
             $100+
           </button>
-        </div>
-      </div>
-
-      {/* Business */}
-      <div className="mt-5">
-        <div className="filter-title">Business friendly</div>
-        <div className="mt-2 text-sm space-y-2">
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={commercial}
-              onChange={(e) => setCommercial(e.target.checked)}
-            />
-            <span>Commercial license option</span>
-          </label>
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={refresh}
-              onChange={(e) => setRefresh(e.target.checked)}
-            />
-            <span>Monthly refresh available</span>
-          </label>
         </div>
       </div>
 

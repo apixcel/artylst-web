@@ -10,6 +10,8 @@ export { default as UserDropdown } from "./shared/UserDropdown";
 export { default as ArtistDeskTopBar } from "./shared/artist/ArtistDeskTopBar";
 export { default as BusinessTopBar } from "./shared/business/BusinessTopBar";
 export { default as MultiDropdown } from "./shared/MultiDropdown";
+export { default as WhyChooseUs } from "./shared/WhyChooseUs";
+export { default as Security } from "./shared/Security";
 
 // shared/main
 export { default as MainHeader } from "./shared/main/MainHeader";
@@ -24,15 +26,14 @@ export { default as ArtistSidebar } from "./shared/artist/ArtistSidebar";
 
 /* home */
 export { default as HomeHero } from "./home/HomeHero";
+export { default as FeaturedArtists } from "./home/FeaturedArtist";
 export { default as PrivacyStrip } from "./home/PrivacyStrip";
-export { default as PersonalizedPlaylists } from "./home/PersonalizedPlaylists";
 export { default as Categories } from "./home/Categories";
 export { default as TopArtists } from "./home/TopArtists";
 export { default as HomeHowItWorks } from "./home/HomeHowItWorks";
-export { default as GiftsForEveryBudget } from "./home/GiftsForEveryBudget";
+export { default as PricingForEveryBudget } from "./home/PricingForEveryBudget";
 export { default as RecentReviews } from "./home/RecentReviews";
 export { default as ThisIsArtylist } from "./home/ThisIsArtylist";
-export { default as InstantPlaylists } from "./home/InstantPlaylists";
 export { default as FAQ } from "./home/FAQ";
 export { default as ContactForm } from "./home/ContactForm";
 export { default as HomeRecentlyViewed } from "./home/HomeRecentlyViewed";
@@ -57,20 +58,12 @@ export { default as EnrollWhyChooseUs } from "./enroll/EnrollWhyChooseUs";
 export { default as EnrollHowItWorks } from "./enroll/EnrollHowItWorks";
 export { default as EnrollTiers } from "./enroll/EnrollTiers";
 export { default as EnrollEarningEstimatior } from "./enroll/EnrollEarningEstimatior";
-export { default as EnrollTools } from "./enroll/EnrollTools";
-export { default as EnrollCTA } from "./enroll/EnrollCTA";
 
 // business
 export { default as BusinessHero } from "./business/BusinessHero";
-export { default as BusinessMetrics } from "./business/BusinessMetrics";
 export { default as BusinessBrandSlider } from "./business/BusinessBrandSlider";
 export { default as BusinessUseCase } from "./business/BusinessUseCase";
 export { default as BusinessSteps } from "./business/BusinessSteps";
-export { default as BusinessPlan } from "./business/BusinessPlan";
-export { default as BusinessWhyChooseUs } from "./business/BusinessWhyChooseUs";
-export { default as BusinessBrandHelped } from "./business/BusinessBrandHelped";
-export { default as BusinessSecurity } from "./business/BusinessSecurity";
-export { default as BusinessCTA } from "./business/BusinessCTA";
 
 // about-us
 export { default as AboutUsSteps } from "./about-us/AboutUsSteps";

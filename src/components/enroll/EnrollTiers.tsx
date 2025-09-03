@@ -4,23 +4,20 @@ import Image from "next/image";
 const enrollTiers = [
   {
     id: 1,
-    title: "Mini Mix",
-    description: "15–20 tracks, quick inspiration.",
-    earnings: "$20 of $25",
+    title: "Quick Mix",
+    description: "15-20 songs, approximately 1 hour long playlist",
     image: "/images/enroll/enroll-card-img-1.png",
   },
   {
     id: 2,
-    title: "Standard",
-    description: "30–40 tracks, mood arcs.",
-    earnings: "$40 on $50",
+    title: "Standard Mix",
+    description: "30-40 songs, mood arcs, approximately 2 hour long playlist",
     image: "/images/enroll/enroll-card-img-2.png",
   },
   {
     id: 3,
-    title: "Deep Dive",
-    description: "60+ tracks, liner-notes optional.",
-    earnings: "$80 on $100",
+    title: "Extended Mix",
+    description: "60-80 songs, most variety, approximately 4 hour long playlist",
     image: "/images/enroll/enroll-card-img-3.png",
   },
 ];
@@ -47,7 +44,6 @@ const EnrollTiers = () => {
                 {tier.title}
               </h3>
               <p className="text-sm text-muted mb-[10px]">{tier.description}</p>
-              <p className="text-[16px]">{tier.earnings}</p>
             </div>
             <div className="w-1/2">
               <Image

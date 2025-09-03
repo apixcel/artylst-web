@@ -24,7 +24,7 @@ const EnrollHero = () => {
               shadow-md transition-all duration-300
               hover:from-brand-1/70 hover:to-brand-3/60"
             >
-              Start Application
+              Create Artist Profile
             </Link>
             <Link
               href="#artist-steps"

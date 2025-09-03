@@ -1,4 +1,11 @@
-import { AboutUsBrandSlider, AboutUsSteps, AboutVideo, FAQ } from "@/components";
+import {
+  AboutUsBrandSlider,
+  AboutUsSteps,
+  AboutVideo,
+  WhyChooseUs,
+  FAQ,
+  Security,
+} from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -17,7 +24,7 @@ const faqs = [
   },
   {
     q: "What if I need a revision?",
-    a: "You can request revisions within 7 days of delivery. Minor fixes are usually turned around in 24–48 hours.",
+    a: "For technical issues, you can request a revision within 7 days of delivery. Once requested, minor fixes are usually resolved within 24-48 hours. The music selections by an artist are not an appropriate reason for a revision but you are able to leave a review for the artists to share your experience if you are displeased.",
   },
   {
     q: "Can I cancel an order?",
@@ -55,13 +62,19 @@ const AboutPage = () => {
             About ARTYLST
           </h1>
           <p className="text-muted mt-3">
-            We connect fans and brands with real artists through{" "}
-            <b>private, personalized playlists</b> delivered with a{" "}
-            <b>30-second authentication video</b>. Unlike video-shout marketplaces,
-            ARTYLST is <i>music-first</i>, privacy-first, and built on secure escrow.
+            ARTYLST is a digital platform designed to deepen the connection between music
+            artists and their fans through personalized, private listening experiences.
+            With ARTYLST, fans and businesses can connect with their favorite artist
+            through exclusive, custom playlists made just for them. By merging artistry,
+            technology and fan engagement, ARTYLST redefines how music communities connect
+            - turning playlist into personalized works of art and strengthening the bond
+            between artist and audience.
           </p>
           <div className="mt-5 flex gap-3">
             <Link href="/business" className="btn btn-secondary">
+              Browse Artist
+            </Link>
+            <Link href="/business" className="btn btn-secondary bg-azure">
               For Business
             </Link>
             <Link href="/join-as-artist" className="btn btn-tertiary">
@@ -71,38 +84,25 @@ const AboutPage = () => {
         </div>
 
         {/* about video */}
-        <AboutVideo />
+        {/* <AboutVideo /> */}
+        <div className="w-full h-full bg-brand-2/10 rounded-xl p-4 flex-center">
+          Video Placeholder
+        </div>
       </section>
 
       {/* our mission */}
-      <section id="mission" className=" px-4 py-8 grid md:grid-cols-2 gap-4">
-        <div className="card bg-brand-4/5 border-brand-4/20 p-5">
+      <section
+        id="mission"
+        className="px-4 py-8 card bg-brand-4/5 border-brand-4/20 mb-[40px]"
+      >
+        <div className="p-5 text-center max-w-[600px] mx-auto">
           <h1 className="font-bricolage-grotesque">Our mission</h1>
           <p className="text-muted mt-2">
-            Make music <i>personal</i> again—by letting audiences experience the taste of
-            artists they love, without sacrificing privacy. ARTYLST turns playlists into
-            keepsakes and brand assets.
+            Make music personal again - by letting audiences experience the musical taste
+            of the artists they love while also connecting with them in a manner never
+            experienced before. ARTYLST turns playlists into both keepsakes and brand
+            assets.
           </p>
-        </div>
-
-        <div className="card bg-brand-4/5 border-brand-4/20 p-5">
-          <h3 className="font-bricolage-grotesque text-base">
-            How we’re different (vs Cameo-style)
-          </h3>
-          <ul className="text-muted mt-2 space-y-2">
-            <li>
-              • <b>Playlist-first</b>, not video-first
-            </li>
-            <li>
-              • <b>Auth video</b> only to certify the playlist
-            </li>
-            <li>
-              • <b>Escrow</b> & verified delivery before payout
-            </li>
-            <li>
-              • <b>Business refresh</b> & daypart options
-            </li>
-          </ul>
         </div>
       </section>
 
@@ -123,29 +123,8 @@ const AboutPage = () => {
           </div>
           <div className="card p-4">
             <h4 className="text-base">Fair economics</h4>
-            <p className="text-muted mt-1">Transparent 20% fee; artists set prices.</p>
+            <p className="text-muted mt-1">Transparent pricing set by the artist</p>
           </div>
-        </div>
-      </section>
-
-      {/* from idea to marketplace */}
-      <section className="wrapper-inner border border-white/10 rounded-xl bg-gradient-to-br from-brand-2/20 via-brand-3/15 to-brand-5/20  p-6 flex flex-col justify-between transition-colors mb-[40px]">
-        <h2 className="font-heading text-xl mb-3">From idea to marketplace</h2>
-        <div className="px-6 py-4">
-          <ol className="relative border-l border-brand-4/20 my-2 pl-6 space-y-6 text-sm">
-            <li>
-              <span className="absolute -left-1.5 top-0 h-3 w-3 rounded-full bg-brand-4 shadow-glow"></span>
-              <b>Concept</b> — Personalized, private playlists with authentication.
-            </li>
-            <li>
-              <span className="absolute -left-1.5 top-1/2 -translate-y-1/2 h-3 w-3 rounded-full bg-brand-4 shadow-glow"></span>
-              <b>Pilot</b> — Early artists, coffee shops & yoga studios.
-            </li>
-            <li>
-              <span className="absolute -left-1.5 h-3 bottom-0 w-3 rounded-full bg-brand-4 shadow-glow"></span>
-              <b>Launch</b> — Web app (mobile-friendly), escrow & payouts.
-            </li>
-          </ol>
         </div>
       </section>
 
@@ -160,9 +139,14 @@ const AboutPage = () => {
             A note from the founders
           </h3>
           <p className="text-muted leading-relaxed text-base lg:text-lg">
-            Playlists are how artists think in stories.
-            <span className="text-white/90 font-medium"> ARTYLST </span>
-            lets that storytelling reach fans & spaces, privately and meaningfully.
+            “One of my favorite feelings growing up was getting a burned CD of new music
+            made just for me, by a friend or stranger. There was something really magical
+            about receiving music from someone else and knowing they made it thinking of
+            you. My hope with <span className="font-bold text-light">ARTYLST</span> was to
+            try and capture that same feeling. Not only capture it, but make it even more
+            special by connecting you directly with your favorite artist. What was once a
+            dream is now a reality with{" "}
+            <span className="font-bold text-light">ARTYLST</span>.”
           </p>
         </div>
 
@@ -185,6 +169,10 @@ const AboutPage = () => {
           </div>
         </div>
       </section>
+
+      <Security />
+
+      <WhyChooseUs />
 
       {/* faq */}
       <FAQ items={faqs} columns={2} breakpoint="lg" className="wrapper-inner" />

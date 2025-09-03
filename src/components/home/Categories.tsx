@@ -1,39 +1,34 @@
-import Image from "next/image";
+"use client";
+
 import Link from "next/link";
+
+const categories = [
+  { label: "House", value: "house", bgColor: "bg-cyan/80" },
+  { label: "Techno", value: "techno", bgColor: "bg-turquoise/80" },
+  { label: "Down Tempo", value: "down-tempo", bgColor: "bg-light-blue/80" },
+  { label: "Indie Dance", value: "indie-dance", bgColor: "bg-azure/80" },
+  { label: "Bass", value: "bass", bgColor: "bg-cyan/80" },
+  { label: "Hip Hop", value: "hip-hop", bgColor: "bg-gray/80" },
+  { label: "Trance", value: "trance", bgColor: "bg-light-blue/80" },
+];
 
 const Categories = () => {
   return (
     <section className="mb-[64px]">
       <div className="mb-[20px]">
-        <h2>Categories</h2>
-        <p>Singers, Producers, DJs, Guitarists, Indie, Hip‑hop, R&B, Lo‑fi</p>
-      </div>
+        <h2 className="mb-[20px]">Categories</h2>
 
-      <div className="p-[24px] border border-white/10 rounded-[24px] bg-brand-1/8 flex items-center justify-between gap-[60px]">
-        <div>
-          <h1 className="font-bricolage-grotesque">Custom sound for your business</h1>
-          <p className="text-muted">
-            Yoga studios, cafés, salons—get a playlist that matches your brand. Refresh
-            monthly with a single click.
-          </p>
-
-          <div className="mt-[20px] flex items-center gap-[16px]">
-            <Link href="/artists" className="btn btn-primary">
-              Explore Artists
-            </Link>
-            <Link href="/artists" className="btn btn-ghost">
-              How it works
-            </Link>
-          </div>
-        </div>
-        <div className="lg:block hidden max-w-[450px]">
-          <Image
-            src="/images/categories/category-img.jpg"
-            alt="Categories"
-            width={700}
-            height={600}
-            className="w-full h-full object-cover rounded-[16px]"
-          />
+        <div className="grid grid-cols-3 gap-4">
+          {categories.map((item) => (
+            <div key={item.value}>
+              <Link href={`/artists?category=${item.value}`}>
+                <div className={`rounded-[12px] ${item.bgColor} py-10 px-5`}>
+                  <span className="mb-[8px] inline-block">Category</span>
+                  <h3 className="text-2xl font-bold">{item.label}</h3>
+                </div>
+              </Link>
+            </div>
+          ))}
         </div>
       </div>
     </section>

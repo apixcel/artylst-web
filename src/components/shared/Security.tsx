@@ -18,7 +18,7 @@ const security = [
   },
 ];
 
-const BusinessSecurity = () => {
+const Security = () => {
   return (
     <section className="mb-[60px]">
       <div className="wrapper-inner">
@@ -44,4 +44,4 @@ const BusinessSecurity = () => {
   );
 };
 
-export default BusinessSecurity;
+export default Security;

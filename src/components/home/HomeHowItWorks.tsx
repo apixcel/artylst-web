@@ -6,27 +6,29 @@ const homeHowItWorks = [
     id: 1,
     icon: Search,
     title: "Find an artist",
-    description: "Browse thousands of artists offering personalized playlists.",
+    description:
+      " Browse thousands of artists offering personalized playlists. Within each artist profile, you may then choose the length of the playlist desired with different pricing for each.",
   },
   {
     id: 2,
     icon: Pen,
-    title: "Tell the vibe",
+    title: "Provide order details",
     description:
-      "During checkout, you’ll provide the artist Occasion, preferred platform & personal note etc. to make the perfect personalized playlist.",
+      "During checkout, you’ll provide the artist with details such as whether you are a fan or business, the occasion, your preferred streaming platform and any personal note you wish to leave for the artist so they can make the perfect personalized playlist.",
   },
   {
     id: 3,
     icon: Mail,
     title: "Get your playlist",
-    description: "Artists give you Private link + 30s authentication video.",
+    description:
+      "Once Playlist has been completed by the artist, you will receive notification via email with a private streaming link and 30s authentication video from ARTYLST.",
   },
   {
     id: 4,
     icon: Upload,
-    title: "Share & Refresh",
+    title: "Share and Enjoy",
     description:
-      "Send the video to friends and family and don’t forget to Re‑order or subscribe monthly.",
+      "Share your video with friends and get your personalized playlist cranking on the nearest set of speakers.",
   },
 ];
 
@@ -34,7 +36,7 @@ const HomeHowItWorks = () => {
   return (
     <section id="how-artylst-works" className="mb-[60px] scroll-mt-[100px]">
       <div className="mb-[16px]">
-        <h2 className="mb-[4px]">How Artylist works</h2>
+        <h2 className="mb-[4px]">How ARTYLST works</h2>
         <p>
           Get a personalized playlist in just four steps.{" "}
           <Link href="/about-us" className="underline font-[500]">

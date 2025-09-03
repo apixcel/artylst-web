@@ -35,12 +35,13 @@ const MainHeader = () => {
             {/* desktop logo */}
             <Link className="lg:block hidden" href="/">
               <Image
-                src="/images/logo/logo-white.png"
+                src="/images/logo/logo-no-text-large.png"
                 alt="logo"
                 width={100}
                 height={100}
                 className="w-[60px] h-[60px]"
               />
+              <span className="text-white text-[14px] font-bold">ARTYLST</span>
             </Link>
 
             {/* mobile logo */}

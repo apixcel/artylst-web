@@ -6,8 +6,6 @@ import {
   EnrollTiers,
   EnrollEarningEstimatior,
   MainFooter,
-  EnrollTools,
-  EnrollCTA,
 } from "@/components";
 const EnrollPage = () => {
   return (
@@ -20,8 +18,6 @@ const EnrollPage = () => {
           <EnrollHowItWorks />
           <EnrollEarningEstimatior />
           <EnrollTiers />
-          <EnrollTools />
-          <EnrollCTA />
         </div>
       </div>
       <div className="bg-black">

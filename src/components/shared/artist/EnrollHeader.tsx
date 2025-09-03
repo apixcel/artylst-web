@@ -75,7 +75,7 @@ const EnrollHeader = () => {
               className="text-light hover:bg-brand-2/20 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
               href="/join-as-artist"
             >
-              Apply as Artist
+              Artist Sign Up
             </Link>
           </div>
         </nav>

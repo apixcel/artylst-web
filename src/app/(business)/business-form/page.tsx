@@ -5,13 +5,34 @@ import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { Dropdown } from "@/components";
+import { DropdownOption } from "@/interface";
+import { useState } from "react";
+import { categories, VIBES } from "@/constants";
 
 const BusinessFormPage = () => {
   const router = useRouter();
+  const [businessType, setBusinessType] = useState<DropdownOption<string> | null>(null);
+  const [category, setCategory] = useState<DropdownOption<string> | null>(null);
+  const [usage, setUsage] = useState<DropdownOption<string> | null>(null);
+  const [vibe, setVibe] = useState<DropdownOption<string> | null>(null);
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push("/dashboard/business");
   };
+
+  const businessTypeOptions = [
+    { label: "Restaurant", value: "restaurant" },
+    { label: "Cafe", value: "cafe" },
+    { label: "Retail", value: "retail" },
+    { label: "Office", value: "office" },
+    { label: "Other", value: "other" },
+  ];
+
+  const usageOptions = [
+    { label: "Daily use", value: "daily" },
+    { label: "Special occasion", value: "special" },
+  ];
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -61,7 +82,8 @@ const BusinessFormPage = () => {
                 alt="business-form-left"
                 width={500}
                 height={500}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover pointer-events-none select-none"
+                draggable={false}
               />
               <span className="absolute bottom-30 -left-26 xl:-left-40">
                 <BusinessFormCouldBeBrand />
@@ -108,7 +130,12 @@ const BusinessFormPage = () => {
                 <div className="flex flex-col gap-5">
                   {/* full name */}
                   <div>
-                    <input className="enroll-input" type="text" placeholder="Full name" />
+                    <input
+                      className="enroll-input"
+                      type="text"
+                      placeholder="Full name"
+                      name="fullName"
+                    />
                   </div>
 
                   {/* work email */}
@@ -117,14 +144,105 @@ const BusinessFormPage = () => {
                       className="enroll-input"
                       type="email"
                       placeholder="Work email"
+                      name="email"
+                    />
+                  </div>
+
+                  {/* business name */}
+                  <div>
+                    <input
+                      className="enroll-input"
+                      type="text"
+                      placeholder="Business name"
+                      name="businessName"
+                    />
+                  </div>
+
+                  {/* genre preferences */}
+                  <div>
+                    <Dropdown
+                      value={category}
+                      options={categories}
+                      onChange={setCategory}
+                      placeholder="Select Genre"
+                      className="w-full"
+                      buttonClassName="w-full bg-brand-2/10 py-4 rounded-2xl px-4 py-3 text-white/80"
+                      panelClassName="w-full "
+                      optionClassName="w-full "
+                      matchButtonWidth={false}
+                    />
+                  </div>
+
+                  {/* business type */}
+                  <div>
+                    <Dropdown
+                      value={businessType}
+                      options={businessTypeOptions}
+                      onChange={setBusinessType}
+                      placeholder="Select business type"
+                      className="w-full"
+                      buttonClassName="w-full bg-brand-2/10 py-4 rounded-2xl px-4 py-3 text-white/80"
+                      panelClassName="w-full "
+                      optionClassName="w-full "
+                      matchButtonWidth={false}
+                    />
+                  </div>
+
+                  {/* environment / vibe */}
+                  <div>
+                    <Dropdown
+                      value={vibe}
+                      options={VIBES}
+                      onChange={setVibe}
+                      placeholder="Select Vibe"
+                      className="w-full"
+                      buttonClassName="w-full bg-brand-2/10 py-4 rounded-2xl px-4 py-3 text-white/80"
+                      panelClassName="w-full "
+                      optionClassName="w-full "
+                      matchButtonWidth={false}
+                    />
+                  </div>
+
+                  {/* desired playlist length */}
+                  <div>
+                    <input
+                      className="enroll-input"
+                      type="number"
+                      placeholder="Desired playlist length (minutes)"
+                      name="length"
+                    />
+                  </div>
+
+                  {/* desired price */}
+                  <div>
+                    <input
+                      className="enroll-input"
+                      type="text"
+                      placeholder="Desired price (USD)"
+                      name="price"
+                    />
+                  </div>
+
+                  {/* usage type */}
+                  <div>
+                    <Dropdown
+                      options={usageOptions}
+                      value={usage}
+                      onChange={setUsage}
+                      placeholder="Is this for daily use or special occasion?"
+                      className="w-full"
+                      buttonClassName="w-full bg-brand-2/10 py-4 rounded-2xl px-4 py-3 text-white/80"
+                      panelClassName="w-full "
+                      optionClassName="w-full "
+                      matchButtonWidth={false}
                     />
                   </div>
 
                   {/* terms and conditions */}
                   <div>
                     <p className="text-muted">
-                      By clicking &quot;Create account&quot;, you agree to our{" "}
-                      <Link href="/terms-and-conditions" className="text-white">
+                      By clicking &quot;Request Playlist&quot;, you agree to our{" "}
+                      <Link href="/terms-of-service" className="text-white">
                         Terms of Service
                       </Link>{" "}
                       and{" "}
@@ -141,7 +259,7 @@ const BusinessFormPage = () => {
                   type="submit"
                   className="text-[16px] font-[500] bg-light text-black sm:px-[32px] px-6 sm:py-[16px] py-3 rounded-[100px] hover:bg-light/80 transition-all duration-300"
                 >
-                  Sign Up
+                  Request Playlist
                 </button>
               </form>
 
