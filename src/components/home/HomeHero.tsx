@@ -34,14 +34,14 @@ const HomeHero = () => {
             aria-label="Play hero video"
           >
             <Image
-              src="/images/hero/hero-img.jpg"
+              src="/images/artists/hero-video-thumbnail.png"
               alt="Hero video thumbnail"
               width={1000}
               height={1000}
               className="w-full h-full object-cover rounded-[16px]"
               priority
             />
-            <div className="absolute inset-0 rounded-[16px] bg-black/30 group-hover:bg-black/40 transition" />
+            <div className="absolute inset-0 rounded-[16px]  transition" />
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="relative flex items-center justify-center">
                 {/* Custom ripple layers with delay */}

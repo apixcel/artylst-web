@@ -2,18 +2,18 @@ import { Lock, ShieldCheck, Video } from "lucide-react";
 
 const privacyStrip = [
   {
-    label: "Secure escrow",
-    description: "Verified delivery before payout",
+    label: "Secure Escrow",
+    description: "We guard your goods ‘til you’re groovin",
     icon: Lock,
   },
   {
     label: "30s auth video",
-    description: "Artist says your name",
+    description: "Legit aura every time, no cap",
     icon: Video,
   },
   {
     label: "Privacy first",
-    description: "No personal contact shared",
+    description: "We got you fam.",
     icon: ShieldCheck,
   },
 ];
