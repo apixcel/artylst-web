@@ -34,7 +34,7 @@ const pricingForEveryBudget = [
 const PricingForEveryBudget = () => {
   return (
     <section className="mb-[70px]">
-      <h2 className="mb-[20px]">Pricing for Every Budget</h2>
+      <h2 className="mb-[20px]">{`Ballin’ on a Budget? Say Less.`}</h2>
 
       <Swiper
         spaceBetween={16}

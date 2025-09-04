@@ -62,12 +62,12 @@ const HomePage = () => {
       <TopArtists />
       <FeaturedArtists />
       <HomeHowItWorks />
+      <ThisIsArtylist />
+      <PrivacyStrip />
       <PricingForEveryBudget />
       <HomeRecentlyViewed />
       <RecentReviews />
       <Categories />
-      <ThisIsArtylist />
-      <PrivacyStrip />
     </div>
   );
 };
