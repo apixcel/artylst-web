@@ -28,7 +28,7 @@ const ServiceCard = ({
 }) => (
   <div className="rounded-2xl p-6 border border-white/10 bg-brand-2/10 space-y-2 backdrop-blur-2xl">
     <div className="flex items-center justify-between">
-      <h3 className="font-bricolage-grotesque">{name}</h3>
+      <h3>{name}</h3>
       {status === "connected" ? (
         <span className="text-emerald-400 text-xs flex items-center gap-1">
           <CheckCircle2 className="h-3 w-3" /> Connected
@@ -100,7 +100,7 @@ const ArtistStreamingPage = () => {
 
       {/* Default platform selection */}
       <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-5/10 backdrop-blur-xl">
-        <h3 className="font-bricolage-grotesque mb-2">Default platform</h3>
+        <h3 className="mb-2">Default platform</h3>
         <Dropdown
           value={defaultPlatform}
           options={streamingServices}
@@ -115,7 +115,7 @@ const ArtistStreamingPage = () => {
 
       {/* Tips */}
       <div className="rounded-2xl p-6 border border-white/10 bg-brand-2/15 text-sm space-y-2">
-        <div className="font-bricolage-grotesque flex items-center gap-2 text-base">
+        <div className="flex items-center gap-2 text-base">
           <ShieldCheck className="h-5 w-5" /> Privacy & Tips
         </div>
         <p className="text-muted">

@@ -158,7 +158,7 @@ export const TierPricingCard: React.FC<{
 
   return (
     <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-4/8 space-y-3 backdrop-blur-2xl">
-      <h3 className="font-bricolage-grotesque">{title}</h3>
+      <h3>{title}</h3>
 
       {/* songs */}
       <div>

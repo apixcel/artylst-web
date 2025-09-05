@@ -5,7 +5,7 @@ const BusinessProfileSettings = () => {
     <div>
       {/* profile photo */}
       <div className="border-b border-white/10 pb-4 mb-4">
-        <h3 className="font-bricolage-grotesque">Profile Photo</h3>
+        <h3>Profile Photo</h3>
 
         <div className="flex items-center justify-between gap-4 mt-4 flex-col sm:flex-row">
           {/* avatar */}
@@ -31,7 +31,7 @@ const BusinessProfileSettings = () => {
         {/* name */}
         <div className="flex justify-between items-start gap-10">
           <div className="flex flex-col gap-2 flex-1">
-            <h3 className="font-bricolage-grotesque">Name</h3>
+            <h3>Name</h3>
             <div className="flex items-center gap-4 justify-between">
               <input
                 className="w-full bg-white/10 rounded-lg px-3 py-2"
@@ -47,7 +47,7 @@ const BusinessProfileSettings = () => {
         {/* company name */}
         <div className="flex justify-between items-start gap-10">
           <div className="flex flex-col gap-2 flex-1">
-            <h3 className="font-bricolage-grotesque">Company Name</h3>
+            <h3>Company Name</h3>
             <div className="flex items-center gap-4 justify-between w-full">
               <input
                 className="w-full bg-white/10 rounded-lg px-3 py-2"
@@ -63,7 +63,7 @@ const BusinessProfileSettings = () => {
         {/* email */}
         <div className="flex justify-between items-start gap-10">
           <div className="flex flex-col gap-2 flex-1">
-            <h3 className="font-bricolage-grotesque">Email</h3>
+            <h3>Email</h3>
             <div className="flex items-center gap-4 justify-between w-full">
               <input
                 className="w-full bg-white/10 rounded-lg px-3 py-2"

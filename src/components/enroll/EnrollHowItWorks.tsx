@@ -32,7 +32,7 @@ const EnrollHowItWorks = () => {
     <section id="artist-steps" className="mb-[60px] scroll-mt-[100px]">
       <div className="wrapper">
         <div className="mb-[16px]">
-          <h2 className="mb-[20px] text-center font-bricolage-grotesque text-[32px] font-[500]">
+          <h2 className="mb-[20px] text-center text-[32px] font-[500]">
             How it works for artists
           </h2>
         </div>
@@ -45,13 +45,13 @@ const EnrollHowItWorks = () => {
             >
               <div className="flex items-center gap-[8px] mb-[16px]">
                 Step <ArrowRight className="w-[16px] h-[16px]" />
-                <p className="text-[18px] font-[500] font-bricolage-grotesque border border-gray-55 w-[24px] h-[24px] flex-center rounded-full inline-block">
+                <p className="text-[18px] font-[500] border border-gray-55 w-[24px] h-[24px] flex-center rounded-full inline-block">
                   {index + 1}
                 </p>
               </div>
               <item.icon className="w-[24px] h-[24px]" />
               <h3 className="mt-[8px] mb-[2px]">{item.title}</h3>
-              <p className="text-muted font-logam">{item.description}</p>
+              <p className="text-muted">{item.description}</p>
             </div>
           ))}
         </div>

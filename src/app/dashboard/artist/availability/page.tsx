@@ -61,7 +61,7 @@ const ArtistAvailabilityPage = () => {
       <div className="grid md:grid-cols-2 gap-4">
         {/* Turnaround & queue */}
         <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 space-y-4 backdrop-blur-xl">
-          <h3 className="font-bricolage-grotesque">Turnaround</h3>
+          <h3>Turnaround</h3>
           <div className="mt-1 grid grid-cols-3 gap-2 text-sm">
             {[
               { label: "48‑72h", value: "48-72h" },
@@ -102,7 +102,7 @@ const ArtistAvailabilityPage = () => {
 
         {/* Auto-accept & pause rules */}
         <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 space-y-4 backdrop-blur-xl">
-          <h3 className="font-bricolage-grotesque">Auto‑accept</h3>
+          <h3>Auto‑accept</h3>
           <div className="text-sm text-muted">
             Auto accept new orders until queue limit, then pause.
           </div>
@@ -132,7 +132,7 @@ const ArtistAvailabilityPage = () => {
 
       {/* Weekly schedule */}
       <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-1/10 to-brand-4/8 space-y-4 backdrop-blur-xl">
-        <h3 className="font-bricolage-grotesque flex items-center gap-2">
+        <h3 className="flex items-center gap-2">
           <CalendarDays className="h-4 w-4" /> Weekly schedule
         </h3>
         <div className="mt-3 grid xl:grid-cols-2 gap-2">
@@ -144,7 +144,7 @@ const ArtistAvailabilityPage = () => {
 
       {/* Time off / blackout dates */}
       <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-4/8 to-brand-1/10 backdrop-blur-xl">
-        <h3 className="font-bricolage-grotesque">Time off</h3>
+        <h3>Time off</h3>
         <div className="grid sm:grid-cols-3 gap-3 mt-3">
           <div>
             <label className="text-sm text-white/60">Start</label>

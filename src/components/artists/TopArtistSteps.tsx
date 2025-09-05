@@ -28,9 +28,7 @@ const TopArtistSteps = () => {
     <>
       <section className="mb-[60px]">
         <div className="mb-[16px]">
-          <h1 className="mb-[4px] font-bricolage-grotesque text-center">
-            How Artylst works
-          </h1>
+          <h1 className="mb-[4px] text-center">How Artylst works</h1>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[16px]">
@@ -41,7 +39,7 @@ const TopArtistSteps = () => {
             >
               <div className="flex items-center gap-[8px] mb-[16px]">
                 Step <ArrowRight className="w-[16px] h-[16px]" />
-                <p className="text-[18px] font-[500] font-bricolage-grotesque border border-gray-55 w-[24px] h-[24px] flex-center rounded-full inline-block">
+                <p className="text-[18px] font-[500] font-logam border border-gray-55 w-[24px] h-[24px] flex-center rounded-full inline-block">
                   {index + 1}
                 </p>
               </div>

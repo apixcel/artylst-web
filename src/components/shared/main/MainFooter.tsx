@@ -21,7 +21,7 @@ const MainFooter = () => {
 
             <div className="mb-[20px]">
               <h2 className="mb-[8px]">Join our mailing list</h2>
-              <p className="text-muted font-logam">
+              <p className="text-muted">
                 Be the first to know about the newest artists and best deals on Artylist
               </p>
             </div>

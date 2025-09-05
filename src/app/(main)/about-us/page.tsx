@@ -58,10 +58,8 @@ const AboutPage = () => {
       {/* hero */}
       <section className="px-4 py-8 lg:py-12 grid lg:grid-cols-2 gap-8 items-center">
         <div>
-          <h1 className="text-3xl md:text-5xl font-bricolage-grotesque leading-tight">
-            About ARTYLST
-          </h1>
-          <p className="text-muted mt-3 font-logam">
+          <h1 className="text-3xl md:text-5xl leading-tight">About ARTYLST</h1>
+          <p className="text-muted mt-3">
             ARTYLST is a digital platform designed to deepen the connection between music
             artists and their fans through personalized, private listening experiences.
             With ARTYLST, fans and businesses can connect with their favorite artist
@@ -96,8 +94,8 @@ const AboutPage = () => {
         className="px-4 py-8 card bg-brand-4/5 border-brand-4/20 mb-[40px]"
       >
         <div className="p-5 text-center max-w-[600px] mx-auto">
-          <h1 className="font-bricolage-grotesque">Our mission</h1>
-          <p className="text-muted mt-2 font-logam">
+          <h1>Our mission</h1>
+          <p className="text-muted mt-2">
             Make music personal again - by letting audiences experience the musical taste
             of the artists they love while also connecting with them in a manner never
             experienced before. ARTYLST turns playlists into both keepsakes and brand
@@ -111,21 +109,19 @@ const AboutPage = () => {
 
       {/* what we believe */}
       <section id="values" className="wrapper-inner px-4 pb-10">
-        <h2 className="font-bricolage-grotesque mb-3 text-center">What we believe</h2>
+        <h2 className=" mb-3 text-center">What we believe</h2>
         <div className="grid md:grid-cols-3 gap-4 text-sm">
           <div className="card p-4 text-center">
             <h4 className="text-base">Taste over trends</h4>
-            <p className="text-muted mt-1 font-logam">Real artists, real curation.</p>
+            <p className="text-muted mt-1">Real artists, real curation.</p>
           </div>
           <div className="card p-4 text-center">
             <h4 className="text-base">Privacy by default</h4>
-            <p className="text-muted mt-1 font-logam">No personal contact shares.</p>
+            <p className="text-muted mt-1">No personal contact shares.</p>
           </div>
           <div className="card p-4 text-center">
             <h4 className="text-base">Fair economics</h4>
-            <p className="text-muted mt-1 font-logam">
-              Transparent pricing set by the artist
-            </p>
+            <p className="text-muted mt-1">Transparent pricing set by the artist</p>
           </div>
         </div>
       </section>
@@ -137,10 +133,10 @@ const AboutPage = () => {
       <section className="wrapper-inner px-4 pb-16 lg:grid lg:grid-cols-3 gap-6 items-stretch">
         {/* Left Side - Note */}
         <div className="card bg-brand-2/10 p-8 md:col-span-2 rounded-2xl shadow-sm flex flex-col justify-center mb-4 lg:mb-0 h-full">
-          <h3 className="font-bricolage-grotesque text-2xl lg:text-3xl font-semibold mb-4">
+          <h3 className="text-2xl lg:text-3xl font-semibold mb-4">
             A note from the founders
           </h3>
-          <p className="text-muted leading-relaxed text-base lg:text-lg font-logam">
+          <p className="text-muted leading-relaxed text-base lg:text-lg">
             “One of my favorite feelings growing up was getting a burned CD of new music
             made just for me, by a friend or stranger. There was something really magical
             about receiving music from someone else and knowing they made it thinking of

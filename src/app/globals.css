@@ -1,20 +1,24 @@
 @import "tailwindcss";
 
-/*  Font */
+/*  Fonts */
 @font-face {
   font-family: "Logam";
-  src: url("/fonts/Logam-Regular.otf") format("truetype");
+  src: url("/fonts/Logam-Regular.otf") format("opentype");
   font-weight: 400;
   font-style: normal;
 }
 
-@theme inline {
-  --font-geist: var(--font-geist), sans-serif;
-  --font-bricolage-grotesque: var(--font-bricolage-grotesque), sans-serif;
-  --font-logam: Logam, sans-serif;
+@font-face {
+  font-family: "Britania Ligatura";
+  src: url("/fonts/Britania_Ligatura.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
 }
 
 @theme {
+  --font-logam: Logam, sans-serif;
+  --font-britania-ligature: Britania Ligatura, sans-serif;
+
   --color-brand-1: #357697;
   --color-brand-2: #a8c8f3;
   --color-brand-3: #51c9c2;
@@ -101,7 +105,7 @@
   }
 
   body {
-    @apply font-geist font-[400] text-[14px] text-light leading-[20px] bg-transparent;
+    @apply font-britania-ligature font-[400] text-[14px] text-light leading-[20px] bg-transparent;
   }
 
   h1,
@@ -110,7 +114,7 @@
   h4,
   h5,
   h6 {
-    @apply font-[500];
+    @apply font-[500] font-logam;
   }
 
   h1 {
@@ -168,7 +172,7 @@
   }
 
   .dashboard-page-title {
-    @apply text-2xl md:text-3xl font-bricolage-grotesque;
+    @apply text-2xl md:text-3xl font-britania-ligature;
   }
 
   .i-badge {

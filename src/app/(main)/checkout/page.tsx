@@ -82,7 +82,7 @@ const CheckoutPage: React.FC = () => {
         {/* RIGHT: summary */}
         <aside className="space-y-3">
           <div className="card p-5 bg-gradient-to-b from-brand-2/10 to-brand-1/10">
-            <h2 className="font-bricolage-grotesque">Order summary</h2>
+            <h2>Order summary</h2>
             <div className="mt-3 space-y-2 text-sm" id="summary">
               <div className="flex justify-between">
                 <span>Selected tier</span>
@@ -101,7 +101,7 @@ const CheckoutPage: React.FC = () => {
                 <span>ARTYLST service fee (20%)</span>
                 <span id="fee">$7.80</span>
               </div>
-              <div className="flex justify-between text-lg font-heading pt-1">
+              <div className="flex justify-between text-lg pt-1">
                 <span>Total</span>
                 <span id="total">$46.80</span>
               </div>
@@ -115,8 +115,8 @@ const CheckoutPage: React.FC = () => {
           </div>
 
           <div className="card p-4 bg-gradient-to-b from-brand-1/10 to-brand-1/10">
-            <h2 className="font-bricolage-grotesque text-sm">What you’ll receive</h2>
-            <ul className="mt-2 text-sm text-muted space-y-1 font-logam">
+            <h2 className="text-sm">What you’ll receive</h2>
+            <ul className="mt-2 text-sm text-muted space-y-1">
               <li>• Private playlist link (Spotify/Apple/YTM)</li>
               <li>• 30s authentication video (saying your name)</li>
               <li>• Privacy‑first delivery via ARTYLST</li>

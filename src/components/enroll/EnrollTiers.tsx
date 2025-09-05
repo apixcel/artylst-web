@@ -25,7 +25,7 @@ const enrollTiers = [
 const EnrollTiers = () => {
   return (
     <section className="mb-[60px] px-[20px]">
-      <h2 className="mb-[20px] text-center font-bricolage-grotesque text-[32px] font-[500]">
+      <h2 className="mb-[20px] text-center text-[32px] font-[500]">
         Set your tiers & keep control
       </h2>
       <div className="grid lg:grid-cols-4 xl:grid-cols-3 gap-4 mb-[20px]">
@@ -40,12 +40,8 @@ const EnrollTiers = () => {
             )}
           >
             <div className="w-1/2 pl-[20px]">
-              <h3 className="font-bold mt-[8px] mb-[10px] text-[24px] font-bricolage-grotesque">
-                {tier.title}
-              </h3>
-              <p className="text-sm text-muted mb-[10px] font-logam">
-                {tier.description}
-              </p>
+              <h3 className="font-bold mt-[8px] mb-[10px] text-[24px]">{tier.title}</h3>
+              <p className="text-sm text-muted mb-[10px]">{tier.description}</p>
             </div>
             <div className="w-1/2">
               <Image

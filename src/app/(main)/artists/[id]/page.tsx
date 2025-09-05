@@ -38,7 +38,7 @@ const SingleArtistPage = () => {
             {/* Bio + badges */}
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl font-heading">Artist Name</h1>
+                <h1 className="text-2xl">Artist Name</h1>
                 <span className="chip flex items-center gap-1 text-[11px] bg-mario-coin/15 border border-mario-coin/40">
                   <Star className="w-3 h-3 text-gold" /> <span>4.9</span> (1.2k)
                 </span>
@@ -50,7 +50,7 @@ const SingleArtistPage = () => {
                 </span>
               </div>
 
-              <p className="mt-2 text-muted font-logam">
+              <p className="mt-2 text-muted">
                 Singer • Curator • Indie / Pop. Crafting mood‑based sets for workout,
                 study, and feel‑good moments.
               </p>
@@ -110,7 +110,7 @@ const SingleArtistPage = () => {
 
       {/* Pricing tiers */}
       <section className="px-4 py-4 mb-[40px]">
-        <h2 className="font-bricolage-grotesque mb-3">Pricing</h2>
+        <h2 className="mb-3">Pricing</h2>
         <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-3 gap-4">
           {artistPricingData.map((tier, index) => (
             <div
@@ -123,7 +123,7 @@ const SingleArtistPage = () => {
               )}
             >
               <div>
-                <h4 className="text-[16px] text-muted text-center font-bricolage-grotesque uppercase mb-3">
+                <h4 className="text-[16px] text-muted text-center uppercase mb-3">
                   {tier.name}
                 </h4>
                 <h3 className="text-2xl mb-6">${tier.price}</h3>
@@ -151,7 +151,7 @@ const SingleArtistPage = () => {
       <section className="lg:flex-row flex-col flex gap-6 mb-[30px]">
         {/* sample vibes I love */}
         <div className="lg:w-1/2">
-          <h2 className="font-bricolage-grotesque">Sample vibes I love</h2>
+          <h2>Sample vibes I love</h2>
           <div className="mt-3 grid sm:grid-cols-2 gap-3">
             <div className="rounded-xl border border-white/10 overflow-hidden">
               <Image
@@ -194,9 +194,9 @@ const SingleArtistPage = () => {
 
         {/* about me */}
         <div className="px-4 lg:w-1/2">
-          <h2 className="font-bricolage-grotesque">About me</h2>
+          <h2>About me</h2>
           {/* bio */}
-          <p className="text-sm text-white/75 mt-2 font-logam">
+          <p className="text-sm text-white/75 mt-2">
             Touring vocalist &amp; curator. I build sequences that flow naturally—no hard
             jumps. Expect tasteful discoveries alongside your must‑haves.
           </p>
@@ -211,7 +211,7 @@ const SingleArtistPage = () => {
 
           {/* connect with me */}
           <div>
-            <h3 className="font-bricolage-grotesque mb-4">Connect with me</h3>
+            <h3 className="mb-4">Connect with me</h3>
             <ul className="flex flex-col gap-3 text-light/90">
               {/* spotify */}
               <li className="inline-flex items-center gap-2">
@@ -280,7 +280,7 @@ const SingleArtistPage = () => {
 
       {/* Reviews */}
       <section className="px-4 pb-12">
-        <h2 className="font-heading text-xl mb-3">Recent reviews</h2>
+        <h2 className="text-xl mb-3">Recent reviews</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {reviewData.map((review) => (
             <Review key={review.id} review={review} />

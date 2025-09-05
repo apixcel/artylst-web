@@ -29,7 +29,7 @@ const WhyChooseUs = () => {
   return (
     <section className="mb-[60px]">
       <div className="wrapper">
-        <h2 className="mb-[20px] text-center font-bricolage-grotesque text-xl font-semibold">
+        <h2 className="mb-[20px] text-center text-xl font-semibold">
           Why ARTYLST vs others
         </h2>
 

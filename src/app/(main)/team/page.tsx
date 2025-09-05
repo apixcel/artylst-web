@@ -8,11 +8,11 @@ const TeamPage = () => {
       {/* team hero */}
       <section className="max-w-6xl mx-auto px-4 py-12 grid lg:grid-cols-2 gap-8 items-center">
         <div>
-          <h1 className="text-4xl md:text-5xl font-bricolage-grotesque">
+          <h1 className="text-4xl md:text-5xl">
             <span className="gradient-text-secondary">Meet the team</span> curating the
             curators.
           </h1>
-          <p className="text-muted mt-3 font-logam">
+          <p className="text-muted mt-3">
             We’re builders, A&Rs, touring musicians, and product folks united by a belief
             that playlists are artworks, not algorithms.
           </p>
@@ -35,7 +35,7 @@ const TeamPage = () => {
 
       {/* leadership */}
       <section id="leadership" className="max-w-6xl mx-auto px-4 py-8">
-        <h2 className="mb-3 font-bricolage-grotesque text-2xl">Leadership</h2>
+        <h2 className="mb-3 text-2xl">Leadership</h2>
         <div className="grid sm:grid-cols-4 lg:grid-cols-3 gap-4">
           {/* founder */}
           <div className="lg:col-span-1 col-span-2">
@@ -51,7 +51,7 @@ const TeamPage = () => {
             <div className="p-4">
               <div className="text-lg">Founder Name</div>
               <div className="text-muted">Co-founder & CEO</div>
-              <p className="text-light mt-2 font-logam">
+              <p className="text-light mt-2">
                 Built artist tools at XYZ. Former touring guitarist. Loves longform
                 playlists.
               </p>
@@ -147,7 +147,7 @@ const TeamPage = () => {
 
       {/* advisors */}
       <section id="advisors" className="max-w-6xl mx-auto px-4 py-8">
-        <h2 className="mb-3 font-bricolage-grotesque text-2xl">Advisors</h2>
+        <h2 className="mb-3 text-2xl">Advisors</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* advisor one */}
           <div className="card overflow-hidden">
@@ -282,38 +282,32 @@ const TeamPage = () => {
 
       {/* culture & perks */}
       <section id="culture" className="max-w-6xl mx-auto px-4 py-10">
-        <h2 className="font-bricolage-grotesque text-xl mb-3 text-center">
-          Culture & perks
-        </h2>
+        <h2 className="text-xl mb-3 text-center">Culture & perks</h2>
         <div className="grid md:grid-cols-3 gap-4 text-sm">
           <div className="card p-4 text-center">
-            <h4 className="font-heading">Remote first</h4>
-            <p className="text-white/70 mt-1 font-logam">
-              Flexible hours across time zones.
-            </p>
+            <h4>Remote first</h4>
+            <p className="text-white/70 mt-1">Flexible hours across time zones.</p>
           </div>
           <div className="card p-4 text-center">
-            <h4 className="font-heading">Creator-friendly</h4>
-            <p className="text-white/70 mt-1 font-logam">
+            <h4>Creator-friendly</h4>
+            <p className="text-white/70 mt-1">
               Monthly stipend for music gear & subscriptions.
             </p>
           </div>
           <div className="card p-4 text-center">
-            <h4 className="font-heading">Learning budget</h4>
-            <p className="text-white/70 mt-1 font-logam">
-              Conferences, courses, mentorship.
-            </p>
+            <h4>Learning budget</h4>
+            <p className="text-white/70 mt-1">Conferences, courses, mentorship.</p>
           </div>
         </div>
       </section>
 
       {/* open roles */}
       <section id="roles" className="max-w-6xl mx-auto px-4 pb-12">
-        <h2 className="font-heading text-xl mb-3">Open roles</h2>
+        <h2 className="text-xl mb-3">Open roles</h2>
         <div className="card divide-y divide-white/10">
           <div className="p-4 flex items-center justify-between">
             <div>
-              <div className="font-heading">Founding Engineer (Full-stack)</div>
+              <div>Founding Engineer (Full-stack)</div>
               <div className="text-xs text-muted">
                 Remote • TypeScript • Next.js • Payments
               </div>
@@ -324,7 +318,7 @@ const TeamPage = () => {
           </div>
           <div className="p-4 flex items-center justify-between">
             <div>
-              <div className="font-heading">Artist Partnerships Lead</div>
+              <div>Artist Partnerships Lead</div>
               <div className="text-xs text-muted">Remote • A&R • Creator ops</div>
             </div>
             <a className="btn btn-primary" href="#">

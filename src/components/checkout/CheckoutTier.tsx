@@ -14,7 +14,7 @@ const CheckoutTier = () => {
 
   return (
     <div className="card p-5 bg-brand-1/10">
-      <h2 className="font-bricolage-grotesque mb-[20px]">Choose a tier</h2>
+      <h2 className="mb-[20px]">Choose a tier</h2>
       <div className="grid grid-cols-1 sm:grid-cols-4 xl:grid-cols-3 gap-4">
         {artistPricingData.map((tier, index) => (
           <div
@@ -29,7 +29,7 @@ const CheckoutTier = () => {
             onClick={() => handleSelect(tier.price)}
           >
             <div>
-              <h4 className="text-[16px] text-muted text-center font-bricolage-grotesque uppercase mb-3">
+              <h4 className="text-[16px] text-muted text-center uppercase mb-3">
                 {tier.name}
               </h4>
               <h3 className="text-2xl mb-6">${tier.price}</h3>

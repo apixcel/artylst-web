@@ -12,10 +12,10 @@ const HomeHero = () => {
       <div className="flex items-center justify-between gap-[40px] xl:gap-[60px]">
         {/* content */}
         <div className="lg:w-1/2">
-          <h1 className="text-[36px] xl:text-[40px] font-[500] mb-[20px] text-turquoise">
+          <h1 className="text-[36px] xl:text-[40px] mb-[20px] text-turquoise">
             Let your favorite DJ build you the perfect playlist for any place or occasion
           </h1>
-          <p className="text-light-blue font-logam">
+          <p className="text-light-blue">
             Whether you&apos;re a fan or a business, now you can have your favorite artist
             build you your very own private playlist, personalized just for you. If that
             wasn&apos;t cool enough, with every order purchased you will receive a 30

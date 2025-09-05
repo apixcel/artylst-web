@@ -24,10 +24,8 @@ const EnrollWhyChooseUs = () => {
             key={item.label}
             className="flex flex-col items-center justify-center p-[20px] rounded-[24px] text-center bg-brand-4/10 border border-brand-4/20"
           >
-            <h3 className="font-bold mt-[8px] mb-[8px] text-lg font-bricolage-grotesque">
-              {item.label}
-            </h3>
-            <p className="text-sm text-muted font-logam">{item.description}</p>
+            <h3 className="font-bold mt-[8px] mb-[8px] text-lg">{item.label}</h3>
+            <p className="text-sm text-muted">{item.description}</p>
           </div>
         ))}
       </div>
