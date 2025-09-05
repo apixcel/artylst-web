@@ -41,7 +41,7 @@ const EnrollFormPage = () => {
         {/* mobile logo */}
         <Link className="lg:hidden font-[700] text-white text-2xl" href="/">
           <Image
-            src="/images/logo/logo-no-text-large.png"
+            src="/images/logo/logo-no-text.png"
             alt="logo"
             width={100}
             height={100}
@@ -70,7 +70,7 @@ const EnrollFormPage = () => {
                 You&apos;re <span className="gradient-text">famous enough</span> to join
                 Artylst
               </h1>
-              <p className="text-muted text-[16px]">
+              <p className="text-muted text-[16px] font-logam">
                 We&apos;re looking for artists who are passionate about their music and
                 have a strong following.
               </p>

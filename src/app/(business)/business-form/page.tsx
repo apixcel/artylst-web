@@ -52,7 +52,7 @@ const BusinessFormPage = () => {
         {/* mobile logo */}
         <Link className="lg:hidden font-[700] text-white text-2xl" href="/">
           <Image
-            src="/images/logo/logo-no-text-large.png"
+            src="/images/logo/logo-no-text.png"
             alt="logo"
             width={100}
             height={100}

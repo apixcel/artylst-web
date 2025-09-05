@@ -35,7 +35,7 @@ const Security = () => {
                 <item.icon className="w-6 h-6" />
                 <h3>{item.title}</h3>
               </div>
-              <p>{item.description}</p>
+              <p className="font-logam">{item.description}</p>
             </div>
           ))}
         </div>

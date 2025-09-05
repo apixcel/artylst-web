@@ -1,8 +1,17 @@
 @import "tailwindcss";
 
+/*  Font */
+@font-face {
+  font-family: "Logam";
+  src: url("/fonts/Logam-Regular.otf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
 @theme inline {
   --font-geist: var(--font-geist), sans-serif;
   --font-bricolage-grotesque: var(--font-bricolage-grotesque), sans-serif;
+  --font-logam: Logam, sans-serif;
 }
 
 @theme {

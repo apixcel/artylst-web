@@ -156,7 +156,7 @@ export default function FAQThreeSection() {
       <h2 className="text-2xl font-semibold tracking-tight mb-2 text-center">
         Frequently Asked Questions
       </h2>
-      <p className="text-muted mb-8 md:w-[500px] max-w-full mx-auto text-center">
+      <p className="text-muted mb-8 md:w-[500px] max-w-full mx-auto text-center font-logam">
         We’ve grouped our FAQs into three main categories for your convenience. Browse
         through each section to quickly find what you’re looking for.
       </p>
@@ -168,8 +168,10 @@ export default function FAQThreeSection() {
 
         return (
           <div key={sIdx} className="mb-[50px]">
-            <h3 className="text-xl font-semibold mb-2">{section.title}</h3>
-            <p className="text-muted mb-4">{section.description}</p>
+            <h3 className="text-xl font-semibold mb-2 font-bricolage-grotesque">
+              {section.title}
+            </h3>
+            <p className="text-muted mb-4 font-logam">{section.description}</p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-6">
               <div className="flex flex-col gap-2">
@@ -252,7 +254,7 @@ function AccordionItem({ question, answer, open, onToggle, index }: AccordionIte
         <div className="min-h-0">
           <p
             className={`
-              leading-relaxed text-muted text-base
+              leading-relaxed text-muted text-base font-logam
               transition-opacity duration-300 ${open ? "opacity-100" : "opacity-0"}
             `}
           >

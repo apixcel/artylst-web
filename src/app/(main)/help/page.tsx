@@ -35,7 +35,7 @@ const HelpPage = () => {
             <div className="flex flex-col items-center justify-center p-6 text-center">
               <LampIcon size={64} />
               <h2 className="font-[500]mb-2">Browse articles</h2>
-              <p className="text-gray-400 ">
+              <p className="text-gray-400 font-logam">
                 Explore How-To&apos;s and learn best practices from our knowledge base
               </p>
             </div>
@@ -47,7 +47,7 @@ const HelpPage = () => {
             <div className="flex flex-col items-center justify-center p-6 text-center">
               <ProfileIcon size={64} />
               <h2 className="font-[500]mb-2">Submit a ticket</h2>
-              <p className="text-gray-400">
+              <p className="text-gray-400 font-logam">
                 Describe your issue by filling out the support ticket form
               </p>
             </div>
@@ -102,7 +102,9 @@ const HelpPage = () => {
 
       <div className="w-full max-w-5xl mt-16">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold">Most popular articles</h2>
+          <h2 className="text-xl font-semibold font-bricolage-grotesque">
+            Most popular articles
+          </h2>
           <Link
             href="/help/knowledge-base"
             className="text-brand-4 mt-16 text-base hover:underline"

@@ -29,13 +29,13 @@ const BusinessSidebar = ({
       <div className="flex items-center justify-center">
         {/* logo */}
         {isOpen && (
-          <Link href="/" className="flex justify-start w-full p-2">
+          <Link href="/" className="flex justify-start w-full p-2 mb-2 ml-2">
             <Image
               src="/images/logo/logo-white.png"
               alt="logo"
               width={100}
               height={24}
-              className="w-[60px] h-auto"
+              className="w-[50px] h-auto"
             />
           </Link>
         )}

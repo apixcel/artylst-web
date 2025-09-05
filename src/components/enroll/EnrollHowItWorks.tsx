@@ -51,7 +51,7 @@ const EnrollHowItWorks = () => {
               </div>
               <item.icon className="w-[24px] h-[24px]" />
               <h3 className="mt-[8px] mb-[2px]">{item.title}</h3>
-              <p className="text-muted">{item.description}</p>
+              <p className="text-muted font-logam">{item.description}</p>
             </div>
           ))}
         </div>

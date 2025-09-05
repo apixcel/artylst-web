@@ -43,7 +43,9 @@ const EnrollTiers = () => {
               <h3 className="font-bold mt-[8px] mb-[10px] text-[24px] font-bricolage-grotesque">
                 {tier.title}
               </h3>
-              <p className="text-sm text-muted mb-[10px]">{tier.description}</p>
+              <p className="text-sm text-muted mb-[10px] font-logam">
+                {tier.description}
+              </p>
             </div>
             <div className="w-1/2">
               <Image

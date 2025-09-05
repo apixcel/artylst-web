@@ -13,7 +13,7 @@ const Refundpage = () => {
       {/* Content */}
       <div className="space-y-8 leading-relaxed text-lg">
         {/* Intro */}
-        <p className="text-[14px] font-[400] leading-[20px] text-gray-200 ">
+        <p className="text-[14px] font-[400] leading-[20px] text-gray-200 font-logam">
           Here&#39;s the short version: if your video booking request isn&#39;t fulfilled,
           we&#39;ll typically refund the purchase or give you Antylst credits. Completed
           transactions aren&#39;t refundable and can&#39;t be returned or exchanged. This
@@ -26,14 +26,14 @@ const Refundpage = () => {
           <h2 className="text-[20px] font-[700] leading-[28px] mb-4 text-gray-200 ">
             1. General Policy
           </h2>
-          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 ">
+          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 font-logam">
             Antylst videos are personalized products and often require significant time
             and creative effort from the creator. They are accordingly not exchangeable or
             refundable once delivered. Similarly, all other transactions on Antylst,
             including messages sent through Antylst Direct, stickers, gift cards, and
             tips, are non-returnable and non-refundable.
           </p>
-          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 ">
+          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 font-logam">
             Creators on Antylst have the sole discretion to determine how to fulfill your
             booking request and the content of the resulting video. They may not follow
             your request word-for-word, but they will strive to honor the spirit of your
@@ -46,13 +46,13 @@ const Refundpage = () => {
           <h2 className="text-[20px] font-[700] leading-[28px] mb-4 text-gray-200 ">
             2. Fulfillment Window
           </h2>
-          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 ">
+          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 font-logam">
             A creator typically has up to seven (7) days or longer, at Antylst&#39;s sole
             discretion, to fulfill or decline your request. Some creators may offer a
             shorter timeframe, such as 24 hours. If a booking request is not fulfilled
             within the described timeframe:
           </p>
-          <ul className="space-y-1 text-[14px] ps-6 list-disc">
+          <ul className="space-y-1 text-[14px] ps-6 list-disc font-logam">
             <li>
               Antylst may issue a refund or credits for the booking subject to the rules
               below; or
@@ -70,12 +70,12 @@ const Refundpage = () => {
           <h2 className="text-[20px] font-[700] leading-[28px] mb-4 text-gray-200 ">
             3. Refund Eligibility
           </h2>
-          <p className="text-[14px] font-[400] leading-[20px] mb-[10px] text-gray-200 ">
+          <p className="text-[14px] font-[400] leading-[20px] mb-[10px] text-gray-200 font-logam">
             If your video request is not fulfilled, you will typically be provided with a
             refund or credits to your Antylst account, depending on how you placed your
             order. However, refunds are not available in the following cases:
           </p>
-          <ul className="space-y-1 text-[14px] ps-6 list-disc ">
+          <ul className="space-y-1 text-[14px] ps-6 list-disc font-logam">
             <li>Improper or fraudulent bookings.</li>
             <li>
               Requests that violate our Terms of Service or Community Guidelines (e.g.,
@@ -92,7 +92,7 @@ const Refundpage = () => {
           <h2 className="text-[20px] font-[700] leading-[28px] mb-4 text-gray-200 ">
             4. Platform-Specific Refunds
           </h2>
-          <ul className="space-y-1 text-[14px] ps-6 list-disc text-gray-200 ">
+          <ul className="space-y-1 text-[14px] ps-6 list-disc text-gray-200 font-logam">
             <li>
               <strong>iOS (Apple):</strong> If you ordered via the Antylst App for iOS,
               you will be issued a credit in USD. If you prefer a refund, you must request
@@ -117,7 +117,7 @@ const Refundpage = () => {
           <h2 className="text-[20px] font-[700] leading-[28px] mb-4 text-gray-200 ">
             5. Processing Timeline
           </h2>
-          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 ">
+          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 font-logam">
             Refunds are typically processed within 5–10 business days, depending on your
             payment provider. Credits issued to your Antylst account will be available
             instantly upon approval. Please note that bank or credit card processing times
@@ -130,11 +130,11 @@ const Refundpage = () => {
           <h2 className="text-[20px] font-[700] leading-[28px] mb-4 text-gray-200 ">
             6. Non-Refundable Items
           </h2>
-          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 ">
+          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 font-logam">
             Certain products and services are final sale and not eligible for refunds or
             exchanges, including:
           </p>
-          <ul className="space-y-1 text-[14px] ps-6 list-disc">
+          <ul className="space-y-1 text-[14px] ps-6 list-disc font-logam">
             <li>Completed personalized videos.</li>
             <li>Digital gifts, tips, and donations.</li>
             <li>Promotional discounts or coupon redemptions.</li>
@@ -147,7 +147,7 @@ const Refundpage = () => {
           <h2 className="text-[20px] font-[700] leading-[28px] mb-4 text-gray-200 ">
             7. Gift Cards and Credits
           </h2>
-          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 ">
+          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 font-logam">
             Gift cards and credits issued by Antylst cannot be refunded, transferred, or
             redeemed for cash, except where required by applicable law. Credits may expire
             after a defined period if not used; please check your account for details.
@@ -159,7 +159,7 @@ const Refundpage = () => {
           <h2 className="text-[20px] font-[700] leading-[28px] mb-4 text-gray-200 ">
             8. Chargebacks
           </h2>
-          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 ">
+          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 font-logam">
             Initiating a chargeback with your bank or credit card issuer without first
             contacting Antylst support may result in suspension or termination of your
             account. We encourage you to resolve disputes directly with us for faster
@@ -172,16 +172,16 @@ const Refundpage = () => {
           <h2 className="text-[20px] font-[700] leading-[28px] mb-4 text-gray-200 ">
             9. Contact Us
           </h2>
-          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 ">
+          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 font-logam">
             If you have questions about our Refund and Returns Policy or need to request a
             refund, please contact our support team at:
           </p>
-          <ul className="space-y-1 ps-6 list-disc text-[14px] ">
+          <ul className="space-y-1 ps-6 list-disc text-[14px] font-logam">
             <li>Email: support@antylst.com</li>
             <li>Help Center: help.antylst.com</li>
             <li>In-App Chat: Available 24/7 within the Antylst App</li>
           </ul>
-          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 ">
+          <p className="text-[14px] font-[400] leading-[20px] text-gray-200 font-logam">
             We will respond to all refund-related inquiries within a reasonable timeframe,
             typically 48 hours or less.
           </p>

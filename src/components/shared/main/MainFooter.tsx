@@ -16,12 +16,12 @@ const MainFooter = () => {
               alt="logo"
               width={100}
               height={100}
-              className="w-[80px] h-[80px] mb-[20px]"
+              className="w-[70px] h-[75px] mb-[20px]"
             />
 
             <div className="mb-[20px]">
               <h2 className="mb-[8px]">Join our mailing list</h2>
-              <p className="text-muted">
+              <p className="text-muted font-logam">
                 Be the first to know about the newest artists and best deals on Artylist
               </p>
             </div>

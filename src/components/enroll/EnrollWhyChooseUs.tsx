@@ -27,7 +27,7 @@ const EnrollWhyChooseUs = () => {
             <h3 className="font-bold mt-[8px] mb-[8px] text-lg font-bricolage-grotesque">
               {item.label}
             </h3>
-            <p className="text-sm text-muted">{item.description}</p>
+            <p className="text-sm text-muted font-logam">{item.description}</p>
           </div>
         ))}
       </div>
