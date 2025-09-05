@@ -64,7 +64,7 @@ const ArtistEarningsPage = () => {
       {/* Chart */}
       <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl">
         <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 items-center justify-between mb-4">
-          <h3 className="font-bricolage-grotesque flex items-center gap-2">
+          <h3 className="flex items-center gap-2">
             <DollarSign className="h-5 w-5" /> Net earnings
           </h3>
           <Dropdown
@@ -101,7 +101,7 @@ const ArtistEarningsPage = () => {
       {/* Payout info */}
       <div className="grid md:grid-cols-2 gap-4">
         <div className="rounded-2xl p-5 border border-white/10 bg-gradient-to-b from-brand-1/10 to-brand-4/8 backdrop-blur-2xl">
-          <h3 className="font-bricolage-grotesque flex items-center gap-2">
+          <h3 className="flex items-center gap-2">
             <Wallet className="h-5 w-5" /> Next payout
           </h3>
           <p className="text-sm text-muted mt-2">
@@ -110,7 +110,7 @@ const ArtistEarningsPage = () => {
           </p>
         </div>
         <div className="rounded-2xl p-5 border border-white/10 bg-gradient-to-b from-brand-1/10 to-brand-4/8 backdrop-blur-2xl">
-          <h3 className="font-bricolage-grotesque flex items-center gap-2">
+          <h3 className="flex items-center gap-2">
             <Calendar className="h-5 w-5" /> Last payout
           </h3>
           <p className="text-sm text-muted mt-2">Aug 10, 2025 — $890</p>
@@ -119,7 +119,7 @@ const ArtistEarningsPage = () => {
 
       {/* Ledger */}
       <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-4/8 to-brand-1/10 overflow-x-auto backdrop-blur-2xl">
-        <h3 className="font-bricolage-grotesque mb-3">Ledger</h3>
+        <h3 className="mb-3">Ledger</h3>
         <table className="min-w-full text-sm">
           <thead className="text-muted border-b border-white/10">
             <tr>

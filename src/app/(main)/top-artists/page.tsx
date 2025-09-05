@@ -36,7 +36,7 @@ const TopArtistPage = () => {
   return (
     <section>
       <div className="wrapper-inner text-center mb-10 xl:mb-16">
-        <h1 className="font-bricolage-grotesque text-2xl lg:text-3xl font-semibold mb-2 lg:mb-4">
+        <h1 className="text-2xl lg:text-3xl font-semibold mb-2 lg:mb-4">
           Artylst Leaderboard
         </h1>
         <p className="text-muted leading-relaxed text-base lg:text-lg">

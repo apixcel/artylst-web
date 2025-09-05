@@ -5,9 +5,7 @@ import { DashboardArtistDeliverStepProgress } from "@/components";
 const ArtistDeliverPage = () => {
   return (
     <section className="space-y-6">
-      <h1 className="text-2xl md:text-3xl font-bricolage-grotesque">
-        Deliver • Order #2341
-      </h1>
+      <h1 className="text-2xl md:text-3xl">Deliver • Order #2341</h1>
 
       {/* Order overview */}
       <div className="grid xl:grid-cols-3 gap-4">
@@ -77,7 +75,7 @@ const ArtistDeliverPage = () => {
 
         {/* Sidebar */}
         <aside className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-4">
-          <h3 className="font-bricolage-grotesque">Quality checklist</h3>
+          <h3>Quality checklist</h3>
           <ul className="list-disc list-inside text-sm text-muted space-y-1">
             <li>No explicit (per brief)</li>
             <li>Flow/energy consistent</li>
@@ -106,7 +104,7 @@ const ArtistDeliverPage = () => {
 
           {/* Revision log stub */}
           <div className="mt-4">
-            <h3 className="font-bricolage-grotesque text-sm mb-2">History</h3>
+            <h3 className="text-sm mb-2">History</h3>
             <div className="text-xs text-muted space-y-1">
               <div>08/20 — Buyer requested: “No explicit lyrics”</div>
               <div>08/22 — You saved draft</div>

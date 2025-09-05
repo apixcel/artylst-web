@@ -22,9 +22,7 @@ const Security = () => {
   return (
     <section className="mb-[60px]">
       <div className="wrapper-inner">
-        <h2 className="mb-[20px] text-center font-bricolage-grotesque text-xl font-semibold">
-          Security
-        </h2>
+        <h2 className="mb-[20px] text-center text-xl font-semibold">Security</h2>
         <div className="grid md:grid-cols-3 gap-[20px]">
           {security.map((item) => (
             <div
@@ -35,7 +33,7 @@ const Security = () => {
                 <item.icon className="w-6 h-6" />
                 <h3>{item.title}</h3>
               </div>
-              <p className="font-logam">{item.description}</p>
+              <p>{item.description}</p>
             </div>
           ))}
         </div>

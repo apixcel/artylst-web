@@ -179,7 +179,7 @@ const ArtistCard = ({
         {/* middle content */}
         <div className="flex-1 min-w-0 flex flex-col justify-between">
           <div className="flex items-center gap-2 flex-wrap">
-            <p className="text-[16px] font-bold leading-tight uppercase font-bricolage-grotesque truncate">
+            <p className="text-[16px] font-bold leading-tight uppercase truncate font-britania-ligature">
               {item.name}
             </p>
             <span className="text-sm text-muted">· {item.designation}</span>
@@ -271,7 +271,7 @@ const ArtistCard = ({
       {/* text / footer */}
       <div className="relative">
         <div className="px-4 py-3 text-center space-y-1">
-          <p className="text-[16px] font-bold leading-[0.85] uppercase font-bricolage-grotesque">
+          <p className="text-[16px] font-bold leading-[0.85] uppercase font-logam">
             {item.name}
           </p>
           <p className="text-sm text-muted">{item.designation}</p>

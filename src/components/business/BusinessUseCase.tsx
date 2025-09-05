@@ -23,10 +23,10 @@ const BusinessUseCase = () => {
               key={i}
               className="flex flex-col items-center justify-center relative text-center"
             >
-              <h3 className="text-[24px] font-bricolage-grotesque font-bold text-business-use-case-text mb-[16px]">
+              <h3 className="text-[24px] font-bold text-business-use-case-text mb-[16px]">
                 {item.title}
               </h3>
-              <p className="text-[16px] text-business-use-case-text font-logam">
+              <p className="text-[16px] text-business-use-case-text">
                 {item.description}
               </p>
             </div>

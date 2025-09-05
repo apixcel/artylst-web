@@ -122,7 +122,7 @@ const BusinessFormPage = () => {
 
           <div className="flex lg:justify-start justify-center items-center">
             <div>
-              <h1 className="font-bricolage-grotesque text-[32px] text-center sm:text-left sm:text-[44px] mb-[20px]">
+              <h1 className="text-[32px] text-center sm:text-left sm:text-[44px] mb-[20px]">
                 Get started
               </h1>
 

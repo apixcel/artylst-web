@@ -109,7 +109,7 @@ const DashboardBusinessPage = () => {
               className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
             >
               <div>
-                <div className="font-bricolage-grotesque">New Order</div>
+                <div className="font-logam">New Order</div>
                 <div className="text-xs text-muted">Create a brief</div>
               </div>
               <Plus className="h-4 w-4" />
@@ -119,7 +119,7 @@ const DashboardBusinessPage = () => {
               className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
             >
               <div>
-                <div className="font-bricolage-grotesque">Browse Artists</div>
+                <div className="font-logam">Browse Artists</div>
                 <div className="text-xs text-muted">Find the right vibe</div>
               </div>
               <Search className="h-4 w-4" />
@@ -129,7 +129,7 @@ const DashboardBusinessPage = () => {
               className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
             >
               <div>
-                <div className="font-bricolage-grotesque">Messages</div>
+                <div className="font-logam">Messages</div>
                 <div className="text-xs text-muted">Reply faster</div>
               </div>
               <MessageSquare className="h-4 w-4" />
@@ -139,7 +139,7 @@ const DashboardBusinessPage = () => {
               className="rounded-2xl border border-white/10 bg-white/5 p-4 hover:bg-white/10 transition flex items-center justify-between"
             >
               <div>
-                <div className="font-bricolage-grotesque">Receipts</div>
+                <div className="font-logam">Receipts</div>
                 <div className="text-xs text-muted">Download invoices</div>
               </div>
               <FileText className="h-4 w-4" />
@@ -150,7 +150,7 @@ const DashboardBusinessPage = () => {
           <div className="space-y-4">
             <Card>
               <div className="flex items-center justify-between">
-                <div className="font-bricolage-grotesque">In progress</div>
+                <div className="font-logam">In progress</div>
                 <Link
                   href="/dashboard/business/orders"
                   className="text-sm text-muted hover:underline flex items-center gap-1"
@@ -162,9 +162,7 @@ const DashboardBusinessPage = () => {
                 <div className="rounded-xl p-4 border border-white/10 bg-white/5 flex items-center gap-4">
                   <div className="h-12 w-12 rounded-xl bg-[url('https://i.pravatar.cc/100?img=44')] bg-cover" />
                   <div className="flex-1 min-w-0">
-                    <div className="font-bricolage-grotesque truncate">
-                      Order #2341 • Sloane Rivers
-                    </div>
+                    <div className="font-logam truncate">Order #2341 • Sloane Rivers</div>
                     <div className="text-xs text-muted flex items-center flex-wrap gap-2 mt-1">
                       <span>ETA: Aug 28</span>
                       <Chip>In progress</Chip>
@@ -183,9 +181,7 @@ const DashboardBusinessPage = () => {
                 <div className="rounded-xl p-4 border border-white/10 bg-white/5 flex items-center gap-4">
                   <div className="h-12 w-12 rounded-xl bg-[url('https://i.pravatar.cc/100?img=12')] bg-cover" />
                   <div className="flex-1 min-w-0">
-                    <div className="font-bricolage-grotesque truncate">
-                      Order #2342 • Marta
-                    </div>
+                    <div className="font-logam truncate">Order #2342 • Marta</div>
                     <div className="text-xs text-muted flex items-center flex-wrap gap-2 mt-1">
                       <span>ETA: Aug 31</span>
                       <Chip>In progress</Chip>
@@ -206,7 +202,7 @@ const DashboardBusinessPage = () => {
 
             {/* Upcoming deadlines */}
             <Card>
-              <div className="font-bricolage-grotesque mb-3">Upcoming deadlines</div>
+              <div className="font-logam mb-3">Upcoming deadlines</div>
               <div className="grid sm:grid-cols-2 gap-3 text-sm">
                 <div className="rounded-xl p-4 border border-white/10 bg-white/5">
                   <div className="flex items-center justify-between">
@@ -234,7 +230,7 @@ const DashboardBusinessPage = () => {
         <div className="space-y-4 flex flex-col self-stretch">
           {/* Spend snapshot */}
           <Card>
-            <div className="font-bricolage-grotesque">Spending (Last 60 days)</div>
+            <div className="font-logam">Spending (Last 60 days)</div>
             <div className="h-40 mt-3">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
@@ -279,7 +275,7 @@ const DashboardBusinessPage = () => {
 
           {/* Recent activity */}
           <Card>
-            <div className="font-heading">Recent activity</div>
+            <div className="font-logam">Recent activity</div>
             <div className="mt-3 space-y-3 text-sm">
               <div className="rounded-lg p-3 bg-white/5 border border-white/10">
                 <span className="font-medium">Order #2339</span> delivered by{" "}
@@ -302,7 +298,7 @@ const DashboardBusinessPage = () => {
       {/* Recommendations */}
       <Card>
         <div className="flex items-center justify-between">
-          <div className="font-heading">Recommended for your business</div>
+          <div className="font-logam">Recommended for your business</div>
           <div className="text-sm text-white/70">Based on Café & Workplace vibes</div>
         </div>
         <div className="grid sm:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
@@ -319,7 +315,7 @@ const DashboardBusinessPage = () => {
                 height={160}
                 className={`h-40 rounded-xl w-full object-cover`}
               />
-              <div className="mt-3 font-heading">Artist {n}</div>
+              <div className="mt-3 font-logam">Artist {n}</div>
               <div className="text-xs text-white/60">@handle{n}</div>
               <div className="mt-2 flex flex-wrap gap-2">
                 <Chip>Lo-fi</Chip>
@@ -333,7 +329,7 @@ const DashboardBusinessPage = () => {
 
       {/* Tips & resources */}
       <Card>
-        <div className="font-heading mb-3">Tips & resources</div>
+        <div className="font-logam mb-3">Tips & resources</div>
         <div className="grid md:grid-cols-3 gap-3 text-sm">
           <Link
             href="/learn/better-briefs"

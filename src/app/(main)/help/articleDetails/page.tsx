@@ -6,16 +6,14 @@ const ArticleDetailsPage = () => {
     <div className=" wrapper-innerbg-white/5 border border-white/10 rounded-lg shadow max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3">
       {/* Left Content */}
       <div className="col-span-2 p-6 ">
-        <h1 className="font-semibold text-lg mb-4 font-bricolage-grotesque">
-          Can I download my Artylst video?
-        </h1>
-        <p className=" mb-4 font-logam">
+        <h1 className="font-semibold text-lg mb-4">Can I download my Artylst video?</h1>
+        <p className=" mb-4">
           Yes. It’s super easy! You can download it straight from the Artylst app, site,
           or from the completed Artylst video link and share to your social media
           profiles, too.
         </p>
 
-        <p className=" mb-4 font-logam">
+        <p className=" mb-4">
           <span className="font-semibold">Artylst app:</span> First, log into your Artylst
           account with the same email address used to book the Artylst video. Once
           you&apos;re logged in, tap on the DMs icon and then click on the thread with
@@ -24,7 +22,7 @@ const ArticleDetailsPage = () => {
           to download your Artylst video.
         </p>
 
-        <p className="mb-6 font-logam">
+        <p className="mb-6">
           <span className="font-semibold">Artylst.com:</span> You can go to your orders
           page from the Artylst site,{" "}
           <a href="#" className="text-brand-4 hover:underline">

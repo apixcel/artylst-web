@@ -8,7 +8,7 @@ const BusinessHero = () => {
           <span className="gradient-text">Private playlist </span>{" "}
           <span>as custom and unique as your business</span>
         </h1>
-        <p className="text-muted text-[16px] lg:px-0 px-[40px] font-logam">
+        <p className="text-muted text-[16px] lg:px-0 px-[40px]">
           Yoga Studios, Lounge Bars, Retail Floors, Waiting Rooms-get a custom playlist
           from an artist that matches the vibe. Can’t narrow it down? Allow us to find the
           perfect artist based on your answers to our quick request form.
@@ -27,7 +27,7 @@ const BusinessHero = () => {
           </Link>
           <Link
             href="/artists"
-            className="text-[16px] bg-transparent font-[500] text-light px-[32px] py-[16px] border border-white/10 rounded-[100px] hover:bg-white/10 transition-all duration-300 font-bricolage-grotesque"
+            className="text-[16px] bg-transparent font-[500] text-light px-[32px] py-[16px] border border-white/10 rounded-[100px] hover:bg-white/10 transition-all duration-300 font-logam"
           >
             Browse artists
           </Link>

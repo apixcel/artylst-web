@@ -9,7 +9,7 @@ const AccessibilityPage = () => {
         Last Updated: October 30, 2020
       </p>
 
-      <p className="space-y-6 leading-6 text-lg font-logam">
+      <p className="space-y-6 leading-6 text-lg">
         At Antylst, we want everyone to have the best experience possible. We continue to
         take steps to make our site accessible to those using assistive technology. In the
         meantime, we’re here to help. If you have difficulty accessing our website

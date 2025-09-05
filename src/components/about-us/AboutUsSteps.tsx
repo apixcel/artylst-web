@@ -36,7 +36,7 @@ const AboutUsSteps = () => {
     <>
       <section className="mb-[60px]">
         <div className="mb-[16px]">
-          <h1 className="mb-[4px] font-bricolage-grotesque">How ARTYLST works</h1>
+          <h1 className="mb-[4px]">How ARTYLST works</h1>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-[16px]">
@@ -47,13 +47,13 @@ const AboutUsSteps = () => {
             >
               <div className="flex items-center gap-[8px] mb-[16px]">
                 Step <ArrowRight className="w-[16px] h-[16px]" />
-                <p className="text-[18px] font-[500] font-bricolage-grotesque border border-gray-55 w-[24px] h-[24px] flex-center rounded-full inline-block">
+                <p className="text-[18px] font-[500] font-logam border border-gray-55 w-[24px] h-[24px] flex-center rounded-full inline-block">
                   {index + 1}
                 </p>
               </div>
               <item.icon className="w-[24px] h-[24px]" />
               <h3 className="mt-[12px] mb-[2px]">{item.title}</h3>
-              <p className="text-muted font-logam">{item.description}</p>
+              <p className="text-muted">{item.description}</p>
             </div>
           ))}
         </div>

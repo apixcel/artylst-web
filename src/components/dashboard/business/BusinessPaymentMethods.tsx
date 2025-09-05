@@ -8,7 +8,7 @@ const BusinessPaymentMethods = () => {
         {/* payment info */}
         <div className="flex justify-between items-start gap-4 sm:gap-10 flex-col sm:flex-row">
           <div className="flex flex-col gap-2 flex-1">
-            <h2 className="text-2xl font-bricolage-grotesque">Payment method</h2>
+            <h2 className="text-2xl">Payment method</h2>
 
             <div className="flex gap-2 items-center">
               <MasterCardIcon className="w-[40px] h-[40px]" />
@@ -25,7 +25,7 @@ const BusinessPaymentMethods = () => {
         {/* active subscription */}
         <div className="flex justify-between items-start gap-10">
           <div className="flex flex-col gap-2 flex-1">
-            <h3 className="font-bricolage-grotesque">Active Subscription</h3>
+            <h3>Active Subscription</h3>
             <p className="text-sm text-muted">Premium</p>
           </div>
 

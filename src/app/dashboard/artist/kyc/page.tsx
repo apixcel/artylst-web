@@ -17,7 +17,7 @@ const ArtistKycPage = () => {
       {/* Status */}
       <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 flex items-center justify-between backdrop-blur-2xl">
         <div>
-          <h3 className="font-bricolage-grotesque">Verification status</h3>
+          <h3>Verification status</h3>
           <p className="text-muted">Complete all steps to enable payouts.</p>
         </div>
         <span className="flex items-center gap-1 text-amber-400 text-sm">
@@ -28,7 +28,7 @@ const ArtistKycPage = () => {
       <div className="grid md:grid-cols-2 gap-4">
         {/* Identity */}
         <div className="rounded-2xl p-6 border border-white/10 space-y-3 bg-gradient-to-b from-brand-2/10 to-brand-5/10 backdrop-blur-xl">
-          <h3 className="font-bricolage-grotesque">Identity verification</h3>
+          <h3>Identity verification</h3>
           <ul className="text-muted space-y-2 mb-5">
             <li className="flex items-center gap-1.5">
               <CheckCircle2 className="h-4 w-4 text-emerald-400" /> Government ID uploaded
@@ -48,7 +48,7 @@ const ArtistKycPage = () => {
 
         {/* Payouts */}
         <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-5/10 space-y-3 backdrop-blur-xl">
-          <h3 className="font-bricolage-grotesque">Payouts</h3>
+          <h3>Payouts</h3>
           <div className="text-muted">
             Connect Stripe to receive payouts. Artylst never stores bank details.
           </div>
@@ -83,7 +83,7 @@ const ArtistKycPage = () => {
 
       {/* Security tips */}
       <div className="rounded-2xl p-6 border border-white/10 bg-brand-2/15 text-sm space-y-2">
-        <div className="font-bricolage-grotesque flex items-center gap-2 text-base">
+        <div className="flex items-center gap-2 text-base">
           <ShieldCheck className="h-5 w-5" /> Security & Privacy
         </div>
         <p className="text-muted">

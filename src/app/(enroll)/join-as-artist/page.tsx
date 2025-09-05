@@ -66,11 +66,11 @@ const EnrollFormPage = () => {
 
           <div className="flex-center h-[50%] xl:h-[80%]">
             <div className="xl:max-w-[500px] max-w-[470px]">
-              <h1 className="font-bricolage-grotesque text-[44px] leading-[50px] mb-[20px]">
+              <h1 className="text-[44px] leading-[50px] mb-[20px]">
                 You&apos;re <span className="gradient-text">famous enough</span> to join
                 Artylst
               </h1>
-              <p className="text-muted text-[16px] font-logam">
+              <p className="text-muted text-[16px]">
                 We&apos;re looking for artists who are passionate about their music and
                 have a strong following.
               </p>
@@ -92,7 +92,7 @@ const EnrollFormPage = () => {
 
           <div className="flex lg:justify-start justify-center items-center">
             <div>
-              <h1 className="font-bricolage-grotesque text-[32px] text-center sm:text-left sm:text-[44px] mb-[20px]">
+              <h1 className="text-[32px] text-center sm:text-left sm:text-[44px] mb-[20px]">
                 Start earning today
               </h1>
 

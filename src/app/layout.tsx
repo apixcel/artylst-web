@@ -1,20 +1,9 @@
 import { ClientProviders } from "@/provider/ClientProviders";
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Geist } from "next/font/google";
 import "./globals.css";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
-
-const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin"],
-});
-
-const bricolageGrotesque = Bricolage_Grotesque({
-  variable: "--font-bricolage-grotesque",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "Artylst",
@@ -27,10 +16,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning={true}>
       <body
-        className={`${geist.variable} ${bricolageGrotesque.variable} bg-base-900 antialiased bg-gradient-to-br from-brand-1/30 via-base-900 to-brand-5/30`}
-        suppressHydrationWarning={true}
+        className={`bg-base-900 antialiased bg-gradient-to-br from-brand-1/30 via-base-900 to-brand-5/30`}
       >
         <div className="fixed inset-0 -z-10 bg-grid opacity-[.18]"></div>
         <ClientProviders>{children}</ClientProviders>
