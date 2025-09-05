@@ -8,7 +8,7 @@ const BusinessHero = () => {
           <span className="gradient-text">Private playlist </span>{" "}
           <span>as custom and unique as your business</span>
         </h1>
-        <p className="text-muted text-[16px] lg:px-0 px-[40px]">
+        <p className="text-muted text-[16px] lg:px-0 px-[40px] font-logam">
           Yoga Studios, Lounge Bars, Retail Floors, Waiting Rooms-get a custom playlist
           from an artist that matches the vibe. Can’t narrow it down? Allow us to find the
           perfect artist based on your answers to our quick request form.

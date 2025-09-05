@@ -30,7 +30,7 @@ const PrivacyStrip = () => {
           <h3 className="font-bold mt-[8px] mb-[2px] font-bricolage-grotesque">
             {item.label}
           </h3>
-          <p className="text-sm text-muted">{item.description}</p>
+          <p className="text-sm text-muted font-logam">{item.description}</p>
         </div>
       ))}
     </section>

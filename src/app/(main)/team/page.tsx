@@ -12,7 +12,7 @@ const TeamPage = () => {
             <span className="gradient-text-secondary">Meet the team</span> curating the
             curators.
           </h1>
-          <p className="text-muted mt-3">
+          <p className="text-muted mt-3 font-logam">
             We’re builders, A&Rs, touring musicians, and product folks united by a belief
             that playlists are artworks, not algorithms.
           </p>
@@ -51,7 +51,7 @@ const TeamPage = () => {
             <div className="p-4">
               <div className="text-lg">Founder Name</div>
               <div className="text-muted">Co-founder & CEO</div>
-              <p className="text-light mt-2">
+              <p className="text-light mt-2 font-logam">
                 Built artist tools at XYZ. Former touring guitarist. Loves longform
                 playlists.
               </p>
@@ -282,21 +282,27 @@ const TeamPage = () => {
 
       {/* culture & perks */}
       <section id="culture" className="max-w-6xl mx-auto px-4 py-10">
-        <h2 className="font-heading text-xl mb-3">Culture & perks</h2>
+        <h2 className="font-bricolage-grotesque text-xl mb-3 text-center">
+          Culture & perks
+        </h2>
         <div className="grid md:grid-cols-3 gap-4 text-sm">
-          <div className="card p-4">
+          <div className="card p-4 text-center">
             <h4 className="font-heading">Remote first</h4>
-            <p className="text-white/70 mt-1">Flexible hours across time zones.</p>
+            <p className="text-white/70 mt-1 font-logam">
+              Flexible hours across time zones.
+            </p>
           </div>
-          <div className="card p-4">
+          <div className="card p-4 text-center">
             <h4 className="font-heading">Creator-friendly</h4>
-            <p className="text-white/70 mt-1">
+            <p className="text-white/70 mt-1 font-logam">
               Monthly stipend for music gear & subscriptions.
             </p>
           </div>
-          <div className="card p-4">
+          <div className="card p-4 text-center">
             <h4 className="font-heading">Learning budget</h4>
-            <p className="text-white/70 mt-1">Conferences, courses, mentorship.</p>
+            <p className="text-white/70 mt-1 font-logam">
+              Conferences, courses, mentorship.
+            </p>
           </div>
         </div>
       </section>

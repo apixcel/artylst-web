@@ -115,8 +115,8 @@ const CheckoutPage: React.FC = () => {
           </div>
 
           <div className="card p-4 bg-gradient-to-b from-brand-1/10 to-brand-1/10">
-            <div className="font-heading text-sm">What you’ll receive</div>
-            <ul className="mt-2 text-sm text-muted space-y-1">
+            <h2 className="font-bricolage-grotesque text-sm">What you’ll receive</h2>
+            <ul className="mt-2 text-sm text-muted space-y-1 font-logam">
               <li>• Private playlist link (Spotify/Apple/YTM)</li>
               <li>• 30s authentication video (saying your name)</li>
               <li>• Privacy‑first delivery via ARTYLST</li>

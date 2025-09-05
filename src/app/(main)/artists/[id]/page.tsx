@@ -50,7 +50,7 @@ const SingleArtistPage = () => {
                 </span>
               </div>
 
-              <p className="mt-2 text-muted">
+              <p className="mt-2 text-muted font-logam">
                 Singer • Curator • Indie / Pop. Crafting mood‑based sets for workout,
                 study, and feel‑good moments.
               </p>
@@ -196,7 +196,7 @@ const SingleArtistPage = () => {
         <div className="px-4 lg:w-1/2">
           <h2 className="font-bricolage-grotesque">About me</h2>
           {/* bio */}
-          <p className="text-sm text-white/75 mt-2">
+          <p className="text-sm text-white/75 mt-2 font-logam">
             Touring vocalist &amp; curator. I build sequences that flow naturally—no hard
             jumps. Expect tasteful discoveries alongside your must‑haves.
           </p>

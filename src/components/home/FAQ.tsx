@@ -219,7 +219,7 @@ function AccordionItem({
         <div className="min-h-0">
           <p
             className={clsx(
-              "leading-relaxed text-muted text-base transition-opacity duration-300",
+              "leading-relaxed text-muted text-base transition-opacity duration-300 font-logam",
               open ? "opacity-100" : "opacity-0"
             )}
           >

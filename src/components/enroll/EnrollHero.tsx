@@ -9,7 +9,7 @@ const EnrollHero = () => {
           <h1 className="font-bricolage-grotesque text-[36px] xl:text-[44px] font-[500] mb-[20px]">
             Monetize your taste. Curate playlists—your way.
           </h1>
-          <p className="text-muted text-[16px]">
+          <p className="text-muted text-[16px] font-logam">
             Fans & businesses commission you to craft private playlists. Deliver a
             streaming link + a 30-second authentication video. You keep control &
             privacy—ARTYLST handles escrow, support, and payouts.

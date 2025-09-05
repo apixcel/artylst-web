@@ -11,7 +11,7 @@ const MainHeader = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   return (
     <header className="sticky bg-transparent top-0 left-0 right-0 z-50 backdrop-blur-sm border-b border-white/10">
-      <div className="max-w-[1280px] mx-auto w-full desktop:px-0 px-[20px] py-[12px]">
+      <div className="max-w-[1280px] mx-auto w-full desktop:px-0 px-[20px] py-[8px]">
         <nav className="flex items-center justify-between lg:mb-0 mb-4">
           {/* menu toggle button */}
           <div className="flex items-center gap-4">
@@ -22,11 +22,11 @@ const MainHeader = () => {
             {/* mobile logo */}
             <Link className="sm:hidden" href="/">
               <Image
-                src="/images/logo/logo-no-text-large.png"
+                src="/images/logo/logo-no-text.png"
                 alt="logo"
                 width={100}
                 height={100}
-                className="w-[40px] h-[40px]"
+                className="w-[30px] h-[30px]"
               />
             </Link>
           </div>
@@ -35,23 +35,22 @@ const MainHeader = () => {
             {/* desktop logo */}
             <Link className="lg:block hidden" href="/">
               <Image
-                src="/images/logo/logo-no-text-large.png"
+                src="/images/logo/logo-white.png"
                 alt="logo"
                 width={100}
                 height={100}
-                className="w-[60px] h-[60px]"
+                className="w-[70px] h-[75px]"
               />
-              <span className="text-white text-[14px] font-bold">ARTYLST</span>
             </Link>
 
             {/* mobile logo */}
             <Link className="lg:hidden sm:block hidden" href="/">
               <Image
-                src="/images/logo/logo-no-text-large.png"
+                src="/images/logo/logo-no-text.png"
                 alt="logo"
                 width={100}
                 height={100}
-                className="w-[40px] h-[40px]"
+                className="w-[45px] h-[45px]"
               />
             </Link>
 

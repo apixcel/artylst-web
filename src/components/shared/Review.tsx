@@ -32,7 +32,9 @@ const Review = ({ review }: { review: IReview }) => {
           <div className="text-xs text-white/60">★ ★ ★ ★ ★</div>
         </div>
       </div>
-      <p className="text-muted font-heading mt-3 line-clamp-4">{review.review}</p>
+      <p className="text-muted font-heading mt-3 line-clamp-4 font-logam">
+        {review.review}
+      </p>
     </div>
   );
 };

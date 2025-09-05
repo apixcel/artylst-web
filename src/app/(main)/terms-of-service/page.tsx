@@ -67,12 +67,12 @@ const TermsOfServicePage = () => {
           <p className="italic text-gray-300 text-[14px] mb-6">
             Effective Date: <span className="not-italic">June 7, 2025</span>
           </p>
-          <p className="text-[14px] leading-[20px] mb-4 text-gray-200">
+          <p className="text-[14px] leading-[20px] mb-4 text-gray-200 font-logam">
             These Terms govern your use of our website, mobile applications, and all
             related services. By using our site, you agree to comply with these Terms and
             all applicable laws.
           </p>
-          <ul className="list-disc list-inside text-[14px] text-gray-200 space-y-2">
+          <ul className="list-disc list-inside text-[14px] text-gray-200 space-y-2 font-logam">
             <li>You must be at least 13 years old to use our services.</li>
             <li>
               You are responsible for maintaining the confidentiality of your account
@@ -87,13 +87,13 @@ const TermsOfServicePage = () => {
         {/* Section 2 */}
         <section id="marketplace">
           <h2 className="text-[22px] font-[600] mb-4">Artylst Marketplace</h2>
-          <p className="text-[14px] text-gray-200 leading-[20px] mb-4">
+          <p className="text-[14px] text-gray-200 leading-[20px] mb-4 font-logam">
             The Marketplace allows users to request and purchase personalized content. All
             transactions are subject to these Terms and any additional conditions provided
             at checkout.
           </p>
           <h3 className="font-semibold text-white mb-2">Key Marketplace Rules:</h3>
-          <ol className="list-decimal list-inside text-[14px] space-y-2 text-gray-200">
+          <ol className="list-decimal list-inside text-[14px] space-y-2 text-gray-200 font-logam">
             <li>All payments must be completed through the official platform.</li>
             <li>
               Refunds are only available in cases where Talent fails to deliver content.
@@ -105,11 +105,11 @@ const TermsOfServicePage = () => {
         {/* Section 3 */}
         <section id="videos">
           <h2 className="text-[22px] font-[600] mb-4">Artylst Videos</h2>
-          <p className="text-[14px] text-gray-200 leading-[20px] mb-4">
+          <p className="text-[14px] text-gray-200 leading-[20px] mb-4 font-logam">
             Artylst Videos are for personal, non-commercial use only. Redistribution,
             resale, or public broadcast is prohibited without express permission.
           </p>
-          <ul className="list-disc list-inside text-[14px] text-gray-200 space-y-2">
+          <ul className="list-disc list-inside text-[14px] text-gray-200 space-y-2 font-logam">
             <li>You may share your Artylst Video on social media for personal use.</li>
             <li>
               You may not use Artylst Videos in advertisements or promotions without prior
@@ -124,13 +124,13 @@ const TermsOfServicePage = () => {
         {/* Section 4 */}
         <section id="business">
           <h2 className="text-[22px] font-[600] mb-4">Business Artylsts</h2>
-          <p className="text-[14px] text-gray-200 leading-[20px] mb-4">
+          <p className="text-[14px] text-gray-200 leading-[20px] mb-4 font-logam">
             Business Artylsts may be used for promotional or commercial purposes under
             separate agreements. Unauthorized commercial use of personal Artylsts is
             strictly prohibited.
           </p>
           <h3 className="font-semibold text-white mb-2">Examples of Permitted Uses:</h3>
-          <ul className="list-disc list-inside text-[14px] space-y-2 text-gray-200">
+          <ul className="list-disc list-inside text-[14px] space-y-2 text-gray-200 font-logam">
             <li>Brand shoutouts or endorsements (with Talent approval).</li>
             <li>Internal company events or training sessions.</li>
             <li>Marketing campaigns explicitly approved by our team.</li>
@@ -140,7 +140,7 @@ const TermsOfServicePage = () => {
         {/* Section 5 */}
         <section id="additional">
           <h2 className="text-[22px] font-[600] mb-4">Additional Site Terms</h2>
-          <p className="text-[14px] text-gray-200 leading-[20px]">
+          <p className="text-[14px] text-gray-200 leading-[20px] font-logam">
             Additional terms may apply to specific services, promotions, or features. In
             case of conflict, the additional terms will prevail over these general Terms.
           </p>
@@ -149,12 +149,12 @@ const TermsOfServicePage = () => {
         {/* Section 6 */}
         <section id="acceptable">
           <h2 className="text-[22px] font-[600] mb-4">Acceptable Use Policy</h2>
-          <p className="text-[14px] text-gray-200 leading-[20px] mb-4">
+          <p className="text-[14px] text-gray-200 leading-[20px] mb-4 font-logam">
             You agree not to misuse the Site or engage in harmful, fraudulent, or illegal
             activity. Violations may result in suspension or termination of your account.
           </p>
           <h3 className="font-semibold text-white mb-2">Prohibited Activities:</h3>
-          <ol className="list-decimal list-inside text-[14px] space-y-2 text-gray-200">
+          <ol className="list-decimal list-inside text-[14px] space-y-2 text-gray-200 font-logam">
             <li>Posting hateful, threatening, or discriminatory content.</li>
             <li>Attempting to hack, disrupt, or overload the platform.</li>
             <li>Engaging in fraudulent transactions or identity theft.</li>
@@ -164,12 +164,12 @@ const TermsOfServicePage = () => {
         {/* Section 7 */}
         <section id="talent">
           <h2 className="text-[22px] font-[600] mb-4">Talent Terms of Service</h2>
-          <p className="text-[14px] text-gray-200 leading-[20px] mb-4">
+          <p className="text-[14px] text-gray-200 leading-[20px] mb-4 font-logam">
             Talent users (creators providing Artylsts) must comply with specific
             guidelines regarding content delivery, intellectual property, and user
             interactions.
           </p>
-          <ul className="list-disc list-inside text-[14px] space-y-2 text-gray-200">
+          <ul className="list-disc list-inside text-[14px] space-y-2 text-gray-200 font-logam">
             <li>Talent must deliver content within the agreed timeframe.</li>
             <li>Talent must not share user requests publicly without permission.</li>
             <li>
@@ -181,12 +181,12 @@ const TermsOfServicePage = () => {
         {/* Section 8 */}
         <section id="additional-talent">
           <h2 className="text-[22px] font-[600] mb-4">Additional Talent Terms</h2>
-          <p className="text-[14px] text-gray-200 leading-[20px] mb-4">
+          <p className="text-[14px] text-gray-200 leading-[20px] mb-4 font-logam">
             Additional obligations for Talent may be communicated separately, including
             brand partnership rules, promotional requirements, and exclusivity
             arrangements.
           </p>
-          <p className="text-[14px] text-gray-200">
+          <p className="text-[14px] text-gray-200 font-logam">
             Violation of Additional Talent Terms may result in account suspension or
             termination.
           </p>

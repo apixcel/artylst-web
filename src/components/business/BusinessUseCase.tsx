@@ -26,7 +26,7 @@ const BusinessUseCase = () => {
               <h3 className="text-[24px] font-bricolage-grotesque font-bold text-business-use-case-text mb-[16px]">
                 {item.title}
               </h3>
-              <p className="text-[16px] text-business-use-case-text">
+              <p className="text-[16px] text-business-use-case-text font-logam">
                 {item.description}
               </p>
             </div>

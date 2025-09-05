@@ -28,7 +28,7 @@ const ThisIsArtylist = () => {
         {thisIsArtylist.map((item) => (
           <div key={item.id} className="border border-white/10 rounded-[24px] p-[24px]">
             <h3 className="mb-[4px]">{item.title}</h3>
-            <p className="text-muted">{item.description}</p>
+            <p className="text-muted font-logam">{item.description}</p>
           </div>
         ))}
       </div>
