@@ -8,25 +8,25 @@ const pricingForEveryBudget = [
   {
     id: 1,
     title: "$25",
-    bgColor: "bg-cyan/80",
+    bgColor: "bg-brand-1/80",
     route: "/tags/25-or-less",
   },
   {
     id: 2,
     title: "$50",
-    bgColor: "bg-turquoise/80",
+    bgColor: "bg-brand-2/80",
     route: "/tags/50-or-less",
   },
   {
     id: 3,
     title: "$100",
-    bgColor: "bg-azure/80",
+    bgColor: "bg-brand-5/80",
     route: "/tags/100-or-less",
   },
   {
     id: 4,
     title: "$150",
-    bgColor: "bg-light-blue/80",
+    bgColor: "bg-brand-4/80",
     route: "/tags/150-or-less",
   },
 ];

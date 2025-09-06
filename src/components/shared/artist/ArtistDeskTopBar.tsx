@@ -1,5 +1,6 @@
 import { UserDropdown } from "@/components";
 import { AlignJustify } from "lucide-react";
+import Link from "next/link";
 
 const ArtistDeskTopBar = ({
   user,
@@ -12,7 +13,7 @@ const ArtistDeskTopBar = ({
 }) => {
   return (
     <header className="sticky top-0 z-20 backdrop-blur-xl border-b border-white/10 bg-gradient-to-r from-brand-3/10 to-base-900/10">
-      <div className="px-6 py-4 flex items-center gap-4">
+      <div className="px-6 py-4 flex justify-between items-center gap-4">
         <button
           className="lg:hidden"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -43,16 +44,25 @@ const ArtistDeskTopBar = ({
           </div>
         </div>
 
-        <UserDropdown
-          user={user}
-          align="right"
-          onLogout={() => console.log("logout")}
-          items={[
-            { type: "link", label: "Profile", href: "/dashboard/artist/profile" },
-            { type: "link", label: "Settings", href: "/dashboard/artist/settings" },
-          ]}
-          className="ml-auto"
-        />
+        <div className="flex items-center gap-4">
+          <Link
+            href="/dashboard/artist/join-as-featured"
+            className="text-light hover:bg-brand-2/10 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
+          >
+            Join as Featured
+          </Link>
+
+          <UserDropdown
+            user={user}
+            align="right"
+            onLogout={() => console.log("logout")}
+            items={[
+              { type: "link", label: "Profile", href: "/dashboard/artist/profile" },
+              { type: "link", label: "Settings", href: "/dashboard/artist/settings" },
+            ]}
+            className="ml-auto"
+          />
+        </div>
       </div>
     </header>
   );

@@ -9,7 +9,7 @@ const thisIsArtylist = [
     id: 2,
     title: "Perfect for yourself, your business or your friends",
     description:
-      "Every playlist and authentication video is personalized for the person receiving it, creating a one-of-a-kind connection between Artists and their Audience.",
+      "Whether you’re treating yourself to a soundtrack that fits your mood, giving your business a unique vibe that resonates with customers, or surprising your friends with music that feels deeply personal and meaningful, Artylst is always the right move.",
   },
   {
     id: 3,

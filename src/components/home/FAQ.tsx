@@ -193,7 +193,7 @@ function AccordionItem({
     <div className="bg-white/10 rounded-lg">
       <button
         onClick={onToggle}
-        className="w-full text-base flex gap-3 px-4 py-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black"
+        className="font-logam w-full text-base flex gap-3 px-4 py-4 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-black"
         aria-expanded={open}
         aria-controls={id}
       >

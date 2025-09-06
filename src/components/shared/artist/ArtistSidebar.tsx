@@ -29,14 +29,15 @@ const ArtistSidebar = ({
       <div className="flex items-center justify-center">
         {/* logo */}
         {isOpen && (
-          <Link href="/" className="flex justify-start w-full p-2 mb-2 ml-2">
+          <Link href="/" className="flex flex-col gap-[2px] w-full p-2 mb-2 ml-2">
             <Image
-              src="/images/logo/logo-white.png"
+              src="/images/logo/logo-no-text.png"
               alt="logo"
               width={100}
-              height={24}
-              className="w-[50px] h-auto"
+              height={100}
+              className="w-[45px] h-[50px] ml-2"
             />
+            <span className="font-logam">ARTYLST</span>
           </Link>
         )}
 

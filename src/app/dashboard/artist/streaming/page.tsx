@@ -10,7 +10,6 @@ const streamingServices: DropdownOption<string>[] = [
   { label: "Apple Music", value: "apple-music" },
   { label: "YouTube Music", value: "youtube-music" },
   { label: "SoundCloud", value: "soundcloud" },
-  { label: "Tidal", value: "tidal" },
 ];
 
 const ServiceCard = ({
@@ -87,12 +86,6 @@ const ArtistStreamingPage = () => {
         <ServiceCard
           name="SoundCloud"
           desc="Private set/playlist links"
-          status="not"
-          action="Connect"
-        />
-        <ServiceCard
-          name="Tidal"
-          desc="Paste playlist links"
           status="not"
           action="Connect"
         />

@@ -42,7 +42,7 @@ const Drawer = forwardRef<HTMLDivElement, MobileNavProps>(
             alt="logo"
             width={100}
             height={100}
-            className="w-[40px] h-[40px]"
+            className="w-[40px] h-[45px]"
             priority
           />
         </Link>
@@ -54,7 +54,7 @@ const Drawer = forwardRef<HTMLDivElement, MobileNavProps>(
       ref={ref}
       className={cn(
         "fixed lg:hidden top-0 left-0 h-dvh w-[375px] max-w-[86vw] z-[9999]",
-        "bg-level-0 text-white shadow-2xl ring-1 ring-black/10",
+        "bg-gradient-to-b from-brand-3/10 to-base-900/10 backdrop-blur-2xl text-white shadow-2xl ring-1 ring-black/10",
         "transition-transform duration-300 will-change-transform",
         isOpen ? "translate-x-0" : "-translate-x-full"
       )}
@@ -62,7 +62,7 @@ const Drawer = forwardRef<HTMLDivElement, MobileNavProps>(
       aria-modal="true"
       aria-label="Mobile navigation"
     >
-      <div className="sticky top-0 flex items-center justify-between px-5 py-4 bg-level-0/95 backdrop-blur border-b border-white/10">
+      <div className="sticky top-0 flex items-center justify-between px-5 py-4 bg-gradient-to-r from-brand-3/10 to-base-900/10 backdrop-blur border-b border-white/10 bg-base-900">
         <div className="flex items-center gap-2">{brand}</div>
         <button
           onClick={() => setIsOpen(false)}

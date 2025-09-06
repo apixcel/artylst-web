@@ -21,7 +21,7 @@ const BusinessHero = () => {
                bg-gradient-to-b from-brand-1/50 to-brand-3/40 
                border border-brand-4/10 
                shadow-md transition-all duration-300
-               hover:from-brand-1/70 hover:to-brand-3/60"
+               hover:from-brand-1/70 hover:to-brand-3/60 font-logam"
           >
             Request a playlist
           </Link>

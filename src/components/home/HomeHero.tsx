@@ -12,16 +12,17 @@ const HomeHero = () => {
       <div className="flex items-center justify-between gap-[40px] xl:gap-[60px]">
         {/* content */}
         <div className="lg:w-1/2">
-          <h1 className="text-[36px] xl:text-[40px] mb-[20px] text-turquoise">
-            Let your favorite DJ build you the perfect playlist for any place or occasion
+          <h1 className="text-[36px] xl:text-[40px] mb-[20px] text-brand-4">
+            Let your favorite DJ build you the perfect playlist for whatever the time or
+            occasion.
           </h1>
-          <p className="text-light-blue">
+          <p className="text-brand-2">
             Whether you&apos;re a fan or a business, now you can have your favorite artist
             build you your very own private playlist, personalized just for you. If that
-            wasn&apos;t cool enough, with every order purchased you will receive a 30
-            second authentication video with your private streaming link so you can always
-            be sure that your playlist was truly built by your favorite artist just for
-            you.
+            wasn&apos;t cool enough, with every order purchased you will receive both a
+            private streaming link AND a 30 second authentication video so you can always
+            be sure that your playlist was truly built just for you by your favorite
+            artist.
           </p>
         </div>
 
@@ -75,12 +76,12 @@ const HomeHero = () => {
             </button>
 
             <div className="aspect-video w-full overflow-hidden rounded-2xl shadow-2xl bg-black">
-              <iframe
+              {/* add video here */}
+              <video
+                src="/videos/home-hero.mp4"
                 className="w-full h-full"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&rel=0&modestbranding=1&playsinline=1"
-                title="Hero Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowFullScreen
+                autoPlay
+                loop
               />
             </div>
           </div>
