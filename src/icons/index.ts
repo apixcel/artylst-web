@@ -12,3 +12,7 @@ export { default as TiktokIcon } from "./tiktok";
 export { default as InstagramIcon } from "./instagram";
 export { default as FacebookIcon } from "./facebook";
 export { default as EmailIcon } from "./email";
+export { default as SoundCloudIcon } from "./soundCloud";
+export { default as YTMusicIcon } from "./YTMusic";
+export { default as SpotifyIcon } from "./spotify";
+export { default as AppleMusicIcon } from "./appleMusic";

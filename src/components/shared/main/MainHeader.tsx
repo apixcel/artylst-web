@@ -33,14 +33,15 @@ const MainHeader = () => {
 
           <div className="lg:flex items-center gap-4">
             {/* desktop logo */}
-            <Link className="lg:block hidden" href="/">
+            <Link className="lg:flex flex-col hidden items-center gap-[2px]" href="/">
               <Image
-                src="/images/logo/logo-white.png"
+                src="/images/logo/logo-no-text.png"
                 alt="logo"
                 width={100}
                 height={100}
-                className="w-[70px] h-[75px]"
+                className="w-[50px] h-[55px]"
               />
+              <span className="font-logam">ARTYLST</span>
             </Link>
 
             {/* mobile logo */}

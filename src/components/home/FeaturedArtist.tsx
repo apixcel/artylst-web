@@ -26,14 +26,14 @@ const FeaturedArtists = () => {
           prevEl: ".featured-prev",
         }}
         breakpoints={{
-          1440: { slidesPerView: 5.8 },
-          1280: { slidesPerView: 5.5 },
-          1024: { slidesPerView: 4.3 },
-          768: { slidesPerView: 3.1 },
-          640: { slidesPerView: 2.8 },
-          480: { slidesPerView: 2.2 },
-          420: { slidesPerView: 1.8 },
-          320: { slidesPerView: 1.5 },
+          1440: { slidesPerView: 4.9 },
+          1280: { slidesPerView: 4.5 },
+          1024: { slidesPerView: 4 },
+          768: { slidesPerView: 2.7 },
+          640: { slidesPerView: 2.4 },
+          480: { slidesPerView: 2 },
+          420: { slidesPerView: 1.6 },
+          320: { slidesPerView: 1.4 },
         }}
         className="group top-artists-swiper"
       >

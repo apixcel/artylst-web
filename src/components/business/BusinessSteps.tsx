@@ -29,7 +29,7 @@ const businessSteps = [
 
 const BusinessSteps = () => {
   return (
-    <section id="business-steps" className="mb-[60px] scroll-mt-[100px]">
+    <section className="mb-[60px]">
       <div className="wrapper">
         <div className="mb-[16px]">
           <h2 className="mb-[20px] text-center text-[32px] font-[500]">

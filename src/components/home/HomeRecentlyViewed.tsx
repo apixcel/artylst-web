@@ -46,7 +46,7 @@ const HomeRecentlyViewed = () => {
               </div>
 
               <div>
-                <p className="font-[500]">{a.name}</p>
+                <p className="font-[500] font-logam">{a.name}</p>
                 <p className="text-muted mb-[4px]">{a.designation}</p>
                 <div className="flex items-center gap-[4px] font-[500] mb-[4px]">
                   <p className="flex items-center gap-[4px]">

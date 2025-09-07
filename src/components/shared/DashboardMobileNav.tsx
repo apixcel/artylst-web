@@ -46,7 +46,7 @@ const Drawer = forwardRef<HTMLDivElement, DashboardMobileNavProps>(
             alt="logo"
             width={100}
             height={100}
-            className="w-[40px] h-[40px]"
+            className="w-[40px] h-[45px]"
             priority
           />
         </Link>

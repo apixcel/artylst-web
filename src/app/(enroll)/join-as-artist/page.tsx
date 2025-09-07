@@ -11,7 +11,6 @@ import { ChevronLeft } from "lucide-react";
 const genderOptions = [
   { label: "He/him", value: "he-him" },
   { label: "She/her", value: "she-her" },
-  { label: "They/them", value: "they-them" },
 ];
 
 const EnrollFormPage = () => {
@@ -28,14 +27,15 @@ const EnrollFormPage = () => {
       {/* header */}
       <div className="border-b border-white/10 px-6 py-2">
         {/* desktop logo */}
-        <Link className="lg:block hidden font-[700] text-white text-2xl" href="/">
+        <Link className="lg:flex flex-col hidden gap-[2px]" href="/">
           <Image
-            src="/images/logo/logo-white.png"
+            src="/images/logo/logo-no-text.png"
             alt="logo"
             width={100}
             height={100}
-            className="w-[60px] h-[60px]"
+            className="w-[50px] h-[55px] ml-2"
           />
+          <span className="font-logam">ARTYLST</span>
         </Link>
 
         {/* mobile logo */}

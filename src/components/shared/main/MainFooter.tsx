@@ -11,13 +11,16 @@ const MainFooter = () => {
         <div className="flex md:flex-row flex-col justify-between gap-[40px] md:gap-[20px] lg:gap-[80px] xl:gap-[40px]">
           {/* form */}
           <div className="md:max-w-[360px] lg:max-w-[420px] w-full">
-            <Image
-              src="/images/logo/logo-white.png"
-              alt="logo"
-              width={100}
-              height={100}
-              className="w-[70px] h-[75px] mb-[20px]"
-            />
+            <Link className="flex flex-col gap-[2px] mb-[20px]" href="/">
+              <Image
+                src="/images/logo/logo-no-text.png"
+                alt="logo"
+                width={100}
+                height={100}
+                className="w-[50px] h-[55px] ml-2"
+              />
+              <span className="font-logam">ARTYLST</span>
+            </Link>
 
             <div className="mb-[20px]">
               <h2 className="mb-[8px]">Join our mailing list</h2>
@@ -34,8 +37,9 @@ const MainFooter = () => {
                   className="w-full h-[52px] rounded-[16px] border border-fog-transparent-24 p-[16px] text-regular-400"
                 />
                 <button
+                  disabled
                   type="submit"
-                  className="absolute right-[10px] top-1/2 -translate-y-1/2 rounded-full bg-brand-4/80 flex-center w-[36px] h-[36px]"
+                  className="absolute right-[10px] top-1/2 -translate-y-1/2 rounded-full bg-brand-4/80 flex-center w-[36px] h-[36px] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <ArrowRightIcon className="w-5  h-5 text-white" />
                 </button>
