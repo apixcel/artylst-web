@@ -174,7 +174,7 @@ export default function Dropdown<TValue = string>({
               const isSelected = value?.value === opt.value;
               return (
                 <button
-                  key={(opt.value as unknown as string) ?? i}
+                  key={/* (opt.value as unknown as string) ?? */ i}
                   type="button"
                   role="option"
                   aria-selected={isSelected}

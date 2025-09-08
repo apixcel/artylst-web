@@ -7,9 +7,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { X } from "lucide-react";
 import { SidebarUserCard } from "..";
+import { IUser } from "@/interface/user.interface";
 
 export type NavLink = { label: string; route: string; icon: React.ElementType };
-export type User = { name: string; email: string; image: string };
 
 type DashboardMobileNavProps = {
   isOpen: boolean;
@@ -17,7 +17,7 @@ type DashboardMobileNavProps = {
   navLinks: NavLink[];
   brand?: React.ReactNode;
   portal?: boolean;
-  user: User;
+  user: IUser;
 };
 
 const Overlay = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {

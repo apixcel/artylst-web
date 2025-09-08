@@ -30,7 +30,7 @@ type SeparatorItem = {
 type MenuEntry = LinkItem | ButtonItem | SeparatorItem;
 
 type UserInfo = {
-  name?: string;
+  displayName?: string;
   email?: string;
   image?: string;
 };
@@ -146,7 +146,7 @@ export default function UserDropdown({
         {user?.image ? (
           <Image
             src={user.image}
-            alt={user?.name ? `${user.name}'s avatar` : "User avatar"}
+            alt={user?.displayName ? `${user.displayName}'s avatar` : "User avatar"}
             width={80}
             height={80}
             className="w-full h-full object-cover"
@@ -164,14 +164,14 @@ export default function UserDropdown({
           role="menu"
           aria-label="User menu"
           className={cn(
-            "absolute z-50 mt-2 w-56 bg-base-900 rounded-xl border border-white/10  backdrop-blur-xl p-2 shadow-lg",
+            "absolute z-50 mt-2 w-56 bg-base-900 rounded-xl border border-white/10  backdrop-blur-xl p-3 shadow-lg",
             align === "right" ? "right-0" : "left-0"
           )}
         >
-          {(user?.name || (showEmail && user?.email)) && (
+          {(user?.displayName || (showEmail && user?.email)) && (
             <div className="px-2 py-2 mb-1 rounded-lg bg-white/5">
-              {user?.name && (
-                <p className="text-sm font-medium text-white">{user.name}</p>
+              {user?.displayName && (
+                <p className="text-sm font-medium text-white">{user.displayName}</p>
               )}
               {showEmail && user?.email && (
                 <p className="text-xs text-white/70">{user.email}</p>

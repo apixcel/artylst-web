@@ -1,5 +1,7 @@
+"use client";
+
 import { ArtistCard, FAQ, TopArtistSteps } from "@/components";
-import { artistsData } from "@/constants";
+import { useGetTopOrFeaturedArtistsQuery } from "@/redux/features/artist/artist.api";
 
 const faqs = [
   {
@@ -33,6 +35,10 @@ const faqs = [
 ];
 
 const TopArtistPage = () => {
+  const { data, isLoading } = useGetTopOrFeaturedArtistsQuery({
+    rankType: "top",
+  });
+  const artists = data?.data || [];
   return (
     <section>
       <div className="wrapper-inner text-center mb-10 xl:mb-16">
@@ -46,7 +52,7 @@ const TopArtistPage = () => {
 
       {/* top artist grid */}
       <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 mb-16">
-        {artistsData.map((item, index) => (
+        {artists.map((item, index) => (
           <div className="h-full" key={index}>
             <ArtistCard item={item} index={index} variant="home" />
           </div>

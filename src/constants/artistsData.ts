@@ -10,7 +10,7 @@ export const artistsData = [
     oldPrice: 90,
     eta: 48,
     slotsLeft: 3,
-    image: "https://placehold.co/400x400.png",
+    // image: "https://placehold.co/400x400.png",
     username: "/lunawaves",
   },
   {

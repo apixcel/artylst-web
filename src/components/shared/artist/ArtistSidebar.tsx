@@ -7,16 +7,17 @@ import { cn } from "@/utils";
 import { artistDashboardLink } from "@/constants";
 import { SidebarUserCard } from "@/components";
 import Image from "next/image";
+import { useAppSelector } from "@/hooks";
+import { IUser } from "@/interface/user.interface";
 
 const ArtistSidebar = ({
   isOpen,
   setIsOpen,
-  user,
 }: {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
-  user: { name: string; email: string; image: string };
 }) => {
+  const { user } = useAppSelector((state) => state.user);
   const pathname = usePathname();
 
   return (
@@ -89,7 +90,7 @@ const ArtistSidebar = ({
 
       {/* Footer */}
       <div className="mt-auto p-3">
-        <SidebarUserCard isOpen={isOpen} user={user} />
+        <SidebarUserCard isOpen={isOpen} user={user as IUser} />
 
         <div
           className={cn(

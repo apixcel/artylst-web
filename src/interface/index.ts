@@ -1,3 +1,12 @@
-export * from "./dropdown.interface";
-export * from "./artist.interface";
 export * from "./review.interface";
+export * from "./queryMutationErrorResponse";
+export * from "./meta";
+export * from "./dropdown.interface";
+export * from "./meta/meta.interface";
+
+// user
+export * from "./user.interface";
+
+// artist
+export * from "./artist/artist.interface";
+export * from "./artist/artistPricingTier.interface";

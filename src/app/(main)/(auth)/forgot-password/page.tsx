@@ -1,26 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { Input } from "@/components";
+import { IQueryMutationErrorResponse } from "@/interface";
+import { useForgotPasswordMutation } from "@/redux/features/user/user.api";
+import { Form, Formik, FormikHelpers } from "formik";
+import { toast } from "sonner";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+  email: Yup.string().email("Enter a valid email").required("Email is required"),
+});
 
 const ForgotPasswordPage = () => {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage("");
+  const handleSubmit = async (
+    values: { email: string },
+    { resetForm }: FormikHelpers<{ email: string }>
+  ) => {
+    if (isLoading) return;
 
-    try {
-      // Simulate API request
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      setMessage("Password reset link sent to your email.");
-    } catch (error) {
-      setMessage("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
+    const response = await forgotPassword(values);
+
+    const error = response.error as IQueryMutationErrorResponse;
+    if (error) {
+      toast.error(error.data.message || "Something went wrong");
+      return;
     }
+
+    toast.success("Password reset link sent to your email");
+
+    resetForm();
   };
 
   return (
@@ -31,47 +41,36 @@ const ForgotPasswordPage = () => {
           Enter your registered email to reset your password.
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-5 space-y-4">
-          {/* Email */}
-          <label className="block">
-            <span className="text-sm text-muted">Email</span>
-            <div className="relative mt-1">
-              <input
-                className="w-full bg-white/10 border border-white/10 focus:outline-none focus:ring-1 focus:ring-light rounded-xl pl-10 pr-4 py-2.5 placeholder-white/40"
-                type="email"
-                inputMode="email"
-                autoComplete="email"
-                placeholder="admin@artylst.com"
-                required
-              />
-              {/* mail icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="absolute left-3 top-2.5 h-5 w-5 text-white/50"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5v10.5a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V6.75Zm0 0L12 12l8.25-5.25"
+        <Formik<{ email: string }>
+          validationSchema={validationSchema}
+          initialValues={{ email: "" }}
+          onSubmit={handleSubmit}
+        >
+          {({ values, handleChange, handleBlur, isSubmitting, errors, touched }) => (
+            <Form className="mt-5 space-y-4">
+              <div>
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
                 />
-              </svg>
-            </div>
-          </label>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full px-4 py-2.5 rounded-xl bg-brand-4/80 hover:bg-brand-4/70 text-sm font-medium"
-          >
-            {loading ? "Sending..." : "Send Reset Link"}
-          </button>
-
-          {message && <p className="text-sm text-center mt-3 text-white/70">{message}</p>}
-        </form>
+                {touched.email && errors.email && (
+                  <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+                )}
+              </div>
+              <button
+                type="submit"
+                disabled={isSubmitting || isLoading}
+                className="w-full px-4 py-2.5 rounded-xl bg-brand-4/80 hover:bg-brand-4/70 text-sm font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? "Sending..." : "Send Reset Link"}
+              </button>
+            </Form>
+          )}
+        </Formik>
       </div>
     </div>
   );

@@ -26,7 +26,13 @@ export default function ArtistCheckoutProgress({
           const isActive = stepNum === current;
 
           return (
-            <li key={label} className="flex items-center gap-3 flex-1">
+            <li
+              key={label}
+              className={cn(
+                "flex items-center gap-3 flex-1",
+                idx === steps.length - 1 && "flex-none"
+              )}
+            >
               {/* Node */}
               <div className="flex items-center sm:flex-row flex-col gap-2">
                 <div

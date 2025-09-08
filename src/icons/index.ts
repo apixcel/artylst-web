@@ -16,3 +16,4 @@ export { default as SoundCloudIcon } from "./soundCloud";
 export { default as YTMusicIcon } from "./YTMusic";
 export { default as SpotifyIcon } from "./spotify";
 export { default as AppleMusicIcon } from "./appleMusic";
+export { default as StarIcon } from "./star";

@@ -1,7 +1,7 @@
 import { AppleMusicIcon, SoundCloudIcon, SpotifyIcon, YTMusicIcon } from "@/icons";
-import { Artist } from "@/interface";
+import { IArtist } from "@/interface";
 import { cn } from "@/utils";
-import { Star } from "lucide-react";
+import { StarIcon } from "@/icons";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -83,7 +83,7 @@ const ArtistCard = ({
   variant = "default",
   view = "grid",
 }: {
-  item: Artist;
+  item: IArtist;
   index: number;
   variant?: "default" | "home";
   view?: "grid" | "list";
@@ -97,8 +97,8 @@ const ArtistCard = ({
         {/* image */}
         <div className="relative shrink-0">
           <Image
-            src={item.image}
-            alt={item.name}
+            src={item.avatar}
+            alt={item.displayName}
             width={120}
             height={120}
             className="size-[96px] sm:size-[120px] object-cover rounded-xl"
@@ -114,26 +114,28 @@ const ArtistCard = ({
         <div className="flex-1 min-w-0 flex flex-col justify-between">
           <div className="flex items-center gap-2 flex-wrap">
             <p className="text-[16px] font-bold leading-tight uppercase truncate font-britania-ligature">
-              {item.name}
+              {item.displayName}
             </p>
             <span className="text-sm text-muted">· {item.designation}</span>
           </div>
 
-          <div className="mt-2 flex items-center gap-2 flex-wrap">
-            {item.tags.map((tag, i) => (
-              <span
-                key={i}
-                className="text-[12px] text-muted/80 bg-white/10 rounded-full px-3 py-1"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          {item.genre && item.genre.length > 0 && (
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              {item.genre.map((genre) => (
+                <span
+                  key={genre._id}
+                  className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1"
+                >
+                  {genre.slug}
+                </span>
+              ))}
+            </div>
+          )}
 
           <div className="mt-3 flex items-center gap-4 flex-wrap">
             <div className="flex items-center gap-1">
-              <Star className="w-[14px] h-[14px]" />
-              <p className="text-sm">{item.rating}</p>
+              <StarIcon className="w-[22px] h-[22px]" />
+              <p className="text-sm">{item.avgRating}</p>
             </div>
             <div className="flex items-center gap-1">
               <span className="text-sm text-greeniest">{item.eta}h</span>
@@ -146,12 +148,14 @@ const ArtistCard = ({
         <div className="shrink-0 w-full sm:w-60 flex flex-col justify-between">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-[4px] font-[500] font-britania-ligature">
-              <p className={cn("text-light", item.oldPrice && "text-greeniest")}>
+              {/* <p className={cn("text-light", item.oldPrice && "text-greeniest")}>
                 ${item.price} {!item.oldPrice && "+"}
               </p>
               {item.oldPrice && (
                 <p className="text-muted line-through">${item.oldPrice}+</p>
-              )}
+              )} */}
+
+              <p className="text-muted line-through">${item.minStartingPrice}+</p>
             </div>
             <div className="flex items-center gap-1">
               <div>
@@ -170,10 +174,10 @@ const ArtistCard = ({
           </div>
 
           <div className="mt-3 flex flex-col gap-2">
-            <Link href={`/artists/${item.id}`} className="btn btn-primary">
+            <Link href={`/artists/checkout`} className="btn btn-primary">
               Request playlist
             </Link>
-            <Link href={`/artists/${item.id}`} className="btn btn-ghost">
+            <Link href={`/artists/${item.userName}`} className="btn btn-ghost">
               Profile
             </Link>
           </div>
@@ -192,13 +196,27 @@ const ArtistCard = ({
     >
       {/* image */}
       <div className="relative rounded-t-2xl overflow-hidden">
-        <Image
-          src={item.image}
-          alt={item.name}
-          width={500}
-          height={500}
-          className="h-full w-full object-cover transform-gpu group-hover/card:scale-105 transition-transform duration-500"
-        />
+        <div className="h-full w-full transform-gpu group-hover/card:scale-105 transition-transform duration-500">
+          {item.avatar ? (
+            <Image
+              src={item.avatar}
+              alt={item.displayName || "Artist"}
+              width={500}
+              height={500}
+              className="h-full w-full object-cover"
+            />
+          ) : (
+            <div className="h-[250px] w-full">
+              <Image
+                src={"/images/logo/logo-no-text.png"}
+                alt={item.displayName || "Artist"}
+                width={400}
+                height={300}
+                className="object-cover p-4 bg-white/80"
+              />
+            </div>
+          )}
+        </div>
         {!isDefault && (
           <div className="absolute top-0 left-0 z-20">
             <Crown index={index} />
@@ -212,27 +230,29 @@ const ArtistCard = ({
       <div className="relative">
         <div className="px-4 pt-4 pb-2 text-center space-y-1">
           <p className="text-[16px] font-bold uppercase font-logam tracking-wide">
-            {item.name}
+            {item.displayName}
           </p>
           <p className="text-sm text-muted">{item.designation}</p>
         </div>
 
         <div className="flex flex-col gap-3 mb-2 px-3">
-          <div className="flex items-center justify-center gap-2 flex-wrap">
-            {item.tags.map((tag, i) => (
-              <span
-                key={i}
-                className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+          {item.genre && item.genre.length > 0 && (
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              {item.genre.map((genre) => (
+                <span
+                  key={genre._id}
+                  className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1"
+                >
+                  {genre.slug}
+                </span>
+              ))}
+            </div>
+          )}
 
           <div className="flex items-center justify-between gap-1 px-1">
             <div className="flex items-center gap-1">
-              <Star className="w-[14px] h-[14px]" />
-              <p className="text-sm">{item.rating}</p>
+              <StarIcon className="w-[22px] h-[22px]" />
+              <p className="text-sm">{item.reviewCount}</p>
             </div>
             <div className="flex items-center gap-1">
               <span className="text-sm text-greeniest">{item.eta}h</span>
@@ -244,7 +264,7 @@ const ArtistCard = ({
         <div className="flex flex-col items-center justify-between">
           <div className="flex items-center justify-between w-full pt-3 px-5">
             <div className="flex items-baseline gap-2">
-              <p
+              {/* <p
                 className={cn(
                   "text-light text-[18px] font-logam",
                   item.oldPrice && "text-greeniest"
@@ -254,7 +274,8 @@ const ArtistCard = ({
               </p>
               {item.oldPrice && (
                 <p className="text-muted line-through">${item.oldPrice}+</p>
-              )}
+              )} */}
+              <p className="text-[18px] font-logam">${item.minStartingPrice}+</p>
             </div>
 
             <div className="flex items-center gap-1 opacity-90">
@@ -267,13 +288,13 @@ const ArtistCard = ({
 
           <div className="mb-4 mt-3 w-full sm:w-auto sm:justify-start justify-center flex sm:flex-row flex-col gap-2 sm:px-0 px-3">
             <Link
-              href={`/artists/${item.id}`}
+              href={`/artists/checkout`}
               className="text-center sm:text-left px-3 py-2 rounded btn-primary"
             >
               Request playlist
             </Link>
             <Link
-              href={`/artists/${item.id}`}
+              href={`/artists/${item.userName}`}
               className="text-center sm:text-left px-3 py-2 rounded btn-ghost"
             >
               Profile
