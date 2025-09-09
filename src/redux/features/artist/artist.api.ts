@@ -86,6 +86,13 @@ const artistApi = api.injectEndpoints({
       }),
       providesTags: ["artist"],
     }),
+    getPricingTierByUserName: builder.query<{ data: IArtistPricingTier[] }, string>({
+      query: (userName) => ({
+        url: `/artist/get-pricing/${userName}`,
+        method: "GET",
+      }),
+      providesTags: ["artist"],
+    }),
   }),
 });
 
@@ -97,4 +104,5 @@ export const {
   useGetTopOrFeaturedArtistsQuery,
   useGetRecentlyViewedArtistsQuery,
   useGetArtistProfileByUserNameQuery,
+  useGetPricingTierByUserNameQuery,
 } = artistApi;

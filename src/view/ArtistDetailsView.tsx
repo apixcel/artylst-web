@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { ArtistIntroVideo, Review } from "@/components";
 import { artistPricingData, reviewData } from "@/constants";
-import Image from "next/image";
-import { Check, Instagram, Link2, Music4, Star, Youtube } from "lucide-react";
 import { TiktokIcon } from "@/icons";
-import { cn } from "@/utils";
 import { useGetArtistProfileByUserNameQuery } from "@/redux/features/artist/artist.api";
+import { cn } from "@/utils";
+import { Check, Instagram, Link2, Music4, Star, Youtube } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const ArtistDetailsView = ({ userName }: { userName: string }) => {
   const { data: artistProfile } = useGetArtistProfileByUserNameQuery({ userName });
@@ -164,7 +164,7 @@ const ArtistDetailsView = ({ userName }: { userName: string }) => {
                 ))}
               </ul>
               <Link
-                href="/checkout"
+                href={`/artists/${artist?.userName}/checkout`}
                 className={`btn mt-auto ${tier.name === "Standard" ? "btn-primary" : "btn-tertiary"} w-full mt-4`}
               >
                 Choose {tier.name}

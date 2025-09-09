@@ -32,8 +32,7 @@ const platformOptions: DropdownOption<string>[] = [
 ];
 const languageOptions: DropdownOption<string>[] = [
   { label: "English", value: "english" },
-  { label: "Bangla", value: "bangla" },
-  { label: "Both", value: "both" },
+  { label: "Other", value: "other" },
 ];
 const deliveryWindowOptions: DropdownOption<string>[] = [
   { label: "~48h", value: "48" },
