@@ -1,30 +1,41 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import Link from "next/link";
+import { Field, Form, Formik } from "formik";
 import { Star } from "lucide-react";
-import { Formik, Form, Field } from "formik";
+import Link from "next/link";
+import { useState } from "react";
 import * as Yup from "yup";
 
 import {
-  CheckoutTier,
-  CheckoutBrief,
-  CheckoutAddOnns,
   BusinessCheckoutProgress,
+  CheckoutAddOnns,
+  CheckoutBrief,
+  CheckoutTier,
 } from "@/components";
-import { artistPricingData } from "@/constants";
+import CheckoutSkeleton from "@/components/checkout/CheckoutSkeleton";
+import { IQueryMutationErrorResponse } from "@/interface";
+import { IOrder } from "@/interface/order.interface";
+import { useGetArtistProfileByUserNameQuery } from "@/redux/features/artist/artist.api";
+import { useCreateBusinessOrderMutation } from "@/redux/features/order/order.api";
+import numberUtils from "@/utils/number";
+import { useParams, useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 // ---- Types
 type FormValues = {
-  tierPrice: number | null;
+  tierId: string | null;
   // brief
   occasion: string | null;
   platform: string | null;
   language: string | null;
   deliveryWindow: string | null;
+  price: number;
   note: string;
   // add-ons
-  addon: string | null; // radio: "rush" | "length" | "business" | "notes" | null
+  addon?: {
+    label: string;
+    price: number;
+  };
   // buyer
   name: string;
   email: string;
@@ -42,7 +53,8 @@ const ADDONS_PRICE: Record<string, number> = {
 const stepSchemas = [
   // step 1: tier
   Yup.object({
-    tierPrice: Yup.number().required("Please select a tier."),
+    price: Yup.number().required("Please select a tier."),
+    tierId: Yup.string().required("Please select a tier."),
   }),
   // step 2: brief
   Yup.object({
@@ -54,7 +66,10 @@ const stepSchemas = [
   }),
   // step 3: add-ons (optional) — no required fields
   Yup.object({
-    addon: Yup.string().nullable(),
+    addon: Yup.object({
+      label: Yup.string(),
+      price: Yup.number(),
+    }).optional(),
   }),
   // step 4: buyer info
   Yup.object({
@@ -64,13 +79,14 @@ const stepSchemas = [
 ];
 
 const initialValues: FormValues = {
-  tierPrice: artistPricingData[1]?.price ?? null,
+  tierId: "",
+  price: 0,
   occasion: "workout",
   platform: "spotify",
   language: "english",
   deliveryWindow: "48",
   note: "",
-  addon: null,
+  addon: undefined,
   name: "",
   email: "",
 };
@@ -78,11 +94,65 @@ const initialValues: FormValues = {
 const stepsLabels = ["1. Choose tier", "2. Brief", "3. Add-ons", "4. Pay"] as const;
 
 export default function CheckoutPage() {
+  const params = useParams();
+  const userName = params.userName as string;
+
+  const router = useRouter();
+
+  const { data, isLoading } = useGetArtistProfileByUserNameQuery({ userName });
+  const [createOrder, { isLoading: isCreating }] = useCreateBusinessOrderMutation();
+
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
 
   const isLast = step === 4;
   const currentSchema = stepSchemas[step - 1];
 
+  if (isLoading) {
+    return <CheckoutSkeleton />;
+  }
+
+  if (!data?.data) {
+    return (
+      <div className="h-[50vh] flex items-center justify-center gap-3 flex-col">
+        <p className="text-[22px] font-bold">Artist not found</p>
+        <Link href="/artists" className="btn btn-ghost">
+          Browse Other Artists
+        </Link>
+      </div>
+    );
+  }
+
+  const handleSubmit = async (values: FormValues) => {
+    if (isCreating) return;
+    const payload: Partial<IOrder> = {
+      artist: data.data._id,
+
+      addOn: values.addon?.label
+        ? {
+            label: values.addon?.label || "",
+            price: values.addon?.price || 0,
+          }
+        : undefined,
+      deliveryInfo: {
+        email: values.email,
+        name: values.name,
+      },
+      deliveryWindow: values.deliveryWindow || undefined,
+      price: values.price,
+      tierId: values.tierId || "",
+      platform: values.platform || "spotify",
+    };
+
+    const res = await createOrder(payload);
+    const error = res.error as IQueryMutationErrorResponse;
+
+    if (error) {
+      toast.error(error.data.message);
+      return;
+    }
+    router.push(`/`);
+    toast.success("Order created successfully");
+  };
   return (
     <>
       {/* Progress */}
@@ -98,28 +168,39 @@ export default function CheckoutPage() {
         initialValues={initialValues}
         validationSchema={currentSchema}
         validateOnMount
-        onSubmit={(values) => {
-          console.log("FINAL SUBMIT", values);
-          alert("Submitting payment… (demo)");
-        }}
+        onSubmit={handleSubmit}
       >
-        {({ values, errors, touched, isValid, setFieldValue, validateForm }) => {
-          const addonPrice = values.addon ? (ADDONS_PRICE[values.addon] ?? 0) : 0;
-          const tierPrice = values.tierPrice ?? 0;
+        {({
+          values,
+          errors,
+          touched,
+          isValid,
+          setFieldValue,
+          validateForm,
+          setFieldTouched,
+        }) => {
+          const addonPrice = values.addon ? (ADDONS_PRICE[values.addon.price] ?? 0) : 0;
+          const tierPrice = values.price ?? 0;
           const subtotal = tierPrice + addonPrice;
           const fee = +(subtotal * SERVICE_FEE_RATE).toFixed(2);
           const total = +(subtotal + fee).toFixed(2);
 
           const goNext = async () => {
             const stepErr = await validateForm();
+
             const hasErr = Object.keys(stepErr).some((k) =>
               Object.prototype.hasOwnProperty.call(stepSchemas[step - 1].fields, k)
             );
-            if (!hasErr)
+            if (!hasErr) {
               setStep((s) => {
                 const nextStep = Math.min(4, s + 1) as 1 | 2 | 3 | 4;
                 return nextStep;
               });
+            } else {
+              Object.entries(stepErr).forEach(([key, value]) => {
+                setFieldTouched(key, true);
+              });
+            }
           };
 
           const goBack = () =>
@@ -141,11 +222,13 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex-1">
                       <span className="font-heading text-base mb-1 inline-block">
-                        Artist Name
+                        {data.data.fullName}
                       </span>
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="chip flex items-center gap-1 text-[11px] bg-mario-coin/15 border border-mario-coin/40">
-                          <Star className="w-3 h-3 text-gold" /> <span>4.9</span> (1.2k)
+                          <Star className="w-3 h-3 text-gold" />{" "}
+                          <span>{data.data.avgRating}</span> (
+                          {numberUtils.formatNumberWithSuffix(data.data.reviewCount)})
                         </span>
                         <span className="chip bg-brand-4/10 border border-brand-4/40 text-[11px]">
                           48h ETA
@@ -153,8 +236,9 @@ export default function CheckoutPage() {
                       </div>
                     </div>
                     <Link
+                      target="_blank"
                       className="text-sm text-muted hover:text-light underline"
-                      href="/artists/1"
+                      href={`/artists/${userName}`}
                     >
                       View profile
                     </Link>
@@ -162,10 +246,16 @@ export default function CheckoutPage() {
 
                   {/* STEP CONTENT */}
                   {step === 1 && (
-                    <CheckoutTier
-                      selected={values.tierPrice}
-                      onSelect={(price) => setFieldValue("tierPrice", price)}
-                    />
+                    <>
+                      <CheckoutTier
+                        userName={userName}
+                        selected={values.tierId}
+                        onSelect={(price) => {
+                          setFieldValue("tierId", price._id);
+                          setFieldValue("price", price.priceUsd);
+                        }}
+                      />
+                    </>
                   )}
 
                   {step === 2 && (
@@ -187,8 +277,13 @@ export default function CheckoutPage() {
 
                   {step === 3 && (
                     <CheckoutAddOnns
-                      selected={values.addon}
-                      onChange={(val) => setFieldValue("addon", val)}
+                      selected={values.addon?.label}
+                      onChange={(val) =>
+                        setFieldValue("addon", {
+                          label: val?.title,
+                          price: val?.price,
+                        })
+                      }
                     />
                   )}
 
@@ -232,19 +327,23 @@ export default function CheckoutPage() {
                       type="button"
                       onClick={goBack}
                       disabled={step === 1}
-                      className="btn btn-ghost disabled:opacity-50"
+                      className="btn btn-ghost disabled:opacity-50 cursor-pointer"
                     >
                       Back
                     </button>
 
                     {!isLast ? (
-                      <button type="button" onClick={goNext} className="btn btn-primary">
+                      <button
+                        type="button"
+                        onClick={goNext}
+                        className="btn btn-primary cursor-pointer"
+                      >
                         Next
                       </button>
                     ) : (
                       <button
                         type="submit"
-                        className="btn btn-primary"
+                        className="btn btn-primary cursor-pointer"
                         disabled={!isValid}
                         title={!isValid ? "Complete required fields" : undefined}
                       >

@@ -29,6 +29,16 @@ const artistApi = api.injectEndpoints({
       },
       providesTags: ["artist"],
     }),
+    getArtistProfileByUserName: builder.query<{ data: IArtist }, { userName: string }>({
+      query: (query) => {
+        const { userName } = query;
+        return {
+          url: `/artist/profile/${userName}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["artist"],
+    }),
     createPricingTier: builder.mutation<
       {
         data: Pick<
@@ -63,6 +73,13 @@ const artistApi = api.injectEndpoints({
       }),
       providesTags: ["artist"],
     }),
+    getPricingTierByUserName: builder.query<{ data: IArtistPricingTier[] }, string>({
+      query: (userName) => ({
+        url: `/artist/get-pricing/${userName}`,
+        method: "GET",
+      }),
+      providesTags: ["artist"],
+    }),
   }),
 });
 
@@ -72,4 +89,6 @@ export const {
   useUpdatePricingTierMutation,
   useGetMyPricingTierQuery,
   useGetRecentlyViewedArtistsQuery,
+  useGetArtistProfileByUserNameQuery,
+  useGetPricingTierByUserNameQuery,
 } = artistApi;

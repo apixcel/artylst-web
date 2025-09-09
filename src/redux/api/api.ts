@@ -1,18 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { setToken } from "../features/user/user.slice";
+import { logout, setToken } from "../features/user/user.slice";
 
 export const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: baseUrl,
   credentials: "include",
+  // header in futurre
 });
 const baseQueryWithRefreshToken = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);
 
+  if (result?.error?.status === 419) {
+    // session expired
+    api?.dispatch(logout());
+    return result;
+  }
+
   if (result?.error?.status === 401) {
-    const res = await fetch(`${baseUrl}/user/refresh-token`, {
+    const res = await fetch(`${baseUrl}/auth/refresh-token`, {
       method: "POST",
       credentials: "include",
     });
@@ -36,6 +43,6 @@ const baseQueryWithRefreshToken = async (args: any, api: any, extraOptions: any)
 export const api = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ["user", "artist", "meta"],
+  tagTypes: ["user", "artist", "meta", "order"],
   endpoints: () => ({}),
 });

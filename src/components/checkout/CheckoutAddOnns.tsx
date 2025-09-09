@@ -1,5 +1,7 @@
 "use client";
 
+import { Trash2 } from "lucide-react";
+
 type AddOn = {
   value: string;
   title: string;
@@ -35,8 +37,8 @@ const ADDONS: AddOn[] = [
 ];
 
 type Props = {
-  selected: string | null;
-  onChange: (value: string | null) => void;
+  selected: string | undefined;
+  onChange: (value: AddOn | undefined) => void;
 };
 
 const CheckoutAddOnns = ({ selected, onChange }: Props) => {
@@ -46,7 +48,7 @@ const CheckoutAddOnns = ({ selected, onChange }: Props) => {
 
       <fieldset className="mt-3 grid sm:grid-cols-2 gap-3 text-sm">
         {ADDONS.map((o) => {
-          const active = selected === o.value;
+          const active = selected === o.title;
           return (
             <label
               key={o.value}
@@ -58,7 +60,7 @@ const CheckoutAddOnns = ({ selected, onChange }: Props) => {
                 name="checkout-addon"
                 className="sr-only"
                 checked={active}
-                onChange={() => onChange(o.value)}
+                onChange={() => onChange(o)}
               />
               <div>
                 <div className="font-heading">{o.title}</div>
@@ -69,14 +71,17 @@ const CheckoutAddOnns = ({ selected, onChange }: Props) => {
           );
         })}
 
-        {/* Allow "none" */}
-        <button
-          type="button"
-          className="card p-3 text-xs opacity-80 hover:opacity-100"
-          onClick={() => onChange(null)}
-        >
-          Clear add-on
-        </button>
+        {selected ? (
+          <button
+            type="button"
+            className="card p-3 text-xs opacity-80 hover:opacity-100 text-red-campaign-red border-red-campaign-red bg-red-campaign-red/5 flex items-center justify-center gap-2 text-[16px] cursor-pointer"
+            onClick={() => onChange(undefined)}
+          >
+            Clear add-on <Trash2 className="w-4 h-4" />
+          </button>
+        ) : (
+          ""
+        )}
       </fieldset>
     </div>
   );

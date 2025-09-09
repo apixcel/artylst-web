@@ -169,7 +169,7 @@ export default function CheckoutPage() {
 
                   {step === 2 && (
                     <CheckoutAddOnns
-                      selected={values.addon}
+                      selected={values.addon || undefined}
                       onChange={(val) => setFieldValue("addon", val)}
                     />
                   )}
