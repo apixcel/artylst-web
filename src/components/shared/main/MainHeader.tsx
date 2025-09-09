@@ -3,12 +3,25 @@
 import Link from "next/link";
 import { mainNavLinks } from "@/constants";
 import { Menu } from "lucide-react";
-import { MobileNav, NavSearch } from "@/components";
+import { MobileNav, NavSearch, UserDropdown } from "@/components";
 import Image from "next/image";
 import { useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { logout as logoutAction } from "@/redux/features/user/user.slice";
+import { useLogoutMutation } from "@/redux/features/user/user.api";
 
 const MainHeader = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const { user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const [logout] = useLogoutMutation();
+
+  const handleLogout = async () => {
+    await logout(undefined);
+    dispatch(logoutAction(undefined));
+    window.location.href = "/login";
+  };
+
   return (
     <header className="sticky bg-transparent top-0 left-0 right-0 z-50 backdrop-blur-sm border-b border-white/10">
       <div className="max-w-[1280px] mx-auto w-full desktop:px-0 px-[20px] py-[8px]">
@@ -77,12 +90,16 @@ const MainHeader = () => {
             </div>
 
             {/* login */}
-            <Link
-              className="text-light hover:bg-brand-2/10 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
-              href="/login"
-            >
-              Login
-            </Link>
+            {user ? (
+              <UserDropdown user={user} onLogout={handleLogout} />
+            ) : (
+              <Link
+                className="text-light hover:bg-brand-2/10 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
+                href="/login"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </nav>
 

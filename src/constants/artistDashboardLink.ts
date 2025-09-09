@@ -66,6 +66,11 @@ export const artistDashboardLink = [
     icon: IdCard,
   },
   {
+    label: "Join as Featured",
+    route: "/dashboard/artist/join-as-featured",
+    icon: Heart,
+  },
+  {
     label: "Settings",
     route: "/dashboard/artist/settings",
     icon: Settings,

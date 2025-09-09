@@ -1,9 +1,12 @@
 "use client";
 
 import { useSetSearchParams } from "@/hooks";
-import { categories } from "@/constants";
+import { useGetGenresQuery } from "@/redux/features/meta/meta.api";
 
 const CategoryChips = () => {
+  const { data, isLoading } = useGetGenresQuery({});
+  const categories = data?.data || [];
+
   const { searchParams, updateSearchParams } = useSetSearchParams();
 
   const categoryParam = searchParams.get("category") || "";
@@ -28,11 +31,11 @@ const CategoryChips = () => {
       <div className="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2">
         {categories.map((category) => (
           <button
-            key={category.value}
-            onClick={() => handleCategoryClick(category.value)}
-            className={`chip whitespace-nowrap ${activeCategories.includes(category.value) && "chip-active"}`}
+            key={category._id}
+            onClick={() => handleCategoryClick(category.slug)}
+            className={`chip whitespace-nowrap ${activeCategories.includes(category.slug) && "chip-active"}`}
           >
-            {category.label}
+            {category.slug}
           </button>
         ))}
       </div>

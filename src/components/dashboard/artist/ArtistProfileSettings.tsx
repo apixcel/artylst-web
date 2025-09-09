@@ -26,7 +26,7 @@ const ArtistProfileSettings = () => {
         </div>
       </div>
 
-      {/* name and company name */}
+      {/* name */}
       <div className="flex flex-col gap-4 border-b border-white/10 pb-4 mb-4">
         {/* name */}
         <div className="flex justify-between items-start gap-10">
@@ -38,22 +38,6 @@ const ArtistProfileSettings = () => {
                 placeholder="Full name"
                 readOnly
                 value={"Aida Kirakosyan"}
-              />
-              <button className="btn btn-primary">Edit</button>
-            </div>
-          </div>
-        </div>
-
-        {/* company name */}
-        <div className="flex justify-between items-start gap-10">
-          <div className="flex flex-col gap-2 flex-1">
-            <h3>Company Name</h3>
-            <div className="flex items-center gap-4 justify-between w-full">
-              <input
-                className="w-full bg-white/10 rounded-lg px-3 py-2"
-                placeholder="Company name"
-                value={"Aida Kirakosyan Company"}
-                readOnly
               />
               <button className="btn btn-primary">Edit</button>
             </div>

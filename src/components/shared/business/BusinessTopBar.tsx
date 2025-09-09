@@ -1,15 +1,27 @@
 import { UserDropdown } from "@/components";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { IUser } from "@/interface";
+import { useLogoutMutation } from "@/redux/features/user/user.api";
+import { logout as logoutAction } from "@/redux/features/user/user.slice";
 import { AlignJustify } from "lucide-react";
 
 const BusinessTopBar = ({
-  user,
   isMobileMenuOpen,
   setIsMobileMenuOpen,
 }: {
-  user: { name: string; email: string; image: string };
   isMobileMenuOpen: boolean;
   setIsMobileMenuOpen: (isMobileMenuOpen: boolean) => void;
 }) => {
+  const { user } = useAppSelector((state) => state.user);
+  const [logout] = useLogoutMutation();
+  const dispatch = useAppDispatch();
+
+  const handleLogout = async () => {
+    await logout(undefined);
+    dispatch(logoutAction(undefined));
+    window.location.href = "/login";
+  };
+
   return (
     <header className="sticky top-0 z-20 backdrop-blur-xl border-b border-white/10 bg-gradient-to-r from-brand-3/10 to-base-900/10">
       <div className="px-6 py-4 flex items-center gap-4">
@@ -44,9 +56,9 @@ const BusinessTopBar = ({
         </div>
 
         <UserDropdown
-          user={user}
+          user={user as IUser}
           align="right"
-          onLogout={() => console.log("logout")}
+          onLogout={handleLogout}
           items={[
             { type: "link", label: "Settings", href: "/dashboard/business/settings" },
           ]}

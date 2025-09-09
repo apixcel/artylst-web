@@ -2,7 +2,7 @@ import { IUser } from "@/interface/user.interface";
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 type TAuthState = {
-  user: IUser | null;
+  user: Partial<IUser> | null;
   isLoading: boolean;
   token: string | null;
 };
@@ -15,7 +15,7 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    setUser(state, action: PayloadAction<IUser | null>) {
+    setUser(state, action: PayloadAction<Partial<IUser> | null>) {
       state.user = action.payload;
       state.isLoading = false;
     },

@@ -1,26 +1,43 @@
 "use client";
 
+import { useGetGenresQuery } from "@/redux/features/meta/meta.api";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { FreeMode, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-const categories = [
-  { label: "House", value: "house", bgColor: "bg-brand-1/80" },
-  { label: "Techno", value: "techno", bgColor: "bg-brand-2/80" },
-  { label: "Down Tempo", value: "down-tempo", bgColor: "bg-brand-3/80" },
-  { label: "Indie Dance", value: "indie-dance", bgColor: "bg-brand-4/80" },
-  { label: "Bass", value: "bass", bgColor: "bg-brand-5/80" },
-  { label: "Hip Hop", value: "hip-hop", bgColor: "bg-brand-6/80" },
-  { label: "Trance", value: "trance", bgColor: "bg-brand-2/80" },
+// Fixed palette (Tailwind classes) — এগুলো build-time এ present থাকবে
+const COLOR_CLASSES = [
+  "bg-brand-1/80",
+  "bg-brand-2/80",
+  "bg-brand-3/80",
+  "bg-brand-4/80",
+  "bg-brand-5/80",
+  "bg-brand-6/80",
 ];
 
+// simple, deterministic string hash
+const hashString = (str: string) => {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = (h << 5) - h + str.charCodeAt(i);
+    h |= 0;
+  }
+  return Math.abs(h);
+};
+
+const pickBgClass = (key: string) =>
+  COLOR_CLASSES[hashString(key) % COLOR_CLASSES.length];
+
 const Categories = () => {
+  const { data, isLoading } = useGetGenresQuery({});
+  const categories = data?.data || [];
+
   return (
     <section className="mb-[64px]">
       <div className="mb-[20px]">
         <div className="mb-[20px] flex justify-between items-center">
-          <h2 className="mb-[20px]">Categories</h2>
+          <h2>Categories</h2>
 
           {/* Swiper controls */}
           <div className="flex items-center gap-2">
@@ -37,7 +54,7 @@ const Categories = () => {
           spaceBetween={16}
           slidesPerView={1.2}
           modules={[FreeMode, Navigation]}
-          freeMode={true}
+          freeMode
           breakpoints={{
             320: { slidesPerView: 1.7, grid: { rows: 1 } },
             640: { slidesPerView: 2.3, grid: { rows: 1 } },
@@ -50,17 +67,30 @@ const Categories = () => {
             nextEl: ".categories-next",
             prevEl: ".categories-prev",
           }}
+          className="categories-swiper flex"
         >
-          {categories.map((item) => (
-            <SwiperSlide key={item.value}>
-              <Link href={`/artists?category=${item.value}`}>
-                <div className={`rounded-[12px] ${item.bgColor} py-10 px-5`}>
-                  <span className="mb-[8px] inline-block">Category</span>
-                  <h3 className="text-2xl font-bold">{item.label}</h3>
-                </div>
-              </Link>
+          {isLoading && (
+            <SwiperSlide>
+              <div className="rounded-[12px] bg-muted/50 py-10 px-5 animate-pulse">
+                <span className="mb-[8px] inline-block">Loading…</span>
+                <h3 className="text-2xl font-bold">—</h3>
+              </div>
             </SwiperSlide>
-          ))}
+          )}
+
+          {categories.map((item) => {
+            const bg = pickBgClass(item.slug || item.label);
+            return (
+              <SwiperSlide key={item._id} className="!h-auto flex">
+                <Link href={`/artists?category=${item.slug}`} className="!h-full">
+                  <div className={`rounded-[12px] ${bg} py-10 px-5 !h-full`}>
+                    <span className="mb-[8px] inline-block">Category</span>
+                    <h3 className="text-2xl font-bold">{item.label}</h3>
+                  </div>
+                </Link>
+              </SwiperSlide>
+            );
+          })}
         </Swiper>
       </div>
     </section>

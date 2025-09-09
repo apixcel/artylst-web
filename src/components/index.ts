@@ -1,3 +1,8 @@
+/* ui */
+export { default as Input } from "./ui/Input";
+export { default as DateSelector } from "./ui/DateSelector";
+export { default as Skeleton } from "./ui/Skeleton";
+
 /* shared */
 export { default as NavSearch } from "./shared/header/NavSearch";
 export { default as BrowseSlider } from "./shared/BrowseSlider";
@@ -46,11 +51,15 @@ export { default as ArtistCard } from "./artists/ArtistCard";
 export { default as ArtistIntroVideo } from "./artists/ArtistIntroVideo";
 export { default as TopArtistSteps } from "./artists/TopArtistSteps";
 export { default as ArtistCheckoutProgress } from "./artists/ArtistCheckoutProgress";
+export { default as BusinessCheckoutProgress } from "./business/BusinessCheckoutProgress";
 
 // checkout
 export { default as CheckoutBrief } from "./checkout/CheckoutBrief";
 export { default as CheckoutAddOnns } from "./checkout/CheckoutAddOnns";
 export { default as CheckoutTier } from "./checkout/CheckoutTier";
+
+// reset-password
+export { default as ResetPasswordForm } from "./reset-password/ResetPasswordForm";
 
 // enroll
 export { default as EnrollHero } from "./enroll/EnrollHero";
@@ -58,12 +67,14 @@ export { default as EnrollWhyChooseUs } from "./enroll/EnrollWhyChooseUs";
 export { default as EnrollHowItWorks } from "./enroll/EnrollHowItWorks";
 export { default as EnrollTiers } from "./enroll/EnrollTiers";
 export { default as EnrollEarningEstimatior } from "./enroll/EnrollEarningEstimatior";
+export { default as EnrollForm } from "./enroll/EnrollForm";
 
 // business
 export { default as BusinessHero } from "./business/BusinessHero";
 export { default as BusinessBrandSlider } from "./business/BusinessBrandSlider";
 export { default as BusinessUseCase } from "./business/BusinessUseCase";
 export { default as BusinessSteps } from "./business/BusinessSteps";
+export { default as BusinessForm } from "./business/BusinessForm";
 
 // about-us
 export { default as AboutUsSteps } from "./about-us/AboutUsSteps";
@@ -83,5 +94,6 @@ export { default as BusinessLoginAndSecurity } from "./dashboard/business/Busine
 export { default as DashboardArtistDeliverStepProgress } from "./dashboard/artist/deliver/DashboardArtistDeliverStepProgress";
 export { default as ArtistProfileSettings } from "./dashboard/artist/ArtistProfileSettings";
 export { default as ArtistLoginAndSecurity } from "./dashboard/artist/ArtistLoginAndSecurity";
+
 // tiers
-export { default as TiersPricingForm } from "./dashboard/artist/tiers/TiersPricingForm";
+// export { default as TiersPricingForm } from "./dashboard/artist/tiers/TiersPricingForm";

@@ -36,13 +36,25 @@ const HomeRecentlyViewed = () => {
           <SwiperSlide key={a.id}>
             <Link href={`/artists/${a.id}`}>
               <div className="w-full h-full mb-[8px]">
-                <Image
-                  src={a.image}
-                  alt={a.name}
-                  width={500}
-                  height={500}
-                  className="w-full h-full object-cover rounded-[16px]"
-                />
+                {a.image ? (
+                  <Image
+                    src={a.image}
+                    alt={a.name || "Artist"}
+                    width={500}
+                    height={500}
+                    className="w-full h-full object-cover rounded-[16px]"
+                  />
+                ) : (
+                  <div className="w-full h-[200px]">
+                    <Image
+                      src={"/images/logo/logo-no-text.png"}
+                      alt={a.name || "Artist"}
+                      width={500}
+                      height={500}
+                      className="w-full h-full  rounded-[16px]"
+                    />
+                  </div>
+                )}
               </div>
 
               <div>

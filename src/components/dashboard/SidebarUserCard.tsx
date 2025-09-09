@@ -1,14 +1,9 @@
 import { cn } from "@/utils";
 import { User } from "lucide-react";
 import Image from "next/image";
+import { IUser } from "@/interface/user.interface";
 
-const SidebarUserCard = ({
-  isOpen,
-  user,
-}: {
-  isOpen: boolean;
-  user: { name: string; email: string; image: string };
-}) => {
+const SidebarUserCard = ({ isOpen, user }: { isOpen: boolean; user: IUser }) => {
   return (
     <div
       className={cn(
@@ -20,7 +15,7 @@ const SidebarUserCard = ({
         <>
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl overflow-hidden">
-              {user?.image ? (
+              {/* {user?.image ? (
                 <Image
                   src={user?.image}
                   alt="user"
@@ -32,17 +27,21 @@ const SidebarUserCard = ({
                 <div className="h-10 w-10 rounded-xl bg-white/10 flex-center">
                   <User className="w-5 h-5 text-white/50" />
                 </div>
-              )}
+              )} */}
+
+              <div className="h-10 max-w-10 w-full rounded-xl bg-white/10 flex-center">
+                <User className="w-5 h-5 text-white/50" />
+              </div>
             </div>
-            <div className="flex flex-col gap-1">
-              <div className="text-xs text-white/60">{user?.name}</div>
+            <div className="flex flex-col gap-1 truncate">
+              <div className="text-xs text-white/60">{user?.fullName}</div>
               <div className="text-sm font-heading">{user?.email}</div>
             </div>
           </div>
         </>
       ) : (
         <div className="h-10 w-10 rounded-xl overflow-hidden">
-          {user?.image ? (
+          {/* {user?.image ? (
             <Image
               src={user?.image}
               alt="user"
@@ -54,7 +53,11 @@ const SidebarUserCard = ({
             <div className="h-10 w-10 rounded-xl bg-white/10 flex-center">
               <User className="w-5 h-5 text-white/50" />
             </div>
-          )}
+          )} */}
+
+          <div className="h-10 w-10 rounded-xl bg-white/10 flex-center">
+            <User className="w-5 h-5 text-white/50" />
+          </div>
         </div>
       )}
     </div>

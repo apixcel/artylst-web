@@ -1,18 +1,13 @@
-"use client";
+/* "use client";
 
+import React, { useEffect, useRef, useState } from "react";
 import { Dropdown } from "@/components";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
-
-export type TierPayload = {
-  id?: string;
-  title: string;
-  songs: number;
-  price: number;
-  deliveryTime: string;
-  descriptionOptions: string[];
-  selectedDescriptions: string[];
-  revisionCount: number;
+import { IArtistPricingTier, TierKey, TierName } from "@/interface";
+export const TIER_NAME_BY_KEY: Record<TierKey, TierName> = {
+  mini: "Mini",
+  standard: "Standard",
+  pro: "Pro",
 };
 
 type Option = { value: string; label: string };
@@ -106,15 +101,15 @@ const DescriptionDropdown: React.FC<{
 
 export const TierPricingCard: React.FC<{
   id?: string;
-  title: string;
+  name: TierName;
   songs: number;
   price: number;
   defaultDeliveryTime: string;
   orderIndex?: 1 | 2 | 3;
-  onSubmit?: (payload: TierPayload, mode: "create" | "update") => void;
+  onSubmit?: (payload: IArtistPricingTier, mode: "create" | "update") => void;
 }> = ({
   id,
-  title,
+  name,
   songs: songsDefault,
   price: priceDefault,
   defaultDeliveryTime,
@@ -142,9 +137,9 @@ export const TierPricingCard: React.FC<{
   };
 
   const submit = () => {
-    const payload: TierPayload = {
-      id,
-      title,
+    const payload: IArtistPricingTier = {
+      _id: id ?? "",
+      name,
       songs,
       price,
       deliveryTime,
@@ -158,9 +153,8 @@ export const TierPricingCard: React.FC<{
 
   return (
     <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-4/8 space-y-3 backdrop-blur-2xl">
-      <h3>{title}</h3>
+      <h3>{name}</h3>
 
-      {/* songs */}
       <div>
         <label className="text-sm text-white/60">Songs</label>
         <input
@@ -218,64 +212,83 @@ export const TierPricingCard: React.FC<{
   );
 };
 
-const TiersPricingForm = () => {
-  const [cards, setCards] = useState<{ key: string; payload?: TierPayload }[]>([
-    { key: "mini" },
-    { key: "standard" },
-    { key: "pro" },
-  ]);
+export const TiersPricingForm: React.FC<{
+  hasAnyTier: boolean;
+  visibleTiers: TierKey[];
+  defaults: IArtistPricingTier;
+  busy: boolean;
+  onAddNextTier: () => void;
+  onCreateFirstTier: () => void;
+  onSubmit: (values: IArtistPricingTier, mode: "create" | "update") => void;
+}> = ({
+  hasAnyTier,
+  visibleTiers,
+  defaults,
+  busy,
+  onAddNextTier,
+  onCreateFirstTier,
+  onSubmit,
+}) => {
+  const order: TierKey[] = ["mini", "standard", "pro"];
 
-  const handleSubmit = (payload: TierPayload, mode: "create" | "update") => {
-    setCards((prev) => {
-      const idx = prev.findIndex((c) => c.key === payload.title.toLowerCase());
-      const next = [...prev];
-      if (idx >= 0)
-        next[idx] = {
-          key: next[idx].key,
-          payload: {
-            ...payload,
-            id:
-              payload.id ??
-              (globalThis.crypto?.randomUUID?.() || Math.random().toString(36).slice(2)),
-          },
-        };
-      return next;
-    });
-    console.log(mode.toUpperCase(), payload);
-    alert(`${mode.toUpperCase()} → ${payload.title}`);
+  const renderCard = (key: TierKey) => {
+    const def = defaults[key as TierKey];
+    const name = TIER_NAME_BY_KEY[key];
+    const orderIndex = (order.indexOf(key) + 1) as 1 | 2 | 3;
+
+    return (
+      <TierPricingCard
+        key={key}
+        id={def.id}
+        name={name}
+        songs={def.songs}
+        price={def.price}
+        defaultDeliveryTime={def.deliveryTime}
+        orderIndex={orderIndex}
+        onSubmit={onSubmit}
+      />
+    );
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-      <TierPricingCard
-        title="Mini"
-        songs={10}
-        price={49}
-        defaultDeliveryTime="1 - 3 days"
-        orderIndex={1}
-        id={cards[0].payload?.id}
-        onSubmit={handleSubmit}
-      />
-      <TierPricingCard
-        title="Standard"
-        songs={20}
-        price={99}
-        defaultDeliveryTime="3 - 5 days"
-        orderIndex={2}
-        id={cards[1].payload?.id}
-        onSubmit={handleSubmit}
-      />
-      <TierPricingCard
-        title="Pro"
-        songs={40}
-        price={149}
-        defaultDeliveryTime="5 - 7 days"
-        orderIndex={3}
-        id={cards[2].payload?.id}
-        onSubmit={handleSubmit}
-      />
-    </div>
+    <>
+      {hasAnyTier ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 opacity-100">
+          {visibleTiers.includes("mini") && renderCard("mini")}
+          {visibleTiers.includes("standard") && renderCard("standard")}
+          {visibleTiers.includes("pro") && renderCard("pro")}
+
+          {visibleTiers.length < 3 && (
+            <div className="col-span-full">
+              <button
+                className="btn-secondary w-full"
+                type="button"
+                onClick={onAddNextTier}
+                disabled={busy}
+              >
+                Add another tier
+              </button>
+            </div>
+          )}
+
+          {busy && <p className="col-span-full text-sm text-white/60">Saving…</p>}
+        </div>
+      ) : (
+        <div className="text-center">
+          <p className="text-sm text-white/60 mb-2">Currently, you have no tiers. Please, create one to get started!</p>
+          <button
+            className="btn-secondary"
+            type="button"
+            onClick={onCreateFirstTier}
+            disabled={busy}
+          >
+            Create your first tier
+          </button>
+        </div>
+      )}
+    </>
   );
 };
 
 export default TiersPricingForm;
+ */

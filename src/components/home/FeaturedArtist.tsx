@@ -1,13 +1,18 @@
 "use client";
 
-import { artistsData } from "@/constants";
 import Link from "next/link";
 import { FreeMode, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ArtistCard from "../artists/ArtistCard";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useGetTopOrFeaturedArtistsQuery } from "@/redux/features/artist/artist.api";
 
 const FeaturedArtists = () => {
+  const { data, isLoading } = useGetTopOrFeaturedArtistsQuery({
+    rankType: "featured",
+  });
+  const artistsData = data?.data || [];
+
   return (
     <section className="mb-16">
       <div className="flex items-center justify-between mb-5">
@@ -35,10 +40,10 @@ const FeaturedArtists = () => {
           420: { slidesPerView: 1.6 },
           320: { slidesPerView: 1.4 },
         }}
-        className="group top-artists-swiper"
+        className="group featured-artists-swiper"
       >
         {artistsData.map((item, index) => (
-          <SwiperSlide key={item.id} className="!h-auto flex">
+          <SwiperSlide key={item._id} className="!h-auto flex">
             <div className="h-full">
               <ArtistCard item={item} index={index} variant="home" />
             </div>

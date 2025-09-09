@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import {
   ArrowRight,
@@ -13,6 +15,7 @@ import {
   Wallet,
   Zap,
 } from "lucide-react";
+import { useAppSelector } from "@/hooks";
 
 const ChecklistItem = ({
   done,
@@ -158,6 +161,7 @@ const ArtistCard = ({
 );
 
 const DashboardArtistPage = () => {
+  const { user } = useAppSelector((state) => state.user);
   // --- stubbed data ---
   const metrics = {
     openOrders: 3,
@@ -231,7 +235,9 @@ const DashboardArtistPage = () => {
     <section className="space-y-6">
       {/* Greeting */}
       <div className="flex items-start justify-between gap-4 flex-wrap">
-        <h1 className="text-2xl md:text-3xl font-heading">Welcome back, Sloane</h1>
+        <h1 className="text-2xl md:text-3xl font-heading">
+          Welcome back, {user?.displayName}
+        </h1>
         <Link
           href="/dashboard/artist/deliver"
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-2/20 hover:bg-brand-2/15 border border-white/10"

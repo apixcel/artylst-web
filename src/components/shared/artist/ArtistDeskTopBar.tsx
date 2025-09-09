@@ -1,16 +1,29 @@
+"use client";
+
 import { UserDropdown } from "@/components";
 import { AlignJustify } from "lucide-react";
-import Link from "next/link";
+import { useLogoutMutation } from "@/redux/features/user/user.api";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { logout as logoutAction } from "@/redux/features/user/user.slice";
+import { IUser } from "@/interface/user.interface";
 
 const ArtistDeskTopBar = ({
-  user,
   isMobileMenuOpen,
   setIsMobileMenuOpen,
 }: {
-  user: { name: string; email: string; image: string };
   isMobileMenuOpen: boolean;
   setIsMobileMenuOpen: (isMobileMenuOpen: boolean) => void;
 }) => {
+  const { user } = useAppSelector((state) => state.user);
+  const [logout] = useLogoutMutation();
+  const dispatch = useAppDispatch();
+
+  const handleLogout = async () => {
+    await logout(undefined);
+    dispatch(logoutAction(undefined));
+    window.location.href = "/login";
+  };
+
   return (
     <header className="sticky top-0 z-20 backdrop-blur-xl border-b border-white/10 bg-gradient-to-r from-brand-3/10 to-base-900/10">
       <div className="px-6 py-4 flex justify-between items-center gap-4">
@@ -44,25 +57,20 @@ const ArtistDeskTopBar = ({
           </div>
         </div>
 
-        <div className="flex items-center gap-4">
-          <Link
-            href="/dashboard/artist/join-as-featured"
-            className="text-light hover:bg-brand-2/10 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"
-          >
-            Join as Featured
-          </Link>
-
-          <UserDropdown
-            user={user}
-            align="right"
-            onLogout={() => console.log("logout")}
-            items={[
-              { type: "link", label: "Profile", href: "/dashboard/artist/profile" },
-              { type: "link", label: "Settings", href: "/dashboard/artist/settings" },
-            ]}
-            className="ml-auto"
-          />
-        </div>
+        {user && (
+          <div className="flex items-center gap-4">
+            <UserDropdown
+              user={user as IUser}
+              align="right"
+              onLogout={handleLogout}
+              items={[
+                { type: "link", label: "Profile", href: "/dashboard/artist/profile" },
+                { type: "link", label: "Settings", href: "/dashboard/artist/settings" },
+              ]}
+              className="ml-auto"
+            />
+          </div>
+        )}
       </div>
     </header>
   );

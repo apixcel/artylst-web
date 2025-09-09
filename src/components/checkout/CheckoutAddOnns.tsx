@@ -1,7 +1,5 @@
 "use client";
 
-import { useState } from "react";
-
 type AddOn = {
   value: string;
   title: string;
@@ -36,9 +34,12 @@ const ADDONS: AddOn[] = [
   },
 ];
 
-const CheckoutAddOnns = () => {
-  const [selected, setSelected] = useState<string | null>(null);
+type Props = {
+  selected: string | null;
+  onChange: (value: string | null) => void;
+};
 
+const CheckoutAddOnns = ({ selected, onChange }: Props) => {
   return (
     <div className="card p-5 bg-gradient-to-b from-brand-1/10 to-brand-4/8 backdrop-blur-2xl">
       <h2 className="font-heading text-lg">Add-ons (optional)</h2>
@@ -57,7 +58,7 @@ const CheckoutAddOnns = () => {
                 name="checkout-addon"
                 className="sr-only"
                 checked={active}
-                onChange={() => setSelected(o.value)}
+                onChange={() => onChange(o.value)}
               />
               <div>
                 <div className="font-heading">{o.title}</div>
@@ -67,6 +68,15 @@ const CheckoutAddOnns = () => {
             </label>
           );
         })}
+
+        {/* Allow "none" */}
+        <button
+          type="button"
+          className="card p-3 text-xs opacity-80 hover:opacity-100"
+          onClick={() => onChange(null)}
+        >
+          Clear add-on
+        </button>
       </fieldset>
     </div>
   );

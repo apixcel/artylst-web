@@ -5,9 +5,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ArtistCard } from "@/components";
-import { artistsData } from "@/constants";
+import { useGetTopOrFeaturedArtistsQuery } from "@/redux/features/artist/artist.api";
 
 export default function TopArtists() {
+  const { data, isLoading } = useGetTopOrFeaturedArtistsQuery({
+    rankType: "top",
+  });
+  const artists = data?.data || [];
+
   return (
     <section className="mb-16">
       <div className="flex items-center justify-between mb-5">
@@ -37,8 +42,8 @@ export default function TopArtists() {
         }}
         className="group top-artists-swiper"
       >
-        {artistsData.map((item, index) => (
-          <SwiperSlide key={item.id} className="!h-auto flex">
+        {artists.map((item, index) => (
+          <SwiperSlide key={item._id} className="!h-auto flex">
             <div className="h-full">
               <ArtistCard item={item} index={index} variant="home" />
             </div>
