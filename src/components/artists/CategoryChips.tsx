@@ -5,37 +5,37 @@ import { useGetGenresQuery } from "@/redux/features/meta/meta.api";
 
 const CategoryChips = () => {
   const { data, isLoading } = useGetGenresQuery({});
-  const categories = data?.data || [];
+  const genres = data?.data || [];
 
   const { searchParams, updateSearchParams } = useSetSearchParams();
 
-  const categoryParam = searchParams.get("category") || "";
-  const activeCategories = categoryParam ? categoryParam.split(",") : [];
+  const genreParam = searchParams.get("genre") || "";
+  const activeGenres = genreParam ? genreParam.split(",") : [];
 
-  const handleCategoryClick = (category: string) => {
+  const handleGenreClick = (genre: string) => {
     let newValues: string[];
 
-    if (activeCategories.includes(category)) {
-      newValues = activeCategories.filter((c) => c !== category);
+    if (activeGenres.includes(genre)) {
+      newValues = activeGenres.filter((g) => g !== genre);
     } else {
-      newValues = [...activeCategories, category];
+      newValues = [...activeGenres, genre];
     }
 
     updateSearchParams({
-      category: newValues.length ? newValues.join(",") : undefined,
+      genre: newValues.length ? newValues.join(",") : undefined,
     });
   };
 
   return (
     <section className="max-w-7xl mx-auto py-4">
       <div className="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2">
-        {categories.map((category) => (
+        {genres.map((genre) => (
           <button
-            key={category._id}
-            onClick={() => handleCategoryClick(category.slug)}
-            className={`chip whitespace-nowrap ${activeCategories.includes(category.slug) && "chip-active"}`}
+            key={genre._id}
+            onClick={() => handleGenreClick(genre.slug)}
+            className={`chip whitespace-nowrap ${activeGenres.includes(genre.slug) && "chip-active"}`}
           >
-            {category.slug}
+            {genre.slug.charAt(0).toUpperCase() + genre.slug.slice(1)}
           </button>
         ))}
       </div>

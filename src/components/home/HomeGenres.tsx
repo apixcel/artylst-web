@@ -6,7 +6,6 @@ import Link from "next/link";
 import { FreeMode, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-// Fixed palette (Tailwind classes) — এগুলো build-time এ present থাকবে
 const COLOR_CLASSES = [
   "bg-brand-1/80",
   "bg-brand-2/80",
@@ -29,7 +28,7 @@ const hashString = (str: string) => {
 const pickBgClass = (key: string) =>
   COLOR_CLASSES[hashString(key) % COLOR_CLASSES.length];
 
-const Categories = () => {
+const HomeGenres = () => {
   const { data, isLoading } = useGetGenresQuery({});
   const categories = data?.data || [];
 
@@ -37,7 +36,7 @@ const Categories = () => {
     <section className="mb-[64px]">
       <div className="mb-[20px]">
         <div className="mb-[20px] flex justify-between items-center">
-          <h2>Categories</h2>
+          <h2>Genres</h2>
 
           {/* Swiper controls */}
           <div className="flex items-center gap-2">
@@ -82,9 +81,9 @@ const Categories = () => {
             const bg = pickBgClass(item.slug || item.label);
             return (
               <SwiperSlide key={item._id} className="!h-auto flex">
-                <Link href={`/artists?category=${item.slug}`} className="!h-full">
+                <Link href={`/artists?genre=${item.slug}`} className="!h-full">
                   <div className={`rounded-[12px] ${bg} py-10 px-5 !h-full`}>
-                    <span className="mb-[8px] inline-block">Category</span>
+                    <span className="mb-[8px] inline-block">Genre</span>
                     <h3 className="text-2xl font-bold">{item.label}</h3>
                   </div>
                 </Link>
@@ -97,4 +96,4 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default HomeGenres;

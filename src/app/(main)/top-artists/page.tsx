@@ -37,6 +37,7 @@ const faqs = [
 const TopArtistPage = () => {
   const { data, isLoading } = useGetTopOrFeaturedArtistsQuery({
     rankType: "top",
+    limit: 100,
   });
   const artists = data?.data || [];
   return (

@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { categories, VIBES } from "@/constants";
 import { useSetSearchParams } from "@/hooks";
+import { useGetGenresQuery, useGetVibesQuery } from "@/redux/features/meta/meta.api";
 
 const PLATFORMS = ["Spotify", "Apple", "YTM"] as const;
 
@@ -23,12 +23,16 @@ const joinOrUndef = (values: Iterable<string>) => {
 const ArtistsFilter = () => {
   const { searchParams, updateSearchParams, clearSearchParams } = useSetSearchParams();
 
+  const { data: genresData, isLoading: isLoadingGenres } = useGetGenresQuery({});
+  const genres = genresData?.data || [];
+
+  const { data: vibesData, isLoading: isLoadingVibes } = useGetVibesQuery({});
+  const vibes = vibesData?.data || [];
+
   const [selectedCats, setSelectedCats] = useState<Set<string>>(new Set());
   const [selectedVibes, setSelectedVibes] = useState<Set<string>>(new Set());
   const [selectedPlatforms, setSelectedPlatforms] = useState<Set<string>>(new Set());
   const [selectedLangs, setSelectedLangs] = useState<Set<string>>(new Set());
-  const [commercial, setCommercial] = useState(false);
-  const [refresh, setRefresh] = useState(false);
   const [eta, setEta] = useState<Eta>(null);
   const [minPrice, setMinPrice] = useState<string>("");
   const [maxPrice, setMaxPrice] = useState<string>("");
@@ -36,14 +40,13 @@ const ArtistsFilter = () => {
   useEffect(() => {
     const getSet = (key: string) =>
       new Set(searchParams.get(key)?.split(",").filter(Boolean) ?? []);
-    setSelectedCats(getSet("category"));
+
+    setSelectedCats(getSet("genre"));
     setSelectedVibes(getSet("vibes"));
     setSelectedPlatforms(getSet("platforms"));
-    setCommercial(searchParams.get("commercial") === "1");
-    setRefresh(searchParams.get("refresh") === "1");
     setEta((searchParams.get("eta") as Eta) ?? null);
-    setMinPrice(searchParams.get("min") ?? "");
-    setMaxPrice(searchParams.get("max") ?? "");
+    setMinPrice(searchParams.get("minPrice") ?? "");
+    setMaxPrice(searchParams.get("maxPrice") ?? "");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -53,8 +56,6 @@ const ArtistsFilter = () => {
       !selectedVibes.size &&
       !selectedPlatforms.size &&
       !selectedLangs.size &&
-      !commercial &&
-      !refresh &&
       !eta &&
       !minPrice &&
       !maxPrice
@@ -64,8 +65,6 @@ const ArtistsFilter = () => {
     selectedVibes,
     selectedPlatforms,
     selectedLangs,
-    commercial,
-    refresh,
     eta,
     minPrice,
     maxPrice,
@@ -76,8 +75,6 @@ const ArtistsFilter = () => {
     setSelectedVibes(new Set());
     setSelectedPlatforms(new Set());
     setSelectedLangs(new Set());
-    setCommercial(false);
-    setRefresh(false);
     setEta(null);
     setMinPrice("");
     setMaxPrice("");
@@ -86,14 +83,12 @@ const ArtistsFilter = () => {
 
   const handleApplyFilters = () => {
     updateSearchParams({
-      category: joinOrUndef(selectedCats),
+      genres: joinOrUndef(selectedCats),
       vibes: joinOrUndef(selectedVibes),
       platforms: joinOrUndef(selectedPlatforms),
-      commercial: commercial ? "1" : undefined,
-      refresh: refresh ? "1" : undefined,
       eta: eta ?? undefined,
-      min: minPrice || undefined,
-      max: maxPrice || undefined,
+      minPrice: minPrice || undefined,
+      maxPrice: maxPrice || undefined,
     });
   };
 
@@ -114,21 +109,21 @@ const ArtistsFilter = () => {
         </button>
       </div>
 
-      {/* Category */}
+      {/* Genre */}
       <div className="mt-4">
-        <div className="filter-title">Category</div>
+        <div className="filter-title">Genre</div>
         <div className="mt-2 flex flex-wrap gap-2 text-sm">
-          {categories.map((category) => {
-            const active = selectedCats.has(category.value);
+          {genres.map((genre) => {
+            const active = selectedCats.has(genre.slug);
             return (
               <button
                 type="button"
-                key={category.value}
-                onClick={() => setSelectedCats(toggleInSet(selectedCats, category.value))}
-                className={`chip ${active && "chip-active"}`}
+                key={genre.slug}
+                onClick={() => setSelectedCats((prev) => toggleInSet(prev, genre.slug))}
+                className={`chip whitespace-nowrap ${active ? "chip-active" : ""}`}
                 aria-pressed={active}
               >
-                {category.label}
+                {genre.slug.charAt(0).toUpperCase() + genre.slug.slice(1)}
               </button>
             );
           })}
@@ -139,17 +134,17 @@ const ArtistsFilter = () => {
       <div className="mt-5">
         <div className="filter-title">Vibes</div>
         <div className="mt-2 flex flex-wrap gap-2">
-          {VIBES.map((v) => {
-            const active = selectedVibes.has(v.value);
+          {vibes.map((v) => {
+            const active = selectedVibes.has(v.slug);
             return (
               <button
-                key={v.value}
+                key={v.slug}
                 type="button"
                 className={`chip ${active ? "chip-active" : ""}`}
-                onClick={() => setSelectedVibes(toggleInSet(selectedVibes, v.value))}
+                onClick={() => setSelectedVibes((prev) => toggleInSet(prev, v.slug))}
                 aria-pressed={active}
               >
-                {v.label}
+                {v.slug.charAt(0).toUpperCase() + v.slug.slice(1)}
               </button>
             );
           })}
@@ -167,7 +162,7 @@ const ArtistsFilter = () => {
                 key={p}
                 type="button"
                 className={`chip justify-center ${active ? "chip-active" : ""}`}
-                onClick={() => setSelectedPlatforms(toggleInSet(selectedPlatforms, p))}
+                onClick={() => setSelectedPlatforms((prev) => toggleInSet(prev, p))}
                 aria-pressed={active}
               >
                 {p}

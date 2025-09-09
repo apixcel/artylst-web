@@ -48,13 +48,13 @@ const Login = () => {
       dispatch(setUser(user));
       toast.success("Login successful");
 
-      // if (user?.role === "artist") {
-      //   router.push("/dashboard/artist");
-      // } else if (user?.role === "business") {
-      //   router.push("/dashboard/business");
-      // }
-
-      router.push("/");
+      if (user?.role === "artist") {
+        router.push("/dashboard/artist");
+      } else if (user?.role === "business") {
+        router.push("/dashboard/business");
+      } else {
+        router.push("/");
+      }
     }
   };
 

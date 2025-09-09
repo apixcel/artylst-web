@@ -13,6 +13,10 @@ export type IArtist = {
   pricingTierCount: number;
   reviewCount: number;
   price: number;
+  platforms: string[];
+  coverPhoto: string;
+  introVideo: string;
+  introThumbnail: string;
   // oldPrice?: number;
   eta: number;
   slotsLeft: number;

@@ -7,30 +7,51 @@ import {
   ArtistCard,
   Pagination,
 } from "@/components";
-import { useState } from "react";
-import { DropdownOption } from "@/interface";
+import { useEffect, useState } from "react";
 import { cn } from "@/utils";
 import { useGetAllArtistQuery } from "@/redux/features/artist/artist.api";
 import ArtistCardSkeleton from "@/components/artists/ArtistCardSkeleton";
+import { useDebounce, useSetSearchParams } from "@/hooks";
 
 const ArtistsPage = () => {
+  const [searchTerm, setSearchTerm] = useDebounce("");
   const [view, setView] = useState<"grid" | "list">("grid");
-  const [sort, setSort] = useState<DropdownOption<string> | null>({
-    label: "Recommended",
-    value: "recommended",
-  });
 
-  const [query, setQuery] = useState({
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [query, setQuery] = useState<Record<string, any>>({
     page: 1,
-    fields: "displayName,username,price,oldPrice,image,rating,reviews,tags,slotsLeft,eta",
   });
 
-  const { data, isLoading } = useGetAllArtistQuery(query, {
-    skip: !query.page,
-  });
+  const { searchParams, updateSearchParams } = useSetSearchParams();
+
+  const { data, isLoading } = useGetAllArtistQuery({ ...query, searchTerm });
   const artistData = data?.data || [];
   console.log(artistData);
   const metaData = data?.meta || { totalDoc: 0, page: 1 };
+
+  useEffect(() => {
+    const genre = searchParams.get("genre");
+    const vibes = searchParams.get("vibes");
+    const platforms = searchParams.get("platforms");
+    const commercial = searchParams.get("commercial");
+    const minPrice = searchParams.get("minPrice");
+    const maxPrice = searchParams.get("maxPrice");
+    const sort = searchParams.get("sort");
+
+    setQuery({
+      page: Number(searchParams.get("page")) || 1,
+      genre,
+      vibes,
+      platforms,
+      commercial,
+      minPrice,
+      maxPrice,
+      sort,
+    });
+    updateSearchParams({
+      sort: sort || undefined,
+    });
+  }, [searchParams, updateSearchParams]);
 
   return (
     <>
@@ -39,7 +60,12 @@ const ArtistsPage = () => {
         <ArtistsFilter />
         <section>
           {/* top bar now controls view + sort */}
-          <ArtistTopbar view={view} setView={setView} sort={sort} setSort={setSort} />
+          <ArtistTopbar
+            view={view}
+            setView={setView}
+            setSearchTerm={setSearchTerm}
+            metaData={metaData}
+          />
 
           {/* results */}
           <div

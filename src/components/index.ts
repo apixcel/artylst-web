@@ -33,7 +33,7 @@ export { default as ArtistSidebar } from "./shared/artist/ArtistSidebar";
 export { default as HomeHero } from "./home/HomeHero";
 export { default as FeaturedArtists } from "./home/FeaturedArtist";
 export { default as PrivacyStrip } from "./home/PrivacyStrip";
-export { default as Categories } from "./home/Categories";
+export { default as Categories } from "./home/HomeGenres";
 export { default as TopArtists } from "./home/TopArtists";
 export { default as HomeHowItWorks } from "./home/HomeHowItWorks";
 export { default as PricingForEveryBudget } from "./home/PricingForEveryBudget";
