@@ -3,6 +3,7 @@ export type TGender = "male" | "female";
 export interface IUser {
   _id: string;
   email: string;
+  role: "artist" | "business" | "admin" | "fan";
   fullName: string;
   gender: TGender;
   displayName: string;

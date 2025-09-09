@@ -1,13 +1,20 @@
 "use client";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
-import { ChevronLeft, ChevronRight, StarIcon } from "lucide-react";
-import { artistsData } from "@/constants";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { StarIcon } from "@/icons";
 import Link from "next/link";
 import Image from "next/image";
-import cn from "@/utils/cn";
+import { useGetRecentlyViewedArtistsQuery } from "@/redux/features/artist/artist.api";
 
 const HomeRecentlyViewed = () => {
+  const { data, isLoading } = useGetRecentlyViewedArtistsQuery({});
+  const artistsData = data?.data || [];
+  console.log("log from home recently viewed", artistsData);
+
+  if (artistsData.length === 0) return null;
+
   return (
     <section className="mb-[60px]">
       <h2 className="text-2xl font-semibold mb-[20px]">Recently Viewed</h2>
@@ -32,14 +39,14 @@ const HomeRecentlyViewed = () => {
         }}
         className="group recently-viewed-swiper"
       >
-        {artistsData.slice(0, 3).map((a) => (
-          <SwiperSlide key={a.id}>
-            <Link href={`/artists/${a.id}`}>
+        {artistsData.map((a) => (
+          <SwiperSlide key={a._id}>
+            <Link href={`/artists/${a.userName}`}>
               <div className="w-full h-full mb-[8px]">
-                {a.image ? (
+                {a.avatar ? (
                   <Image
-                    src={a.image}
-                    alt={a.name || "Artist"}
+                    src={a.avatar}
+                    alt={a.displayName || "Artist"}
                     width={500}
                     height={500}
                     className="w-full h-full object-cover rounded-[16px]"
@@ -48,7 +55,7 @@ const HomeRecentlyViewed = () => {
                   <div className="w-full h-[200px]">
                     <Image
                       src={"/images/logo/logo-no-text.png"}
-                      alt={a.name || "Artist"}
+                      alt={a.displayName || "Artist"}
                       width={500}
                       height={500}
                       className="w-full h-full  rounded-[16px]"
@@ -58,21 +65,39 @@ const HomeRecentlyViewed = () => {
               </div>
 
               <div>
-                <p className="font-[500] font-logam">{a.name}</p>
+                <p className="font-[500] font-logam">{a.displayName}</p>
                 <p className="text-muted mb-[4px]">{a.designation}</p>
+
+                {/* genres */}
+                {a.genre && a.genre.length > 0 && (
+                  <div className="flex items-center justify-center gap-2 flex-wrap">
+                    {a.genre.map((genre) => (
+                      <span
+                        key={genre._id}
+                        className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1"
+                      >
+                        {genre.slug}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* rating */}
                 <div className="flex items-center gap-[4px] font-[500] mb-[4px]">
                   <p className="flex items-center gap-[4px]">
-                    <StarIcon className="h-[14px] w-[14px]" /> {a.rating}
+                    <StarIcon className="w-[22px] h-[22px]" /> {a.reviewCount}
                   </p>
-                  <p>({a.reviews})</p>
                 </div>
+
+                {/* price */}
                 <div className="flex items-center gap-[4px] font-[500]">
-                  <p className={cn("text-light", a.oldPrice && "text-greeniest")}>
+                  {/* <p className={cn("text-light", a.oldPrice && "text-greeniest")}>
                     ${a.price} {!a.oldPrice && "+"}
                   </p>
                   {a.oldPrice && (
                     <p className="text-muted line-through">${a.oldPrice}+</p>
-                  )}
+                  )} */}
+                  <p className="text-[18px] font-logam">${a.minStartingPrice}+</p>
                 </div>
               </div>
             </Link>

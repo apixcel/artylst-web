@@ -9,13 +9,12 @@ import * as Yup from "yup";
 import { Dropdown, Input } from "@/components";
 import { DropdownOption, IQueryMutationErrorResponse } from "@/interface";
 
-// Constants
-import { categories, VIBES } from "@/constants";
 import { useRegisterBusinessMutation } from "@/redux/features/user/user.api";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/hooks";
 import { toast } from "sonner";
 import { setUser } from "@/redux/features/user/user.slice";
+import { useGetGenresQuery, useGetVibesQuery } from "@/redux/features/meta/meta.api";
 
 /**
  * Types
@@ -114,6 +113,11 @@ const validationSchema = Yup.object({
 });
 
 const BusinessForm = () => {
+  const { data: genresData } = useGetGenresQuery({});
+  const { data: vibesData } = useGetVibesQuery({});
+  const genres = genresData?.data || [];
+  const vibes = vibesData?.data || [];
+
   const [categoryOpt, setCategoryOpt] = useState<DropdownOption<string> | null>(null);
   const [businessTypeOpt, setBusinessTypeOpt] = useState<DropdownOption<string> | null>(
     null
@@ -229,7 +233,10 @@ const BusinessForm = () => {
               <div>
                 <Dropdown
                   value={categoryOpt}
-                  options={categories as DropdownOption<string>[]}
+                  options={genres.map((genre) => ({
+                    label: genre.label,
+                    value: genre.slug,
+                  }))}
                   onChange={(opt) => {
                     setCategoryOpt(opt);
                     setFieldValue("genre", opt?.value || "", true);
@@ -273,7 +280,10 @@ const BusinessForm = () => {
               <div>
                 <Dropdown
                   value={vibeOpt}
-                  options={VIBES as DropdownOption<string>[]}
+                  options={vibes.map((vibe) => ({
+                    label: vibe.label,
+                    value: vibe.slug,
+                  }))}
                   onChange={(opt) => {
                     setVibeOpt(opt);
                     setFieldValue("vibe", opt?.value || "", true);

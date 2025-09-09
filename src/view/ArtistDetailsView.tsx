@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ArtistIntroVideo, Review } from "@/components";
 import { artistPricingData, reviewData } from "@/constants";
@@ -5,15 +7,36 @@ import Image from "next/image";
 import { Check, Instagram, Link2, Music4, Star, Youtube } from "lucide-react";
 import { TiktokIcon } from "@/icons";
 import { cn } from "@/utils";
+import { useGetArtistProfileByUserNameQuery } from "@/redux/features/artist/artist.api";
 
-const SingleArtistPage = () => {
+const ArtistDetailsView = ({ userName }: { userName: string }) => {
+  const { data: artistProfile } = useGetArtistProfileByUserNameQuery({ userName });
+  const artist = artistProfile?.data || null;
+  console.log(artist);
+  const {
+    genre,
+    displayName,
+    designation,
+    avgRating,
+    reviewCount,
+    minStartingPrice,
+    pricingTierCount,
+    eta,
+    slotsLeft,
+    avatar,
+    coverPhoto,
+    platforms,
+    introVideo,
+    introThumbnail,
+  } = artist || {};
+
   return (
     <>
       <section className="px-4 py-6">
         <div className="bg-gradient-to-b from-brand-2/10 to-brand-1/10 rounded-[12px] border border-white/10 overflow-hidden flex flex-col backdrop-blur-2xl">
           <div className="h-48 md:h-64 w-full bg-white/5 border-b border-white/10 text-white/60 overflow-hidden">
             <Image
-              src="/images/artists/artist-bg-img-1.jpg"
+              src={coverPhoto || "/images/artists/artist-bg-img-1.jpg"}
               alt="Artist Avatar"
               width={1000}
               height={1000}
@@ -26,7 +49,7 @@ const SingleArtistPage = () => {
             <div className="sm:flex gap-4 h-full">
               <div className="h-40 w-40  mt-0 sm:h-44 sm:w-44 rounded-full border border-white/15 overflow-hidden">
                 <Image
-                  src="/images/artists/artist-img-1.avif"
+                  src={avatar || "/images/artists/artist-img-1.avif"}
                   alt="Artist Avatar"
                   width={160}
                   height={160}
@@ -38,44 +61,47 @@ const SingleArtistPage = () => {
             {/* Bio + badges */}
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <h1 className="text-2xl">Artist Name</h1>
+                <h1 className="text-2xl">{displayName}</h1>
                 <span className="chip flex items-center gap-1 text-[11px] bg-mario-coin/15 border border-mario-coin/40">
-                  <Star className="w-3 h-3 text-gold" /> <span>4.9</span> (1.2k)
+                  <Star className="w-3 h-3 text-gold" /> <span>{avgRating}</span> (
+                  {reviewCount})
                 </span>
                 <span className="chip bg-brand-4/10 border border-brand-4/40 text-[11px]">
-                  48h ETA
+                  {eta}h ETA
                 </span>
                 <span className="chip bg-brand-6/20 border border-brand-6/40 text-[11px]">
-                  2 slots left
+                  {slotsLeft} slots left
                 </span>
               </div>
 
               <p className="mt-2 text-muted">
-                Singer • Curator • Indie / Pop. Crafting mood‑based sets for workout,
-                study, and feel‑good moments.
+                {designation} • {genre?.map((g) => g.slug).join(" • ")}. Crafting
+                mood‑based sets for workout, study, and feel‑good moments.
               </p>
 
               <div className="mt-3 flex flex-wrap gap-2">
-                <span className="chip">Lo‑fi</span>
-                <span className="chip">Pop</span>
-                <span className="chip">Chill</span>
-                <span className="chip">Focus</span>
-                <span className="chip">Workout</span>
+                {genre?.map((g) => (
+                  <span className="chip" key={g._id}>
+                    {g.slug}
+                  </span>
+                ))}
               </div>
 
               {/* Platforms */}
               <div className="mt-3">
                 <h4>Platforms:</h4>
                 <div className="mt-3 flex flex-wrap items-center gap-2 text-xs opacity-80">
-                  <span className="chip">Spotify</span>
-                  <span className="chip">Apple Music</span>
-                  <span className="chip">YouTube Music</span>
+                  {platforms?.map((p) => (
+                    <span className="chip" key={p}>
+                      {p}
+                    </span>
+                  ))}
                 </div>
               </div>
 
               {/* Intro video */}
               <div className="mt-5 p-3">
-                <ArtistIntroVideo />
+                <ArtistIntroVideo srcMp4={introVideo} poster={introThumbnail} />
                 <p className="text-xs text-muted mt-2">
                   Intro: who I am &amp; how I curate your playlist.
                 </p>
@@ -86,7 +112,7 @@ const SingleArtistPage = () => {
             <aside className="flex sm:flex-row flex-col xl:flex-col justify-between gap-4">
               <div className="card xl:w-full w-full sm:w-1/2 p-4">
                 <div className="text-sm text-muted">Starting from</div>
-                <div className="text-2xl font-heading mt-1">$39</div>
+                <div className="text-2xl font-heading mt-1">${minStartingPrice}</div>
                 <Link href="/artists/1/book" className="btn btn-primary w-full mt-3">
                   Request playlist
                 </Link>
@@ -206,7 +232,6 @@ const SingleArtistPage = () => {
             <span className="chip">Los Angeles</span>
             <span className="chip">GMT‑7</span>
             <span className="chip">English</span>
-            <span className="chip">Bangla</span>
           </div>
 
           {/* connect with me */}
@@ -291,4 +316,4 @@ const SingleArtistPage = () => {
   );
 };
 
-export default SingleArtistPage;
+export default ArtistDetailsView;

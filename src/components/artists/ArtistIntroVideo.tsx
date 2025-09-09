@@ -17,7 +17,7 @@ export type ArtistIntroVideoProps = {
 };
 
 export default function ArtistIntroVideo({
-  srcMp4 = "/videos/artists/artist-video-intro.mp4",
+  srcMp4,
   srcWebm,
   poster,
   className = "relative",
