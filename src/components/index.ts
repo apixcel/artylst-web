@@ -2,11 +2,12 @@
 export { default as Input } from "./ui/Input";
 export { default as DateSelector } from "./ui/DateSelector";
 export { default as Skeleton } from "./ui/Skeleton";
+export { default as Pagination } from "./ui/Pagination";
+export { default as QueryPagination } from "./ui/QueryPagination";
 
 /* shared */
 export { default as NavSearch } from "./shared/header/NavSearch";
 export { default as BrowseSlider } from "./shared/BrowseSlider";
-export { default as Pagination } from "./shared/Pagination";
 export { default as Dropdown } from "./shared/Dropdown";
 export { default as Review } from "./shared/Review";
 export { default as MobileNav } from "./shared/MobileNav";
@@ -33,7 +34,7 @@ export { default as ArtistSidebar } from "./shared/artist/ArtistSidebar";
 export { default as HomeHero } from "./home/HomeHero";
 export { default as FeaturedArtists } from "./home/FeaturedArtist";
 export { default as PrivacyStrip } from "./home/PrivacyStrip";
-export { default as Categories } from "./home/HomeGenres";
+export { default as HomeGenres } from "./home/HomeGenres";
 export { default as TopArtists } from "./home/TopArtists";
 export { default as HomeHowItWorks } from "./home/HomeHowItWorks";
 export { default as PricingForEveryBudget } from "./home/PricingForEveryBudget";
@@ -44,7 +45,7 @@ export { default as ContactForm } from "./home/ContactForm";
 export { default as HomeRecentlyViewed } from "./home/HomeRecentlyViewed";
 
 // artists
-export { default as CategoryChips } from "./artists/CategoryChips";
+export { default as GenreChips } from "./artists/GenreChips";
 export { default as ArtistsFilter } from "./artists/ArtistsFilter";
 export { default as ArtistTopbar } from "./artists/ArtistTopbar";
 export { default as ArtistCard } from "./artists/ArtistCard";
@@ -52,6 +53,8 @@ export { default as ArtistIntroVideo } from "./artists/ArtistIntroVideo";
 export { default as TopArtistSteps } from "./artists/TopArtistSteps";
 export { default as ArtistCheckoutProgress } from "./artists/ArtistCheckoutProgress";
 export { default as BusinessCheckoutProgress } from "./business/BusinessCheckoutProgress";
+export { default as ArtistPricingTier } from "./artists/ArtistPricingTier";
+export { default as ArtistCardSlider } from "./artists/ArtistCardSlider";
 
 // checkout
 export { default as CheckoutBrief } from "./checkout/CheckoutBrief";

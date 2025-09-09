@@ -83,7 +83,7 @@ const ArtistsFilter = () => {
 
   const handleApplyFilters = () => {
     updateSearchParams({
-      genres: joinOrUndef(selectedCats),
+      genre: joinOrUndef(selectedCats),
       vibes: joinOrUndef(selectedVibes),
       platforms: joinOrUndef(selectedPlatforms),
       eta: eta ?? undefined,

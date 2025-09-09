@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  CategoryChips,
+  GenreChips,
   ArtistsFilter,
   ArtistTopbar,
   ArtistCard,
@@ -55,7 +55,7 @@ const ArtistsPage = () => {
 
   return (
     <>
-      <CategoryChips />
+      <GenreChips />
       <div className="pb-16 grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-6">
         <ArtistsFilter />
         <section>

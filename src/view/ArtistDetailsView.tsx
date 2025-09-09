@@ -1,18 +1,31 @@
-"use client";
+"use server";
 
 import Link from "next/link";
-import { ArtistIntroVideo, Review } from "@/components";
-import { artistPricingData, reviewData } from "@/constants";
+import { ArtistIntroVideo, ArtistPricingTier, Review } from "@/components";
+import { reviewData } from "@/constants";
 import Image from "next/image";
-import { Check, Instagram, Link2, Music4, Star, Youtube } from "lucide-react";
+import {
+  Check,
+  HeadphonesIcon,
+  Instagram,
+  Link2,
+  Music4,
+  MusicIcon,
+  Star,
+  Youtube,
+} from "lucide-react";
 import { TiktokIcon } from "@/icons";
-import { cn } from "@/utils";
-import { useGetArtistProfileByUserNameQuery } from "@/redux/features/artist/artist.api";
 
-const ArtistDetailsView = ({ userName }: { userName: string }) => {
-  const { data: artistProfile } = useGetArtistProfileByUserNameQuery({ userName });
-  const artist = artistProfile?.data || null;
-  console.log(artist);
+import { baseUrl } from "@/redux/api/api";
+import { IArtist } from "@/interface";
+
+const ArtistDetailsView = async ({ userName }: { userName: string }) => {
+  const res = await fetch(`${baseUrl}/artist/profile/${userName}`, {
+    cache: "no-store",
+  });
+  const data = (await res.json()) as { data: IArtist };
+  const artist = data?.data || {};
+
   const {
     genre,
     displayName,
@@ -20,7 +33,6 @@ const ArtistDetailsView = ({ userName }: { userName: string }) => {
     avgRating,
     reviewCount,
     minStartingPrice,
-    pricingTierCount,
     eta,
     slotsLeft,
     avatar,
@@ -28,6 +40,8 @@ const ArtistDetailsView = ({ userName }: { userName: string }) => {
     platforms,
     introVideo,
     introThumbnail,
+    bio,
+    country,
   } = artist || {};
 
   return (
@@ -82,7 +96,7 @@ const ArtistDetailsView = ({ userName }: { userName: string }) => {
               <div className="mt-3 flex flex-wrap gap-2">
                 {genre?.map((g) => (
                   <span className="chip" key={g._id}>
-                    {g.slug}
+                    {g.slug.charAt(0).toUpperCase() + g.slug.slice(1)}
                   </span>
                 ))}
               </div>
@@ -111,22 +125,62 @@ const ArtistDetailsView = ({ userName }: { userName: string }) => {
             {/* Quick actions */}
             <aside className="flex sm:flex-row flex-col xl:flex-col justify-between gap-4">
               <div className="card xl:w-full w-full sm:w-1/2 p-4">
-                <div className="text-sm text-muted">Starting from</div>
-                <div className="text-2xl font-heading mt-1">${minStartingPrice}</div>
-                <Link href="/artists/1/book" className="btn btn-primary w-full mt-3">
-                  Request playlist
-                </Link>
-                <div className="text-xs text-white/60 mt-2">
-                  Private link + 30s auth video. Privacy-first escrow.
-                </div>
-              </div>
-
-              <div className="card xl:w-full w-full sm:w-1/2 p-4">
                 <div className="font-heading text-sm">Delivery window</div>
                 <div className="mt-2 grid grid-cols-3 gap-2 text-xs">
                   <div className="chip justify-center">24h</div>
                   <div className="chip justify-center">48h</div>
                   <div className="chip justify-center">72h</div>
+                </div>
+              </div>
+
+              <div className="xl:w-full w-full sm:w-1/2">
+                <div>
+                  <h4 className="text-lg font-semibold mb-2">What I Offer</h4>
+
+                  {/* Personal Playlist Features */}
+                  <div className="mb-4 card p-4">
+                    <h5 className="font-medium mb-2 flex items-center gap-2 ">
+                      <HeadphonesIcon className="w-5 h-5" /> Personal Playlist
+                    </h5>
+                    <ul className="list-disc list-inside text-sm space-y-1 text-muted">
+                      <li>Customized to your mood & taste</li>
+                      <li>Handpicked by top artists</li>
+                      <li>Perfect for daily listening</li>
+                    </ul>
+                    <Link
+                      href={`/artists/${userName}/book`}
+                      className="btn btn-primary w-full mt-3"
+                    >
+                      Request Personal Playlist
+                    </Link>
+                  </div>
+
+                  {/* Business Playlist Features */}
+                  <div className="card p-4">
+                    <h5 className="font-medium mb-2 flex items-center gap-2 ">
+                      <MusicIcon className="w-5 h-5" /> Business Playlist
+                    </h5>
+                    <ul className="text-sm space-y-1 text-muted">
+                      <li className="flex gap-2">
+                        <Check className="w-3 h-3 text-brand-4 mt-[2px]" /> Curated for
+                        restaurants, cafés & events
+                      </li>
+                      <li className="flex gap-2">
+                        <Check className="w-3 h-3 text-brand-4 mt-[2px]" /> Enhance your
+                        brand identity with music
+                      </li>
+                      <li className="flex gap-2">
+                        <Check className="w-3 h-3 text-brand-4 mt-[2px]" /> Licensed &
+                        ready for commercial use
+                      </li>
+                    </ul>
+                    <Link
+                      href={`/artists/${userName}/checkout`}
+                      className="btn btn-primary w-full mt-3"
+                    >
+                      Request Business Playlist
+                    </Link>
+                  </div>
                 </div>
               </div>
             </aside>
@@ -135,44 +189,7 @@ const ArtistDetailsView = ({ userName }: { userName: string }) => {
       </section>
 
       {/* Pricing tiers */}
-      <section className="px-4 py-4 mb-[40px]">
-        <h2 className="mb-3">Pricing</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-3 gap-4">
-          {artistPricingData.map((tier, index) => (
-            <div
-              key={tier.id}
-              className={cn(
-                "card bg-gradient-to-b from-brand-1/10 to-brand-4/8 text-center p-5 flex flex-col",
-                index === 0 && "lg:col-span-1 sm:col-span-2 col-span-1",
-                index === 1 && "lg:col-span-1 sm:col-span-2 col-span-1",
-                index === 2 && "lg:col-span-1 sm:col-span-2 col-span-1 sm:col-start-2"
-              )}
-            >
-              <div>
-                <h4 className="text-[16px] text-muted text-center uppercase mb-3">
-                  {tier.name}
-                </h4>
-                <h3 className="text-2xl mb-6">${tier.price}</h3>
-              </div>
-
-              <ul className="text-muted space-y-1.5 mb-[20px]">
-                {tier.description.map((description) => (
-                  <li className="flex gap-2 text-left" key={description}>
-                    <Check className="w-4 h-4 text-brand-4/80" />
-                    {description}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href="/checkout"
-                className={`btn mt-auto ${tier.name === "Standard" ? "btn-primary" : "btn-tertiary"} w-full mt-4`}
-              >
-                Choose {tier.name}
-              </Link>
-            </div>
-          ))}
-        </div>
-      </section>
+      <ArtistPricingTier userName={userName} />
 
       <section className="lg:flex-row flex-col flex gap-6 mb-[30px]">
         {/* sample vibes I love */}
@@ -222,16 +239,13 @@ const ArtistDetailsView = ({ userName }: { userName: string }) => {
         <div className="px-4 lg:w-1/2">
           <h2>About me</h2>
           {/* bio */}
-          <p className="text-sm text-white/75 mt-2">
-            Touring vocalist &amp; curator. I build sequences that flow naturally—no hard
-            jumps. Expect tasteful discoveries alongside your must‑haves.
-          </p>
+          <p className="text-sm text-white/75 mt-2">{bio}</p>
 
           {/* tags */}
           <div className="mt-3 flex flex-wrap gap-2 mb-[20px]">
-            <span className="chip">Los Angeles</span>
-            <span className="chip">GMT‑7</span>
-            <span className="chip">English</span>
+            {country && <span className="chip">{country}</span>}
+            {/* {timeZone && <span className="chip">{timeZone}</span>} */}
+            {/* {language && <span className="chip">{language}</span>} */}
           </div>
 
           {/* connect with me */}

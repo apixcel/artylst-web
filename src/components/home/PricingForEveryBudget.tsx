@@ -9,25 +9,25 @@ const pricingForEveryBudget = [
     id: 1,
     title: "$25",
     bgColor: "bg-brand-1/80",
-    route: "/tags/25-or-less",
+    route: "/artists?maxPrice=25",
   },
   {
     id: 2,
     title: "$50",
     bgColor: "bg-brand-2/80",
-    route: "/tags/50-or-less",
+    route: "/artists?maxPrice=50",
   },
   {
     id: 3,
     title: "$100",
     bgColor: "bg-brand-5/80",
-    route: "/tags/100-or-less",
+    route: "/artists?maxPrice=100",
   },
   {
     id: 4,
     title: "$150",
     bgColor: "bg-brand-4/80",
-    route: "/tags/150-or-less",
+    route: "/artists?maxPrice=150",
   },
 ];
 

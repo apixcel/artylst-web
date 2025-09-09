@@ -126,7 +126,7 @@ const ArtistCard = ({
                   key={genre._id}
                   className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1"
                 >
-                  {genre.slug}
+                  {genre.slug.charAt(0).toUpperCase() + genre.slug.slice(1)}
                 </span>
               ))}
             </div>
@@ -174,7 +174,10 @@ const ArtistCard = ({
           </div>
 
           <div className="mt-3 flex flex-col gap-2">
-            <Link href={`/artists/checkout`} className="btn btn-primary">
+            <Link
+              href={`/artists/${item?.userName}/checkout`}
+              className="btn btn-primary"
+            >
               Request playlist
             </Link>
             <Link href={`/artists/${item.userName}`} className="btn btn-ghost">
@@ -243,7 +246,7 @@ const ArtistCard = ({
                   key={genre._id}
                   className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1"
                 >
-                  {genre.slug}
+                  {genre.slug.charAt(0).toUpperCase() + genre.slug.slice(1)}
                 </span>
               ))}
             </div>
@@ -287,12 +290,6 @@ const ArtistCard = ({
           </div>
 
           <div className="mb-4 mt-3 w-full sm:w-auto sm:justify-start justify-center flex sm:flex-row flex-col gap-2 sm:px-0 px-3">
-            <Link
-              href={`/artists/checkout`}
-              className="text-center sm:text-left px-3 py-2 rounded btn-primary"
-            >
-              Request playlist
-            </Link>
             <Link
               href={`/artists/${item.userName}`}
               className="text-center sm:text-left px-3 py-2 rounded btn-ghost"

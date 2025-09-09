@@ -1,7 +1,7 @@
 import {
   HomeHero,
   PrivacyStrip,
-  Categories,
+  HomeGenres,
   PricingForEveryBudget,
   TopArtists,
   RecentReviews,
@@ -67,7 +67,7 @@ const HomePage = () => {
       <PricingForEveryBudget />
       <HomeRecentlyViewed />
       <RecentReviews />
-      <Categories />
+      <HomeGenres />
     </div>
   );
 };

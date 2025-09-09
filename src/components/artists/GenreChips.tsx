@@ -3,7 +3,7 @@
 import { useSetSearchParams } from "@/hooks";
 import { useGetGenresQuery } from "@/redux/features/meta/meta.api";
 
-const CategoryChips = () => {
+const GenreChips = () => {
   const { data, isLoading } = useGetGenresQuery({});
   const genres = data?.data || [];
 
@@ -43,4 +43,4 @@ const CategoryChips = () => {
   );
 };
 
-export default CategoryChips;
+export default GenreChips;

@@ -76,7 +76,7 @@ const HomeRecentlyViewed = () => {
                         key={genre._id}
                         className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1"
                       >
-                        {genre.slug}
+                        {genre.slug.charAt(0).toUpperCase() + genre.slug.slice(1)}
                       </span>
                     ))}
                   </div>

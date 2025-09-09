@@ -1,4 +1,4 @@
-import { IArtist, IArtistPricingTier, IMeta, IRankedArtist } from "@/interface";
+import { IArtist, IArtistPricingTier, IMeta } from "@/interface";
 import { api } from "@/redux/api/api";
 import { generateQueryParams } from "@/utils";
 
@@ -17,19 +17,6 @@ const artistApi = api.injectEndpoints({
       },
       providesTags: ["artist"],
     }),
-    getTopOrFeaturedArtists: builder.query<
-      { data: IRankedArtist[] },
-      Record<string, string | number>
-    >({
-      query: (query) => {
-        const queryString = generateQueryParams(query);
-        return {
-          url: `/artist/ranked?${queryString}`,
-          method: "GET",
-        };
-      },
-      providesTags: ["artist"],
-    }),
     getRecentlyViewedArtists: builder.query<
       { data: IArtist[] },
       Record<string, string | number>
@@ -37,16 +24,6 @@ const artistApi = api.injectEndpoints({
       query: () => {
         return {
           url: `/artist/recent-view`,
-          method: "GET",
-        };
-      },
-      providesTags: ["artist"],
-    }),
-    getArtistProfileByUserName: builder.query<{ data: IArtist }, { userName: string }>({
-      query: (query) => {
-        const { userName } = query;
-        return {
-          url: `/artist/profile/${userName}`,
           method: "GET",
         };
       },
@@ -94,7 +71,5 @@ export const {
   useCreatePricingTierMutation,
   useUpdatePricingTierMutation,
   useGetMyPricingTierQuery,
-  useGetTopOrFeaturedArtistsQuery,
   useGetRecentlyViewedArtistsQuery,
-  useGetArtistProfileByUserNameQuery,
 } = artistApi;
