@@ -21,5 +21,6 @@ export type ITierDefaults = {
   songs: number;
   price: number;
   deliveryTime: string;
-  revisionCount: 1 | 2 | 3;
+  revisionCount: number;
+  description: string[];
 };

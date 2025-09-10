@@ -17,62 +17,62 @@ import {
 export const artistDashboardLink = [
   {
     label: "Dashboard",
-    route: "/dashboard/artist",
+    route: "/dashboard",
     icon: Home,
   },
   {
     label: "Orders",
-    route: "/dashboard/artist/orders",
+    route: "/dashboard/orders",
     icon: ShoppingBag,
   },
   {
     label: "Deliver",
-    route: "/dashboard/artist/deliver",
+    route: "/dashboard/deliver",
     icon: Truck,
   },
   {
     label: "Messages",
-    route: "/dashboard/artist/messages",
+    route: "/dashboard/messages",
     icon: MessageCircle,
   },
   {
     label: "Earnings",
-    route: "/dashboard/artist/earnings",
+    route: "/dashboard/earnings",
     icon: DollarSign,
   },
   {
     label: "Profile",
-    route: "/dashboard/artist/profile",
+    route: "/dashboard/profile",
     icon: User,
   },
   {
     label: "Tiers",
-    route: "/dashboard/artist/tiers",
+    route: "/dashboard/tiers",
     icon: Layers,
   },
   {
     label: "Availability",
-    route: "/dashboard/artist/availability",
+    route: "/dashboard/availability",
     icon: Clock,
   },
   {
     label: "Streaming",
-    route: "/dashboard/artist/streaming",
+    route: "/dashboard/streaming",
     icon: PlayCircle,
   },
   {
     label: "KYC & Payout",
-    route: "/dashboard/artist/kyc",
+    route: "/dashboard/kyc",
     icon: IdCard,
   },
   {
     label: "Join as Featured",
-    route: "/dashboard/artist/join-as-featured",
+    route: "/dashboard/join-as-featured",
     icon: Heart,
   },
   {
     label: "Settings",
-    route: "/dashboard/artist/settings",
+    route: "/dashboard/settings",
     icon: Settings,
   },
 ];

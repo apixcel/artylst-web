@@ -11,39 +11,39 @@ import {
 export const businessDashboardLink = [
   {
     label: "Dashboard",
-    route: "/dashboard/business",
+    route: "/dashboard",
     icon: Home,
   },
   {
     label: "Orders",
-    route: "/dashboard/business/orders",
+    route: "/dashboard/orders",
     icon: ShoppingBag,
   },
   {
     label: "Messages",
-    route: "/dashboard/business/messages",
+    route: "/dashboard/messages",
     icon: MessageCircle,
   },
   {
     label: "Artists",
-    route: "/dashboard/business/artists",
+    route: "/dashboard/artists",
     icon: User,
   },
   {
     label: "Favorites",
-    route: "/dashboard/business/favorites",
+    route: "/dashboard/favorites",
     icon: Heart,
   },
 
   {
     label: "Receipts",
-    route: "/dashboard/business/receipts",
+    route: "/dashboard/receipts",
     icon: Receipt,
   },
 
   {
     label: "Settings",
-    route: "/dashboard/business/settings",
+    route: "/dashboard/settings",
     icon: Settings,
   },
 ];

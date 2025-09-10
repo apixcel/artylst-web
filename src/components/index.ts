@@ -18,6 +18,7 @@ export { default as BusinessTopBar } from "./shared/business/BusinessTopBar";
 export { default as MultiDropdown } from "./shared/MultiDropdown";
 export { default as WhyChooseUs } from "./shared/WhyChooseUs";
 export { default as Security } from "./shared/Security";
+export { default as UnauthorizedMsgBox } from "./shared/UnauthorizedMsgBox";
 
 // shared/main
 export { default as MainHeader } from "./shared/main/MainHeader";
@@ -89,14 +90,22 @@ export { default as SidebarUserCard } from "./dashboard/SidebarUserCard";
 export { default as DashboardArtistCard } from "./dashboard/DashboardArtistCard";
 
 // dashboard/business
-export { default as BusinessProfileSettings } from "./dashboard/business/BusinessProfileSettings";
+export { default as BusinessProfileSettings } from "./dashboard/business/settings/BusinessProfileSettings";
 export { default as BusinessPaymentMethods } from "./dashboard/business/BusinessPaymentMethods";
-export { default as BusinessLoginAndSecurity } from "./dashboard/business/BusinessLoginAndSecurity";
+export { default as BusinessLoginAndSecurity } from "./dashboard/business/settings/BusinessLoginAndSecurity";
+export { default as BusinessOrder } from "./dashboard/business/orders/BusinessOrder";
+export { default as BusinessSettings } from "./dashboard/business/settings/BusinessSettings";
+export { default as BusinessMessages } from "./dashboard/business/messages/BusinessMessages";
+export { default as DashboardBusinessHome } from "./dashboard/business/DashboardBusinessHome";
 
 // dashboard/artist
+export { default as DashboardArtistHome } from "./dashboard/artist/DashboardArtistHome";
 export { default as DashboardArtistDeliverStepProgress } from "./dashboard/artist/deliver/DashboardArtistDeliverStepProgress";
-export { default as ArtistProfileSettings } from "./dashboard/artist/ArtistProfileSettings";
-export { default as ArtistLoginAndSecurity } from "./dashboard/artist/ArtistLoginAndSecurity";
+export { default as ArtistProfileSettings } from "./dashboard/artist/settings/ArtistProfileSettings";
+export { default as ArtistLoginAndSecurity } from "./dashboard/artist/settings/ArtistLoginAndSecurity";
+export { default as ArtistOrder } from "./dashboard/artist/orders/ArtistOrder";
+export { default as ArtistSettings } from "./dashboard/artist/settings/ArtistSettings";
+export { default as ArtistMessages } from "./dashboard/artist/messages/ArtistMessages";
 
 // tiers
 // export { default as TiersPricingForm } from "./dashboard/artist/tiers/TiersPricingForm";
