@@ -4,6 +4,7 @@ export { default as DateSelector } from "./ui/DateSelector";
 export { default as Skeleton } from "./ui/Skeleton";
 export { default as Pagination } from "./ui/Pagination";
 export { default as QueryPagination } from "./ui/QueryPagination";
+export { default as RichTextArea } from "./ui/RichTextArea";
 
 /* shared */
 export { default as NavSearch } from "./shared/header/NavSearch";
@@ -108,4 +109,5 @@ export { default as ArtistSettings } from "./dashboard/artist/settings/ArtistSet
 export { default as ArtistMessages } from "./dashboard/artist/messages/ArtistMessages";
 
 // tiers
-// export { default as TiersPricingForm } from "./dashboard/artist/tiers/TiersPricingForm";
+export { default as TiersPricingForm } from "./dashboard/artist/tiers/TiersPricingForm";
+export { default as TiersSkeleton } from "./dashboard/artist/tiers/TiersSkeleton";

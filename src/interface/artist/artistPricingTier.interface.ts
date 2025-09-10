@@ -24,3 +24,11 @@ export type ITierDefaults = {
   revisionCount: number;
   description: string[];
 };
+
+type BaseTierPayload = Pick<
+  IArtistPricingTier,
+  "name" | "songs" | "priceUsd" | "deliveryTime" | "description" | "revisionCount"
+>;
+
+export type CreateTierPayload = BaseTierPayload;
+export type UpdateTierPayload = BaseTierPayload & Pick<IArtistPricingTier, "_id">;
