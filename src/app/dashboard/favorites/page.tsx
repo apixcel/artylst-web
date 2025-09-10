@@ -3,9 +3,10 @@
 import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import { Heart, MessageSquare, Search, Plus, Filter } from "lucide-react";
-import { Dropdown } from "@/components";
+import { Dropdown, UnauthorizedMsgBox } from "@/components";
 import { DropdownOption } from "@/interface";
 import Image from "next/image";
+import { useAppSelector } from "@/hooks";
 
 // ----- Demo data (replace with API) -----
 const FAVORITES = [
@@ -69,6 +70,9 @@ const Chip = ({
 );
 
 const FavoritesPage = () => {
+  const { user } = useAppSelector((state) => state.user);
+  const role = user?.role;
+
   const [q, setQ] = useState("");
   const [tag, setTag] = useState("All");
   const [sort, setSort] = useState("recent");
@@ -98,6 +102,8 @@ const FavoritesPage = () => {
   const unfavorite = (id: number) => {
     setItems((prev) => prev.filter((x) => x.id !== id));
   };
+
+  if (role !== "business") return <UnauthorizedMsgBox />;
 
   return (
     <section className="space-y-6">

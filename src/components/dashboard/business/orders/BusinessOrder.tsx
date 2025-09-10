@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import Link from "next/link";
-import { Dropdown } from "@/components"; // keeping your component usage
-import { Pagination } from "@/components";
+import { Dropdown, Pagination } from "@/components"; // keeping your component usage
+import { statusOption } from "@/constants/orderStatus";
 import { DropdownOption } from "@/interface";
-import { Download, Search, AlertTriangle } from "lucide-react";
+import { useGetMyBusinessOrderQuery } from "@/redux/features/order/order.api";
+import { AlertTriangle, Download, Search } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
 
 // --- Filters ---
 const statusOptions: DropdownOption<string>[] = [
@@ -30,59 +31,7 @@ const tierOptions: DropdownOption<string>[] = [
   { label: "Deluxe", value: "deluxe" },
 ];
 
-// --- Dummy rows (replace with data hook later) ---
-const ROWS = [
-  {
-    id: 2341,
-    artist: "Sloane Rivers",
-    tier: "Standard",
-    price: 89,
-    platform: "spotify",
-    status: "in_progress",
-    eta: "Aug 28",
-    revisionsUsed: 0,
-    revisionsLimit: 2,
-    lastUpdate: "2h ago",
-  },
-  {
-    id: 2339,
-    artist: "Marta",
-    tier: "Mini",
-    price: 49,
-    platform: "apple",
-    status: "delivered",
-    eta: "—",
-    revisionsUsed: 1,
-    revisionsLimit: 2,
-    lastUpdate: "Yesterday",
-  },
-  {
-    id: 2338,
-    artist: "Noah Lane",
-    tier: "Deluxe",
-    price: 149,
-    platform: "spotify",
-    status: "revisions",
-    eta: "Aug 30",
-    revisionsUsed: 2,
-    revisionsLimit: 3,
-    lastUpdate: "1h ago",
-  },
-  {
-    id: 2335,
-    artist: "Kira",
-    tier: "Standard",
-    price: 89,
-    platform: "youtube",
-    status: "disputed",
-    eta: "—",
-    revisionsUsed: 1,
-    revisionsLimit: 2,
-    lastUpdate: "Aug 20",
-  },
-];
-
-const OrdersPage = () => {
+const BusinessOrder = () => {
   const [status, setStatus] = useState<DropdownOption<string>>({
     label: "All",
     value: "all",
@@ -96,30 +45,23 @@ const OrdersPage = () => {
     value: "all",
   });
   const [q, setQ] = useState("");
-  const [selected, setSelected] = useState<number[]>([]);
+  const [selected, setSelected] = useState<string[]>([]);
 
-  const filtered = useMemo(() => {
-    return ROWS.filter((r) => {
-      const matchStatus = status.value === "all" || r.status === status.value;
-      const matchPlatform = platform.value === "all" || r.platform === platform.value;
-      const matchTier = tier.value === "all" || r.tier.toLowerCase() === tier.value;
-      const qtext = `${r.id} ${r.artist} ${r.tier}`.toLowerCase();
-      const matchQ = !q || qtext.includes(q.toLowerCase());
-      return matchStatus && matchPlatform && matchTier && matchQ;
-    });
-  }, [status, platform, tier, q]);
+  const { data } = useGetMyBusinessOrderQuery({});
 
   const toggleAll = (checked: boolean) => {
-    setSelected(checked ? filtered.map((r) => r.id) : []);
+    setSelected(checked ? data?.data?.map((r) => r._id) || [] : []);
   };
 
-  const toggleOne = (id: number, checked: boolean) => {
+  const toggleOne = (id: string, checked: boolean) => {
     setSelected((prev) =>
       checked ? [...new Set([...prev, id])] : prev.filter((x) => x !== id)
     );
   };
 
-  const isAllChecked = filtered.length > 0 && selected.length === filtered.length;
+  const orderData = data?.data || [];
+
+  const isAllChecked = orderData.length > 0 && selected.length === orderData.length;
   const anyChecked = selected.length > 0;
 
   return (
@@ -193,7 +135,7 @@ const OrdersPage = () => {
         <table className="w-full">
           <thead className="text-white/60 border-b border-white/10">
             <tr>
-              <th className="py-2 desktop:pr-4 xl:pr-1">
+              <th className="py-2 2xl:pr-4 desktop:pr-2 xl:pr-1">
                 <input
                   type="checkbox"
                   className="accent-brand-4 w-4 h-4"
@@ -213,52 +155,45 @@ const OrdersPage = () => {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((row) => (
-              <tr key={row.id} className="border-b border-white/5">
+            {orderData.map((row) => (
+              <tr key={row._id} className="border-b border-white/5">
                 <td className="py-3 px-2">
                   <input
                     type="checkbox"
                     className="accent-brand-4 w-4 h-4"
-                    checked={selected.includes(row.id)}
-                    onChange={(e) => toggleOne(row.id, e.target.checked)}
+                    checked={selected.includes(row._id)}
+                    onChange={(e) => toggleOne(row._id, e.target.checked)}
                   />
                 </td>
-                <td className="py-3 pr-6">#{row.id}</td>
-                <td className="py-3 pr-6">{row.artist}</td>
+                <td className="py-3 pr-6">#{row._id}</td>
+                <td className="py-3 pr-6">
+                  {typeof row.artist === "string" ? row.artist : row.artist.fullName}
+                </td>
                 <td className="py-3 pr-6">{row.tier}</td>
                 <td className="py-3 pr-6 capitalize">{row.platform}</td>
                 <td className="py-3 pr-6">${row.price}</td>
                 <td className="py-3 pr-6">{row.eta}</td>
                 <td className="py-3 pr-6">
-                  {row.revisionsUsed}/{row.revisionsLimit}
+                  {row.revision}/{0}
                 </td>
                 <td className="py-3 pr-6">
-                  {row.status === "in_progress" && (
-                    <span className="chip min-w-22 inline-block bg-yellow-500/10 text-yellow-500 text-center">
-                      In progress
-                    </span>
-                  )}
-                  {row.status === "delivered" && (
-                    <span className="chip bg-green-500/10 text-green-500">Delivered</span>
-                  )}
-                  {row.status === "revisions" && (
-                    <span className="chip bg-blue-500/10 text-blue-400">Revisions</span>
-                  )}
-                  {row.status === "disputed" && (
-                    <span className="chip bg-red-500/10 text-red-500">Disputed</span>
-                  )}
+                  <span
+                    className={`capitalize chip min-w-22 inline-block text-center ${statusOption[row.status as keyof typeof statusOption]?.className || "bg-white/10 text-white"}`}
+                  >
+                    {row.status}
+                  </span>
                 </td>
                 <td className="py-3">
                   <div className="flex items-center gap-2">
                     <Link
                       className="px-2 py-1 rounded bg-white/10 text-xs"
-                      href={`/dashboard/artist/orders/${row.id}`}
+                      href={`/dashboard/business/orders/${row._id}`}
                     >
                       Open
                     </Link>
                     <Link
                       className="px-2 py-1 rounded bg-white/10 text-xs"
-                      href={`/dashboard/artist/messages?order=${row.id}`}
+                      href={`/dashboard/business/messages?order=${row._id}`}
                     >
                       Message
                     </Link>
@@ -273,7 +208,7 @@ const OrdersPage = () => {
         </table>
 
         {/* Empty state */}
-        {filtered.length === 0 && (
+        {orderData.length === 0 && (
           <div className="py-12 text-center text-white/70">
             <div className="text-lg font-heading">No orders found</div>
             <div className="text-sm mt-1">Try adjusting filters or search terms</div>
@@ -288,23 +223,16 @@ const OrdersPage = () => {
       </div>
 
       {/* Legend & helpers */}
-      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 text-xs text-white/70 flex flex-wrap gap-3">
-        <div className="inline-flex items-center gap-2">
-          <span className="chip bg-yellow-500/10 text-yellow-500">In progress</span> Work
-          started • ETA active
-        </div>
-        <div className="inline-flex items-center gap-2">
-          <span className="chip bg-green-500/10 text-green-500">Delivered</span> Awaiting
-          your review
-        </div>
-        <div className="inline-flex items-center gap-2">
-          <span className="chip bg-blue-500/10 text-blue-400">Revisions</span> Changes
-          requested
-        </div>
-        <div className="inline-flex items-center gap-2">
-          <span className="chip bg-red-500/10 text-red-500">Disputed</span> Under Artylst
-          review
-        </div>
+      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 text-xs text-white/70 flex flex-wrap gap-4">
+        {Object.entries(statusOption).map(([key, value]) => (
+          <div
+            key={key}
+            className="inline-flex items-center gap-2 border-[1px] border-white/10 p-2 rounded-[4px]"
+          >
+            <span className={`chip ${value.className}`}>{value.label}</span>{" "}
+            {value.description}
+          </div>
+        ))}
       </div>
 
       <Pagination totalDocs={100} page={1} setPage={() => {}} />
@@ -312,4 +240,4 @@ const OrdersPage = () => {
   );
 };
 
-export default OrdersPage;
+export default BusinessOrder;

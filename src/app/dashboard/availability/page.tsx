@@ -10,6 +10,8 @@ import {
   ShieldCheck,
   Zap,
 } from "lucide-react";
+import { useAppSelector } from "@/hooks";
+import { UnauthorizedMsgBox } from "@/components";
 
 const DayRow = ({ day }: { day: string }) => (
   <div className="flex items-center sm:flex-row flex-col gap-3 sm:gap-0 justify-between p-3 rounded-lg bg-white/5 border border-white/10 text-sm">
@@ -33,8 +35,13 @@ const DayRow = ({ day }: { day: string }) => (
 );
 
 const ArtistAvailabilityPage = () => {
+  const { user } = useAppSelector((state) => state.user);
+  const role = user?.role;
+
   const [open, setOpen] = useState(true);
   const [turnaround, setTurnaround] = useState("5-7d");
+
+  if (role !== "artist") return <UnauthorizedMsgBox />;
 
   return (
     <section className="space-y-6">

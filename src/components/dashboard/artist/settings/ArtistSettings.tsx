@@ -1,6 +1,6 @@
 import { ArtistProfileSettings, ArtistLoginAndSecurity } from "@/components";
 
-const page = () => {
+const ArtistSettings = () => {
   return (
     <section className="space-y-6">
       <div className="max-w-[1440px] mx-auto">
@@ -14,4 +14,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default ArtistSettings;

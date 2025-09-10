@@ -2,3 +2,8 @@ export { default as ArtistDetailsView } from "./ArtistDetailsView";
 export { default as TopArtistView } from "./TopArtistView";
 export { default as FeaturedArtistView } from "./FeaturedArtistView";
 export { default as ArtistBookView } from "./ArtistBookView";
+
+//dashboard
+export { default as OrdersPageView } from "./dashboard/OrderView";
+export { default as SettingsView } from "./dashboard/SettingsView";
+export { default as MessagesView } from "./dashboard/MessagesView";

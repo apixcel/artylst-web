@@ -4,7 +4,7 @@ import {
   BusinessProfileSettings,
 } from "@/components";
 
-const SettingsPage = () => {
+const BusinessSettings = () => {
   return (
     <section className="space-y-6">
       <div className="max-w-[1440px] mx-auto">
@@ -19,4 +19,4 @@ const SettingsPage = () => {
   );
 };
 
-export default SettingsPage;
+export default BusinessSettings;

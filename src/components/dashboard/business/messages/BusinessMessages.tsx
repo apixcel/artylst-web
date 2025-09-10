@@ -144,7 +144,7 @@ const StatusChip = ({ status }: { status: Status }) => {
 // Main component
 // -------------------------------------------------
 
-const MessagesPage = () => {
+const BusinessMessages = () => {
   const [threads] = useState<Thread[]>(THREADS);
   const [activeId, setActiveId] = useState<number>(threads[0]?.id ?? 1);
   const [query, setQuery] = useState("");
@@ -420,4 +420,4 @@ const MessagesPage = () => {
   );
 };
 
-export default MessagesPage;
+export default BusinessMessages;
