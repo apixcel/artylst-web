@@ -2,52 +2,59 @@
 
 import { Dropdown, Pagination } from "@/components"; // keeping your component usage
 import { statusOption } from "@/constants/orderStatus";
+import { useDebounce } from "@/hooks";
 import { DropdownOption } from "@/interface";
 import { useGetMyBusinessOrderQuery } from "@/redux/features/order/order.api";
+import dateUtils from "@/utils/date";
 import { AlertTriangle, Download, Search } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 // --- Filters ---
 const statusOptions: DropdownOption<string>[] = [
-  { label: "All", value: "all" },
-  { label: "In progress", value: "in_progress" },
-  { label: "Delivered", value: "delivered" },
-  { label: "Revisions", value: "revisions" },
-  { label: "Disputed", value: "disputed" },
+  { label: "All", value: "" },
+  ...Object.entries(statusOption).map(([k, v]) => ({ label: v.label, value: k })),
 ];
 
 const platformOptions: DropdownOption<string>[] = [
-  { label: "All Platforms", value: "all" },
+  { label: "All Platforms", value: "" },
   { label: "Spotify", value: "spotify" },
   { label: "Apple Music", value: "apple" },
   { label: "YouTube Music", value: "youtube" },
 ];
 
 const tierOptions: DropdownOption<string>[] = [
-  { label: "All Tiers", value: "all" },
-  { label: "Mini", value: "mini" },
-  { label: "Standard", value: "standard" },
-  { label: "Deluxe", value: "deluxe" },
+  { label: "All Tiers", value: "" },
+  { label: "Mini", value: "Mini" },
+  { label: "Standard", value: "Standard" },
+  { label: "Deluxe", value: "Deluxe" },
 ];
 
 const OrdersPage = () => {
   const [status, setStatus] = useState<DropdownOption<string>>({
     label: "All",
-    value: "all",
+    value: "",
   });
   const [platform, setPlatform] = useState<DropdownOption<string>>({
     label: "All Platforms",
-    value: "all",
+    value: "",
   });
   const [tier, setTier] = useState<DropdownOption<string>>({
     label: "All Tiers",
-    value: "all",
+    value: "",
   });
-  const [q, setQ] = useState("");
+
+  const [page, setPage] = useState(1);
+
+  const [searchTerm, setSearchTerm] = useDebounce("");
   const [selected, setSelected] = useState<string[]>([]);
 
-  const { data } = useGetMyBusinessOrderQuery({});
+  const { data } = useGetMyBusinessOrderQuery({
+    status: status.value,
+    platform: platform.value,
+    tier: tier.value,
+    searchTerm,
+  });
 
   const toggleAll = (checked: boolean) => {
     setSelected(checked ? data?.data?.map((r) => r._id) || [] : []);
@@ -76,13 +83,13 @@ const OrdersPage = () => {
         </div>
         <div className="flex items-center gap-3">
           <button
-            className={`px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-sm inline-flex items-center gap-2 ${anyChecked ? "opacity-100" : "opacity-50 cursor-not-allowed"}`}
+            className={`px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-sm inline-flex items-center gap-2 ${anyChecked ? "opacity-100 cursor-pointer" : "opacity-50 cursor-not-allowed"}`}
             disabled={!anyChecked}
           >
             <Download className="h-4 w-4" /> Export CSV
           </button>
           <button
-            className={`px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-sm inline-flex items-center gap-2 ${anyChecked ? "opacity-100" : "opacity-50 cursor-not-allowed"}`}
+            className={`px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-sm inline-flex items-center gap-2 ${anyChecked ? "opacity-100 cursor-pointer" : "opacity-50 cursor-not-allowed"}`}
             disabled={!anyChecked}
           >
             <AlertTriangle className="h-4 w-4" /> Open Dispute
@@ -123,9 +130,8 @@ const OrdersPage = () => {
           <Search className="h-4 w-4 text-white/60" />
           <input
             className="bg-transparent flex-1 py-2 outline-none"
-            placeholder="Search by order, artist, tier"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
+            placeholder="Search By Order Id/Tier"
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
       </div>
@@ -165,16 +171,18 @@ const OrdersPage = () => {
                     onChange={(e) => toggleOne(row._id, e.target.checked)}
                   />
                 </td>
-                <td className="py-3 pr-6">#{row._id}</td>
+                <td className="py-3 pr-6">#{row.orderId}</td>
                 <td className="py-3 pr-6">
                   {typeof row.artist === "string" ? row.artist : row.artist.fullName}
                 </td>
                 <td className="py-3 pr-6">{row.tier}</td>
                 <td className="py-3 pr-6 capitalize">{row.platform}</td>
                 <td className="py-3 pr-6">${row.price}</td>
-                <td className="py-3 pr-6">{row.eta}</td>
                 <td className="py-3 pr-6">
-                  {row.revision}/{0}
+                  {row.eta ? dateUtils.formatDate(row.eta) : "-"}
+                </td>
+                <td className="py-3 pr-6">
+                  {row.revision}/{row.maxRevision || 0}
                 </td>
                 <td className="py-3 pr-6">
                   <span
@@ -235,7 +243,11 @@ const OrdersPage = () => {
         ))}
       </div>
 
-      <Pagination totalDocs={100} page={1} setPage={() => {}} />
+      <Pagination
+        totalDocs={data?.meta?.totalDoc || 0}
+        page={page}
+        setPage={(page) => setPage(page)}
+      />
     </section>
   );
 };

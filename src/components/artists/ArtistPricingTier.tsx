@@ -1,10 +1,10 @@
 "use server";
 
+import { IArtistPricingTier } from "@/interface";
+import { baseUrl } from "@/redux/api/api";
 import { cn } from "@/utils";
 import { Check } from "lucide-react";
 import Link from "next/link";
-import { IArtistPricingTier } from "@/interface";
-import { baseUrl } from "@/redux/api/api";
 
 const ArtistPricingTier = async ({ userName }: { userName: string }) => {
   const res = await fetch(`${baseUrl}/artist/get-pricing/${userName}`, {
@@ -44,7 +44,7 @@ const ArtistPricingTier = async ({ userName }: { userName: string }) => {
               ))}
             </ul>
             <Link
-              href="/checkout"
+              href={`/artists/${userName}/checkout`}
               className={`btn mt-auto ${tier.order === 2 ? "btn-primary" : "btn-tertiary"} w-full mt-4`}
             >
               Choose {tier.name}

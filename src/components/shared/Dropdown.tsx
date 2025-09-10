@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown, Check } from "lucide-react";
-import { cn } from "@/utils";
 import { DropdownOption, DropdownProps } from "@/interface";
+import { cn } from "@/utils";
+import { Check, ChevronDown } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function Dropdown<TValue = string>({
   value,
@@ -135,7 +135,7 @@ export default function Dropdown<TValue = string>({
         ref={buttonRef}
         type="button"
         className={cn(
-          "flex items-center justify-between gap-2 rounded-[8px] border border-white/10 bg-white/10 px-4 py-[7px] text-sm text-light outline-0 placeholder:text-lighter focus:border-neutral disabled:opacity-50 w-50",
+          "flex items-center justify-between gap-2 rounded-[8px] border border-white/10 bg-white/10 px-4 py-[7px] text-sm text-light outline-0 placeholder:text-lighter focus:border-neutral disabled:opacity-50 w-50 cursor-pointer",
           buttonClassName
         )}
         aria-haspopup="listbox"

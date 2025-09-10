@@ -2,6 +2,8 @@ import { IArtist } from "./artist/artist.interface";
 
 export interface IOrder {
   _id: string;
+  orderId: string;
+  maxRevision: number;
   artist: string | IArtist;
   buyer: string;
   price: number;
