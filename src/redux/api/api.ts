@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { logout, setToken } from "../features/user/user.slice";
+import { logout, setToken } from "../features/auth/user.slice";
 
 export const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
@@ -43,6 +43,6 @@ const baseQueryWithRefreshToken = async (args: any, api: any, extraOptions: any)
 export const api = createApi({
   reducerPath: "baseApi",
   baseQuery: baseQueryWithRefreshToken,
-  tagTypes: ["user", "artist", "meta", "order", "pricingTier"],
+  tagTypes: ["user", "artist", "meta", "order", "pricingTier", "business", "file"],
   endpoints: () => ({}),
 });

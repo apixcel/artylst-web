@@ -12,7 +12,7 @@ import {
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { api } from "./api/api";
-import userReducer from "./features/user/user.slice";
+import userReducer from "./features/auth/user.slice";
 const persistConfig = {
   key: "root",
   storage,

@@ -1,12 +1,12 @@
 "use client";
 
+import { Input } from "@/components";
 import { IQueryMutationErrorResponse } from "@/interface";
-import { useResetPasswordMutation } from "@/redux/features/user/user.api";
+import { useResetPasswordMutation } from "@/redux/features/auth/auth.api";
 import { Form, Formik } from "formik";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import * as Yup from "yup";
-import { Input } from "@/components";
 
 const validationSchema = Yup.object({
   password: Yup.string()

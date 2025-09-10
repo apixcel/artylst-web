@@ -1,14 +1,14 @@
 "use client";
-import { useLoginMutation } from "@/redux/features/user/user.api";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
-import Link from "next/link";
-import { useState } from "react";
-import { IQueryMutationErrorResponse } from "@/interface/queryMutationErrorResponse";
-import { toast } from "sonner";
-import { setUser } from "@/redux/features/user/user.slice";
 import { useAppDispatch } from "@/hooks";
+import { IQueryMutationErrorResponse } from "@/interface/queryMutationErrorResponse";
+import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import { setUser } from "@/redux/features/auth/user.slice";
+import { Form, Formik } from "formik";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+import * as Yup from "yup";
 
 interface FormValues {
   identifier: string;

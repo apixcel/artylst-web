@@ -39,6 +39,24 @@ const artistApi = api.injectEndpoints({
       },
       providesTags: ["artist"],
     }),
+    getWeeklyPopulerArtist: builder.query<{ data: IArtist[] }, undefined>({
+      query: () => {
+        return {
+          url: `/artist/weekly-trending`,
+          method: "GET",
+        };
+      },
+      providesTags: ["artist"],
+    }),
+    getTopViewedArtist: builder.query<{ data: IArtist[] }, undefined>({
+      query: () => {
+        return {
+          url: `/artist/top-viewed`,
+          method: "GET",
+        };
+      },
+      providesTags: ["artist"],
+    }),
   }),
 });
 
@@ -46,4 +64,6 @@ export const {
   useGetAllArtistQuery,
   useGetRecentlyViewedArtistsQuery,
   useGetArtistProfileByUserNameQuery,
+  useGetWeeklyPopulerArtistQuery,
+  useGetTopViewedArtistQuery,
 } = artistApi;

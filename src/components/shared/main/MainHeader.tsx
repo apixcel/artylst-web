@@ -1,14 +1,14 @@
 "use client";
 
-import Link from "next/link";
-import { mainNavLinks } from "@/constants";
-import { Menu } from "lucide-react";
 import { MobileNav, NavSearch, UserDropdown } from "@/components";
-import Image from "next/image";
-import { useState } from "react";
+import { mainNavLinks } from "@/constants";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { logout as logoutAction } from "@/redux/features/user/user.slice";
-import { useLogoutMutation } from "@/redux/features/user/user.api";
+import { useLogoutMutation } from "@/redux/features/auth/auth.api";
+import { logout as logoutAction } from "@/redux/features/auth/user.slice";
+import { Menu } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 const MainHeader = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);

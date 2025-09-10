@@ -1,9 +1,8 @@
 "use server";
 
-import Link from "next/link";
 import { ArtistIntroVideo, ArtistPricingTier, Review } from "@/components";
 import { reviewData } from "@/constants";
-import Image from "next/image";
+import { TiktokIcon } from "@/icons";
 import {
   Check,
   HeadphonesIcon,
@@ -14,10 +13,11 @@ import {
   Star,
   Youtube,
 } from "lucide-react";
-import { TiktokIcon } from "@/icons";
+import Image from "next/image";
+import Link from "next/link";
 
-import { baseUrl } from "@/redux/api/api";
 import { IArtist } from "@/interface";
+import { baseUrl } from "@/redux/api/api";
 
 const ArtistDetailsView = async ({ userName }: { userName: string }) => {
   const res = await fetch(`${baseUrl}/artist/profile/${userName}`, {

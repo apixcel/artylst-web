@@ -1,22 +1,22 @@
 "use client";
 
+import { Form, Formik } from "formik";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import * as Yup from "yup";
-import { Form, Formik } from "formik";
 import { DateObject } from "react-multi-date-picker";
-import Link from "next/link";
 import { toast } from "sonner";
+import * as Yup from "yup";
 
+import { DateSelector, Dropdown, Input } from "@/components";
+import { useAppDispatch, useDebounce } from "@/hooks";
 import { DropdownOption, IQueryMutationErrorResponse } from "@/interface";
-import { Dropdown, DateSelector, Input } from "@/components";
+import { RegisterArtistPayload, TGender } from "@/interface/user.interface";
 import {
   useCheckArtistUserNameMutation,
   useRegisterArtistMutation,
-} from "@/redux/features/user/user.api";
-import { useAppDispatch, useDebounce } from "@/hooks";
-import { setUser } from "@/redux/features/user/user.slice";
-import { RegisterArtistPayload, TGender } from "@/interface/user.interface";
+} from "@/redux/features/auth/auth.api";
+import { setUser } from "@/redux/features/auth/user.slice";
 
 const genderOptions: DropdownOption<TGender>[] = [
   { label: "He/him", value: "male" },

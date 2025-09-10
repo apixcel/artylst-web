@@ -1,11 +1,11 @@
 "use client";
 
 import { UserDropdown } from "@/components";
-import { AlignJustify } from "lucide-react";
-import { useLogoutMutation } from "@/redux/features/user/user.api";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { logout as logoutAction } from "@/redux/features/user/user.slice";
 import { IUser } from "@/interface/user.interface";
+import { useLogoutMutation } from "@/redux/features/auth/auth.api";
+import { logout as logoutAction } from "@/redux/features/auth/user.slice";
+import { AlignJustify } from "lucide-react";
 
 const ArtistDeskTopBar = ({
   isMobileMenuOpen,

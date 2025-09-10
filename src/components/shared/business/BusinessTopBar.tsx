@@ -1,8 +1,8 @@
 import { UserDropdown } from "@/components";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { IUser } from "@/interface";
-import { useLogoutMutation } from "@/redux/features/user/user.api";
-import { logout as logoutAction } from "@/redux/features/user/user.slice";
+import { useLogoutMutation } from "@/redux/features/auth/auth.api";
+import { logout as logoutAction } from "@/redux/features/auth/user.slice";
 import { AlignJustify } from "lucide-react";
 
 const BusinessTopBar = ({
