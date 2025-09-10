@@ -1,3 +1,4 @@
+import { ISession } from "@/interface/session.interface";
 import {
   IUser,
   RegisterArtistPayload,
@@ -83,6 +84,39 @@ const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+    changePassword: builder.mutation<
+      { data: null },
+      { oldPassword: string; password: string }
+    >({
+      query: (data) => ({
+        url: "/auth/change-password",
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["user"],
+    }),
+
+    getLoggedInSessions: builder.query<{ data: ISession[] }, undefined>({
+      query: () => ({
+        url: "/auth/session",
+        method: "GET",
+      }),
+      providesTags: ["user"],
+    }),
+    revokeAllSession: builder.mutation<{ data: null }, undefined>({
+      query: () => ({
+        url: "/auth/session/revoke",
+        method: "POST",
+      }),
+      invalidatesTags: ["user"],
+    }),
+    revokeSessionBySessionId: builder.mutation<{ data: null }, string>({
+      query: (sessionId) => ({
+        url: `/auth/session/revoke/${sessionId}`,
+        method: "POST",
+      }),
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 export const {
@@ -95,4 +129,8 @@ export const {
   useForgotPasswordMutation,
   useRegisterBusinessMutation,
   useResetPasswordMutation,
+  useGetLoggedInSessionsQuery,
+  useRevokeAllSessionMutation,
+  useRevokeSessionBySessionIdMutation,
+  useChangePasswordMutation,
 } = userApi;

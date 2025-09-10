@@ -1,14 +1,15 @@
 "use client";
-import { useLoginMutation } from "@/redux/features/user/user.api";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
-import Link from "next/link";
-import { useState } from "react";
-import { IQueryMutationErrorResponse } from "@/interface/queryMutationErrorResponse";
-import { toast } from "sonner";
-import { setUser } from "@/redux/features/user/user.slice";
+import { Input } from "@/components";
 import { useAppDispatch } from "@/hooks";
+import { IQueryMutationErrorResponse } from "@/interface/queryMutationErrorResponse";
+import { useLoginMutation } from "@/redux/features/auth/auth.api";
+import { setUser } from "@/redux/features/auth/user.slice";
+import { Form, Formik } from "formik";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
+import * as Yup from "yup";
 
 interface FormValues {
   identifier: string;
@@ -105,7 +106,7 @@ const Login = () => {
             <label className="block">
               <span className="text-sm text-white/70">Password</span>
               <div className="relative mt-1">
-                <input
+                <Input
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
@@ -130,14 +131,6 @@ const Login = () => {
                     d="M7 10V8a5 5 0 1 1 10 0v2m-9 0h8a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2Z"
                   />
                 </svg>
-                {/* show/hide toggle */}
-                <button
-                  type="button"
-                  onClick={() => setShowPw((s) => !s)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-white/70 hover:text-white"
-                >
-                  {showPw ? "Hide" : "Show"}
-                </button>
               </div>
               {touched.password && errors.password && (
                 <p className="text-red-400 text-sm mt-1">{errors.password}</p>
@@ -146,10 +139,10 @@ const Login = () => {
 
             {/* Extras row */}
             <div className="flex items-center justify-between">
-              <label className="text-xs text-white/70 inline-flex items-center gap-2 select-none">
+              <label className="text-muted inline-flex items-center gap-2 select-none">
                 <input
                   type="checkbox"
-                  className="accent-brand-4 bg-white/10 border-white/20 rounded"
+                  className="accent-brand-4 w-3.5 h-3.5 bg-light border-white/20 rounded"
                 />
                 Remember me
               </label>

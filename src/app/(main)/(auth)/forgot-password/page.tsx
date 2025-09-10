@@ -2,7 +2,7 @@
 
 import { Input } from "@/components";
 import { IQueryMutationErrorResponse } from "@/interface";
-import { useForgotPasswordMutation } from "@/redux/features/user/user.api";
+import { useForgotPasswordMutation } from "@/redux/features/auth/auth.api";
 import { Form, Formik, FormikHelpers } from "formik";
 import { toast } from "sonner";
 import * as Yup from "yup";

@@ -1,20 +1,20 @@
 "use client";
 
+import { Form, Formik } from "formik";
 import Link from "next/link";
 import { useState } from "react";
-import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
 // External UI
 import { Dropdown, Input } from "@/components";
 import { DropdownOption, IQueryMutationErrorResponse } from "@/interface";
 
-import { useRegisterBusinessMutation } from "@/redux/features/user/user.api";
-import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/hooks";
-import { toast } from "sonner";
-import { setUser } from "@/redux/features/user/user.slice";
+import { useRegisterBusinessMutation } from "@/redux/features/auth/auth.api";
+import { setUser } from "@/redux/features/auth/user.slice";
 import { useGetGenresQuery, useGetVibesQuery } from "@/redux/features/meta/meta.api";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 /**
  * Types

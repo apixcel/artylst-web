@@ -1,16 +1,16 @@
 "use client";
 
 import { Input } from "@/components";
+import { useAppSelector } from "@/hooks";
+import { IQueryMutationErrorResponse } from "@/interface";
 import {
   useSendVerificationEmailMutation,
   useVerifyEmailMutation,
-} from "@/redux/features/user/user.api";
+} from "@/redux/features/auth/auth.api";
+import dateUtils from "@/utils/date";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { IQueryMutationErrorResponse } from "@/interface";
-import dateUtils from "@/utils/date";
-import { useAppSelector } from "@/hooks";
 
 const ArtistVerificationPage = () => {
   const [sendVerificationEmail] = useSendVerificationEmailMutation();

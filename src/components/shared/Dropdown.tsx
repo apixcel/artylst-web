@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown, Check } from "lucide-react";
-import { cn } from "@/utils";
 import { DropdownOption, DropdownProps } from "@/interface";
+import { cn } from "@/utils";
+import { Check, ChevronDown } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 export default function Dropdown<TValue = string>({
   value,
@@ -16,6 +16,7 @@ export default function Dropdown<TValue = string>({
   panelClassName,
   optionClassName,
   matchButtonWidth = true,
+  onInputChange,
   renderOption,
 }: DropdownProps<TValue>) {
   const [open, setOpen] = useState(false);
@@ -24,9 +25,11 @@ export default function Dropdown<TValue = string>({
   const listRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState<number>(-1);
 
+  const [selected, setSelected] = useState<DropdownOption<TValue> | null>(value || null);
+
   const selectedIndex = useMemo(
-    () => (value ? options.findIndex((o) => o.value === value.value) : -1),
-    [value, options]
+    () => (selected ? options.findIndex((o) => o.value === selected.value) : -1),
+    [selected, options]
   );
 
   // Click outside to close
@@ -59,10 +62,16 @@ export default function Dropdown<TValue = string>({
     el?.scrollIntoView({ block: "nearest" });
   }, [activeIndex]);
 
-  const toggle = () => !disabled && setOpen((p) => !p);
+  const toggle = () => {
+    onInputChange?.("");
+
+    if (!disabled) {
+      setOpen((p) => !p);
+    }
+  };
   const close = () => setOpen(false);
 
-  const visibleLabel = value?.label ?? placeholder;
+  const visibleLabel = selected?.label ?? placeholder;
 
   // Keyboard interactions on the button
   const onButtonKeyDown = (e: React.KeyboardEvent) => {
@@ -126,6 +135,7 @@ export default function Dropdown<TValue = string>({
   function select(opt: DropdownOption<TValue>) {
     onChange(opt);
     close();
+    setSelected(opt);
     buttonRef.current?.focus();
   }
 
@@ -135,7 +145,7 @@ export default function Dropdown<TValue = string>({
         ref={buttonRef}
         type="button"
         className={cn(
-          "flex items-center justify-between gap-2 rounded-[8px] border border-white/10 bg-white/10 px-4 py-[7px] text-sm text-light outline-0 placeholder:text-lighter focus:border-neutral disabled:opacity-50 w-50",
+          "flex items-center justify-between gap-2 rounded-[8px] border border-white/10 bg-white/10 px-4 py-[7px] text-sm text-light outline-0 placeholder:text-lighter focus:border-neutral disabled:opacity-50 w-50 cursor-pointer",
           buttonClassName
         )}
         aria-haspopup="listbox"
@@ -145,7 +155,7 @@ export default function Dropdown<TValue = string>({
         onKeyDown={onButtonKeyDown}
         disabled={!!disabled}
       >
-        <span className={cn(!value && "text-lighter")}>{visibleLabel}</span>
+        <span className={cn(!selected && "text-lighter")}>{visibleLabel}</span>
         <ChevronDown className="h-4 w-4" />
       </button>
 
@@ -169,9 +179,23 @@ export default function Dropdown<TValue = string>({
               : undefined,
           }}
         >
-          <div className="flex flex-col gap-1">
+          {onInputChange ? (
+            <>
+              <input
+                type="search"
+                placeholder="Search..."
+                className="w-full bg-white/10 rounded-lg px-3 py-2 outline-none"
+                onChange={(e) => onInputChange(e.target.value)}
+              />
+
+              <span className="my-2 bg-white/20 w-full h-[1px] block" />
+            </>
+          ) : (
+            ""
+          )}
+          <div className="flex flex-col gap-1 mt-1">
             {options.map((opt, i) => {
-              const isSelected = value?.value === opt.value;
+              const isSelected = selected?.value === opt.value;
               return (
                 <button
                   key={/* (opt.value as unknown as string) ?? */ i}
@@ -181,7 +205,7 @@ export default function Dropdown<TValue = string>({
                   data-index={i}
                   disabled={opt.disabled}
                   className={cn(
-                    "flex w-full items-center justify-between gap-2 rounded-[8px] px-3 py-1 text-left text-sm hover:bg-white/10 focus:bg-white/10 focus:outline-none",
+                    "flex w-full items-center justify-between gap-2 rounded-[8px] px-3 py-1 text-left text-sm hover:bg-white/10 focus:bg-white/10 focus:outline-none cursor-pointer",
                     isSelected && "bg-white/10",
                     opt.disabled && "opacity-50 cursor-not-allowed",
                     optionClassName

@@ -1,14 +1,14 @@
 "use client";
 
-import Link from "next/link";
-import { mainNavLinks } from "@/constants";
-import { Menu } from "lucide-react";
 import { MobileNav, NavSearch, UserDropdown } from "@/components";
-import Image from "next/image";
-import { useState } from "react";
+import { mainNavLinks } from "@/constants";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { logout as logoutAction } from "@/redux/features/user/user.slice";
-import { useLogoutMutation } from "@/redux/features/user/user.api";
+import { useLogoutMutation } from "@/redux/features/auth/auth.api";
+import { logout as logoutAction } from "@/redux/features/auth/user.slice";
+import { Menu } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 const MainHeader = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
@@ -91,7 +91,14 @@ const MainHeader = () => {
 
             {/* login */}
             {user ? (
-              <UserDropdown user={user} onLogout={handleLogout} />
+              <UserDropdown
+                user={user}
+                onLogout={handleLogout}
+                items={[
+                  { type: "link", label: "Profile", href: "/dashboard/profile" },
+                  { type: "link", label: "Settings", href: "/dashboard/settings" },
+                ]}
+              />
             ) : (
               <Link
                 className="text-light hover:bg-brand-2/10 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"

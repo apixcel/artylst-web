@@ -5,8 +5,9 @@ export type DropdownOption<TValue = string> = {
 };
 
 export type DropdownProps<TValue = string> = {
+  onInputChange?: (value: string) => void;
   /** Current selected option (controlled) */
-  value: DropdownOption<TValue> | null;
+  value?: DropdownOption<TValue> | null;
   /** Available options */
   options: DropdownOption<TValue>[];
   /** Called when an option is chosen */

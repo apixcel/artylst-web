@@ -20,6 +20,7 @@ export type IArtist = {
   introVideo: string;
   introThumbnail: string;
   // oldPrice?: number;
+  ordersCount?: number;
   eta: number;
   slotsLeft: number;
   avatar: string;

@@ -1,6 +1,116 @@
+"use client";
+import { businessAvatarFallback } from "@/constants/fallBack";
+import { IBusinessProfile } from "@/interface/business.interface";
+import {
+  useGetBusinessPrfileQuery,
+  useUpdateBusinessPrfileMutation,
+} from "@/redux/features/business/business.api";
+import { useUploadSingleFileMutation } from "@/redux/features/upload/upload.api";
+import { UploadIcon } from "lucide-react";
 import Image from "next/image";
+import { useMemo, useRef, useState } from "react";
+import BusinessProfileSettingsSkeleton from "./BusinessProfileSettingsSkeleton";
+
+import { FormikHelpers, useFormik } from "formik";
+import { toast } from "sonner";
+import * as Yup from "yup";
+
+const validationSchema = Yup.object({
+  fullName: Yup.string()
+    .trim()
+    .min(2, "Too short")
+    .max(80, "Too long")
+    .required("Required"),
+  businessName: Yup.string()
+    .trim()
+    .min(2, "Too short")
+    .max(120, "Too long")
+    .required("Required"),
+});
 
 const BusinessProfileSettings = () => {
+  const [isEditMode, setIsEditMode] = useState(false);
+  const { data, isLoading } = useGetBusinessPrfileQuery(undefined);
+  const profile = data?.data as IBusinessProfile | undefined;
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [profilePhotoFile, setProfilePhotoFile] = useState<File | null>(null);
+
+  const [uploadFile, { isLoading: isUploading }] = useUploadSingleFileMutation();
+  const [updateProfile, { isLoading: isUpdating }] = useUpdateBusinessPrfileMutation();
+
+  const initialValues = useMemo(
+    () => ({
+      fullName: profile?.fullName || "",
+      businessName: profile?.businessName || "",
+      email: profile?.email || "",
+    }),
+    [profile?.fullName, profile?.businessName, profile?.email]
+  );
+
+  const handleUpdateProfile = async (
+    values: typeof initialValues,
+    { setSubmitting, resetForm }: FormikHelpers<typeof initialValues>
+  ) => {
+    try {
+      if (isUpdating || isUploading) return;
+
+      const payload: Partial<IBusinessProfile> = {};
+
+      // only include changed text fields
+      if (values.fullName !== profile?.fullName)
+        payload.fullName = values.fullName.trim();
+      if (values.businessName !== profile?.businessName)
+        payload.businessName = values.businessName.trim();
+
+      // avatar change allowed even if not in edit mode
+      if (profilePhotoFile) {
+        const formData = new FormData();
+        formData.append("file", profilePhotoFile);
+        const res = await uploadFile(formData);
+        if (res?.data?.data) {
+          payload.avatar = res.data.data;
+        }
+      }
+
+      // nothing changed?
+      if (
+        !("fullName" in payload) &&
+        !("businessName" in payload) &&
+        !("avatar" in payload)
+      ) {
+        toast.error("Nothing changed");
+        setIsEditMode(false);
+        setSubmitting(false);
+        return;
+      }
+
+      await updateProfile(payload);
+      setIsEditMode(false);
+      setProfilePhotoFile(null);
+      resetForm({ values: { ...values } });
+    } catch {
+      // optional: toast.error("Failed to update profile");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const formik = useFormik({
+    enableReinitialize: true,
+    initialValues,
+    validationSchema,
+    onSubmit: handleUpdateProfile,
+  });
+
+  // Enable save if either form is dirty OR a new photo is selected
+  const nothingChanged = !formik.dirty && !profilePhotoFile;
+
+  const saveDisabled =
+    nothingChanged || !formik.isValid || formik.isSubmitting || isUploading || isUpdating;
+
+  if (isLoading) return <BusinessProfileSettingsSkeleton />;
+
   return (
     <div>
       {/* profile photo */}
@@ -9,25 +119,66 @@ const BusinessProfileSettings = () => {
 
         <div className="flex items-center justify-between gap-4 mt-4 flex-col sm:flex-row">
           {/* avatar */}
-          <div className="w-20 h-20 rounded-full bg-white/10 border border-white/10 overflow-hidden">
+          <div className="w-20 h-20 rounded-full bg-white/10 border border-white/10 overflow-hidden group/avatar relative">
             <Image
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+              src={
+                profilePhotoFile
+                  ? URL.createObjectURL(profilePhotoFile)
+                  : profile?.avatar || businessAvatarFallback
+              }
               alt="avatar"
               width={80}
               height={80}
+              className="w-full h-full object-cover"
             />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              className="w-0 h-0 overflow-hidden absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] bg-black/50 flex items-center justify-center group-hover/avatar:w-full group-hover/avatar:h-full duration-[0.1s] cursor-pointer rounded-full"
+              aria-label="Change Photo"
+            >
+              <UploadIcon className="w-6 h-6 text-white" />
+            </button>
           </div>
+
+          <input
+            type="file"
+            ref={fileInputRef}
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => {
+              setProfilePhotoFile(e.target.files?.[0] || null);
+            }}
+          />
 
           {/* remove and change photo */}
           <div className="flex gap-2 items-center">
-            <button className="btn hover:text-muted">Remove Photo</button>
-            <button className="btn btn-sm btn-primary">Change Photo</button>
+            {profilePhotoFile ? (
+              <button
+                type="button"
+                className="btn hover:text-muted"
+                onClick={() => {
+                  setProfilePhotoFile(null);
+                }}
+              >
+                Remove Photo
+              </button>
+            ) : null}
+            <button
+              type="button"
+              className="btn btn-sm btn-primary cursor-pointer"
+              onClick={() => fileInputRef.current?.click()}
+            >
+              Change Photo
+            </button>
           </div>
         </div>
       </div>
 
-      {/* name and company name */}
-      <div className="flex flex-col gap-4 border-b border-white/10 pb-4 mb-4">
+      <form
+        onSubmit={formik.handleSubmit}
+        className="flex flex-col gap-4 border-b border-white/10 pb-4 mb-4"
+      >
         {/* name */}
         <div className="flex justify-between items-start gap-10">
           <div className="flex flex-col gap-2 flex-1">
@@ -36,11 +187,26 @@ const BusinessProfileSettings = () => {
               <input
                 className="w-full bg-white/10 rounded-lg px-3 py-2"
                 placeholder="Full name"
-                readOnly
-                value={"Aida Kirakosyan"}
+                id="fullName"
+                readOnly={!isEditMode}
+                {...formik.getFieldProps("fullName")}
               />
-              <button className="btn btn-primary">Edit</button>
+              {!isEditMode ? (
+                <button
+                  type="button"
+                  className="btn btn-primary cursor-pointer"
+                  onClick={() => {
+                    setIsEditMode(true);
+                    setTimeout(() => document.getElementById("fullName")?.focus(), 0);
+                  }}
+                >
+                  Edit
+                </button>
+              ) : null}
             </div>
+            {formik.touched.fullName && formik.errors.fullName ? (
+              <p className="text-red-400 text-sm">{formik.errors.fullName}</p>
+            ) : null}
           </div>
         </div>
 
@@ -50,17 +216,32 @@ const BusinessProfileSettings = () => {
             <h3>Company Name</h3>
             <div className="flex items-center gap-4 justify-between w-full">
               <input
+                id="businessName"
                 className="w-full bg-white/10 rounded-lg px-3 py-2"
                 placeholder="Company name"
-                value={"Aida Kirakosyan Company"}
-                readOnly
+                readOnly={!isEditMode}
+                {...formik.getFieldProps("businessName")}
               />
-              <button className="btn btn-primary">Edit</button>
+              {!isEditMode ? (
+                <button
+                  type="button"
+                  className="btn btn-primary cursor-pointer"
+                  onClick={() => {
+                    setIsEditMode(true);
+                    setTimeout(() => document.getElementById("businessName")?.focus(), 0);
+                  }}
+                >
+                  Edit
+                </button>
+              ) : null}
             </div>
+            {formik.touched.businessName && formik.errors.businessName ? (
+              <p className="text-red-400 text-sm">{formik.errors.businessName}</p>
+            ) : null}
           </div>
         </div>
 
-        {/* email */}
+        {/* email (read-only) */}
         <div className="flex justify-between items-start gap-10">
           <div className="flex flex-col gap-2 flex-1">
             <h3>Email</h3>
@@ -68,14 +249,39 @@ const BusinessProfileSettings = () => {
               <input
                 className="w-full bg-white/10 rounded-lg px-3 py-2"
                 placeholder="Email"
-                value={"aida@gmail.com"}
+                value={formik.values.email}
                 readOnly
               />
-              <button className="btn btn-primary">Edit</button>
             </div>
           </div>
         </div>
-      </div>
+
+        {/* show action row if user is editing OR they picked a photo */}
+        {isEditMode || profilePhotoFile ? (
+          <div className="flex gap-2 mt-4">
+            <button
+              type="button"
+              className="btn btn-ghost"
+              onClick={() => {
+                setIsEditMode(false);
+                formik.resetForm();
+                setProfilePhotoFile(null);
+              }}
+            >
+              Cancel Changes
+            </button>
+            <button
+              type="submit"
+              className="btn btn-primary disabled:opacity-60 disabled:cursor-not-allowed"
+              disabled={saveDisabled}
+            >
+              {isUploading || isUpdating || formik.isSubmitting
+                ? "Saving..."
+                : "Save Changes"}
+            </button>
+          </div>
+        ) : null}
+      </form>
     </div>
   );
 };

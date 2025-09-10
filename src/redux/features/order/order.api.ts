@@ -1,3 +1,4 @@
+import { IMeta } from "@/interface";
 import { IOrder } from "@/interface/order.interface";
 import { api } from "@/redux/api/api";
 import { generateQueryParams } from "@/utils";
@@ -15,7 +16,7 @@ const orderApi = api.injectEndpoints({
       invalidatesTags: ["order"],
     }),
     getMyBusinessOrder: builder.query<
-      { data: IOrder[] },
+      { data: IOrder[]; meta: IMeta },
       Record<string, string | number>
     >({
       query: (query) => {
