@@ -1,8 +1,16 @@
+"use client";
+
 import Link from "next/link";
 import { DollarSign, MessageSquare, ShieldCheck, Video } from "lucide-react";
-import { DashboardArtistDeliverStepProgress } from "@/components";
+import { DashboardArtistDeliverStepProgress, UnauthorizedMsgBox } from "@/components";
+import { useAppSelector } from "@/hooks";
 
 const ArtistDeliverPage = () => {
+  const { user } = useAppSelector((state) => state.user);
+  const role = user?.role;
+
+  if (role !== "artist") return <UnauthorizedMsgBox />;
+
   return (
     <section className="space-y-6">
       <h1 className="text-2xl md:text-3xl">Deliver • Order #2341</h1>

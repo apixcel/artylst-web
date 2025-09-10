@@ -1,6 +1,7 @@
 "use client";
 
-import { Input } from "@/components";
+import { Input, UnauthorizedMsgBox } from "@/components";
+import { useAppSelector } from "@/hooks";
 import React, { useMemo, useState } from "react";
 
 const FEATURES = [
@@ -155,6 +156,9 @@ const SummaryRow = ({ label, value }: { label: string; value: string }) => (
 );
 
 const JoinAsFeaturedPage = () => {
+  const { user } = useAppSelector((state) => state.user);
+  const role = user?.role;
+
   const [plan, setPlan] = useState("standard");
   const [agree, setAgree] = useState(false);
   const isFeatured = plan === "featured";
@@ -190,6 +194,8 @@ const JoinAsFeaturedPage = () => {
       alert("Something went wrong. Please try again.");
     }
   }
+
+  if (role !== "artist") return <UnauthorizedMsgBox />;
 
   return (
     <div className="px-4 ">

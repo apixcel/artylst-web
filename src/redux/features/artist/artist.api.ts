@@ -1,4 +1,4 @@
-import { IArtist, IArtistPricingTier, IMeta } from "@/interface";
+import { IArtist, IMeta } from "@/interface";
 import { api } from "@/redux/api/api";
 import { generateQueryParams } from "@/utils";
 
@@ -39,56 +39,11 @@ const artistApi = api.injectEndpoints({
       },
       providesTags: ["artist"],
     }),
-    createPricingTier: builder.mutation<
-      {
-        data: Pick<
-          IArtistPricingTier,
-          "name" | "songs" | "deliveryTime" | "priceUsd" | "description" | "revisionCount"
-        >;
-      },
-      Record<string, string | number>
-    >({
-      query: (body) => ({
-        url: `/artist/create-pricing`,
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: ["artist"],
-    }),
-    updatePricingTier: builder.mutation<
-      { data: IArtistPricingTier },
-      Record<string, string | number>
-    >({
-      query: (body) => ({
-        url: `/artist/pricing-tier`,
-        method: "PATCH",
-        body,
-      }),
-      invalidatesTags: ["artist"],
-    }),
-    getMyPricingTier: builder.query<{ data: IArtistPricingTier[] }, void>({
-      query: () => ({
-        url: `/artist/get-pricing`,
-        method: "GET",
-      }),
-      providesTags: ["artist"],
-    }),
-    getPricingTierByUserName: builder.query<{ data: IArtistPricingTier[] }, string>({
-      query: (userName) => ({
-        url: `/artist/get-pricing/${userName}`,
-        method: "GET",
-      }),
-      providesTags: ["artist"],
-    }),
   }),
 });
 
 export const {
   useGetAllArtistQuery,
-  useCreatePricingTierMutation,
-  useUpdatePricingTierMutation,
-  useGetMyPricingTierQuery,
   useGetRecentlyViewedArtistsQuery,
   useGetArtistProfileByUserNameQuery,
-  useGetPricingTierByUserNameQuery,
 } = artistApi;

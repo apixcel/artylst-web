@@ -20,8 +20,9 @@ import {
   Youtube,
 } from "lucide-react";
 import { TiktokIcon } from "@/icons";
-import { MultiDropdown } from "@/components";
+import { MultiDropdown, UnauthorizedMsgBox } from "@/components";
 import { DropdownOption } from "@/interface";
+import { useAppSelector } from "@/hooks";
 
 const genresOptions: DropdownOption<string>[] = [
   { label: "Hip‑hop", value: "hip-hop" },
@@ -37,12 +38,17 @@ const Chip = ({ children }: { children: React.ReactNode }) => (
 );
 
 const ArtistProfilePage = () => {
+  const { user } = useAppSelector((state) => state.user);
+  const role = user?.role;
+
   const [displayName, setDisplayName] = useState("Sloane Rivers");
   const [handle, setHandle] = useState("@sloane");
   const [bio, setBio] = useState("Grammy‑winning producer...");
   const publicUrl = `https://lystn.app/${handle.replace("@", "")}`;
 
   const [genres, setGenres] = useState<DropdownOption<string>[]>([]);
+
+  if (role !== "artist") return <UnauthorizedMsgBox />;
 
   return (
     <section className="space-y-6">

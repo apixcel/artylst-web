@@ -1,7 +1,7 @@
 "use client";
 
 import { IArtistPricingTier } from "@/interface";
-import { useGetPricingTierByUserNameQuery } from "@/redux/features/artist/artist.api";
+import { useGetPricingTierByUserNameQuery } from "@/redux/features/artist/pricingTier.api";
 import { cn } from "@/utils";
 import { ErrorMessage } from "formik";
 import { Check } from "lucide-react";
@@ -13,7 +13,7 @@ type Props = {
 };
 
 const CheckoutTier = ({ selected, onSelect, userName }: Props) => {
-  const { data } = useGetPricingTierByUserNameQuery(userName);
+  const { data } = useGetPricingTierByUserNameQuery({ userName });
   return (
     <div className="card p-5 bg-brand-1/10">
       <h2 className="mb-[20px]">Choose a tier</h2>

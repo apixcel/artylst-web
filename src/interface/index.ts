@@ -10,3 +10,6 @@ export * from "./user.interface";
 // artist
 export * from "./artist/artist.interface";
 export * from "./artist/artistPricingTier.interface";
+
+// availability
+export * from "./availability/availability.interface";

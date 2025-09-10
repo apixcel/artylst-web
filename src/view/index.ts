@@ -7,3 +7,7 @@ export { default as ArtistBookView } from "./ArtistBookView";
 export { default as OrdersPageView } from "./dashboard/OrderView";
 export { default as SettingsView } from "./dashboard/SettingsView";
 export { default as MessagesView } from "./dashboard/MessagesView";
+export { default as DashboardHomeView } from "./dashboard/DashboardHomeView";
+
+//dashboard/artist
+export { default as ArtistAvailabilityView } from "./dashboard/artist/ArtistAvailabilityView";

@@ -1,9 +1,10 @@
 "use client";
 
 import { DropdownOption } from "@/interface";
-import { Dropdown } from "@/components";
+import { Dropdown, UnauthorizedMsgBox } from "@/components";
 import { CheckCircle2, ShieldCheck, XCircle } from "lucide-react";
 import { useState } from "react";
+import { useAppSelector } from "@/hooks";
 
 const streamingServices: DropdownOption<string>[] = [
   { label: "Spotify", value: "spotify" },
@@ -55,9 +56,14 @@ const ServiceCard = ({
 );
 
 const ArtistStreamingPage = () => {
+  const { user } = useAppSelector((state) => state.user);
+  const role = user?.role;
+
   const [defaultPlatform, setDefaultPlatform] = useState<DropdownOption<string>>(
     streamingServices[0]
   );
+
+  if (role !== "artist") return <UnauthorizedMsgBox />;
 
   return (
     <section className="space-y-6">

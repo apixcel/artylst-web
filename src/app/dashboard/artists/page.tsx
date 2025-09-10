@@ -13,10 +13,11 @@ import {
   ChevronLeft,
 } from "lucide-react";
 import { DropdownOption } from "@/interface/dropdown.interface";
-import { Dropdown } from "@/components";
+import { Dropdown, UnauthorizedMsgBox } from "@/components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { FreeMode, Navigation } from "swiper/modules";
 import Image from "next/image";
+import { useAppSelector } from "@/hooks";
 
 const Chip = ({
   children,
@@ -172,6 +173,8 @@ const ArtistCard = ({ a }: { a: Artist }) => (
 );
 
 export default function BusinessArtistsPage() {
+  const { user } = useAppSelector((state) => state.user);
+  const role = user?.role;
   const [q, setQ] = useState("");
   const [vibe, setVibe] = useState("All");
   const [platform, setPlatform] = useState<(typeof PLATFORMS)[number]>("All");
@@ -206,6 +209,8 @@ export default function BusinessArtistsPage() {
       )}
     </div>
   );
+
+  if (role !== "business") return <UnauthorizedMsgBox />;
 
   return (
     <section className="p-6 space-y-6">

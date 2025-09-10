@@ -1,7 +1,7 @@
-import React from "react";
+import { DashboardHomeView } from "@/view";
 
-const page = () => {
-  return <div>page</div>;
+const DashboardHomePage = () => {
+  return <DashboardHomeView />;
 };
 
-export default page;
+export default DashboardHomePage;

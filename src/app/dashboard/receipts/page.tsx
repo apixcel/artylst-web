@@ -3,9 +3,10 @@
 import React, { useMemo, useState, useCallback, useEffect } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { Pagination } from "@/components";
+import { Pagination, UnauthorizedMsgBox } from "@/components";
 import { Calendar, Download, FileText, Search, X } from "lucide-react";
 import type { DateObject } from "react-multi-date-picker";
+import { useAppSelector } from "@/hooks";
 
 const DatePicker = dynamic(() => import("react-multi-date-picker"), { ssr: false });
 
@@ -216,6 +217,9 @@ const ReceiptDrawer = ({ row, onClose }: { row: Row | null; onClose: () => void 
 };
 
 const ReceiptsPage = () => {
+  const { user } = useAppSelector((state) => state.user);
+  const role = user?.role;
+
   const [q, setQ] = useState("");
   /** keep a clean normalized range in React state */
   const [range, setRange] = useState<Range>(null);
@@ -248,6 +252,8 @@ const ReceiptsPage = () => {
     }
     return { gross, fees, net: gross - fees };
   }, [filtered]);
+
+  if (role !== "business") return <UnauthorizedMsgBox />;
 
   return (
     <section className="space-y-6">

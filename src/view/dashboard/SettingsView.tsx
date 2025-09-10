@@ -1,3 +1,5 @@
+"use client";
+
 import { ArtistSettings, BusinessSettings } from "@/components";
 import { useAppSelector } from "@/hooks";
 

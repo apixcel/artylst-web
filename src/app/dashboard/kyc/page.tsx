@@ -1,3 +1,5 @@
+"use client";
+
 import {
   CheckCircle2,
   XCircle,
@@ -8,8 +10,15 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
+import { useAppSelector } from "@/hooks";
+import { UnauthorizedMsgBox } from "@/components";
 
 const ArtistKycPage = () => {
+  const { user } = useAppSelector((state) => state.user);
+  const role = user?.role;
+
+  if (role !== "artist") return <UnauthorizedMsgBox />;
+
   return (
     <section className="space-y-6">
       <h1 className="dashboard-page-title">KYC &amp; Payout</h1>

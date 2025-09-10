@@ -11,10 +11,14 @@ import {
   ResponsiveContainer,
   CartesianGrid,
 } from "recharts";
-import { Dropdown } from "@/components";
+import { Dropdown, UnauthorizedMsgBox } from "@/components";
 import { DropdownOption } from "@/interface";
+import { useAppSelector } from "@/hooks";
 
 const ArtistEarningsPage = () => {
+  const { user } = useAppSelector((state) => state.user);
+  const role = user?.role;
+
   const [range, setRange] = useState("30d");
 
   const data = [
@@ -30,6 +34,8 @@ const ArtistEarningsPage = () => {
     { label: "Last 30 days", value: "30d" },
     { label: "Year to date", value: "ytd" },
   ];
+
+  if (role !== "artist") return <UnauthorizedMsgBox />;
 
   return (
     <section className="space-y-6">
