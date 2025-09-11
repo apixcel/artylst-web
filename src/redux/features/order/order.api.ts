@@ -28,7 +28,24 @@ const orderApi = api.injectEndpoints({
       },
       providesTags: ["order"],
     }),
+    getMyArtistOrders: builder.query<
+      { data: IOrder[]; meta: IMeta },
+      Record<string, string | number>
+    >({
+      query: (query) => {
+        const queryString = generateQueryParams(query);
+        return {
+          url: `/order/my/artist?${queryString}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["order"],
+    }),
   }),
 });
 
-export const { useCreateBusinessOrderMutation, useGetMyBusinessOrderQuery } = orderApi;
+export const {
+  useCreateBusinessOrderMutation,
+  useGetMyBusinessOrderQuery,
+  useGetMyArtistOrdersQuery,
+} = orderApi;

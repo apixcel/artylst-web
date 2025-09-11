@@ -81,6 +81,20 @@ const artistApi = api.injectEndpoints({
       },
       providesTags: ["artist"],
     }),
+    becomeFeatured: builder.mutation<
+      {
+        data: null;
+      },
+      undefined
+    >({
+      query: () => {
+        return {
+          url: `/artist/join-as-featured`,
+          method: "POST",
+        };
+      },
+      invalidatesTags: ["artist"],
+    }),
   }),
 });
 
@@ -91,4 +105,5 @@ export const {
   useGetWeeklyPopulerArtistQuery,
   useGetTopViewedArtistQuery,
   useAmIFeaturedQuery,
+  useBecomeFeaturedMutation,
 } = artistApi;
