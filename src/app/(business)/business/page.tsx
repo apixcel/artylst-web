@@ -1,19 +1,11 @@
-import {
-  // BusinessBrandSlider,
-  BusinessHero,
-  BusinessSteps,
-  BusinessUseCase,
-} from "@/components";
+import { BusinessHomeView } from "@/view";
+
+export const metadata = {
+  title: "Business | ARTYLST",
+};
 
 const BusinessHomePage = () => {
-  return (
-    <>
-      <BusinessHero />
-      {/* <BusinessBrandSlider /> */}
-      <BusinessUseCase />
-      <BusinessSteps />
-    </>
-  );
+  return <BusinessHomeView />;
 };
 
 export default BusinessHomePage;

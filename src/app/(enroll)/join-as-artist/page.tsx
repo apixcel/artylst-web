@@ -1,14 +1,11 @@
-import { EnrollForm } from "@/components";
+import { JoinAsArtistView } from "@/view";
+
+export const metadata = {
+  title: "Join as Artist | ARTYLST",
+};
 
 const JoinAsArtistPage = () => {
-  return (
-    <>
-      <h1 className="text-[32px] text-center sm:text-left sm:text-[44px] mb-[20px]">
-        Start earning today
-      </h1>
-      <EnrollForm />
-    </>
-  );
+  return <JoinAsArtistView />;
 };
 
 export default JoinAsArtistPage;

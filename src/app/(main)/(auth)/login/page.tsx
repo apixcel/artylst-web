@@ -7,7 +7,6 @@ import { setUser } from "@/redux/features/auth/user.slice";
 import { Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { toast } from "sonner";
 import * as Yup from "yup";
 
@@ -27,7 +26,6 @@ const validationSchema = Yup.object({
 });
 
 const Login = () => {
-  const [showPw, setShowPw] = useState(false);
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -64,7 +62,7 @@ const Login = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => (
+        {({ values, errors, touched, handleChange, handleBlur }) => (
           <Form className="mt-5 space-y-4">
             {/* Email */}
             <label className="block">
@@ -111,8 +109,8 @@ const Login = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   name="password"
+                  type="password"
                   className="w-full bg-white/10 border border-white/10 focus:outline-none focus:ring-1 focus:ring-light rounded-xl pl-10 pr-12 py-2.5 placeholder-white/40"
-                  type={showPw ? "text" : "password"}
                   autoComplete="current-password"
                   placeholder="••••••••"
                 />

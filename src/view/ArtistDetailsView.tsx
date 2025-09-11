@@ -5,6 +5,7 @@ import { reviewData } from "@/constants";
 import { TiktokIcon } from "@/icons";
 import {
   Check,
+  MegaphoneIcon,
   HeadphonesIcon,
   Instagram,
   Link2,
@@ -183,7 +184,7 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
                 </div>
 
                 {/* Business Playlist Features */}
-                <div className="card p-4">
+                <div className="card p-4 mb-4">
                   <h5 className="font-medium mb-2 flex items-center gap-2 ">
                     <MusicIcon className="w-5 h-5" /> Business Playlist
                   </h5>
@@ -206,6 +207,20 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
                     className="btn btn-primary w-full mt-3"
                   >
                     Request Business Playlist
+                  </Link>
+                </div>
+
+                {/* Looking for more features */}
+                <div className="card p-4">
+                  <h5 className="font-medium mb-2 flex items-center gap-2 ">
+                    <MegaphoneIcon className="w-5 h-5" /> Looking for more?
+                  </h5>
+
+                  <p className="text-sm space-y-1 text-muted">
+                    We can help you with more features. Just let us know what you need.
+                  </p>
+                  <Link href={`/business/contact`} className="btn btn-ghost w-full mt-3">
+                    Request More Features
                   </Link>
                 </div>
               </div>
