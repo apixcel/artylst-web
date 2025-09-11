@@ -1,14 +1,15 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
-import {
-  useGetUnavailableDatesQuery,
-  useCreateUnavailableDatesMutation,
-} from "@/redux/features/artist/availability.api";
 import { IQueryMutationErrorResponse, IUnavailableDates } from "@/interface";
-import { toast } from "sonner";
+import {
+  useCreateUnavailableDatesMutation,
+  useGetUnavailableDatesQuery,
+} from "@/redux/features/artist/availability.api";
 import { cn } from "@/utils";
+import { useCallback, useMemo, useState } from "react";
+import { toast } from "sonner";
 
+import { format } from "date-fns";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DeleteUnavailableDateById from "./DeleteUnavailableDateById";
@@ -69,17 +70,6 @@ const dateOnly = (d: DateObject | null) =>
         millisecond: 0,
       })
     : null;
-
-const formatYYYYMMDD_HHmm = (iso: string) => {
-  const d = new Date(iso);
-  const pad = (n: number) => String(n).padStart(2, "0");
-  const y = d.getFullYear();
-  const m = pad(d.getMonth() + 1);
-  const day = pad(d.getDate());
-  const hh = pad(d.getHours());
-  const mm = pad(d.getMinutes());
-  return `${y}-${m}-${day} ${hh}:${mm}`;
-};
 
 const UnavailableDates = () => {
   const { data, isLoading, isFetching } = useGetUnavailableDatesQuery();
@@ -248,8 +238,8 @@ const UnavailableDates = () => {
               >
                 <div className="flex flex-col">
                   <span className="font-medium">
-                    {formatYYYYMMDD_HHmm(item.startTime)} →{" "}
-                    {formatYYYYMMDD_HHmm(item.endTime)}
+                    {format(item.startTime, "MMM dd, yyyy h:mm a")} →{" "}
+                    {format(item.endTime, "MMM dd, yyyy h:mm a")}
                   </span>
                 </div>
 

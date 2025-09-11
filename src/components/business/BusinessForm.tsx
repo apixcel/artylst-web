@@ -364,10 +364,9 @@ const BusinessForm = () => {
                   options={usageOptions}
                   onChange={(opt) => {
                     setUsageOpt(opt);
-                    const usage = (opt?.value as FormValues["usage"]) || "";
+                    const usage = (opt?.value as FormValues["usage"]) || "daily";
 
                     setFieldValue("usage", usage, true);
-                    setFieldTouched("usage", true, false);
                     validateField("usage");
 
                     if (usage === "daily") {

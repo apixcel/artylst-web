@@ -75,7 +75,7 @@ const FavoriteArtistCard = ({ artist }: { artist: IArtist }) => {
         </Link>
         <Link
           className="flex-1 px-3 py-2 rounded-lg bg-white/10 text-sm text-center"
-          href={`/orders/new?artist=${artist?._id}`}
+          href={`/artists/${artist?.userName}/checkout`}
         >
           Request
         </Link>
