@@ -11,4 +11,8 @@ export const businessNavLinks = [
     label: "Join as artists",
     href: "/enroll",
   },
+  {
+    label: "Contact Sales",
+    href: "/business/contact",
+  },
 ];

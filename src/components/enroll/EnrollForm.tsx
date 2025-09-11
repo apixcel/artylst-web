@@ -131,13 +131,14 @@ const EnrollForm = () => {
       if (lastRequestedUsernameRef.current === userName) return;
       lastRequestedUsernameRef.current = userName;
 
-      try {
-        // Prefer unwrap() so errors throw
-        const res = await checkUsernameTrigger(userName).unwrap();
-        setIsUsernameTaken(res?.data?.isExist === true);
-      } catch (e) {
+      const res = await checkUsernameTrigger(userName);
+      const error = res.error as IQueryMutationErrorResponse;
+      if (error) {
         setIsUsernameTaken(null);
+        toast.error(error.data.message || "Something went wrong");
+        return;
       }
+      setIsUsernameTaken(res?.data?.data?.isExist === true);
     };
 
     run();
@@ -400,7 +401,7 @@ const EnrollForm = () => {
           </div>
 
           {/* submit */}
-          <button type="submit" className="btn btn-primary" disabled={isLoading}>
+          <button type="submit" className="btn-primary-light" disabled={isLoading}>
             {isLoading ? "Creating..." : "Create account"}
           </button>
         </Form>
