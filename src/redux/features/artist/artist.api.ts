@@ -57,6 +57,30 @@ const artistApi = api.injectEndpoints({
       },
       providesTags: ["artist"],
     }),
+    amIFeatured: builder.query<
+      {
+        data: {
+          isFeatured: boolean;
+          rank: number | null;
+          stats?: {
+            ordersCount?: number;
+            totalIncome?: number;
+            reviewCount?: number;
+            avgRating?: number;
+            minStartingPrice?: number;
+          };
+        };
+      },
+      undefined
+    >({
+      query: () => {
+        return {
+          url: `/artist/am-i-featured`,
+          method: "GET",
+        };
+      },
+      providesTags: ["artist"],
+    }),
   }),
 });
 
@@ -66,4 +90,5 @@ export const {
   useGetArtistProfileByUserNameQuery,
   useGetWeeklyPopulerArtistQuery,
   useGetTopViewedArtistQuery,
+  useAmIFeaturedQuery,
 } = artistApi;
