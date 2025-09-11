@@ -10,4 +10,5 @@ export { default as MessagesView } from "./dashboard/MessagesView";
 export { default as DashboardHomeView } from "./dashboard/DashboardHomeView";
 
 //dashboard/artist
+export { default as ArtistTiersView } from "./dashboard/artist/ArtistTiersView";
 export { default as ArtistAvailabilityView } from "./dashboard/artist/ArtistAvailabilityView";

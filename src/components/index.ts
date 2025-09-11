@@ -114,3 +114,4 @@ export { default as TiersSkeleton } from "./dashboard/artist/tiers/TiersSkeleton
 
 // availability
 export { default as UnavailableDates } from "./dashboard/artist/availability/UnavailableDates";
+export { default as WeeklySchedule } from "./dashboard/artist/availability/WeeklySchedule";

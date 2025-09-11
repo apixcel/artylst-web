@@ -116,7 +116,9 @@ const BusinessForm = () => {
   const { data: genresData } = useGetGenresQuery({});
   const { data: vibesData } = useGetVibesQuery({});
   const genres = genresData?.data || [];
+  console.log(genres);
   const vibes = vibesData?.data || [];
+  console.log(vibes);
 
   const [categoryOpt, setCategoryOpt] = useState<DropdownOption<string> | null>(null);
   const [businessTypeOpt, setBusinessTypeOpt] = useState<DropdownOption<string> | null>(
@@ -235,7 +237,7 @@ const BusinessForm = () => {
                   value={categoryOpt}
                   options={genres.map((genre) => ({
                     label: genre.label,
-                    value: genre.slug,
+                    value: genre._id,
                   }))}
                   onChange={(opt) => {
                     setCategoryOpt(opt);
@@ -282,7 +284,7 @@ const BusinessForm = () => {
                   value={vibeOpt}
                   options={vibes.map((vibe) => ({
                     label: vibe.label,
-                    value: vibe.slug,
+                    value: vibe._id,
                   }))}
                   onChange={(opt) => {
                     setVibeOpt(opt);
