@@ -41,7 +41,7 @@ const ArtistComonCard: React.FC<IProps> = ({ artist }) => {
         </div>
       </div>
 
-      <div className="mt-3 flex flex-wrap gap-2">
+      <div className="mt-3 flex flex-wrap gap-2 min-h-[29px]">
         {artist?.genre.slice(0, 2).map((t) => (
           <Chip key={t._id}>{t.label}</Chip>
         ))}
@@ -60,13 +60,13 @@ const ArtistComonCard: React.FC<IProps> = ({ artist }) => {
 
       <div className="mt-3 flex gap-2">
         <Link
-          href={`/dashboard/business/artists/${artist?.userName}`}
+          href={`/artists/${artist?.userName}`}
           className="flex-1 px-3 py-2 rounded-lg bg-white/10 text-sm text-center"
         >
           View
         </Link>
         <Link
-          href={`/orders/new?artist=${artist?.userName}`}
+          href={`/artists/${artist?.userName}/checkout`}
           className="flex-1 px-3 py-2 rounded-lg bg-white/10 text-sm text-center"
         >
           Request

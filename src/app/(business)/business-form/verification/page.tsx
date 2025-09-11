@@ -16,7 +16,6 @@ const BusinessVerificationPage = () => {
   const [sendVerificationEmail] = useSendVerificationEmailMutation();
   const [remainingTime, setRemainingTime] = useState<number>(0);
   const user = useAppSelector((state) => state.user.user);
-  console.log("user from verification page", user);
 
   const [verifyEmail, { isLoading }] = useVerifyEmailMutation();
   const [errorMessage, setErrorMessage] = useState<string>("");

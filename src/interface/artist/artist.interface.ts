@@ -10,6 +10,7 @@ export type IArtist = {
   designation: string;
   avgRating: number;
   reviews: number;
+  isFavorite?: boolean;
   minStartingPrice: number;
   pricingTierCount: number;
   reviewCount: number;

@@ -1,21 +1,21 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
+import {
+  AlertTriangle,
+  ArrowLeft,
+  Briefcase,
+  Building2,
+  Clock,
+  Coffee,
+  Dumbbell,
+  Link as LinkIcon,
+  MessageSquare,
+  ShieldCheck,
+  Store,
+} from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
-import {
-  ArrowLeft,
-  Clock,
-  MessageSquare,
-  Building2,
-  Store,
-  Dumbbell,
-  Briefcase,
-  Coffee,
-  ShieldCheck,
-  AlertTriangle,
-  Link as LinkIcon,
-} from "lucide-react";
+import React, { useMemo, useState } from "react";
 
 // ------------------------------------------------------------
 // Demo data (replace with your API fetch using `slug`)
@@ -172,7 +172,7 @@ const BusinessArtistDetailPage = () => {
       {/* Header banner */}
       <div className="rounded-2xl overflow-hidden border border-white/10">
         <div
-          className="h-40 md:h-56 w-full bg-cover bg-center"
+          className="h-40 md:h-56 w-full bg-cover bg-center relative"
           style={{ backgroundImage: `url(${artist.banner})` }}
         />
         <div className="p-5 md:p-6 bg-white/5 border-t border-white/10 flex flex-col sm:flex-row items-start gap-4">

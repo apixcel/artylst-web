@@ -175,7 +175,7 @@ export default function CheckoutPage() {
           validateForm,
           setFieldTouched,
         }) => {
-          const addonPrice = values.addon ? (ADDONS_PRICE[values.addon.price] ?? 0) : 0;
+          const addonPrice = values.addon ? (values.addon.price ?? 0) : 0;
           const tierPrice = values.price ?? 0;
           const subtotal = tierPrice + addonPrice;
           const fee = +(subtotal * SERVICE_FEE_RATE).toFixed(2);
@@ -274,12 +274,14 @@ export default function CheckoutPage() {
                   {step === 3 && (
                     <CheckoutAddOnns
                       selected={values.addon?.label}
-                      onChange={(val) =>
+                      onChange={(val) => {
+                        console.log("val", val);
+
                         setFieldValue("addon", {
                           label: val?.title,
                           price: val?.price,
-                        })
-                      }
+                        });
+                      }}
                     />
                   )}
 

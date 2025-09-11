@@ -4,9 +4,14 @@ import { Input, UnauthorizedMsgBox } from "@/components";
 import Loader from "@/components/ui/Loader";
 import { artistAvatarFallback } from "@/constants/fallBack";
 import { useAppSelector } from "@/hooks";
-import { useAmIFeaturedQuery } from "@/redux/features/artist/artist.api";
+import { IQueryMutationErrorResponse } from "@/interface";
+import {
+  useAmIFeaturedQuery,
+  useBecomeFeaturedMutation,
+} from "@/redux/features/artist/artist.api";
 import Image from "next/image";
 import React, { useMemo, useState } from "react";
+import { toast } from "sonner";
 
 const FEATURES = [
   {
@@ -163,6 +168,7 @@ const JoinAsFeaturedPage = () => {
   const { user } = useAppSelector((state) => state.user);
 
   const { data, isLoading } = useAmIFeaturedQuery(undefined);
+  const [becomeFeatured, { isLoading: isSubmitting }] = useBecomeFeaturedMutation();
 
   const role = user?.role;
 
@@ -174,6 +180,8 @@ const JoinAsFeaturedPage = () => {
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+    if (isSubmitting) return;
 
     if (!agree) {
       alert("Please accept the terms to continue.");
@@ -189,16 +197,11 @@ const JoinAsFeaturedPage = () => {
       cvc: isFeatured ? form.get("cvc") : undefined,
     };
 
-    try {
-      console.log("Submitting:", payload);
-      alert(
-        isFeatured
-          ? "Successfully opted in to Featured ($29/month)."
-          : "Joined with Standard profile."
-      );
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong. Please try again.");
+    const response = await becomeFeatured(undefined);
+    const error = response?.error as IQueryMutationErrorResponse;
+    if (error) {
+      toast.error(error.data?.message || "Something went wrong");
+      return;
     }
   }
 
@@ -224,7 +227,7 @@ const JoinAsFeaturedPage = () => {
           <div>
             <h1 className="text-2xl font-semibold">{user?.fullName}</h1>
             <p className="text-sm text-muted">Featured Artist</p>
-            <p className="mt-1 text-sm font-medium">Rank #{featredSats.rank}</p>
+            <p className="mt-1 text-sm font-medium">Rank #{featredSats?.rank}</p>
           </div>
         </div>
 
@@ -316,28 +319,34 @@ const JoinAsFeaturedPage = () => {
             </div>
 
             {/* Terms */}
-            <label className="flex items-start gap-3 text-sm">
-              <input
-                type="checkbox"
-                className="mt-1 h-4 w-4 accent-brand-4/80"
-                checked={agree}
-                onChange={(e) => setAgree(e.target.checked)}
-              />
-              <span>
-                I confirm that I accept the terms for{" "}
-                {isFeatured ? "Featured subscription" : "the selected plan"}. Subscription
-                will renew monthly and can be cancelled anytime.
-              </span>
-            </label>
 
             {/* Submit */}
-            <button
-              type="submit"
-              className="text-[16px] font-[500] bg-light text-black sm:px-[32px] px-6 sm:py-[16px] py-3 rounded-[100px] hover:bg-light/80 transition-all duration-300"
-              disabled={!agree}
-            >
-              {isFeatured ? "Confirm & Pay $29/month" : "Continue with Standard"}
-            </button>
+            {isFeatured ? (
+              <>
+                <label className="flex items-start gap-3 text-sm">
+                  <input
+                    type="checkbox"
+                    className="mt-1 h-4 w-4 accent-brand-4/80"
+                    checked={agree}
+                    onChange={(e) => setAgree(e.target.checked)}
+                  />
+                  <span>
+                    I confirm that I accept the terms for{" "}
+                    {isFeatured ? "Featured subscription" : "the selected plan"}.
+                    Subscription will renew monthly and can be cancelled anytime.
+                  </span>
+                </label>{" "}
+                <button
+                  type="submit"
+                  className="text-[16px] font-[500] bg-light text-black sm:px-[32px] px-6 sm:py-[16px] py-3 rounded-[100px] hover:bg-light/80 transition-all duration-300 cursor-pointer"
+                  disabled={!agree}
+                >
+                  {isLoading ? "Loading..." : "Confirm & Pay $29/month"}
+                </button>
+              </>
+            ) : (
+              ""
+            )}
           </div>
         </form>
 
