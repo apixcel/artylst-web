@@ -6,6 +6,7 @@ export interface IUser {
   role: "artist" | "business" | "admin" | "fan";
   fullName: string;
   gender: TGender;
+  avatar?: string;
   displayName: string;
   userName: string;
   dob: string;

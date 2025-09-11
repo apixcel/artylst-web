@@ -1,7 +1,11 @@
 "use client";
 
 import { Input, UnauthorizedMsgBox } from "@/components";
+import Loader from "@/components/ui/Loader";
+import { artistAvatarFallback } from "@/constants/fallBack";
 import { useAppSelector } from "@/hooks";
+import { useAmIFeaturedQuery } from "@/redux/features/artist/artist.api";
+import Image from "next/image";
 import React, { useMemo, useState } from "react";
 
 const FEATURES = [
@@ -157,6 +161,9 @@ const SummaryRow = ({ label, value }: { label: string; value: string }) => (
 
 const JoinAsFeaturedPage = () => {
   const { user } = useAppSelector((state) => state.user);
+
+  const { data, isLoading } = useAmIFeaturedQuery(undefined);
+
   const role = user?.role;
 
   const [plan, setPlan] = useState("standard");
@@ -196,6 +203,65 @@ const JoinAsFeaturedPage = () => {
   }
 
   if (role !== "artist") return <UnauthorizedMsgBox />;
+
+  if (isLoading) return <Loader />;
+
+  const featredSats = data?.data;
+  if (featredSats?.isFeatured) {
+    return (
+      <div className="px-4">
+        {/* Header */}
+        <div className="mb-8 flex items-center gap-4">
+          <div className="relative h-20 w-20 overflow-hidden rounded-full border border-white/10">
+            <Image
+              src={user?.avatar || artistAvatarFallback}
+              className="object-cover w-full h-full"
+              width={100}
+              height={100}
+              alt="avatar"
+            />
+          </div>
+          <div>
+            <h1 className="text-2xl font-semibold">{user?.fullName}</h1>
+            <p className="text-sm text-muted">Featured Artist</p>
+            <p className="mt-1 text-sm font-medium">Rank #{featredSats.rank}</p>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
+          <div className="rounded-xl border border-white/10 p-4 text-center">
+            <p className="text-lg font-semibold">{featredSats?.stats?.ordersCount}</p>
+            <p className="text-sm text-muted">Orders</p>
+          </div>
+          <div className="rounded-xl border border-white/10 p-4 text-center">
+            <p className="text-lg font-semibold">${featredSats?.stats?.totalIncome}</p>
+            <p className="text-sm text-muted">Total Income</p>
+          </div>
+          <div className="rounded-xl border border-white/10 p-4 text-center">
+            <p className="text-lg font-semibold">
+              {featredSats?.stats?.avgRating
+                ? featredSats?.stats?.avgRating.toFixed(1)
+                : "—"}
+            </p>
+            <p className="text-sm text-muted">Avg Rating</p>
+          </div>
+          <div className="rounded-xl border border-white/10 p-4 text-center">
+            <p className="text-lg font-semibold">{featredSats?.stats?.reviewCount}</p>
+            <p className="text-sm text-muted">Reviews</p>
+          </div>
+          <div className="rounded-xl border border-white/10 p-4 text-center">
+            <p className="text-lg font-semibold">
+              {featredSats?.stats?.minStartingPrice
+                ? `$${featredSats?.stats.minStartingPrice}`
+                : "—"}
+            </p>
+            <p className="text-sm text-muted">Starting Price</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="px-4 ">
