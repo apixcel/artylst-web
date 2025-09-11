@@ -1,9 +1,14 @@
+import {
+  IAutoOrderAccept,
+  IDeliveryWindow,
+  IUnavailableDates,
+  IWeeklyAvailability,
+} from "@/interface";
 import { api } from "@/redux/api/api";
-import { IAvailability, IUnavailableDates } from "@/interface";
 
 const availabilityApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getWeeklyAvailability: builder.query<{ data: IAvailability }, void>({
+    getWeeklyAvailability: builder.query<{ data: IWeeklyAvailability }, void>({
       query: () => {
         return {
           url: "/artist/weekly-availability",
@@ -11,6 +16,19 @@ const availabilityApi = api.injectEndpoints({
         };
       },
       providesTags: ["availability"],
+    }),
+    updateWeeklyAvailability: builder.mutation<
+      { data: IWeeklyAvailability },
+      Partial<IWeeklyAvailability>
+    >({
+      query: (payload) => {
+        return {
+          url: "/artist/weekly-availability",
+          method: "PATCH",
+          body: payload,
+        };
+      },
+      invalidatesTags: ["availability"],
     }),
     getUnavailableDates: builder.query<{ data: IUnavailableDates[] }, void>({
       query: () => {
@@ -43,6 +61,51 @@ const availabilityApi = api.injectEndpoints({
       },
       invalidatesTags: ["availability"],
     }),
+
+    getMyDeliveryWindow: builder.query<{ data: IDeliveryWindow }, undefined>({
+      query: () => {
+        return {
+          url: "/artist/delivery-window",
+          method: "GET",
+        };
+      },
+      providesTags: ["availability"],
+    }),
+    updateDeliveryWindow: builder.mutation<
+      { data: IDeliveryWindow },
+      Partial<IDeliveryWindow>
+    >({
+      query: (body) => {
+        return {
+          url: "/artist/delivery-window",
+          method: "PUT",
+          body,
+        };
+      },
+      invalidatesTags: ["availability"],
+    }),
+    getMyAutoOrderAccept: builder.query<{ data: IAutoOrderAccept }, undefined>({
+      query: () => {
+        return {
+          url: "/artist/auto-accept",
+          method: "GET",
+        };
+      },
+      providesTags: ["availability"],
+    }),
+    updateMyOrderAccept: builder.mutation<
+      { data: IAutoOrderAccept },
+      Partial<IAutoOrderAccept>
+    >({
+      query: (body) => {
+        return {
+          url: "/artist/auto-accept",
+          method: "PUT",
+          body,
+        };
+      },
+      invalidatesTags: ["availability"],
+    }),
   }),
 });
 
@@ -51,4 +114,9 @@ export const {
   useGetUnavailableDatesQuery,
   useCreateUnavailableDatesMutation,
   useDeleteUnavailableDatesMutation,
+  useUpdateWeeklyAvailabilityMutation,
+  useGetMyDeliveryWindowQuery,
+  useUpdateDeliveryWindowMutation,
+  useGetMyAutoOrderAcceptQuery,
+  useUpdateMyOrderAcceptMutation,
 } = availabilityApi;
