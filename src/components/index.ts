@@ -5,6 +5,7 @@ export { default as Skeleton } from "./ui/Skeleton";
 export { default as Pagination } from "./ui/Pagination";
 export { default as QueryPagination } from "./ui/QueryPagination";
 export { default as RichTextArea } from "./ui/RichTextArea";
+export { default as Textarea } from "./ui/Textarea";
 
 /* shared */
 export { default as NavSearch } from "./shared/header/NavSearch";
@@ -80,6 +81,7 @@ export { default as BusinessBrandSlider } from "./business/BusinessBrandSlider";
 export { default as BusinessUseCase } from "./business/BusinessUseCase";
 export { default as BusinessSteps } from "./business/BusinessSteps";
 export { default as BusinessForm } from "./business/BusinessForm";
+export { default as ContactSalesForm } from "./business/ContactSalesForm";
 
 // about-us
 export { default as AboutUsSteps } from "./about-us/AboutUsSteps";

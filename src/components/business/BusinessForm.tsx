@@ -116,9 +116,7 @@ const BusinessForm = () => {
   const { data: genresData } = useGetGenresQuery({});
   const { data: vibesData } = useGetVibesQuery({});
   const genres = genresData?.data || [];
-  console.log(genres);
   const vibes = vibesData?.data || [];
-  console.log(vibes);
 
   const [categoryOpt, setCategoryOpt] = useState<DropdownOption<string> | null>(null);
   const [businessTypeOpt, setBusinessTypeOpt] = useState<DropdownOption<string> | null>(
@@ -477,11 +475,7 @@ const BusinessForm = () => {
             </div>
 
             {/* submit button */}
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="text-[16px] font-[500] bg-light text-black sm:px-[32px] px-6 sm:py-[16px] py-3 rounded-[100px] hover:bg-light/80 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
+            <button type="submit" disabled={isLoading} className="btn-primary-light">
               {isLoading ? "Creating Account..." : "Create Account"}
             </button>
           </Form>
@@ -489,7 +483,7 @@ const BusinessForm = () => {
       </Formik>
 
       <div className="mt-[20px]">
-        <Link className="text-muted text-[16px] font-[500] underline" href="#">
+        <Link className="text-muted text-[16px] font-[500] underline" href="/login">
           Sign into an existing account
         </Link>
       </div>

@@ -95,6 +95,7 @@ const MainHeader = () => {
                 user={user}
                 onLogout={handleLogout}
                 items={[
+                  { type: "link", label: "Dashboard", href: "/dashboard" },
                   { type: "link", label: "Profile", href: "/dashboard/profile" },
                   { type: "link", label: "Settings", href: "/dashboard/settings" },
                 ]}
