@@ -91,7 +91,14 @@ const MainHeader = () => {
 
             {/* login */}
             {user ? (
-              <UserDropdown user={user} onLogout={handleLogout} />
+              <UserDropdown
+                user={user}
+                onLogout={handleLogout}
+                items={[
+                  { type: "link", label: "Profile", href: "/dashboard/profile" },
+                  { type: "link", label: "Settings", href: "/dashboard/settings" },
+                ]}
+              />
             ) : (
               <Link
                 className="text-light hover:bg-brand-2/10 hover:underline py-[6px] px-[12px] rounded-[20px] text-[14px] font-[500]"

@@ -1,12 +1,19 @@
-/* "use client";
+"use client";
 
 import React, { useMemo } from "react";
 import { Dropdown } from "@/components";
-import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
-import { IArtistPricingTier, ITierDefaults, TierKey, TierName } from "@/interface";
-import { Formik, Form, Field, useField } from "formik";
+import { Check, Plus, X } from "lucide-react";
+import {
+  ITierDefaults,
+  TierKey,
+  TierName,
+  CreateTierPayload,
+  UpdateTierPayload,
+} from "@/interface";
+import { Formik, Form, Field, FieldArray, useField } from "formik";
 import * as Yup from "yup";
-import { useState, useRef, useEffect } from "react";
+import { cn } from "@/utils";
+import TiersSkeleton from "./TiersSkeleton";
 
 export const TIER_NAME_BY_KEY: Record<TierKey, TierName> = {
   mini: "Mini",
@@ -19,101 +26,74 @@ type Option = { value: string; label: string };
 const FieldError: React.FC<{ name: string }> = ({ name }) => {
   const [, meta] = useField(name);
   return meta.touched && meta.error ? (
-    <p className="text-xs text-red-400 mt-1">{String(meta.error)}</p>
+    <p className="text-xs text-red-400 mt-1">{String(meta.error as string)}</p>
   ) : null;
 };
 
-const DescriptionDropdown: React.FC<{
-  options: string[];
-  selected: string[];
-  onSelectChange: (next: string[]) => void;
-  onAdd: (val: string) => void;
-  disabled?: boolean;
-}> = ({ options, selected, onSelectChange, onAdd, disabled }) => {
-  const [open, setOpen] = useState(false);
-  const [draft, setDraft] = useState("");
-  const wrapperRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        setOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, []);
-
-  const toggle = () => !disabled && setOpen((s) => !s);
-  const toggleCheck = (val: string) => {
-    onSelectChange(
-      selected.includes(val) ? selected.filter((x) => x !== val) : [...selected, val]
-    );
+// Live preview for a single tier
+const TierPreview: React.FC<{
+  name: TierName;
+  values: {
+    songs: number;
+    price: number;
+    deliveryTime: string;
+    descriptionList: string[];
+    revisionCount: number;
   };
-
-  const handleAdd = () => {
-    const v = draft.trim();
-    if (!v) return;
-    onAdd(v);
-    if (!selected.includes(v)) onSelectChange([...selected, v]);
-    setDraft("");
-  };
+}> = ({ name, values }) => {
+  const cleanedDescriptions = values.descriptionList.map((s) => s.trim()).filter(Boolean);
 
   return (
-    <div className="relative" ref={wrapperRef}>
-      <button
-        type="button"
-        disabled={disabled}
-        className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2 mt-1 flex justify-between disabled:opacity-50"
-        onClick={toggle}
+    <div>
+      <h3 className="text-center mb-3">Preview</h3>
+      <div
+        className={cn(
+          "card rounded-2xl p-6 space-y-3 text-center relative",
+          name === "Standard" && "border-brand-4/80"
+        )}
       >
-        {selected.length > 0 ? `${selected.length} selected` : "Select descriptions"}
-        <span>
-          {open ? (
-            <ChevronUpIcon className="w-4 h-4" />
-          ) : (
-            <ChevronDownIcon className="w-4 h-4" />
-          )}
-        </span>
-      </button>
-
-      {open && (
-        <div className="absolute z-20 mt-2 w-full rounded-xl border border-white/10 bg-base-900 p-4 space-y-2">
-          {options.length > 0 && (
-            <div className="max-h-40 overflow-auto space-y-1 border-b border-white/10 pb-2">
-              {options.map((opt) => (
-                <label key={opt} className="flex items-center gap-2 text-sm">
-                  <input
-                    type="checkbox"
-                    className="accent-brand-4"
-                    checked={selected.includes(opt)}
-                    onChange={() => toggleCheck(opt)}
-                  />
-                  {opt}
-                </label>
-              ))}
-            </div>
-          )}
-          <div className="space-y-2">
-            <input
-              type="text"
-              value={draft}
-              onChange={(e) => setDraft(e.target.value)}
-              placeholder="Add description…"
-              className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2"
-              disabled={disabled}
-            />
-            <button
-              type="button"
-              onClick={handleAdd}
-              className="w-full btn-tertiary disabled:opacity-50"
-              disabled={disabled}
-            >
-              Set
-            </button>
-          </div>
+        <div className="mb-2">
+          <h4 className="text-[16px] text-muted text-center uppercase mb-3">{name}</h4>
+          <h3 className="text-2xl">
+            ${values.price}/
+            <span className="text-[14px] font-britania-ligature font-normal text-muted">
+              month
+            </span>
+          </h3>
         </div>
-      )}
+
+        <div className="mb-[12px] flex gap-2 justify-center">
+          <span>{values.songs || 0}</span>
+          <span>Songs</span>
+          <span>-</span>
+          <span>{values.deliveryTime || "—"}</span>
+          <span>Delivery</span>
+
+          <span>-</span>
+          <span>{values.revisionCount || 0}</span>
+          <span>Revisions</span>
+        </div>
+
+        <p className="text-left mb-[6px]">Features:</p>
+        {cleanedDescriptions.length > 0 ? (
+          <ul className="text-muted space-y-1.5">
+            {cleanedDescriptions.map((description: string, idx: number) => (
+              <li className="flex gap-2 text-left" key={idx}>
+                <Check className="w-4 h-4 text-brand-4/80" />
+                {description}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-sm opacity-60">No descriptions yet.</p>
+        )}
+
+        {name === "Standard" && (
+          <div className="absolute top-0 right-0 uppercase text-xs text-light bg-brand-4/80 rounded-tr-xl rounded-bl-[12px] px-3 py-1">
+            Popular
+          </div>
+        )}
+      </div>
     </div>
   );
 };
@@ -129,10 +109,11 @@ const TierSchema = Yup.object({
     .min(0, "Min price 0")
     .required("Price is required"),
   deliveryTime: Yup.string().required("Delivery time is required"),
-  descriptionOptions: Yup.array().of(Yup.string()),
-  selectedDescriptions: Yup.array()
+  descriptionList: Yup.array()
     .of(Yup.string())
-    .min(1, "At least one description is required"),
+    .test("at-least-one-non-empty", "At least one description is required", (arr) =>
+      (arr || []).some((s) => !!String(s || "").trim())
+    ),
   revisionCount: Yup.number()
     .typeError("Must be a number")
     .integer("Must be an integer")
@@ -150,7 +131,10 @@ export const TierPricingCard: React.FC<{
   descriptions?: string[];
   disabled?: boolean;
   busy?: boolean;
-  onSubmit?: (payload: IArtistPricingTier, mode: "create" | "update") => void;
+  onSubmit?: (
+    payload: CreateTierPayload | UpdateTierPayload,
+    mode: "create" | "update"
+  ) => void;
 }> = ({
   id,
   name,
@@ -175,9 +159,9 @@ export const TierPricingCard: React.FC<{
 
   return (
     <div
-      className={`rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-4/8 space-y-3 backdrop-blur-2xl ${disabled ? "opacity-60" : ""}`}
+      className={`rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-4/8 backdrop-blur-2xl ${disabled ? "opacity-60" : ""}`}
     >
-      <h3>{name}</h3>
+      <h3 className="text-lg font-semibold mb-2">{name}</h3>
 
       <Formik
         enableReinitialize
@@ -185,106 +169,173 @@ export const TierPricingCard: React.FC<{
           songs,
           price,
           deliveryTime: defaultDeliveryTime,
-          descriptionOptions: descriptions,
-          selectedDescriptions: descriptions,
+          descriptionList: descriptions.length > 0 ? descriptions : ["", "", ""],
           revisionCount: revisionCount,
         }}
         validationSchema={TierSchema}
         onSubmit={(values) => {
-          const payload: IArtistPricingTier = {
-            _id: id,
-            name,
-            songs: values.songs,
-            priceUsd: values.price,
-            deliveryTime: values.deliveryTime,
-            description: values.selectedDescriptions,
-            revisionCount: values.revisionCount,
-          };
+          const cleanedDescriptions = values.descriptionList
+            .map((d) => d.trim())
+            .filter(Boolean);
+
           const mode: "create" | "update" = id ? "update" : "create";
-          onSubmit?.(payload, mode);
+
+          if (mode === "update") {
+            const payload: UpdateTierPayload = {
+              _id: id!,
+              name,
+              songs: values.songs,
+              priceUsd: values.price,
+              deliveryTime: values.deliveryTime,
+              description: cleanedDescriptions,
+              revisionCount: values.revisionCount,
+            };
+            onSubmit?.(payload, mode);
+          } else {
+            const payload: CreateTierPayload = {
+              name,
+              songs: values.songs,
+              priceUsd: values.price,
+              deliveryTime: values.deliveryTime,
+              description: cleanedDescriptions,
+              revisionCount: values.revisionCount,
+            };
+            onSubmit?.(payload, mode);
+          }
         }}
       >
-        {({ values, setFieldValue, handleSubmit, setFieldTouched }) => (
-          <Form className="flex flex-col gap-2" onSubmit={handleSubmit}>
-            <div>
-              <label className="text-sm text-white/60">Songs</label>
-              <Field
-                name="songs"
-                type="number"
+        {({ values, setFieldValue, handleSubmit }) => (
+          <Form
+            className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-6"
+            onSubmit={handleSubmit}
+          >
+            {/* LEFT: Form */}
+            <div className="flex flex-col gap-3">
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="text-sm text-white/60">Songs</label>
+                  <Field
+                    name="songs"
+                    type="number"
+                    disabled={disabled || busy}
+                    className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2 mt-1 disabled:opacity-50"
+                  />
+                  <FieldError name="songs" />
+                </div>
+
+                <div>
+                  <label className="text-sm text-white/60">Price</label>
+                  <Field
+                    name="price"
+                    type="number"
+                    disabled={disabled || busy}
+                    className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2 mt-1 disabled:opacity-50"
+                  />
+                  <FieldError name="price" />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col gap-1">
+                  <label className="text-sm text-white/60">Delivery time</label>
+                  <Dropdown
+                    options={deliveryOptions}
+                    value={{ value: values.deliveryTime, label: values.deliveryTime }}
+                    onChange={(opt: Option) => setFieldValue("deliveryTime", opt.value)}
+                    buttonClassName="w-full"
+                    disabled={disabled || busy}
+                  />
+                  <FieldError name="deliveryTime" />
+                </div>
+                <div>
+                  <label className="text-sm text-white/60">Revision count</label>
+                  <Field
+                    name="revisionCount"
+                    type="number"
+                    disabled={disabled || busy}
+                    className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2 mt-1 disabled:opacity-50"
+                  />
+                  <FieldError name="revisionCount" />
+                </div>
+              </div>
+
+              <div>
+                <label className="text-sm text-white/60">Descriptions</label>
+                <FieldArray name="descriptionList">
+                  {({ push, remove }) => (
+                    <div className="mt-2 space-y-2">
+                      {values.descriptionList.length > 0 ? (
+                        values.descriptionList.map((_, idx) => {
+                          const isLast = idx === values.descriptionList.length - 1;
+                          return (
+                            <div key={idx} className="flex items-center gap-2">
+                              <Field
+                                name={`descriptionList.${idx}`}
+                                type="text"
+                                placeholder={`Description ${idx + 1}`}
+                                disabled={disabled || busy}
+                                className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2 disabled:opacity-50"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => remove(idx)}
+                                disabled={disabled || busy}
+                                className="inline-flex items-center justify-center rounded-lg border border-white/10 px-2 py-2 hover:bg-white/10 disabled:opacity-50"
+                                aria-label={`Remove description ${idx + 1}`}
+                              >
+                                <X className="w-4 h-4" />
+                              </button>
+
+                              {isLast && (
+                                <div className="flex gap-2">
+                                  <button
+                                    type="button"
+                                    onClick={() => push("")}
+                                    disabled={disabled || busy}
+                                    className="btn-tertiary inline-flex items-center gap-2 disabled:opacity-50"
+                                  >
+                                    <Plus className="w-4 h-4" /> Add item
+                                  </button>
+                                </div>
+                              )}
+                            </div>
+                          );
+                        })
+                      ) : (
+                        // When there are no fields, still show the Add item button
+                        <div className="flex items-center gap-2">
+                          <div className="flex gap-2">
+                            <button
+                              type="button"
+                              onClick={() => push("")}
+                              disabled={disabled || busy}
+                              className="btn-tertiary inline-flex items-center gap-2 disabled:opacity-50"
+                            >
+                              <Plus className="w-4 h-4" /> Add item
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      <FieldError name="descriptionList" />
+                    </div>
+                  )}
+                </FieldArray>
+              </div>
+
+              <button
+                className="btn-secondary w-full disabled:opacity-50"
+                type="submit"
                 disabled={disabled || busy}
-                className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2 mt-1 disabled:opacity-50"
-              />
-              <FieldError name="songs" />
+              >
+                {id ? "Update" : "Create"}
+              </button>
             </div>
 
-            <div>
-              <label className="text-sm text-white/60">Price</label>
-              <Field
-                name="price"
-                type="number"
-                disabled={disabled || busy}
-                className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2 mt-1 disabled:opacity-50"
-              />
-              <FieldError name="price" />
+            {/* RIGHT: Live Preview */}
+            <div className="lg:sticky lg:top-4 self-start">
+              <TierPreview name={name} values={values} />
             </div>
-
-            <div className="flex flex-col gap-1">
-              <label className="text-sm text-white/60">Delivery time</label>
-              <Dropdown
-                options={deliveryOptions}
-                value={{ value: values.deliveryTime, label: values.deliveryTime }}
-                onChange={(opt: Option) => setFieldValue("deliveryTime", opt.value)}
-                buttonClassName="w-full"
-                disabled={disabled || busy}
-              />
-              <FieldError name="deliveryTime" />
-            </div>
-
-            <div>
-              <label className="text-sm text-white/60">Description</label>
-              <DescriptionDropdown
-                options={values.descriptionOptions}
-                selected={values.selectedDescriptions}
-                onSelectChange={(v) => {
-                  setFieldValue("selectedDescriptions", v);
-                  setFieldTouched("selectedDescriptions", true, false);
-                }}
-                onAdd={(v) => {
-                  const next = values.descriptionOptions.includes(v)
-                    ? values.descriptionOptions
-                    : [v, ...values.descriptionOptions];
-                  setFieldValue("descriptionOptions", next);
-                  if (!values.selectedDescriptions.includes(v)) {
-                    setFieldValue("selectedDescriptions", [
-                      v,
-                      ...values.selectedDescriptions,
-                    ]);
-                  }
-                  setFieldTouched("selectedDescriptions", true, false);
-                }}
-                disabled={disabled || busy}
-              />
-              <FieldError name="selectedDescriptions" />
-            </div>
-
-            <div>
-              <label className="text-sm text-white/60">Revision count</label>
-              <Field
-                name="revisionCount"
-                type="number"
-                disabled={disabled || busy}
-                className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2 mt-1 disabled:opacity-50"
-              />
-              <FieldError name="revisionCount" />
-            </div>
-
-            <button
-              className="btn-secondary w-full disabled:opacity-50"
-              type="submit"
-              disabled={disabled || busy}
-            >
-              {id ? "Update" : "Create"}
-            </button>
           </Form>
         )}
       </Formik>
@@ -298,9 +349,10 @@ export const TiersPricingForm: React.FC<{
   defaults: Record<TierKey, ITierDefaults>;
   busy: boolean;
   onCreateFirstTier: () => void;
-  onSubmit: (values: IArtistPricingTier, mode: "create" | "update") => void;
-
-  // NEW props
+  onSubmit: (
+    values: CreateTierPayload | UpdateTierPayload,
+    mode: "create" | "update"
+  ) => void;
   isUpdateMode: boolean;
   createdIds: Record<TierKey, string | undefined>;
 }> = ({
@@ -351,7 +403,7 @@ export const TiersPricingForm: React.FC<{
   return (
     <>
       {hasAnyTier ? (
-        <div className="flex flex-col gap-4 opacity-100">
+        <div className="flex flex-col gap-6">
           {visibleTiers.includes("mini") && renderCard("mini")}
           {visibleTiers.includes("standard") && renderCard("standard")}
           {visibleTiers.includes("pro") && renderCard("pro")}
@@ -377,4 +429,3 @@ export const TiersPricingForm: React.FC<{
 };
 
 export default TiersPricingForm;
- */

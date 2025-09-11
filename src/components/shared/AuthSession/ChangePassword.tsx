@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import * as Yup from "yup";
+import { Input } from "@/components";
 
 const initialValues = {
   oldPassword: "",
@@ -73,7 +74,7 @@ const ChangePassword = () => {
         <h3>Password</h3>
         <div className="flex flex-col gap-3">
           {/* Old password */}
-          <input
+          <Input
             type="password"
             name="oldPassword"
             placeholder="Old Password"
@@ -87,7 +88,7 @@ const ChangePassword = () => {
           )}
 
           {/* New password */}
-          <input
+          <Input
             type="password"
             name="newPassword"
             placeholder="New Password"
@@ -101,7 +102,7 @@ const ChangePassword = () => {
           )}
 
           {/* Confirm password */}
-          <input
+          <Input
             type="password"
             name="confirmPassword"
             placeholder="Confirm New Password"

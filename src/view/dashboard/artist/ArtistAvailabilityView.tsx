@@ -2,16 +2,14 @@
 import { useState } from "react";
 import {
   CalendarDays,
-  Check,
   Clock,
   PauseCircle,
   PlayCircle,
-  RotateCcw,
   ShieldCheck,
   Zap,
 } from "lucide-react";
 import { useAppSelector } from "@/hooks";
-import { UnauthorizedMsgBox } from "@/components";
+import { UnauthorizedMsgBox, UnavailableDates } from "@/components";
 
 const DayRow = ({ day }: { day: string }) => (
   <div className="flex items-center sm:flex-row flex-col gap-3 sm:gap-0 justify-between p-3 rounded-lg bg-white/5 border border-white/10 text-sm">
@@ -149,45 +147,8 @@ const ArtistAvailabilityView = () => {
         </div>
       </div>
 
-      {/* Time off / blackout dates */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-4/8 to-brand-1/10 backdrop-blur-xl">
-        <h3>Time off</h3>
-        <div className="grid sm:grid-cols-3 gap-3 mt-3">
-          <div>
-            <label className="text-sm text-white/60">Start</label>
-            <input
-              type="date"
-              className="w-full mt-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
-            />
-          </div>
-          <div>
-            <label className="text-sm text-white/60">End</label>
-            <input
-              type="date"
-              className="w-full mt-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
-            />
-          </div>
-          <div className="flex items-end">
-            <button className="w-full px-3 py-2 rounded-lg bg-white/10 hover:bg-white/15">
-              Add time off
-            </button>
-          </div>
-        </div>
-        <div className="mt-3 text-xs text-white/60">
-          Orders with deadlines inside time‑off will be auto‑paused or given extended
-          delivery windows.
-        </div>
-      </div>
-
-      {/* Footer actions */}
-      <div className="flex items-center gap-2">
-        <button className="px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 inline-flex items-center gap-2">
-          <RotateCcw className="h-4 w-4" /> Reset
-        </button>
-        <button className="px-4 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 inline-flex items-center gap-2">
-          <Check className="h-4 w-4" /> Save changes
-        </button>
-      </div>
+      {/* unavailable dates */}
+      <UnavailableDates />
     </section>
   );
 };

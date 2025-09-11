@@ -1,4 +1,4 @@
-/* "use client";
+"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
@@ -8,9 +8,15 @@ import {
   useGetMyPricingTierQuery,
   useUpdatePricingTierMutation,
 } from "@/redux/features/artist/pricingTier.api";
-import { IArtistPricingTier, IQueryMutationErrorResponse, TierKey } from "@/interface";
+import {
+  IArtistPricingTier,
+  IQueryMutationErrorResponse,
+  TierKey,
+  CreateTierPayload,
+  UpdateTierPayload,
+} from "@/interface";
 
-import { TiersPricingForm, UnauthorizedMsgBox } from "@/components";
+import { TiersPricingForm, TiersSkeleton, UnauthorizedMsgBox } from "@/components";
 import { useAppSelector } from "@/hooks";
 
 const ArtistTiersPage = () => {
@@ -100,24 +106,12 @@ const ArtistTiersPage = () => {
   }, [mini, standard, pro]);
 
   // Create/Update submit handler
-  const handleSubmit = async (values: IArtistPricingTier, mode: "create" | "update") => {
-    const createPayload = {
-      name: values.name,
-      songs: values.songs,
-      priceUsd: values.priceUsd,
-      deliveryTime: values.deliveryTime,
-      description: values.description,
-      revisionCount: values.revisionCount,
-    };
-    const updatePayload = {
-      _id: values._id,
-      name: values.name,
-      songs: values.songs,
-      priceUsd: values.priceUsd,
-      deliveryTime: values.deliveryTime,
-      description: values.description,
-      revisionCount: values.revisionCount,
-    };
+  const handleSubmit = async (
+    values: CreateTierPayload | UpdateTierPayload,
+    mode: "create" | "update"
+  ) => {
+    const createPayload = values;
+    const updatePayload = values;
 
     if (mode === "create") {
       const res = await createTier(createPayload);
@@ -156,27 +150,22 @@ const ArtistTiersPage = () => {
         </p>
       </div>
 
-      <TiersPricingForm
-        hasAnyTier={showForms}
-        visibleTiers={["mini", "standard", "pro"]}
-        defaults={defaults}
-        busy={busy}
-        onCreateFirstTier={() => setShowForms(true)}
-        onSubmit={handleSubmit}
-        isUpdateMode={isUpdateMode}
-        createdIds={createdIds}
-      />
+      {isFetching ? (
+        <TiersSkeleton />
+      ) : (
+        <TiersPricingForm
+          hasAnyTier={showForms}
+          visibleTiers={["mini", "standard", "pro"]}
+          defaults={defaults}
+          busy={busy}
+          onCreateFirstTier={() => setShowForms(true)}
+          onSubmit={handleSubmit}
+          isUpdateMode={isUpdateMode}
+          createdIds={createdIds}
+        />
+      )}
     </section>
   );
 };
 
 export default ArtistTiersPage;
- */
-
-import React from "react";
-
-const page = () => {
-  return <div>page</div>;
-};
-
-export default page;
