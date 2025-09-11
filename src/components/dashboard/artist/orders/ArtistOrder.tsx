@@ -79,7 +79,7 @@ const ArtistOrder = () => {
         <div>
           <h1 className="text-2xl md:text-3xl font-heading">My Orders</h1>
           <p className="text-white/60 text-sm mt-1">
-            Track, review and request revisions
+            Track, manage, and view your orders.
           </p>
         </div>
         <div className="flex items-center gap-3">

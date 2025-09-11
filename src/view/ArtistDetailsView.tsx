@@ -2,33 +2,35 @@
 
 import { ArtistPricingTier, Review } from "@/components";
 import { reviewData } from "@/constants";
-import { TiktokIcon } from "@/icons";
+import {
+  AppleMusicIcon,
+  SoundCloudIcon,
+  SpotifyIcon,
+  StarIcon,
+  TiktokIcon,
+  YTMusicIcon,
+} from "@/icons";
 import {
   Check,
-  MegaphoneIcon,
   HeadphonesIcon,
   Instagram,
   Link2,
+  MegaphoneIcon,
   Music4,
   MusicIcon,
   Youtube,
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  SpotifyIcon,
-  SoundCloudIcon,
-  StarIcon,
-  YTMusicIcon,
-  AppleMusicIcon,
-} from "@/icons";
 
+import AddOrRemoveArtistToFav from "@/components/dashboard/artist/AddOrRemoveArtistToFav";
 import { IArtist } from "@/interface";
 import { baseUrl } from "@/redux/api/api";
 
 const ArtistDetailsView = async ({ userName }: { userName: string }) => {
   const res = await fetch(`${baseUrl}/artist/profile/${userName}`, {
     cache: "no-store",
+    credentials: "include",
   });
   const data = (await res.json()) as { data: IArtist };
   const artist = data?.data || {};
@@ -53,13 +55,17 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
       <section className="grid xl:grid-cols-[1fr_380px] items-start gap-6 mb-[40px]">
         <div className="bg-gradient-to-b from-brand-2/10 to-brand-1/10 rounded-[12px] border border-white/10 flex flex-col backdrop-blur-2xl">
           <div className="relative mb-[60px]">
-            <div className="h-48 md:h-[220px] w-full z-30 overflow-hidden rounded-t-[12px]">
+            <div className="h-48 md:h-[220px] w-full z-30 overflow-hidden rounded-t-[12px] relative">
               <Image
                 src={coverPhoto || "/images/artists/artist-bg-img-1.jpg"}
                 alt="Artist Cover Photo"
                 width={1000}
                 height={1000}
                 className="w-full h-full object-cover object-center"
+              />
+              <AddOrRemoveArtistToFav
+                artist={artist}
+                className="absolute top-3 right-3"
               />
             </div>
             {/* Avatar */}
