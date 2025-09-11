@@ -81,6 +81,24 @@ const artistApi = api.injectEndpoints({
       },
       providesTags: ["artist"],
     }),
+    getMyArtistProfile: builder.query<{ data: IArtist }, undefined>({
+      query: () => {
+        return {
+          url: `/artist/my-profile`,
+          method: "GET",
+        };
+      },
+      providesTags: ["artist"],
+    }),
+    updateMyArtistProfile: builder.mutation<{ data: IArtist }, Partial<IArtist>>({
+      query: (payload) => {
+        return {
+          url: `/artist/update-profile`,
+          method: "PATCH",
+          body: payload,
+        };
+      },
+    }),
   }),
 });
 
@@ -91,4 +109,5 @@ export const {
   useGetWeeklyPopulerArtistQuery,
   useGetTopViewedArtistQuery,
   useAmIFeaturedQuery,
+  useGetMyArtistProfileQuery,
 } = artistApi;
