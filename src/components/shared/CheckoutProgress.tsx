@@ -12,7 +12,7 @@ type StepProgressProps = {
   className?: string;
 };
 
-export default function BusinessCheckoutProgress({
+export default function CheckoutProgress({
   current,
   steps,
   className,

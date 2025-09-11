@@ -7,9 +7,9 @@ import { useState } from "react";
 import * as Yup from "yup";
 
 import {
-  BusinessCheckoutProgress,
   CheckoutAddOnns,
   CheckoutBrief,
+  CheckoutProgress,
   CheckoutTier,
 } from "@/components";
 import CheckoutSkeleton from "@/components/checkout/CheckoutSkeleton";
@@ -157,11 +157,7 @@ export default function CheckoutPage() {
     <>
       {/* Progress */}
       <section className="py-8">
-        <BusinessCheckoutProgress
-          current={step}
-          steps={[...stepsLabels]}
-          className="mx-auto"
-        />
+        <CheckoutProgress current={step} steps={[...stepsLabels]} className="mx-auto" />
       </section>
 
       <Formik
