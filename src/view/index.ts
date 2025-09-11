@@ -15,3 +15,4 @@ export { default as DashboardHomeView } from "./dashboard/DashboardHomeView";
 export { default as ArtistTiersView } from "./dashboard/artist/ArtistTiersView";
 export { default as ArtistAvailabilityView } from "./dashboard/artist/ArtistAvailabilityView";
 export { default as ArtistProfileView } from "./dashboard/artist/ArtistProfileView";
+export { default as ArtistSocialLinks } from "./dashboard/artist/ArtistSocialLinks";

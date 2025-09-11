@@ -1,5 +1,14 @@
 import { IGenre } from "../meta/meta.interface";
 
+type ISocials = {
+  spotify: string;
+  instagram: string;
+  website: string;
+  tiktok: string;
+  youtube: string;
+  playlist?: string;
+};
+
 export type IArtist = {
   _id: string;
   displayName: string;
@@ -29,6 +38,11 @@ export type IArtist = {
   createdAt: string;
   updatedAt: string;
   email: string;
+  socials: ISocials;
+  languages: string;
+  timezone: string;
+  location: string;
+  genres: IGenre[];
 };
 
 export interface IRankedArtist extends IArtist {

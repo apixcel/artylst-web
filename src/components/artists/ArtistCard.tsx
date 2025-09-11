@@ -204,9 +204,9 @@ const ArtistCard = ({
             <Image
               src={item.avatar}
               alt={item.displayName || "Artist"}
-              width={500}
-              height={500}
-              className="h-full w-full object-cover"
+              width={800}
+              height={800}
+              className="h-[250px] w-full object-cover"
             />
           ) : (
             <div className="h-[250px] w-full">
