@@ -4,134 +4,231 @@ import { useState, useMemo, useCallback } from "react";
 import {
   useGetUnavailableDatesQuery,
   useCreateUnavailableDatesMutation,
-  useDeleteUnavailableDatesMutation,
 } from "@/redux/features/artist/availability.api";
 import { IQueryMutationErrorResponse, IUnavailableDates } from "@/interface";
 import { toast } from "sonner";
+import { cn } from "@/utils";
 
-const formatDisplayDate = (iso: string) => new Date(iso).toLocaleDateString();
-const todayISO = () => new Date().toISOString().slice(0, 10);
+import DatePicker, { DateObject } from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import DeleteUnavailableDateById from "./DeleteUnavailableDateById";
 
-export default function UnavailableDates() {
+const keepTimeOnlyIfMidnight = (
+  next: DateObject | Date | string | null,
+  prev: DateObject | null
+) => {
+  if (!next) return prev;
+
+  const n =
+    next instanceof DateObject
+      ? typeof (next as DateObject & { clone?: () => DateObject }).clone === "function"
+        ? (next as DateObject & { clone: () => DateObject }).clone()
+        : new DateObject((next as DateObject).toDate())
+      : new DateObject(next);
+
+  if (!prev) return n;
+
+  const isMidnight =
+    (n.hour ?? 0) === 0 &&
+    (n.minute ?? 0) === 0 &&
+    (n.second ?? 0) === 0 &&
+    (n.millisecond ?? 0) === 0;
+
+  if (!isMidnight) {
+    return n;
+  }
+
+  const withPrevTime = new DateObject(n.toDate()).set({
+    hour: prev.hour ?? 0,
+    minute: prev.minute ?? 0,
+    second: prev.second ?? 0,
+    millisecond: prev.millisecond ?? 0,
+  });
+
+  return withPrevTime;
+};
+
+// helper: JS Date → UTC ISO string (Z)
+const toUTCISOString = (d?: Date) => (d ? new Date(d).toISOString() : "");
+
+// Today 00:00
+const startOfTodayDO = () =>
+  new DateObject(new Date()).set({
+    hour: 0,
+    minute: 0,
+    second: 0,
+    millisecond: 0,
+  });
+
+const dateOnly = (d: DateObject | null) =>
+  d
+    ? new DateObject(d.toDate()).set({
+        hour: 0,
+        minute: 0,
+        second: 0,
+        millisecond: 0,
+      })
+    : null;
+
+const formatYYYYMMDD_HHmm = (iso: string) => {
+  const d = new Date(iso);
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const y = d.getFullYear();
+  const m = pad(d.getMonth() + 1);
+  const day = pad(d.getDate());
+  const hh = pad(d.getHours());
+  const mm = pad(d.getMinutes());
+  return `${y}-${m}-${day} ${hh}:${mm}`;
+};
+
+const UnavailableDates = () => {
   const { data, isLoading, isFetching } = useGetUnavailableDatesQuery();
   const unavailableDates = data?.data || [];
+
   const [createUnavailableDates, { isLoading: isCreating }] =
     useCreateUnavailableDatesMutation();
-  const [deleteUnavailableDates, { isLoading: isDeleting }] =
-    useDeleteUnavailableDatesMutation();
 
-  const [start, setStart] = useState<string>(todayISO());
-  const [end, setEnd] = useState<string>(todayISO());
+  // Default: today 09:00–12:00
+  const [startDO, setStartDO] = useState<DateObject | null>(
+    new DateObject(new Date()).set({ hour: 9, minute: 0, second: 0, millisecond: 0 })
+  );
+  const [endDO, setEndDO] = useState<DateObject | null>(
+    new DateObject(new Date()).set({ hour: 12, minute: 0, second: 0, millisecond: 0 })
+  );
+
   const [allowAllBuyersContact, setAllowAllBuyersContact] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const isBusy = isCreating || isFetching || isLoading;
 
-  const isBusy = isCreating || isDeleting || isFetching || isLoading;
-
+  // Strict validation: start < end
   const canSubmit = useMemo(() => {
-    if (!start || !end) return false;
-    return new Date(start) <= new Date(end);
-  }, [start, end]);
+    if (!startDO || !endDO) return false;
+    return startDO.toDate().getTime() < endDO.toDate().getTime();
+  }, [startDO, endDO]);
 
   const onAdd = useCallback(async () => {
     setError(null);
-    if (!canSubmit) {
-      setError("Start date must be before or equal to end date.");
+    if (!canSubmit || !startDO || !endDO) {
+      setError("Start time must be strictly before end time.");
       return;
     }
 
-    const res = await createUnavailableDates({
-      startTime: start,
-      endTime: end,
-    });
-    const error = res.error as IQueryMutationErrorResponse;
-    if (error) {
-      toast.error(error.data.message || "Something went wrong");
+    const payload = {
+      startTime: toUTCISOString(startDO.toDate()),
+      endTime: toUTCISOString(endDO.toDate()),
+    };
+
+    const res = await createUnavailableDates(payload);
+    const err = res?.error as IQueryMutationErrorResponse;
+    if (err) {
+      toast.error(err?.data?.message || "Something went wrong");
       return;
     }
 
-    // Reset form to a sensible default
-    setStart(todayISO());
-    setEnd(todayISO());
-  }, [canSubmit, start, end, createUnavailableDates]);
+    // Reset to TODAY 09:00–12:00
+    const today = new Date();
+    setStartDO(
+      new DateObject(today).set({ hour: 9, minute: 0, second: 0, millisecond: 0 })
+    );
+    setEndDO(
+      new DateObject(today).set({ hour: 12, minute: 0, second: 0, millisecond: 0 })
+    );
+    toast.success("Unavailable dates added");
+  }, [canSubmit, startDO, endDO, createUnavailableDates]);
 
-  const handleDelete = async (_id: IUnavailableDates["_id"]) => {
-    const res = await deleteUnavailableDates(_id);
-    const error = res.error as IQueryMutationErrorResponse;
-    if (error) {
-      toast.error(error.data.message || "Something went wrong");
-      return;
-    }
+  const minDO = startOfTodayDO();
 
-    toast.success("Unavailable date deleted successfully");
-  };
+  const endMinDate = dateOnly(startDO) || minDO;
 
   return (
-    <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-4/8 to-brand-1/10 backdrop-blur-xl">
+    <section className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-4/8 to-brand-1/10 backdrop-blur-xl">
       <div className="flex items-center justify-between gap-4">
         <h3 className="text-lg font-semibold">Schedule Unavailable Dates</h3>
-        {isBusy && (
-          <span className="text-xs px-2 py-1 rounded bg-white/10 border border-white/10">
-            Updating…
-          </span>
-        )}
       </div>
 
       <div className="card p-5 grid sm:grid-cols-4 gap-3 mt-3">
-        <div>
+        {/* Start */}
+        <div className="flex gap-2 items-center">
           <label className="text-sm text-white/60">Start</label>
-          <input
-            type="date"
-            value={start}
-            onChange={(e) => setStart(e.target.value)}
-            min={todayISO()}
-            className="w-full mt-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
+          <DatePicker
+            value={startDO}
+            onChange={(val) =>
+              setStartDO((prev) => keepTimeOnlyIfMidnight(val as DateObject, prev))
+            }
+            inputClass="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2"
+            className="w-full"
             disabled={isBusy}
+            minDate={minDO}
+            plugins={[<TimePicker position="bottom" hideSeconds key="tp1" />]}
+            format="YYYY-MM-DD HH:mm"
+            aria-label="Start date and time"
           />
         </div>
-        <div>
+
+        {/* End */}
+        <div className="flex gap-2 items-center">
           <label className="text-sm text-white/60">End</label>
-          <input
-            type="date"
-            value={end}
-            onChange={(e) => setEnd(e.target.value)}
-            min={start || todayISO()}
-            className="w-full mt-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
+          <DatePicker
+            value={endDO}
+            onChange={(val) =>
+              setEndDO((prev) => keepTimeOnlyIfMidnight(val as DateObject, prev))
+            }
+            inputClass="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2"
+            className="w-full"
             disabled={isBusy}
+            minDate={endMinDate}
+            plugins={[<TimePicker position="bottom" hideSeconds key="tp2" />]}
+            format="YYYY-MM-DD HH:mm"
+            aria-label="End date and time"
           />
         </div>
 
         {/* Toggle: All buyers can contact me */}
-        <div className="flex flex-col justify-end">
-          <label className="text-sm text-white/60 mb-1">All buyers can contact me</label>
+        <div className="flex items-end gap-2">
+          <label className="text-muted mb-1">All buyers can contact me</label>
           <button
             type="button"
             onClick={() => setAllowAllBuyersContact((v) => !v)}
-            className={`relative inline-flex h-9 w-16 items-center rounded-full transition outline-none border border-white/10 ${
-              allowAllBuyersContact ? "bg-green-500/60" : "bg-white/10"
-            }`}
             disabled={isBusy}
             aria-pressed={allowAllBuyersContact}
             aria-label="Toggle allow all buyers to contact"
+            className={cn(
+              "relative inline-flex h-7 w-12 items-center rounded-full transition-colors duration-300 outline-none",
+              allowAllBuyersContact
+                ? "bg-brand-4/80 border-brand-4/40"
+                : "bg-white/10 border-white/20",
+              isBusy ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+            )}
           >
             <span
-              className={`inline-block h-7 w-7 transform rounded-full bg-white shadow transition ${
-                allowAllBuyersContact ? "translate-x-8" : "translate-x-1"
-              }`}
+              className={cn(
+                "inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition-transform duration-300",
+                allowAllBuyersContact ? "translate-x-6" : "translate-x-1"
+              )}
             />
           </button>
         </div>
 
+        {/* Submit */}
         <div className="flex items-end">
           <button
             onClick={onAdd}
             disabled={!canSubmit || isBusy}
-            className={`w-full btn-secondary ${(!canSubmit || isBusy) && "opacity-60 cursor-not-allowed"}`}
+            className={cn(
+              "w-full btn-secondary",
+              (!canSubmit || isBusy) && "opacity-60 cursor-not-allowed"
+            )}
           >
             {isCreating ? "Adding…" : "Add Unavailable Dates"}
           </button>
         </div>
 
-        {error && <div className="sm:col-span-4 text-red-300 text-sm mt-1">{error}</div>}
+        {/* Inline error */}
+        {(!canSubmit || error) && (
+          <div className="sm:col-span-4 text-red-300 text-sm mt-1">
+            {error || "Start time must be strictly before end time."}
+          </div>
+        )}
       </div>
 
       {/* Existing Unavailable Dates */}
@@ -144,36 +241,26 @@ export default function UnavailableDates() {
           <div className="text-white/60 text-sm">No unavailable dates yet.</div>
         ) : (
           <ul className="space-y-3">
-            {unavailableDates.map((item) => (
+            {unavailableDates.map((item: IUnavailableDates) => (
               <li
                 key={item._id}
                 className="flex items-center justify-between border border-white/10 rounded-xl p-4 bg-white/5"
               >
                 <div className="flex flex-col">
                   <span className="font-medium">
-                    {formatDisplayDate(item.startTime)} →{" "}
-                    {formatDisplayDate(item.endTime)}
+                    {formatYYYYMMDD_HHmm(item.startTime)} →{" "}
+                    {formatYYYYMMDD_HHmm(item.endTime)}
                   </span>
-                  {allowAllBuyersContact && (
-                    <span className="text-xs text-white/60 mt-0.5">
-                      All buyers can contact during this period
-                    </span>
-                  )}
                 </div>
-                <button
-                  onClick={() => handleDelete(item._id)}
-                  className={`btn-outline px-3 py-1.5 rounded-lg border border-white/20 ${
-                    isDeleting && "opacity-60 cursor-wait"
-                  }`}
-                  disabled={isDeleting}
-                >
-                  {isDeleting ? "Deleting…" : "Delete"}
-                </button>
+
+                <DeleteUnavailableDateById _id={item._id} />
               </li>
             ))}
           </ul>
         )}
       </div>
-    </div>
+    </section>
   );
-}
+};
+
+export default UnavailableDates;

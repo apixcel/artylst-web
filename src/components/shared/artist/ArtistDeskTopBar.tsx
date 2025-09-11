@@ -64,8 +64,8 @@ const ArtistDeskTopBar = ({
               align="right"
               onLogout={handleLogout}
               items={[
-                { type: "link", label: "Profile", href: "/dashboard/artist/profile" },
-                { type: "link", label: "Settings", href: "/dashboard/artist/settings" },
+                { type: "link", label: "Profile", href: "/dashboard/profile" },
+                { type: "link", label: "Settings", href: "/dashboard/settings" },
               ]}
               className="ml-auto"
             />

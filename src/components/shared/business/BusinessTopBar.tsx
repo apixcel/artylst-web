@@ -59,9 +59,7 @@ const BusinessTopBar = ({
           user={user as IUser}
           align="right"
           onLogout={handleLogout}
-          items={[
-            { type: "link", label: "Settings", href: "/dashboard/business/settings" },
-          ]}
+          items={[{ type: "link", label: "Settings", href: "/dashboard/settings" }]}
           className="ml-auto"
         />
       </div>

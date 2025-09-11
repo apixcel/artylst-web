@@ -233,6 +233,10 @@
 }
 
 @layer utilities {
+  .rmdp-time-picker {
+    color: #000 !important;
+  }
+
   .brand-surface {
     background:
       radial-gradient(
