@@ -55,9 +55,13 @@ export { default as ArtistCard } from "./artists/ArtistCard";
 export { default as ArtistIntroVideo } from "./artists/ArtistIntroVideo";
 export { default as TopArtistSteps } from "./artists/TopArtistSteps";
 export { default as ArtistCheckoutProgress } from "./artists/ArtistCheckoutProgress";
-export { default as BusinessCheckoutProgress } from "./business/BusinessCheckoutProgress";
+export { default as CheckoutProgress } from "./shared/CheckoutProgress";
 export { default as ArtistPricingTier } from "./artists/ArtistPricingTier";
 export { default as ArtistCardSlider } from "./artists/ArtistCardSlider";
+
+// book
+export { default as BookBrief } from "./book/BookBrief";
+export { default as BookSkeleton } from "./book/BookSkeleton";
 
 // checkout
 export { default as CheckoutBrief } from "./checkout/CheckoutBrief";
@@ -109,6 +113,8 @@ export { default as ArtistLoginAndSecurity } from "./dashboard/artist/settings/A
 export { default as ArtistOrder } from "./dashboard/artist/orders/ArtistOrder";
 export { default as ArtistSettings } from "./dashboard/artist/settings/ArtistSettings";
 export { default as ArtistMessages } from "./dashboard/artist/messages/ArtistMessages";
+export { default as ArtistMedia } from "./dashboard/artist/profile/ArtistMedia";
+export { default as ArtistProfileSettingsSkeleton } from "./dashboard/artist/settings/ArtistProfileSettingsSkeleton";
 
 // tiers
 export { default as TiersPricingForm } from "./dashboard/artist/tiers/TiersPricingForm";

@@ -3,6 +3,7 @@
 import { MobileNav, NavSearch, UserDropdown } from "@/components";
 import { mainNavLinks } from "@/constants";
 import { useAppDispatch, useAppSelector } from "@/hooks";
+import { IUser } from "@/interface";
 import { useLogoutMutation } from "@/redux/features/auth/auth.api";
 import { logout as logoutAction } from "@/redux/features/auth/user.slice";
 import { Menu } from "lucide-react";
@@ -92,7 +93,7 @@ const MainHeader = () => {
             {/* login */}
             {user ? (
               <UserDropdown
-                user={user}
+                user={user as IUser}
                 onLogout={handleLogout}
                 items={[
                   { type: "link", label: "Dashboard", href: "/dashboard" },

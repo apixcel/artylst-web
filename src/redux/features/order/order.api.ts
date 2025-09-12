@@ -41,6 +41,29 @@ const orderApi = api.injectEndpoints({
       },
       providesTags: ["order"],
     }),
+    createFanOrder: builder.mutation<{ data: IOrder }, Partial<IOrder>>({
+      query: (payload) => {
+        return {
+          url: `/order/fan`,
+          method: "POST",
+          body: payload,
+        };
+      },
+      invalidatesTags: ["order"],
+    }),
+    getMyFanOrder: builder.query<
+      { data: IOrder[]; meta: IMeta },
+      Record<string, string | number>
+    >({
+      query: (query) => {
+        const queryString = generateQueryParams(query);
+        return {
+          url: `/order/my/fan?${queryString}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["order"],
+    }),
   }),
 });
 
@@ -48,4 +71,6 @@ export const {
   useCreateBusinessOrderMutation,
   useGetMyBusinessOrderQuery,
   useGetMyArtistOrdersQuery,
+  useCreateFanOrderMutation,
+  useGetMyFanOrderQuery,
 } = orderApi;

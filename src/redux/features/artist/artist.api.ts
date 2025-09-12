@@ -1,4 +1,4 @@
-import { IArtist, IMeta } from "@/interface";
+import { IArtist, IMeta, IUpdateArtistProfile } from "@/interface";
 import { api } from "@/redux/api/api";
 import { generateQueryParams } from "@/utils";
 
@@ -95,6 +95,25 @@ const artistApi = api.injectEndpoints({
       },
       invalidatesTags: ["artist"],
     }),
+    getMyArtistProfile: builder.query<{ data: IArtist }, undefined>({
+      query: () => {
+        return {
+          url: `/artist/my-profile`,
+          method: "GET",
+        };
+      },
+      providesTags: ["artist"],
+    }),
+    updateMyArtistProfile: builder.mutation<{ data: IArtist }, IUpdateArtistProfile>({
+      query: (payload) => {
+        return {
+          url: `/artist/update-profile`,
+          method: "PATCH",
+          body: payload,
+        };
+      },
+      invalidatesTags: ["user"],
+    }),
   }),
 });
 
@@ -106,4 +125,6 @@ export const {
   useGetTopViewedArtistQuery,
   useAmIFeaturedQuery,
   useBecomeFeaturedMutation,
+  useGetMyArtistProfileQuery,
+  useUpdateMyArtistProfileMutation,
 } = artistApi;

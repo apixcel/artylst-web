@@ -26,6 +26,7 @@ import Link from "next/link";
 import AddOrRemoveArtistToFav from "@/components/dashboard/artist/AddOrRemoveArtistToFav";
 import { IArtist } from "@/interface";
 import { baseUrl } from "@/redux/api/api";
+import { businessAvatarFallback } from "@/constants/fallBack";
 
 const ArtistDetailsView = async ({ userName }: { userName: string }) => {
   const res = await fetch(`${baseUrl}/artist/profile/${userName}`, {
@@ -71,7 +72,7 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
             {/* Avatar */}
             <div className="h-30 w-30 sm:h-[160px] sm:w-[160px] rounded-full border border-white/15 overflow-hidden absolute left-[25px] -bottom-[45px] !z-[9999999]">
               <Image
-                src={avatar || "/images/artists/artist-img-1.avif"}
+                src={avatar || businessAvatarFallback}
                 alt="Artist Avatar"
                 width={160}
                 height={160}
@@ -111,7 +112,10 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
 
             <div className="mt-3 flex flex-wrap gap-2">
               {genre?.map((g) => (
-                <span className="chip" key={g._id}>
+                <span
+                  key={g._id}
+                  className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1"
+                >
                   {g.slug.charAt(0).toUpperCase() + g.slug.slice(1)}
                 </span>
               ))}

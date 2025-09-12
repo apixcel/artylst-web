@@ -6,6 +6,7 @@ import Link from "next/link";
 import { LogOut, User as UserIcon } from "lucide-react";
 import { cn } from "@/utils";
 import { usePathname } from "next/navigation";
+import { IUser } from "@/interface";
 
 type LinkItem = {
   type: "link";
@@ -29,14 +30,8 @@ type SeparatorItem = {
 
 type MenuEntry = LinkItem | ButtonItem | SeparatorItem;
 
-type UserInfo = {
-  displayName?: string;
-  email?: string;
-  image?: string;
-};
-
 type UserDropdownProps = {
-  user?: UserInfo;
+  user?: IUser;
   onLogout?: () => void | Promise<void>;
   items?: Exclude<MenuEntry, SeparatorItem>[];
   align?: "left" | "right";
@@ -64,6 +59,7 @@ export default function UserDropdown({
   const isControlled = typeof open === "boolean";
   const isOpen = isControlled ? (open as boolean) : internalOpen;
   const pathname = usePathname();
+  console.log(user);
 
   const setOpen = (v: boolean) => {
     if (!isControlled) setInternalOpen(v);
@@ -143,9 +139,9 @@ export default function UserDropdown({
           buttonClassName
         )}
       >
-        {user?.image ? (
+        {user?.avatar ? (
           <Image
-            src={user.image}
+            src={user.avatar}
             alt={user?.displayName ? `${user.displayName}'s avatar` : "User avatar"}
             width={80}
             height={80}

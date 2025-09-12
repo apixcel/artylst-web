@@ -1,5 +1,14 @@
 import { IGenre } from "../meta/meta.interface";
 
+type ISocials = {
+  spotify: string;
+  instagram: string;
+  website: string;
+  tiktok: string;
+  youtube: string;
+  playlist?: string;
+};
+
 export type IArtist = {
   _id: string;
   displayName: string;
@@ -17,7 +26,6 @@ export type IArtist = {
   price: number;
   platforms: string[];
   coverPhoto: string;
-  country: string;
   introVideo: string;
   introThumbnail: string;
   // oldPrice?: number;
@@ -29,6 +37,15 @@ export type IArtist = {
   createdAt: string;
   updatedAt: string;
   email: string;
+  socials: ISocials;
+  language: string;
+  timezone: string;
+  country: string;
+};
+
+export type IUpdateArtistProfile = Partial<Omit<IArtist, "genre" | "language">> & {
+  genre?: string[];
+  language?: string;
 };
 
 export interface IRankedArtist extends IArtist {

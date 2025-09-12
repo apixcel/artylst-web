@@ -121,7 +121,7 @@ const ArtistCard = ({
 
           {item.genre && item.genre.length > 0 && (
             <div className="flex items-center justify-center gap-2 flex-wrap">
-              {item.genre.map((genre) => (
+              {item.genre.slice(0, 5).map((genre) => (
                 <span
                   key={genre._id}
                   className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1"
@@ -129,6 +129,11 @@ const ArtistCard = ({
                   {genre.slug.charAt(0).toUpperCase() + genre.slug.slice(1)}
                 </span>
               ))}
+              {item.genre.length > 5 && (
+                <span className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1">
+                  +{item.genre.length - 5}
+                </span>
+              )}
             </div>
           )}
 
@@ -204,9 +209,9 @@ const ArtistCard = ({
             <Image
               src={item.avatar}
               alt={item.displayName || "Artist"}
-              width={500}
-              height={500}
-              className="h-full w-full object-cover"
+              width={800}
+              height={800}
+              className="h-[250px] w-full object-cover"
             />
           ) : (
             <div className="h-[250px] w-full">
@@ -238,10 +243,10 @@ const ArtistCard = ({
           <p className="text-sm text-muted">{item.designation}</p>
         </div>
 
-        <div className="flex flex-col gap-3 mb-2 px-3">
+        <div className="flex flex-col gap-3 mb-2">
           {item.genre && item.genre.length > 0 && (
             <div className="flex items-center justify-center gap-2 flex-wrap">
-              {item.genre.map((genre) => (
+              {item.genre.slice(0, 5).map((genre) => (
                 <span
                   key={genre._id}
                   className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1"
@@ -249,10 +254,15 @@ const ArtistCard = ({
                   {genre.slug.charAt(0).toUpperCase() + genre.slug.slice(1)}
                 </span>
               ))}
+              {item.genre.length > 5 && (
+                <span className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1">
+                  +{item.genre.length - 5}
+                </span>
+              )}
             </div>
           )}
 
-          <div className="flex items-center justify-between gap-1 px-1">
+          <div className="flex items-center justify-between gap-1 px-3">
             <div className="flex items-center gap-1">
               <StarIcon className="w-[22px] h-[22px]" />
               <p className="text-sm">{item.reviewCount}</p>
@@ -264,8 +274,8 @@ const ArtistCard = ({
           </div>
         </div>
 
-        <div className="flex flex-col items-center justify-between">
-          <div className="flex items-center justify-between w-full pt-3 px-5">
+        <div className="flex flex-col items-center justify-between px-5">
+          <div className="flex items-center justify-between w-full pt-3">
             <div className="flex items-baseline gap-2">
               {/* <p
                 className={cn(
@@ -289,14 +299,12 @@ const ArtistCard = ({
             </div>
           </div>
 
-          <div className="mb-4 mt-3 w-full sm:w-auto sm:justify-start justify-center flex sm:flex-row flex-col gap-2 sm:px-0 px-3">
-            <Link
-              href={`/artists/${item.userName}`}
-              className="text-center sm:text-left px-3 py-2 rounded btn-ghost"
-            >
-              Profile
-            </Link>
-          </div>
+          <Link
+            href={`/artists/${item.userName}`}
+            className="text-center w-full px-3 inline-block py-2 rounded-md btn-ghost mb-4 mt-3"
+          >
+            Profile
+          </Link>
         </div>
       </div>
 
