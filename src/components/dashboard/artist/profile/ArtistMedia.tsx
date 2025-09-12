@@ -23,7 +23,7 @@ const ArtistMedia = () => {
   const avatarInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
 
-  const { data, isLoading } = useGetMyArtistProfileQuery(undefined);
+  const { data, isLoading, refetch } = useGetMyArtistProfileQuery(undefined);
   const profile = data?.data as IArtist | undefined;
 
   const [uploadFile] = useUploadSingleFileMutation();
@@ -79,7 +79,8 @@ const ArtistMedia = () => {
     try {
       setAvatarBusy(true);
       const avatarUrl = await uploadAndGetUrl(avatarFile);
-      await updateProfile({ avatar: avatarUrl }).unwrap();
+      await updateProfile({ avatar: avatarUrl });
+      await refetch();
       setAvatarFile(null);
       toast.success("Avatar updated!");
     } catch (e) {
@@ -102,7 +103,8 @@ const ArtistMedia = () => {
     try {
       setCoverBusy(true);
       const coverUrl = await uploadAndGetUrl(coverFile);
-      await updateProfile({ coverPhoto: coverUrl }).unwrap();
+      await updateProfile({ coverPhoto: coverUrl });
+      await refetch();
       setCoverFile(null);
       toast.success("Cover image updated!");
     } catch (e) {

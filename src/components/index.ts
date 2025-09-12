@@ -114,6 +114,7 @@ export { default as ArtistOrder } from "./dashboard/artist/orders/ArtistOrder";
 export { default as ArtistSettings } from "./dashboard/artist/settings/ArtistSettings";
 export { default as ArtistMessages } from "./dashboard/artist/messages/ArtistMessages";
 export { default as ArtistMedia } from "./dashboard/artist/profile/ArtistMedia";
+export { default as ArtistProfileSettingsSkeleton } from "./dashboard/artist/settings/ArtistProfileSettingsSkeleton";
 
 // tiers
 export { default as TiersPricingForm } from "./dashboard/artist/tiers/TiersPricingForm";

@@ -9,7 +9,7 @@ import Image from "next/image";
 import { useGetRecentlyViewedArtistsQuery } from "@/redux/features/artist/artist.api";
 
 const HomeRecentlyViewed = () => {
-  const { data, isLoading } = useGetRecentlyViewedArtistsQuery({});
+  const { data } = useGetRecentlyViewedArtistsQuery({});
   const artistsData = data?.data || [];
   console.log("log from home recently viewed", artistsData);
 
@@ -49,7 +49,7 @@ const HomeRecentlyViewed = () => {
                     alt={a.displayName || "Artist"}
                     width={500}
                     height={500}
-                    className="w-full h-full object-cover rounded-[16px]"
+                    className="w-full h-[200px] object-cover rounded-[16px]"
                   />
                 ) : (
                   <div className="w-full h-[200px]">
@@ -70,7 +70,7 @@ const HomeRecentlyViewed = () => {
 
                 {/* genres */}
                 {a.genre && a.genre.length > 0 && (
-                  <div className="flex items-center justify-center gap-2 flex-wrap">
+                  <div className="mt-[8px] flex items-center justify-center gap-2 flex-wrap">
                     {a.genre.map((genre) => (
                       <span
                         key={genre._id}
@@ -83,7 +83,7 @@ const HomeRecentlyViewed = () => {
                 )}
 
                 {/* rating */}
-                <div className="flex items-center gap-[4px] font-[500] mb-[4px]">
+                <div className="flex items-center gap-[4px] font-[500] mt-[8px] mb-[4px]">
                   <p className="flex items-center gap-[4px]">
                     <StarIcon className="w-[22px] h-[22px]" /> {a.reviewCount}
                   </p>

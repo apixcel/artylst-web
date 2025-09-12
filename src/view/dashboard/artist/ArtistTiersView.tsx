@@ -26,7 +26,7 @@ const ArtistTiersView = () => {
   const [createTier, { isLoading: isCreating }] = useCreatePricingTierMutation();
   const [updateTier, { isLoading: isUpdating }] = useUpdatePricingTierMutation();
 
-  const { data: myTierResp, isFetching } = useGetMyPricingTierQuery();
+  const { data: myTierResp, isLoading: isFetching } = useGetMyPricingTierQuery();
   const myTier = myTierResp?.data;
 
   const mini = myTier?.find((tier) => tier.name === "Mini");
@@ -150,7 +150,7 @@ const ArtistTiersView = () => {
         </p>
       </div>
 
-      {!myTier?.length ? (
+      {isFetching ? (
         <TiersSkeleton />
       ) : (
         <TiersPricingForm

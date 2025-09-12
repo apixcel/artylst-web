@@ -3,25 +3,21 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   CheckCircle2,
-  Instagram,
-  Link2,
   Music4,
   Pencil,
-  PlayCircle,
   ShieldCheck,
   Sparkles,
   Tally5,
   Trash2,
   User,
-  Youtube,
 } from "lucide-react";
-import { TiktokIcon } from "@/icons";
-import { ArtistMedia, MultiDropdown, UnauthorizedMsgBox } from "@/components";
+import { ArtistMedia, Dropdown, MultiDropdown, UnauthorizedMsgBox } from "@/components";
 import {
   DropdownOption,
   IArtist,
-  IGenre,
   IQueryMutationErrorResponse,
+  IGenre,
+  IUpdateArtistProfile,
 } from "@/interface";
 import { useAppSelector } from "@/hooks";
 import { useGetGenresQuery } from "@/redux/features/meta/meta.api";
@@ -31,6 +27,17 @@ import {
 } from "@/redux/features/artist/artist.api";
 import { toast } from "sonner";
 import ArtistSocialLinks from "./ArtistSocialLinks";
+
+const languageOptions: DropdownOption<string>[] = [
+  { label: "English", value: "English" },
+  { label: "Hindi", value: "Hindi" },
+  { label: "Spanish", value: "Spanish" },
+  { label: "French", value: "French" },
+  { label: "German", value: "German" },
+  { label: "Japanese", value: "Japanese" },
+  { label: "Korean", value: "Korean" },
+  { label: "Chinese (Mandarin)", value: "Chinese (Mandarin)" },
+];
 
 const Chip = ({ children }: { children: React.ReactNode }) => (
   <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-white/10 border border-white/10 text-xs">
@@ -62,9 +69,9 @@ const SectionSaveButton = ({
 type FormState = {
   displayName: string;
   bio: string;
-  languages: string;
+  language: DropdownOption<string>;
   timezone: string;
-  location: string;
+  country: string;
   genre: DropdownOption<string>[];
   socials: {
     spotify: string;
@@ -111,7 +118,7 @@ function isValidUrlOrEmpty(v: string) {
 }
 
 export default function ArtistProfileView() {
-  const { data, isLoading } = useGetMyArtistProfileQuery(undefined);
+  const { data } = useGetMyArtistProfileQuery(undefined);
   const profile = data?.data as IArtist | undefined;
 
   const { user } = useAppSelector((state) => state.user);
@@ -129,9 +136,9 @@ export default function ArtistProfileView() {
   const [form, setForm] = useState<FormState>({
     displayName: "",
     bio: "",
-    languages: "",
+    language: languageOptions[0],
     timezone: "GMT+6 (Dhaka)",
-    location: "",
+    country: "",
     genre: [],
     socials: emptySocials,
   });
@@ -142,9 +149,9 @@ export default function ArtistProfileView() {
       return {
         displayName: "",
         bio: "",
-        languages: "",
+        language: languageOptions[0],
         timezone: "GMT+6 (Dhaka)",
-        location: "",
+        country: "",
         genre: [] as DropdownOption<string>[],
         socials: emptySocials,
       };
@@ -152,12 +159,12 @@ export default function ArtistProfileView() {
     return {
       displayName: profile.displayName || "",
       bio: profile.bio || "",
-      languages: profile.languages || "",
+      language: profile.language || languageOptions[0],
       timezone: profile.timezone || "GMT+6 (Dhaka)",
-      location: profile.location || "",
+      country: profile.country || "",
       genre: (profile.genre || []).map((g) => ({
-        label: g.label ?? g.label ?? "",
-        value: g._id ?? g._id,
+        label: (g as IGenre).label ?? (g as IGenre).label ?? "",
+        value: (g as IGenre)._id ?? (g as IGenre)._id,
       })),
       socials: {
         spotify: profile.socials?.spotify || "",
@@ -193,9 +200,9 @@ export default function ArtistProfileView() {
       original.genre.map((g) => g.value)
     ),
     locale:
-      form.languages.trim() !== original.languages.trim() ||
+      form.language.value !== original.language.value ||
       form.timezone !== original.timezone ||
-      form.location.trim() !== original.location.trim(),
+      form.country.trim() !== original.country.trim(),
     socials: !deepEqual(form.socials, original.socials),
   };
 
@@ -210,7 +217,7 @@ export default function ArtistProfileView() {
   });
 
   // --- Shared updater helper (send only the fields you intend to change) ---
-  async function patchProfile(partial: Partial<IArtist>, onSuccess?: () => void) {
+  async function patchProfile(partial: IUpdateArtistProfile, onSuccess?: () => void) {
     const res = await updateProfile(partial);
     const err = res.error as IQueryMutationErrorResponse;
     if (err) {
@@ -244,23 +251,23 @@ export default function ArtistProfileView() {
 
   async function saveGenres() {
     if (!dirty.genre) return;
-    setSaving((s) => ({ ...s, genres: true }));
-    await patchProfile({ genres: form.genre.map((g) => g.value) as unknown as IGenre[] });
-    setSaving((s) => ({ ...s, genres: false }));
+    setSaving((s) => ({ ...s, genre: true }));
+    await patchProfile({ genre: form.genre.map((g) => g.value) });
+    setSaving((s) => ({ ...s, genre: false }));
   }
 
   async function saveLocale() {
     if (!dirty.locale) return;
-    const languages = parseLanguages(form.languages);
+    const languages = parseLanguages(form.language.value);
     if (languages.length === 0) {
       toast.error("Please enter at least one language.");
       return;
     }
     setSaving((s) => ({ ...s, locale: true }));
     await patchProfile({
-      languages: form.languages,
+      language: form.language.value,
       timezone: form.timezone,
-      location: form.location.trim(),
+      country: form.country.trim(),
     });
     setSaving((s) => ({ ...s, locale: false }));
   }
@@ -287,7 +294,7 @@ export default function ArtistProfileView() {
     if (form.displayName.trim()) pct += 20;
     if (form.bio.trim()) pct += 20;
     if (form.genre.length) pct += 20;
-    if (parseLanguages(form.languages).length) pct += 20;
+    if (parseLanguages(form.language.value).length) pct += 20;
     if (Object.values(form.socials).some(Boolean)) pct += 20;
     return Math.min(100, pct);
   }, [form]);
@@ -390,9 +397,9 @@ export default function ArtistProfileView() {
           </div>
         </div>
 
-        {/* Genres & tags */}
+        {/* Genres */}
         <div className="border-b border-white/10 pb-4">
-          <label className="text-sm text-muted block mb-1">Genres & tags</label>
+          <label className="text-sm text-muted block mb-1">Genres</label>
           <div className="flex items-center gap-2">
             <MultiDropdown
               options={genreOptions}
@@ -412,13 +419,22 @@ export default function ArtistProfileView() {
         {/* Locale */}
         <div className="grid gap-4 border-b border-white/10 pb-4">
           <div className="grid sm:grid-cols-3 gap-4">
+            {/* Language */}
             <div>
-              <label className="text-sm text-white/60">Languages</label>
-              <input
-                className="w-full mt-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
-                placeholder="English"
-                value={form.languages}
-                onChange={(e) => setField("languages", e.target.value)}
+              <label className="text-sm text-white/60">Language</label>
+              <Dropdown<string>
+                // form.language (string) -> Dropdown expects DropdownOption or null
+                value={
+                  languageOptions.find((o) => o.value === form.language.value) ?? null
+                }
+                options={languageOptions}
+                onChange={(opt) =>
+                  setField("language", { label: opt.label, value: opt.value })
+                }
+                placeholder="Select language"
+                className="w-full mt-1"
+                buttonClassName="w-full"
+                panelClassName="w-full"
               />
             </div>
             <div>
@@ -434,9 +450,9 @@ export default function ArtistProfileView() {
               <label className="text-sm text-white/60">Location</label>
               <input
                 className="w-full mt-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
-                placeholder="City, Country"
-                value={form.location}
-                onChange={(e) => setField("location", e.target.value)}
+                placeholder="Country"
+                value={form.country}
+                onChange={(e) => setField("country", e.target.value)}
               />
             </div>
           </div>

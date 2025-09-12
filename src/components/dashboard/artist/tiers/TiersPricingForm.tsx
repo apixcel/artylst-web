@@ -13,7 +13,6 @@ import {
 import { Formik, Form, Field, FieldArray, useField } from "formik";
 import * as Yup from "yup";
 import { cn } from "@/utils";
-import TiersSkeleton from "./TiersSkeleton";
 
 export const TIER_NAME_BY_KEY: Record<TierKey, TierName> = {
   mini: "Mini",

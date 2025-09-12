@@ -1,4 +1,4 @@
-import { IArtist, IMeta } from "@/interface";
+import { IArtist, IMeta, IUpdateArtistProfile } from "@/interface";
 import { api } from "@/redux/api/api";
 import { generateQueryParams } from "@/utils";
 
@@ -104,7 +104,7 @@ const artistApi = api.injectEndpoints({
       },
       providesTags: ["artist"],
     }),
-    updateMyArtistProfile: builder.mutation<{ data: IArtist }, Partial<IArtist>>({
+    updateMyArtistProfile: builder.mutation<{ data: IArtist }, IUpdateArtistProfile>({
       query: (payload) => {
         return {
           url: `/artist/update-profile`,
@@ -112,6 +112,7 @@ const artistApi = api.injectEndpoints({
           body: payload,
         };
       },
+      invalidatesTags: ["user"],
     }),
   }),
 });

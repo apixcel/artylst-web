@@ -26,7 +26,6 @@ export type IArtist = {
   price: number;
   platforms: string[];
   coverPhoto: string;
-  country: string;
   introVideo: string;
   introThumbnail: string;
   // oldPrice?: number;
@@ -39,10 +38,14 @@ export type IArtist = {
   updatedAt: string;
   email: string;
   socials: ISocials;
-  languages: string;
+  language: string;
   timezone: string;
-  location: string;
-  genres: IGenre[];
+  country: string;
+};
+
+export type IUpdateArtistProfile = Partial<Omit<IArtist, "genre" | "language">> & {
+  genre?: string[];
+  language?: string;
 };
 
 export interface IRankedArtist extends IArtist {
