@@ -59,7 +59,6 @@ export default function UserDropdown({
   const isControlled = typeof open === "boolean";
   const isOpen = isControlled ? (open as boolean) : internalOpen;
   const pathname = usePathname();
-  console.log(user);
 
   const setOpen = (v: boolean) => {
     if (!isControlled) setInternalOpen(v);
@@ -182,8 +181,7 @@ export default function UserDropdown({
               }
 
               if (item.type === "link") {
-                const isActive =
-                  pathname === item.href || pathname.startsWith(item.href + "/");
+                const isActive = pathname === item.href;
                 return (
                   <Link
                     key={item.label + i}

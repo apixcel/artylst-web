@@ -5,9 +5,9 @@ import React from "react";
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <ProtectedRoute role="*">
-      <div className="w-full flex items-start justify-between gap-3">
+      <div className="w-full flex items-start justify-between gap-5 min-h-[100vh] flex-col lg:flex-row">
         <ProfileSidebar />
-        <div className="w-full">{children}</div>
+        <div className="w-full card min-h-[400px]">{children}</div>
       </div>
     </ProtectedRoute>
   );

@@ -4,7 +4,7 @@ import { IArtist } from "@/interface";
 import {
   useAddOrRemoveFavArtistMutation,
   useGetFavArtistQuery,
-} from "@/redux/features/business/business.api";
+} from "@/redux/features/artist/artist.api";
 import { Heart } from "lucide-react";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
@@ -17,7 +17,7 @@ const AddOrRemoveArtistToFav: React.FC<IProps> = ({ artist, className }) => {
 
   const { data: myFav } = useGetFavArtistQuery(
     {},
-    { skip: !user || user.role !== "business" }
+    { skip: !user || user.role === "artist" }
   );
   const [isFav, setIsFav] = useState(Boolean(artist?.isFavorite));
   const [addRemove] = useAddOrRemoveFavArtistMutation();
@@ -34,7 +34,7 @@ const AddOrRemoveArtistToFav: React.FC<IProps> = ({ artist, className }) => {
 
   return (
     <>
-      {!user || user.role !== "business" ? null : (
+      {!user || user.role === "artist" ? null : (
         <button
           className={twMerge(
             `flex items-center justify-center border-[1px] border-red-campaign-red w-[40px] h-[40px] rounded-full cursor-pointer ${isFav ? "bg-red-campaign-red" : ""}`,

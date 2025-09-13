@@ -114,6 +114,29 @@ const artistApi = api.injectEndpoints({
       },
       invalidatesTags: ["user"],
     }),
+
+    getFavArtist: builder.query<
+      { data: IArtist[]; meta: IMeta },
+      Record<string, string | number>
+    >({
+      query: (query) => {
+        const queryString = generateQueryParams(query);
+        return {
+          url: `/artist/fav-artist?${queryString}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["business"],
+    }),
+    addOrRemoveFavArtist: builder.mutation<{ data: IArtist[] }, string>({
+      query: (artistId) => {
+        return {
+          url: `/artist/fav-artist/${artistId}`,
+          method: "PATCH",
+        };
+      },
+      invalidatesTags: ["business"],
+    }),
   }),
 });
 
@@ -127,4 +150,7 @@ export const {
   useBecomeFeaturedMutation,
   useGetMyArtistProfileQuery,
   useUpdateMyArtistProfileMutation,
+
+  useAddOrRemoveFavArtistMutation,
+  useGetFavArtistQuery,
 } = artistApi;

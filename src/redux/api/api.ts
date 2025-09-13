@@ -58,6 +58,7 @@ export const api = createApi({
     "business",
     "file",
     "availability",
+    "fan",
   ],
   endpoints: () => ({}),
 });

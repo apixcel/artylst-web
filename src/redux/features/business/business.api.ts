@@ -5,29 +5,6 @@ import { generateQueryParams } from "@/utils";
 
 const businessApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    getFavArtist: builder.query<
-      { data: IArtist[]; meta: IMeta },
-      Record<string, string | number>
-    >({
-      query: (query) => {
-        const queryString = generateQueryParams(query);
-        return {
-          url: `/business/fav-artist?${queryString}`,
-          method: "GET",
-        };
-      },
-      providesTags: ["business"],
-    }),
-    addOrRemoveFavArtist: builder.mutation<{ data: IArtist[] }, string>({
-      query: (artistId) => {
-        return {
-          url: `/business/fav-artist/${artistId}`,
-          method: "PATCH",
-        };
-      },
-      invalidatesTags: ["business"],
-    }),
-
     getBusinessPrfile: builder.query<{ data: IBusinessProfile }, undefined>({
       query: () => {
         return {
@@ -66,8 +43,6 @@ const businessApi = api.injectEndpoints({
 });
 
 export const {
-  useAddOrRemoveFavArtistMutation,
-  useGetFavArtistQuery,
   useGetBusinessPrfileQuery,
   useUpdateBusinessPrfileMutation,
   useGetBusinessRecommendedArtistQuery,
