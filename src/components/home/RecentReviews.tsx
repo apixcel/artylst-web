@@ -1,11 +1,11 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, FreeMode } from "swiper/modules";
-import "swiper/css/navigation";
-import { reviewData } from "@/constants";
 import { Review } from "@/components";
+import { reviewData } from "@/constants";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import "swiper/css/navigation";
+import { FreeMode, Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 const RecentReviews = () => {
   return (
