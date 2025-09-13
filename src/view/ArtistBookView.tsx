@@ -4,17 +4,18 @@ import { Field, Form, Formik } from "formik";
 import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import * as Yup from "yup";
 
 import { BookBrief, CheckoutAddOnns, CheckoutProgress, Input } from "@/components";
-import { IQueryMutationErrorResponse } from "@/interface";
+import { IQueryMutationErrorResponse, IUser } from "@/interface";
 import { useGetArtistProfileByUserNameQuery } from "@/redux/features/artist/artist.api";
 import { updateAuthState } from "@/redux/features/auth/user.slice";
 import { useCreateFanOrderMutation } from "@/redux/features/order/order.api";
 import { useParams, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
+import { businessAvatarFallback } from "@/constants/fallBack";
 
 type FormValues = {
   // brief
@@ -37,63 +38,10 @@ type FormValues = {
 };
 
 const SERVICE_FEE_RATE = 0.2; // 20%
-const ADDONS_PRICE: Record<string, number> = {
-  rush: 12,
-  length: 10,
-  business: 25,
-  notes: 5,
-};
-
-const stepSchemas = [
-  // 1) brief
-  Yup.object({
-    occasion: Yup.string().required("Choose an occasion"),
-    platform: Yup.string().required("Pick a platform"),
-    language: Yup.string().required("Select language"),
-    deliveryWindow: Yup.string().required("Select delivery window"),
-    note: Yup.string().max(500, "Max 500 characters"),
-  }),
-  // 2) add-ons (optional)
-  Yup.object({
-    addon: Yup.object({
-      label: Yup.string(),
-      price: Yup.number(),
-    }).optional(),
-  }),
-  // 3) buyer info (WITH password here)
-  Yup.object({
-    name: Yup.string().required("Your name is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    password: Yup.string()
-      .min(8, "Password must be at least 8 characters")
-      .matches(/\d/, "Password must contain a number")
-      .matches(/[a-z]/, "Password must contain a lowercase letter")
-      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-      .matches(/[@$!%*?&^#_\-]/, "Password must contain at least one special character")
-      .required("Password is required"),
-    confirmPassword: Yup.string()
-      .oneOf([Yup.ref("password")], "Passwords must match")
-      .required("Please confirm your password"),
-  }),
-] as const;
-
-const initialValues: FormValues = {
-  occasion: "workout",
-  price: 0,
-  platform: "spotify",
-  language: "english",
-  deliveryWindow: "1-3 days",
-  note: "",
-  addon: undefined,
-  name: "",
-  email: "",
-  password: "",
-  confirmPassword: "",
-};
 
 const stepsLabels = ["1. Brief", "2. Add-ons", "3. Pay"] as const;
 
-const ArtistBookView = () => {
+const ArtistBookView = ({ user }: { user: IUser }) => {
   const params = useParams();
   const userName = params.userName as string;
 
@@ -106,8 +54,73 @@ const ArtistBookView = () => {
 
   const dispatch = useDispatch();
 
-  const isLast = step === 3;
+  const isLoggedIn = Boolean(user && user?._id);
+
+  // --- Dynamic validation: skip password rules when user exists ---
+  const stepSchemas = useMemo(() => {
+    const briefSchema = Yup.object({
+      occasion: Yup.string().required("Choose an occasion"),
+      platform: Yup.string().required("Pick a platform"),
+      language: Yup.string().required("Select language"),
+      deliveryWindow: Yup.string().required("Select delivery window"),
+      note: Yup.string().max(500, "Max 500 characters"),
+    });
+
+    const addonsSchema = Yup.object({
+      addon: Yup.object({
+        label: Yup.string(),
+        price: Yup.number(),
+      }).optional(),
+    });
+
+    const buyerSchemaWhenLoggedOut = Yup.object({
+      name: Yup.string().required("Your name is required"),
+      email: Yup.string().email("Invalid email").required("Email is required"),
+      password: Yup.string()
+        .min(8, "Password must be at least 8 characters")
+        .matches(/\d/, "Password must contain a number")
+        .matches(/[a-z]/, "Password must contain a lowercase letter")
+        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+        .matches(/[@$!%*?&^#_\-]/, "Password must contain at least one special character")
+        .required("Password is required"),
+      confirmPassword: Yup.string()
+        .oneOf([Yup.ref("password")], "Passwords must match")
+        .required("Please confirm your password"),
+    });
+
+    const buyerSchemaWhenLoggedIn = Yup.object({
+      name: Yup.string().required("Your name is required"),
+      email: Yup.string().email("Invalid email").required("Email is required"),
+      // passwords omitted
+    });
+
+    return [
+      briefSchema,
+      addonsSchema,
+      isLoggedIn ? buyerSchemaWhenLoggedIn : buyerSchemaWhenLoggedOut,
+    ] as const;
+  }, [isLoggedIn]);
+
   const currentSchema = stepSchemas[step - 1];
+  const isLast = step === 3;
+
+  // --- Initial values: auto-fill from user when available ---
+  const initialValues: FormValues = useMemo(
+    () => ({
+      occasion: "workout",
+      price: 0,
+      platform: "spotify",
+      language: "english",
+      deliveryWindow: "1-3 days",
+      note: "",
+      addon: undefined,
+      name: user?.fullName ?? "",
+      email: (user?.email as string) ?? "",
+      password: "",
+      confirmPassword: "",
+    }),
+    [user]
+  );
 
   if (isLoading) {
     return <div className="p-10">Loading…</div>;
@@ -135,11 +148,16 @@ const ArtistBookView = () => {
             price: values.addon?.price || 0,
           }
         : undefined,
-      deliveryInfo: {
-        email: values.email,
-        name: values.name,
-        password: values.password,
-      },
+      deliveryInfo: isLoggedIn
+        ? {
+            email: values.email,
+            name: values.name,
+          }
+        : {
+            email: values.email,
+            name: values.name,
+            password: values.password, // only when creating a new user
+          },
       deliveryWindow: values.deliveryWindow || undefined,
       platform: values.platform || "spotify",
       price: 100,
@@ -150,24 +168,26 @@ const ArtistBookView = () => {
       },
     };
 
-    console.log(payload);
-
     const res = await createOrder(payload);
-    const error = res.error as IQueryMutationErrorResponse;
+    const error = res?.error as IQueryMutationErrorResponse;
 
     if (error) {
       toast.error(error.data?.message || "Failed to create order");
       return;
     }
 
-    const fan = res.data?.data?.fan || undefined;
-    const accessToken = res.data?.data?.accessToken || undefined;
+    const fan = res?.data?.data?.fan || undefined;
+    const accessToken = res?.data?.data?.accessToken || undefined;
 
     if (fan && accessToken) {
       dispatch(updateAuthState({ user: fan, token: accessToken, isLoading: false }));
     }
     toast.success("Order created successfully");
     router.push(`/profile`);
+
+    if (user?.role === "business") {
+      router.push(`/dashboard/orders`);
+    }
   };
 
   return (
@@ -181,6 +201,7 @@ const ArtistBookView = () => {
         initialValues={initialValues}
         validationSchema={currentSchema}
         validateOnMount
+        enableReinitialize
         onSubmit={handleSubmit}
       >
         {({
@@ -191,8 +212,10 @@ const ArtistBookView = () => {
           setFieldValue,
           validateForm,
           setFieldTouched,
+          submitForm,
         }) => {
-          const addonPrice = values.addon ? (ADDONS_PRICE[values.addon.price] ?? 0) : 0;
+          // Fix: add-on price should come directly from chosen add-on, not a map key
+          const addonPrice = values.addon?.price ?? 0;
           const tierPrice = values.price || 0;
           const subtotal = tierPrice + addonPrice;
           const fee = +(subtotal * SERVICE_FEE_RATE).toFixed(2);
@@ -215,7 +238,11 @@ const ArtistBookView = () => {
           };
 
           return (
-            <Form>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
               {/* Main */}
               <main className="pb-16 grid lg:grid-cols-[1fr_380px] gap-6">
                 {/* LEFT */}
@@ -224,7 +251,7 @@ const ArtistBookView = () => {
                   <div className="card p-4 flex items-center gap-4 bg-gradient-to-b from-brand-2/10 to-brand-1/10">
                     <div className="h-14 w-14 rounded-full overflow-hidden">
                       <Image
-                        src={artist.avatar}
+                        src={artist.avatar || businessAvatarFallback}
                         alt={artist.displayName}
                         width={56}
                         height={56}
@@ -295,7 +322,9 @@ const ArtistBookView = () => {
                             placeholder="Full name"
                           />
                           {touched.name && errors.name && (
-                            <p className="text-xs text-red-400 mt-1">{errors.name}</p>
+                            <p className="text-xs text-red-400 mt-1">
+                              {errors.name as string}
+                            </p>
                           )}
                         </div>
                         {/* email */}
@@ -307,39 +336,47 @@ const ArtistBookView = () => {
                             placeholder="you@email.com"
                           />
                           {touched.email && errors.email && (
-                            <p className="text-xs text-red-400 mt-1">{errors.email}</p>
-                          )}
-                        </div>
-                        {/* password */}
-                        <div>
-                          <label className="label">Password</label>
-                          <Field
-                            as={Input}
-                            name="password"
-                            type="password"
-                            className="input mt-1"
-                            placeholder="Password"
-                          />
-                          {touched.password && errors.password && (
-                            <p className="text-xs text-red-400 mt-1">{errors.password}</p>
-                          )}
-                        </div>
-                        {/* confirm password */}
-                        <div>
-                          <label className="label">Confirm password</label>
-                          <Field
-                            as={Input}
-                            name="confirmPassword"
-                            type="password"
-                            className="input mt-1"
-                            placeholder="Re-type password"
-                          />
-                          {touched.confirmPassword && errors.confirmPassword && (
                             <p className="text-xs text-red-400 mt-1">
-                              {errors.confirmPassword}
+                              {errors.email as string}
                             </p>
                           )}
                         </div>
+
+                        {/* Only show password fields when NOT logged in */}
+                        {!isLoggedIn && (
+                          <>
+                            <div>
+                              <label className="label">Password</label>
+                              <Field
+                                as={Input}
+                                name="password"
+                                type="password"
+                                className="input mt-1"
+                                placeholder="Password"
+                              />
+                              {touched.password && errors.password && (
+                                <p className="text-xs text-red-400 mt-1">
+                                  {errors.password as string}
+                                </p>
+                              )}
+                            </div>
+                            <div>
+                              <label className="label">Confirm password</label>
+                              <Field
+                                as={Input}
+                                name="confirmPassword"
+                                type="password"
+                                className="input mt-1"
+                                placeholder="Re-type password"
+                              />
+                              {touched.confirmPassword && errors.confirmPassword && (
+                                <p className="text-xs text-red-400 mt-1">
+                                  {errors.confirmPassword as string}
+                                </p>
+                              )}
+                            </div>
+                          </>
+                        )}
                       </div>
                       <p className="text-xs text-white/60 mt-2">
                         ARTYLST will email your private playlist link and 30s
@@ -365,10 +402,11 @@ const ArtistBookView = () => {
                       </button>
                     ) : (
                       <button
-                        type="submit"
+                        type="button"
                         className="btn btn-primary"
                         disabled={!isValid || isCreating}
                         title={!isValid ? "Complete required fields" : undefined}
+                        onClick={() => submitForm()}
                       >
                         Continue to payment
                       </button>
