@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { logout, setToken } from "../features/auth/user.slice";
+import { logout, updateAuthState } from "../features/auth/user.slice";
 
 export const baseUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
 
@@ -24,6 +24,11 @@ const baseQueryWithRefreshToken = async (args: any, api: any, extraOptions: any)
       credentials: "include",
     });
 
+    if (res.status == 419) {
+      api?.dispatch(logout());
+      return result;
+    }
+
     const data = (await res.json()) as {
       success: boolean;
       data: {
@@ -32,7 +37,7 @@ const baseQueryWithRefreshToken = async (args: any, api: any, extraOptions: any)
     };
 
     if (data?.success && data?.data?.accessToken) {
-      api?.dispatch(setToken(data?.data?.accessToken));
+      api?.dispatch(updateAuthState({ token: data?.data?.accessToken }));
       result = await baseQuery(args, api, extraOptions);
     }
     return result;
@@ -48,6 +53,7 @@ export const api = createApi({
     "artist",
     "meta",
     "order",
+    "authProfile",
     "pricingTier",
     "business",
     "file",

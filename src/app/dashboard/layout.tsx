@@ -8,10 +8,10 @@ import {
   DashboardMobileNav,
 } from "@/components";
 import { artistDashboardLink, businessDashboardLink } from "@/constants";
-import { IUser } from "@/interface/user.interface";
-import { useState } from "react";
 import { useAppSelector } from "@/hooks";
+import { IUser } from "@/interface/user.interface";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -20,7 +20,10 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   const { user } = useAppSelector((state) => state.user);
   const role = user?.role;
 
-  if (!user) return router.push("/login");
+  if (!user) {
+    router.push("/login");
+    return <></>;
+  }
 
   return (
     <div className="flex min-h-screen">

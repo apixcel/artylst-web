@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { IUser } from "@/interface";
+import { cn } from "@/utils";
+import { LogOut, User as UserIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { LogOut, User as UserIcon } from "lucide-react";
-import { cn } from "@/utils";
 import { usePathname } from "next/navigation";
-import { IUser } from "@/interface";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type LinkItem = {
   type: "link";

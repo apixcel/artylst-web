@@ -3,7 +3,7 @@ import { Input } from "@/components";
 import { useAppDispatch } from "@/hooks";
 import { IQueryMutationErrorResponse } from "@/interface/queryMutationErrorResponse";
 import { useLoginMutation } from "@/redux/features/auth/auth.api";
-import { setUser } from "@/redux/features/auth/user.slice";
+import { updateAuthState } from "@/redux/features/auth/user.slice";
 import { Form, Formik } from "formik";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -41,12 +41,14 @@ const Login = () => {
       return;
     }
 
-    const user = response.data?.data;
+    const result = response.data?.data;
+    const user = result?.profile;
+    const token = result?.accessToken;
 
-    if (user) {
-      dispatch(setUser(user));
+    if (user && token) {
+      dispatch(updateAuthState({ user, token, isLoading: false }));
       toast.success("Login successful");
-      router.push("/dashboard");
+      router.push(user.role === "fan" ? "/profile" : "/dashboard");
     }
   };
 

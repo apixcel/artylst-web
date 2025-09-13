@@ -24,9 +24,6 @@ const userSlice = createSlice({
       state.isLoading = false;
       state.token = null;
     },
-    setLoading(state, action: PayloadAction<boolean>) {
-      state.isLoading = action?.payload || false;
-    },
 
     updateUser(state, action: PayloadAction<Partial<IUser>>) {
       if (state.user) {
@@ -34,16 +31,11 @@ const userSlice = createSlice({
       }
     },
 
-    setToken(state, action: PayloadAction<string | null>) {
-      state.token = action.payload;
-    },
-
-    setState(_state, action: PayloadAction<TAuthState>) {
-      return action.payload;
+    updateAuthState(state, action: PayloadAction<Partial<TAuthState>>) {
+      return { ...state, ...action.payload };
     },
   },
 });
 
-export const { setUser, logout, setLoading, setState, updateUser, setToken } =
-  userSlice.actions;
+export const { setUser, logout, updateUser, updateAuthState } = userSlice.actions;
 export default userSlice.reducer;
