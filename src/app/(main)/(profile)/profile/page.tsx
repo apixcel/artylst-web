@@ -1,7 +1,7 @@
-import React from "react";
+import FanProfileManagementView from "@/view/fanProfileViews/FanProfileManagementView";
 
 const page = () => {
-  return <div></div>;
+  return <FanProfileManagementView />;
 };
 
 export default page;

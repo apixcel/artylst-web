@@ -2,7 +2,7 @@
 import Chip from "@/components/ui/Chip";
 import { artistAvatarFallback } from "@/constants/fallBack";
 import { IArtist, IQueryMutationErrorResponse } from "@/interface";
-import { useAddOrRemoveFavArtistMutation } from "@/redux/features/business/business.api";
+import { useAddOrRemoveFavArtistMutation } from "@/redux/features/artist/artist.api";
 import { Heart, MessageSquare } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -60,9 +60,11 @@ const FavoriteArtistCard = ({ artist }: { artist: IArtist }) => {
 
       {/* Tags & status */}
       <div className="mt-3 flex flex-wrap gap-2 min-h-[22px]">
-        {artist?.genre.map((t) => (
+        {artist?.genre.slice(0, 3).map((t) => (
           <Chip key={t._id}>{t.label}</Chip>
         ))}
+
+        {artist.genre?.length > 3 && <Chip>{artist.genre.length - 3}+</Chip>}
       </div>
 
       {/* CTA */}

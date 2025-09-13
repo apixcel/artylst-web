@@ -6,7 +6,7 @@ import FavoriteArtistCardSkeleton from "@/components/dashboard/business/artists/
 import GenreSelector from "@/components/ui/GenreSelector";
 import { useAppSelector, useDebounce } from "@/hooks";
 import { DropdownOption } from "@/interface";
-import { useGetFavArtistQuery } from "@/redux/features/business/business.api";
+import { useGetFavArtistQuery } from "@/redux/features/artist/artist.api";
 import { Filter, Plus, Search } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
