@@ -1,9 +1,10 @@
 export type TGender = "male" | "female";
+export type TUserRole = "artist" | "business" | "fan";
 
 export interface IUser {
   _id: string;
   email: string;
-  role: "artist" | "business" | "admin" | "fan";
+  role: TUserRole;
   fullName: string;
   gender: TGender;
   avatar?: string;

@@ -95,11 +95,17 @@ const MainHeader = () => {
               <UserDropdown
                 user={user as IUser}
                 onLogout={handleLogout}
-                items={[
-                  { type: "link", label: "Dashboard", href: "/dashboard" },
-                  { type: "link", label: "Profile", href: "/dashboard/profile" },
-                  { type: "link", label: "Settings", href: "/dashboard/settings" },
-                ]}
+                items={
+                  user.role === "fan"
+                    ? [
+                        { type: "link", label: "Profile", href: "/profile" },
+                        { type: "link", label: "Settings", href: "/profile/settings" },
+                      ]
+                    : [
+                        { type: "link", label: "Dashboard", href: "/dashboard" },
+                        { type: "link", label: "Settings", href: "/dashboard/settings" },
+                      ]
+                }
               />
             ) : (
               <Link

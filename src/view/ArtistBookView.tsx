@@ -1,17 +1,19 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import { Field, Form, Formik } from "formik";
 import { Star } from "lucide-react";
-import { Formik, Form, Field } from "formik";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 import * as Yup from "yup";
 
 import { BookBrief, CheckoutAddOnns, CheckoutProgress, Input } from "@/components";
-import { useParams, useRouter } from "next/navigation";
-import { useGetArtistProfileByUserNameQuery } from "@/redux/features/artist/artist.api";
-import { useCreateFanOrderMutation } from "@/redux/features/order/order.api";
 import { IQueryMutationErrorResponse } from "@/interface";
+import { useGetArtistProfileByUserNameQuery } from "@/redux/features/artist/artist.api";
+import { updateAuthState } from "@/redux/features/auth/user.slice";
+import { useCreateFanOrderMutation } from "@/redux/features/order/order.api";
+import { useParams, useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 
 type FormValues = {
@@ -102,6 +104,8 @@ const ArtistBookView = () => {
   const [createOrder, { isLoading: isCreating }] = useCreateFanOrderMutation();
   const [step, setStep] = useState<1 | 2 | 3>(1);
 
+  const dispatch = useDispatch();
+
   const isLast = step === 3;
   const currentSchema = stepSchemas[step - 1];
 
@@ -155,8 +159,15 @@ const ArtistBookView = () => {
       toast.error(error.data?.message || "Failed to create order");
       return;
     }
+
+    const fan = res.data?.data?.fan || undefined;
+    const accessToken = res.data?.data?.accessToken || undefined;
+
+    if (fan && accessToken) {
+      dispatch(updateAuthState({ user: fan, token: accessToken, isLoading: false }));
+    }
     toast.success("Order created successfully");
-    router.push(`/dashboard/orders`);
+    router.push(`/profile`);
   };
 
   return (

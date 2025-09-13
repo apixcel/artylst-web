@@ -54,7 +54,10 @@ const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
-    login: builder.mutation<{ data: IUser }, { identifier: string; password: string }>({
+    login: builder.mutation<
+      { data: { profile: IUser; accessToken: string } },
+      { identifier: string; password: string }
+    >({
       query: (payload) => ({
         url: "/auth/login",
         method: "POST",
@@ -117,6 +120,15 @@ const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+    getAuthor: builder.query<{ data: IUser }, undefined>({
+      query: () => {
+        return {
+          url: `/auth/profile`,
+          method: "GET",
+        };
+      },
+      providesTags: ["authProfile"],
+    }),
   }),
 });
 export const {
@@ -133,4 +145,5 @@ export const {
   useRevokeAllSessionMutation,
   useRevokeSessionBySessionIdMutation,
   useChangePasswordMutation,
+  useGetAuthorQuery,
 } = userApi;
