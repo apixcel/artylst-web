@@ -61,7 +61,7 @@ const FanOrdersView = () => {
 
       {/* Filter bar */}
       <div className="rounded-2xl p-4 border border-white/10 bg-white/5 gap-3 flex items-end sm:justify-start md:justify-between flex-wrap">
-        <div className="flex items-center justify-start gap-2">
+        <div className="flex items-center justify-start gap-2 flex-wrap">
           <div className="flex flex-col gap-1">
             <label className="text-muted mr-2">Status</label>
             <Dropdown
@@ -90,7 +90,7 @@ const FanOrdersView = () => {
             />
           </div>
         </div>
-        <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3 flex-1">
+        <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3 flex-1 w-full md:w-auto">
           <Search className="h-4 w-4 text-white/60" />
           <input
             className="bg-transparent flex-1 py-2 outline-none"

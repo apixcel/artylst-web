@@ -12,7 +12,7 @@ const ProfileSidebar = () => {
     <div className="w-full lg:w-[300px] shrink-0 lg:sticky top-[125px] flex flex-col gap-5">
       <div className="card rounded-[8px] p-4">
         <div className="flex items-center justify-start gap-3">
-          <div className="w-[70px] h-[70px] rounded-full overflow-hidden">
+          <div className="w-[70px] h-[70px] rounded-full overflow-hidden shrink-0">
             <Image
               src={user?.avatar || fanAvatarFallback}
               alt="user"
@@ -29,7 +29,7 @@ const ProfileSidebar = () => {
           </div>
         </div>
       </div>
-      <div className="card p-4 flex flex-col gap-2 w-full">
+      <div className="card p-4 flex-col gap-2 w-full hidden lg:flex">
         {fanProfileLinks.map((link, index) => (
           <Link
             key={index + link.label}
@@ -38,6 +38,18 @@ const ProfileSidebar = () => {
           >
             <link.icon className={"text-muted group-hover:light h-5 w-5"} />
             <span className="font-heading">{link.label}</span>
+          </Link>
+        ))}
+      </div>
+
+      <div className="flex items-center gap-2 flex-wrap justify-start">
+        {fanProfileLinks.map((link, index) => (
+          <Link
+            key={index + link.label}
+            href={link.route}
+            className={`group flex w-fit  gap-2 items-center rounded-[8px] px-4 py-2 hover:bg-white/10 ${pathname === link.route ? "bg-white/10" : ""}`}
+          >
+            <link.icon className={"text-muted group-hover:light h-5 w-5"} /> {link.label}
           </Link>
         ))}
       </div>
