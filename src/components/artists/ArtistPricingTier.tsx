@@ -12,7 +12,6 @@ const ArtistPricingTier = async ({ userName }: { userName: string }) => {
   });
   const data = (await res.json()) as { data: IArtistPricingTier[] };
   const artistPricingData = data?.data || [];
-  console.log(artistPricingData);
 
   return (
     <section className="mb-[40px]">
@@ -55,8 +54,8 @@ const ArtistPricingTier = async ({ userName }: { userName: string }) => {
 
             <p className="text-left mb-[6px]">Features:</p>
             <ul className="text-muted space-y-1.5 mb-[20px]">
-              {tier.description.map((description: string) => (
-                <li className="flex gap-2 text-left" key={description}>
+              {tier.description.map((description: string, idx: number) => (
+                <li className="flex gap-2 text-left" key={idx}>
                   <Check className="w-4 h-4 text-brand-4/80" />
                   {description}
                 </li>

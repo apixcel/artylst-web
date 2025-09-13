@@ -1,6 +1,6 @@
 "use server";
 
-import { ArtistPricingTier, Review } from "@/components";
+import { ArtistIntroVideo, ArtistPricingTier, Review } from "@/components";
 import { reviewData } from "@/constants";
 import {
   AppleMusicIcon,
@@ -49,6 +49,7 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
     platforms,
     bio,
     country,
+    introVideo,
   } = artist || {};
 
   return (
@@ -103,9 +104,7 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
 
               <p className="text-[16px] mb-[6px]">{designation || "Designation"}</p>
 
-              <Link className="text-brand-4" href={""}>
-                Video Introduction
-              </Link>
+              <ArtistIntroVideo introVideo={introVideo} />
 
               <p className="text-sm text-white/75 mt-2">{bio}</p>
             </div>
@@ -152,6 +151,73 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
               {country && <span className="chip">{country}</span>}
               {/* {timeZone && <span className="chip">{timeZone}</span>} */}
               {/* {language && <span className="chip">{language}</span>} */}
+            </div>
+
+            {/* connect with me */}
+            <div>
+              <h3 className="mb-4">Connect with me</h3>
+              <ul className="flex flex-col gap-3 text-light/90">
+                {/* spotify */}
+                <li className="inline-flex items-center gap-2">
+                  <Music4 className="max-h-5 max-w-5 w-full h-full" />
+                  Spotify:
+                  <Link
+                    className="text-muted hover:text-brand-4/70 transition-all duration-300 truncate"
+                    href="https://open.spotify.com/artist/4YRxDV8wJFPHPTeXepOstw"
+                    target="_blank"
+                  >
+                    https://open.spotify.com/artist/4YRxDV8wJFPHPTeXepOstw
+                  </Link>
+                </li>
+                {/* youtube */}
+                <li className="inline-flex items-center gap-2">
+                  <Youtube className="h-5 w-5" />
+                  YT Music:
+                  <Link
+                    className="text-muted hover:text-brand-4/70 transition-all duration-300"
+                    href="https://www.youtube.com"
+                    target="_blank"
+                  >
+                    https://www.youtube.com
+                  </Link>
+                </li>
+                {/* instagram */}
+                <li className="inline-flex items-center gap-2">
+                  <Instagram className="h-5 w-5" />
+                  Instagram:
+                  <Link
+                    className="text-muted hover:text-brand-4/70 transition-all duration-300"
+                    href="https://www.instagram.com"
+                    target="_blank"
+                  >
+                    https://www.instagram.com
+                  </Link>
+                </li>
+                {/* tiktok */}
+                <li className="inline-flex items-center gap-2">
+                  <TiktokIcon className="h-5 w-5" />
+                  TikTok:
+                  <Link
+                    className="text-muted hover:text-brand-4/70 transition-all duration-300"
+                    href="https://www.tiktok.com"
+                    target="_blank"
+                  >
+                    https://www.tiktok.com
+                  </Link>
+                </li>
+                {/* website */}
+                <li className="inline-flex items-center gap-2">
+                  <Link2 className="h-5 w-5" />
+                  Website:
+                  <Link
+                    className="text-muted hover:text-brand-4/70 transition-all duration-300"
+                    href="https://www.example.com"
+                    target="_blank"
+                  >
+                    https://www.example.com
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -234,73 +300,6 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
                   </Link>
                 </div>
               </div>
-            </div>
-
-            {/* connect with me */}
-            <div>
-              <h3 className="mb-4">Connect with me</h3>
-              <ul className="flex flex-col gap-3 text-light/90">
-                {/* spotify */}
-                <li className="inline-flex items-center gap-2">
-                  <Music4 className="max-h-5 max-w-5 w-full h-full" />
-                  Spotify:
-                  <Link
-                    className="text-muted hover:text-brand-4/70 transition-all duration-300 truncate"
-                    href="https://open.spotify.com/artist/4YRxDV8wJFPHPTeXepOstw"
-                    target="_blank"
-                  >
-                    https://open.spotify.com/artist/4YRxDV8wJFPHPTeXepOstw
-                  </Link>
-                </li>
-                {/* youtube */}
-                <li className="inline-flex items-center gap-2">
-                  <Youtube className="h-5 w-5" />
-                  YT Music:
-                  <Link
-                    className="text-muted hover:text-brand-4/70 transition-all duration-300"
-                    href="https://www.youtube.com"
-                    target="_blank"
-                  >
-                    https://www.youtube.com
-                  </Link>
-                </li>
-                {/* instagram */}
-                <li className="inline-flex items-center gap-2">
-                  <Instagram className="h-5 w-5" />
-                  Instagram:
-                  <Link
-                    className="text-muted hover:text-brand-4/70 transition-all duration-300"
-                    href="https://www.instagram.com"
-                    target="_blank"
-                  >
-                    https://www.instagram.com
-                  </Link>
-                </li>
-                {/* tiktok */}
-                <li className="inline-flex items-center gap-2">
-                  <TiktokIcon className="h-5 w-5" />
-                  TikTok:
-                  <Link
-                    className="text-muted hover:text-brand-4/70 transition-all duration-300"
-                    href="https://www.tiktok.com"
-                    target="_blank"
-                  >
-                    https://www.tiktok.com
-                  </Link>
-                </li>
-                {/* website */}
-                <li className="inline-flex items-center gap-2">
-                  <Link2 className="h-5 w-5" />
-                  Website:
-                  <Link
-                    className="text-muted hover:text-brand-4/70 transition-all duration-300"
-                    href="https://www.example.com"
-                    target="_blank"
-                  >
-                    https://www.example.com
-                  </Link>
-                </li>
-              </ul>
             </div>
           </aside>
         </div>
