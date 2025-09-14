@@ -19,6 +19,7 @@ export interface IUnavailableDates {
   artist: string;
   createdAt: string;
   updatedAt: string;
+  canBuyersContact?: boolean;
 }
 
 export interface IDeliveryWindow {

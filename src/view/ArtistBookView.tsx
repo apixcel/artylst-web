@@ -215,7 +215,6 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
           setFieldTouched,
           submitForm,
         }) => {
-          // Fix: add-on price should come directly from chosen add-on, not a map key
           const addonPrice = values.addon?.price ?? 0;
           const tierPrice = values.price || 0;
           const subtotal = tierPrice + addonPrice;

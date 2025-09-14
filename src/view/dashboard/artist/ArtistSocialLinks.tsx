@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
-import { Instagram, Link2, Music4, PlayCircle, Youtube } from "lucide-react";
-import { TiktokIcon } from "@/icons";
+import { GlobeIcon, InstagramIcon, PlayCircle, YoutubeIcon } from "lucide-react";
+import { SpotifyIcon, TiktokIcon } from "@/icons";
 
 export type SocialLinks = {
   spotify: string;
@@ -31,56 +31,56 @@ export default function ArtistSocialLinks({
     <div className="border-b border-white/10 pb-4">
       <label className="text-sm text-white/60">{title}</label>
 
-      <div className="grid sm:grid-cols-2 gap-3 mt-1 mb-3">
+      <div className="grid md:grid-cols-2 gap-3 mt-1 mb-3">
         <div className="flex items-center gap-2">
-          <Music4 className="h-4 w-4" />
+          <SpotifyIcon className="h-5 w-full max-w-5" />
           <input
-            className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
+            className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2"
             placeholder="Spotify artist / playlist URL"
             value={values.spotify}
             onChange={(e) => onChange("spotify", e.target.value)}
           />
         </div>
         <div className="flex items-center gap-2">
-          <Youtube className="h-4 w-4" />
+          <YoutubeIcon className="h-5 w-full max-w-5" />
           <input
-            className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
+            className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2"
             placeholder="YouTube channel / video URL"
             value={values.youtube}
             onChange={(e) => onChange("youtube", e.target.value)}
           />
         </div>
         <div className="flex items-center gap-2">
-          <Instagram className="h-4 w-4" />
+          <InstagramIcon className="h-5 w-full max-w-5" />
           <input
-            className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
+            className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2"
             placeholder="Instagram profile"
             value={values.instagram}
             onChange={(e) => onChange("instagram", e.target.value)}
           />
         </div>
         <div className="flex items-center gap-2">
-          <TiktokIcon className="h-4 w-4" />
+          <TiktokIcon className="h-5 w-full max-w-5" />
           <input
-            className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
+            className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2"
             placeholder="TikTok profile"
             value={values.tiktok}
             onChange={(e) => onChange("tiktok", e.target.value)}
           />
         </div>
         <div className="flex items-center gap-2">
-          <Link2 className="h-4 w-4" />
+          <GlobeIcon className="h-5 w-full max-w-5" />
           <input
-            className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
+            className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2"
             placeholder="Website / Linktree"
             value={values.website}
             onChange={(e) => onChange("website", e.target.value)}
           />
         </div>
         <div className="flex items-center gap-2">
-          <PlayCircle className="h-4 w-4" />
+          <PlayCircle className="h-5 w-full max-w-5" />
           <input
-            className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
+            className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2"
             placeholder="Sample playlist URL"
             value={values.playlist}
             onChange={(e) => onChange("playlist", e.target.value)}
@@ -107,13 +107,15 @@ function SaveButton({
   disabled?: boolean;
 }) {
   return (
-    <button
-      type="button"
-      className="bg-brand-4/60 px-3 rounded-lg flex gap-2 py-3 whitespace-nowrap items-center hover:bg-brand-4/70 disabled:opacity-60"
-      onClick={onClick}
-      disabled={!!disabled}
-    >
-      {label}
-    </button>
+    <div className="flex justify-end">
+      <button
+        type="button"
+        className="bg-brand-4/60 px-3 rounded-lg flex gap-2 py-3 whitespace-nowrap items-center hover:bg-brand-4/70 disabled:opacity-60"
+        onClick={onClick}
+        disabled={!!disabled}
+      >
+        {label}
+      </button>
+    </div>
   );
 }

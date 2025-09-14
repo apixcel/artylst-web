@@ -68,7 +68,7 @@ const ArtistEarningsPage = () => {
       </div>
 
       {/* Chart */}
-      <div className="rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl">
+      <div className="rounded-2xl p-2 sm:p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl">
         <div className="flex sm:flex-row flex-col sm:gap-0 gap-4 items-center justify-between mb-4">
           <h3 className="flex items-center gap-2">
             <DollarSign className="h-5 w-5" /> Net earnings

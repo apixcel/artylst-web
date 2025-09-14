@@ -6,13 +6,14 @@ import {
   useGetUnavailableDatesQuery,
 } from "@/redux/features/artist/availability.api";
 import { cn } from "@/utils";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import { format } from "date-fns";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DeleteUnavailableDateById from "./DeleteUnavailableDateById";
+import UnavailableDateItemSkeleton from "./UnavailableDateItemSkeleton";
 
 const keepTimeOnlyIfMidnight = (
   next: DateObject | Date | string | null,
@@ -73,7 +74,11 @@ const dateOnly = (d: DateObject | null) =>
 
 const UnavailableDates = () => {
   const { data, isLoading, isFetching } = useGetUnavailableDatesQuery();
-  const unavailableDates = data?.data || [];
+
+  const unavailableDates: IUnavailableDates[] = useMemo(
+    () => data?.data ?? [],
+    [data?.data]
+  );
 
   const [createUnavailableDates, { isLoading: isCreating }] =
     useCreateUnavailableDatesMutation();
@@ -86,9 +91,21 @@ const UnavailableDates = () => {
     new DateObject(new Date()).set({ hour: 12, minute: 0, second: 0, millisecond: 0 })
   );
 
-  const [allowAllBuyersContact, setAllowAllBuyersContact] = useState<boolean>(true);
+  const latestCanBuyersContact =
+    Array.isArray(unavailableDates) && unavailableDates.length
+      ? Boolean(unavailableDates[0]?.canBuyersContact)
+      : true;
+
+  const [allowAllBuyersContact, setAllowAllBuyersContact] =
+    useState<boolean>(latestCanBuyersContact);
   const [error, setError] = useState<string | null>(null);
   const isBusy = isCreating || isFetching || isLoading;
+
+  useEffect(() => {
+    if (Array.isArray(unavailableDates) && unavailableDates.length) {
+      setAllowAllBuyersContact(Boolean(unavailableDates[0]?.canBuyersContact));
+    }
+  }, [unavailableDates]);
 
   // Strict validation: start < end
   const canSubmit = useMemo(() => {
@@ -106,6 +123,7 @@ const UnavailableDates = () => {
     const payload = {
       startTime: toUTCISOString(startDO.toDate()),
       endTime: toUTCISOString(endDO.toDate()),
+      canBuyersContact: allowAllBuyersContact, // <-- SEND IT
     };
 
     const res = await createUnavailableDates(payload);
@@ -115,7 +133,7 @@ const UnavailableDates = () => {
       return;
     }
 
-    // Reset to TODAY 09:00–12:00
+    // Reset times only; keep current toggle choice
     const today = new Date();
     setStartDO(
       new DateObject(today).set({ hour: 9, minute: 0, second: 0, millisecond: 0 })
@@ -124,7 +142,7 @@ const UnavailableDates = () => {
       new DateObject(today).set({ hour: 12, minute: 0, second: 0, millisecond: 0 })
     );
     toast.success("Unavailable dates added");
-  }, [canSubmit, startDO, endDO, createUnavailableDates]);
+  }, [canSubmit, startDO, endDO, allowAllBuyersContact, createUnavailableDates]);
 
   const minDO = startOfTodayDO();
 
@@ -136,7 +154,7 @@ const UnavailableDates = () => {
         <h3 className="text-lg font-semibold">Schedule Unavailable Dates</h3>
       </div>
 
-      <div className="card p-5 grid sm:grid-cols-4 gap-3 mt-3">
+      <div className="card p-5 grid sm:grid-cols-2 xl:grid-cols-4 gap-3 mt-3">
         {/* Start */}
         <div className="flex gap-2 items-center">
           <label className="text-sm text-white/60">Start</label>
@@ -174,7 +192,7 @@ const UnavailableDates = () => {
         </div>
 
         {/* Toggle: All buyers can contact me */}
-        <div className="flex items-end gap-2">
+        <div className="flex items-center gap-2">
           <label className="text-muted mb-1">All buyers can contact me</label>
           <button
             type="button"
@@ -183,7 +201,7 @@ const UnavailableDates = () => {
             aria-pressed={allowAllBuyersContact}
             aria-label="Toggle allow all buyers to contact"
             className={cn(
-              "relative inline-flex h-7 w-12 items-center rounded-full transition-colors duration-300 outline-none",
+              "relative inline-flex h-4.5 sm:h-7 w-8 sm:w-12 items-center rounded-full transition-colors duration-300 outline-none",
               allowAllBuyersContact
                 ? "bg-brand-4/80 border-brand-4/40"
                 : "bg-white/10 border-white/20",
@@ -192,15 +210,15 @@ const UnavailableDates = () => {
           >
             <span
               className={cn(
-                "inline-block h-5 w-5 transform rounded-full bg-white shadow-md transition-transform duration-300",
-                allowAllBuyersContact ? "translate-x-6" : "translate-x-1"
+                "inline-block h-3 sm:h-5 w-3 sm:w-5 transform rounded-full bg-white shadow-md transition-transform duration-300",
+                allowAllBuyersContact ? "translate-x-4 sm:translate-x-6" : "translate-x-1"
               )}
             />
           </button>
         </div>
 
         {/* Submit */}
-        <div className="flex items-end">
+        <div className="flex items-end xl:col-span-1 sm:col-span-2">
           <button
             onClick={onAdd}
             disabled={!canSubmit || isBusy}
@@ -212,23 +230,27 @@ const UnavailableDates = () => {
             {isCreating ? "Adding…" : "Add Unavailable Dates"}
           </button>
         </div>
-
-        {/* Inline error */}
-        {(!canSubmit || error) && (
-          <div className="sm:col-span-4 text-red-300 text-sm mt-1">
-            {error || "Start time must be strictly before end time."}
-          </div>
-        )}
       </div>
+
+      {/* Inline error */}
+      {(!canSubmit || error) && (
+        <div className="sm:col-span-4 text-red-300 text-sm mt-1">
+          {error || "Start time must be strictly before end time."}
+        </div>
+      )}
 
       {/* Existing Unavailable Dates */}
       <div className="mt-6">
         <h4 className="text-base font-medium mb-2">Existing</h4>
 
         {isLoading ? (
-          <div className="text-white/70 text-sm">Loading…</div>
+          <ul className="space-y-3">
+            {Array.from({ length: 2 }).map((_, i) => (
+              <UnavailableDateItemSkeleton key={i} />
+            ))}
+          </ul>
         ) : unavailableDates.length === 0 ? (
-          <div className="text-white/60 text-sm">No unavailable dates yet.</div>
+          <div className="text-muted text-sm">No unavailable dates yet.</div>
         ) : (
           <ul className="space-y-3">
             {unavailableDates.map((item: IUnavailableDates) => (
@@ -241,6 +263,21 @@ const UnavailableDates = () => {
                     {format(item.startTime, "MMM dd, yyyy h:mm a")} →{" "}
                     {format(item.endTime, "MMM dd, yyyy h:mm a")}
                   </span>
+
+                  {typeof item.canBuyersContact !== "undefined" && (
+                    <span
+                      className={cn(
+                        "mt-1 inline-flex items-center rounded-full px-2 py-0.5 text-xs",
+                        item.canBuyersContact
+                          ? "bg-emerald-500/15 text-emerald-300"
+                          : "bg-rose-500/15 text-rose-300"
+                      )}
+                    >
+                      {item.canBuyersContact
+                        ? "Buyers can contact"
+                        : "Buyers cannot contact"}
+                    </span>
+                  )}
                 </div>
 
                 <DeleteUnavailableDateById _id={item._id} />

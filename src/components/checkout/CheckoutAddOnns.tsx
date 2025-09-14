@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/utils";
-import { Trash2 } from "lucide-react";
+import { X } from "lucide-react";
 
 type AddOn = {
   value: string;
@@ -80,14 +80,14 @@ const CheckoutAddOnns = ({ selected, onChange }: Props) => {
                 <div className="absolute top-2 right-2 group-hover:opacity-100 opacity-0 transition-opacity duration-300">
                   <button
                     type="button"
-                    className="text-xs w-[120px] text-light border bg-red-campaign-red border-red-campaign-red flex items-center justify-end gap-2 py-1 px-2 rounded"
+                    className="text-xs text-light border bg-red-campaign-red border-red-campaign-red flex items-center justify-end gap-2 py-1 px-2 rounded"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
                       onChange(undefined);
                     }}
                   >
-                    Clear add-on <Trash2 className="w-4 h-4" />
+                    <X className="w-4 h-4" />
                   </button>
                 </div>
               )}

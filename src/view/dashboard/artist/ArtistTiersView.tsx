@@ -26,7 +26,7 @@ const ArtistTiersView = () => {
   const [createTier, { isLoading: isCreating }] = useCreatePricingTierMutation();
   const [updateTier, { isLoading: isUpdating }] = useUpdatePricingTierMutation();
 
-  const { data: myTierResp, isLoading: isFetching } = useGetMyPricingTierQuery();
+  const { data: myTierResp, isLoading, isFetching } = useGetMyPricingTierQuery();
   const myTier = myTierResp?.data;
 
   const mini = myTier?.find((tier) => tier.name === "Mini");
@@ -44,7 +44,6 @@ const ArtistTiersView = () => {
   });
 
   useEffect(() => {
-    if (isUpdateMode) setShowForms(true);
     setCreatedIds({
       mini: mini?._id,
       standard: standard?._id,
@@ -141,6 +140,8 @@ const ArtistTiersView = () => {
 
   if (role !== "artist") return <UnauthorizedMsgBox />;
 
+  const hasAnyTier = isUpdateMode || showForms;
+
   return (
     <section className="space-y-6">
       <div>
@@ -150,11 +151,11 @@ const ArtistTiersView = () => {
         </p>
       </div>
 
-      {isFetching ? (
+      {isLoading ? (
         <TiersSkeleton />
       ) : (
         <TiersPricingForm
-          hasAnyTier={showForms}
+          hasAnyTier={hasAnyTier}
           visibleTiers={["mini", "standard", "pro"]}
           defaults={defaults}
           busy={busy}

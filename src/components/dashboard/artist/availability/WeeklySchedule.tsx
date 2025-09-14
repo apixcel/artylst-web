@@ -26,6 +26,7 @@ import {
   useUpdateWeeklyAvailabilityMutation,
 } from "@/redux/features/artist/availability.api";
 import { toast } from "sonner";
+import WeeklyScheduleSkeleton from "./WeeklyScheduleSkeleton";
 
 // ---- Utils ----
 const daysLbl = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -78,7 +79,7 @@ const DayRow = ({ availability, onChange, errors }: DayRowProps) => {
       <label className="flex items-center gap-2">
         <input
           type="checkbox"
-          className="accent-white"
+          className="accent-brand-4"
           checked={!!acceptOrders}
           onChange={(e) => onChange(day, { acceptOrders: e.target.checked })}
         />
@@ -220,7 +221,7 @@ const WeeklySchedule = () => {
       </div>
 
       {isLoading ? (
-        <div className="text-sm text-white/70">Loading…</div>
+        <WeeklyScheduleSkeleton />
       ) : (
         <div className="mt-3 grid xl:grid-cols-2 gap-2">
           {updatedSchedule?.map((row) => (

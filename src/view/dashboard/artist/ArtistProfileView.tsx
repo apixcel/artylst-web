@@ -45,6 +45,8 @@ const Chip = ({ children }: { children: React.ReactNode }) => (
   </span>
 );
 
+const MAX_GENRES = 5;
+
 const SectionSaveButton = ({
   label,
   onClick,
@@ -251,6 +253,10 @@ export default function ArtistProfileView() {
 
   async function saveGenres() {
     if (!dirty.genre) return;
+    if (form.genre.length > MAX_GENRES) {
+      toast.error(`You can select up to ${MAX_GENRES} genres.`);
+      return;
+    }
     setSaving((s) => ({ ...s, genre: true }));
     await patchProfile({ genre: form.genre.map((g) => g.value) });
     setSaving((s) => ({ ...s, genre: false }));
@@ -287,7 +293,6 @@ export default function ArtistProfileView() {
     setSaving((s) => ({ ...s, socials: false }));
   }
 
-  // Overall completeness (optional demo)
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const completeness = useMemo(() => {
     let pct = 0;
@@ -298,6 +303,14 @@ export default function ArtistProfileView() {
     if (Object.values(form.socials).some(Boolean)) pct += 20;
     return Math.min(100, pct);
   }, [form]);
+
+  function handleGenresChange(vals: DropdownOption<string>[]) {
+    if (vals.length > MAX_GENRES) {
+      toast.error(`You can select up to ${MAX_GENRES} genres.`);
+      return; // ignore the extra selection
+    }
+    setField("genre", vals);
+  }
 
   return (
     <section className="space-y-6">
@@ -310,7 +323,7 @@ export default function ArtistProfileView() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Link href="/dashboard/artist/tiers" className="btn-tertiary btn gap-1">
+          <Link href="/dashboard/tiers" className="btn-tertiary btn gap-1">
             <Tally5 className="h-4 w-4" /> Manage tiers
           </Link>
           {/* Global Save removed in favor of per-section saves; keep if you still want */}
@@ -349,10 +362,10 @@ export default function ArtistProfileView() {
 
       {/* Content card */}
       <div className="xl:col-span-2 rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-6">
-        {/* Media (unchanged) */}
+        {/* avatar and cover image */}
         <ArtistMedia />
 
-        {/* Basics */}
+        {/* display name, bio, genres */}
         <div className="flex flex-col gap-4 border-b border-white/10 pb-4">
           {/* display name */}
           <div>
@@ -374,9 +387,7 @@ export default function ArtistProfileView() {
 
           {/* bio */}
           <div>
-            <label className="text-sm text-muted">
-              Bio <span className="text-muted">(max 300)</span>
-            </label>
+            <label className="text-sm text-muted">Bio</label>
             <div className="flex sm:flex-row flex-col gap-2 items-end mt-1">
               <textarea
                 rows={4}
@@ -391,9 +402,9 @@ export default function ArtistProfileView() {
                 isSaving={saving.bio}
               />
             </div>
-            <div className="text-xs text-muted mt-1">
+            <p className="text-xs text-muted mt-1">
               Tip: mention notable credits, moods you excel at, and turnaround time.
-            </div>
+            </p>
           </div>
         </div>
 
@@ -404,7 +415,7 @@ export default function ArtistProfileView() {
             <MultiDropdown
               options={genreOptions}
               values={form.genre}
-              onChange={(vals) => setField("genre", vals)}
+              onChange={handleGenresChange}
               className="w-full"
             />
             <SectionSaveButton
@@ -414,6 +425,7 @@ export default function ArtistProfileView() {
               isSaving={saving.genre}
             />
           </div>
+          <div className="text-xs text-muted mt-2">Pick up to {MAX_GENRES} genres.</div>
         </div>
 
         {/* Locale */}
@@ -456,7 +468,7 @@ export default function ArtistProfileView() {
               />
             </div>
           </div>
-          <div className="flex">
+          <div className="flex justify-end">
             <SectionSaveButton
               label="Save locale"
               onClick={saveLocale}

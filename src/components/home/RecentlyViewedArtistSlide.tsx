@@ -30,16 +30,19 @@ const RecentlyViewedArtistSlide = ({ data }: { data: IArtist[] }) => {
       className="group recently-viewed-swiper"
     >
       {data?.map((a) => (
-        <SwiperSlide key={a._id}>
-          <Link href={`/artists/${a.userName}`}>
-            <div className="w-full h-full mb-[8px]">
+        <SwiperSlide key={a._id} className="!h-auto flex">
+          <Link
+            href={`/artists/${a.userName}`}
+            className="h-full border border-white/10 rounded-[16px] w-full inline-flex flex-col"
+          >
+            <div className="w-full h-full mb-[16px]">
               {a.avatar ? (
                 <Image
                   src={a.avatar}
                   alt={a.displayName || "Artist"}
                   width={500}
                   height={500}
-                  className="w-full h-[200px] object-cover rounded-[16px]"
+                  className="w-full h-[200px] object-cover rounded-t-[16px]"
                 />
               ) : (
                 <div className="w-full h-[200px]">
@@ -54,13 +57,15 @@ const RecentlyViewedArtistSlide = ({ data }: { data: IArtist[] }) => {
               )}
             </div>
 
-            <div>
-              <p className="font-[500] font-logam">{a.displayName}</p>
+            <div className="flex flex-col h-full">
+              <p className="text-[16px] font-bold uppercase font-logam tracking-wide text-center">
+                {a.displayName}
+              </p>
               <p className="text-muted mb-[4px]">{a.designation}</p>
 
               {/* genres */}
               {a.genre && a.genre.length > 0 && (
-                <div className="mt-[8px] flex items-center justify-center gap-2 flex-wrap">
+                <div className="mt-[8px] mb-[16px] flex items-center justify-center gap-2 flex-wrap">
                   {a.genre.slice(0, 3).map((genre) => (
                     <span
                       key={genre._id}
@@ -79,21 +84,23 @@ const RecentlyViewedArtistSlide = ({ data }: { data: IArtist[] }) => {
               )}
 
               {/* rating */}
-              <div className="flex items-center gap-[4px] font-[500] mt-[8px] mb-[4px]">
-                <p className="flex items-center gap-[4px]">
-                  <StarIcon className="w-[22px] h-[22px]" /> {a.reviewCount}
-                </p>
-              </div>
-
-              {/* price */}
-              <div className="flex items-center gap-[4px] font-[500]">
-                {/* <p className={cn("text-light", a.oldPrice && "text-greeniest")}>
+              <div className="flex items-center justify-center gap-[16px] mt-auto mx-[8px] mb-[8px]">
+                {/* price */}
+                <div className="flex items-center gap-[4px] font-[500]">
+                  {/* <p className={cn("text-light", a.oldPrice && "text-greeniest")}>
                     ${a.price} {!a.oldPrice && "+"}
                   </p>
                   {a.oldPrice && (
                     <p className="text-muted line-through">${a.oldPrice}+</p>
                   )} */}
-                <p className="text-[18px] font-logam">${a.minStartingPrice}+</p>
+                  <p className="text-[18px] font-logam">${a.minStartingPrice}+</p>
+                </div>
+
+                <div className="flex items-center gap-[4px] font-[500]">
+                  <p className="flex items-center gap-[4px]">
+                    <StarIcon className="w-[22px] h-[22px]" /> {a.reviewCount}
+                  </p>
+                </div>
               </div>
             </div>
           </Link>

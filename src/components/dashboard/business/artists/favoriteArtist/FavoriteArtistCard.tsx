@@ -35,17 +35,17 @@ const FavoriteArtistCard = ({ artist }: { artist: IArtist }) => {
           className={`h-40 rounded-xl w-full object-cover`}
         />
         {/* Top-right actions */}
-        <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 transition">
+        <div className="absolute top-2 right-2 flex gap-2 opacity-0 group-hover:opacity-100 items-center">
           <button
-            className="h-8 w-8 rounded-full bg-red-500 backdrop-blur border border-white/10 grid place-items-center cursor-pointer"
+            className="h-10 w-10 rounded-full bg-brand-4/20 backdrop-blur border border-brand-4/30 flex items-center justify-center cursor-pointer"
             title="Remove from favorites"
             onClick={() => unfavorite()}
           >
-            <Heart className="h-4 w-4" />
+            <Heart className="h-4 w-4 fill-brand-4 text-brand-4" />
           </button>
           <Link
             href={`/messages?to=${artist?.userName}`}
-            className="h-8 w-8 rounded-full bg-black/50 backdrop-blur border border-white/10 grid place-items-center"
+            className="h-10 w-10 rounded-full bg-brand-2/10 backdrop-blur border border-white/10 grid place-items-center"
             title="Message"
           >
             <MessageSquare className="h-4 w-4" />

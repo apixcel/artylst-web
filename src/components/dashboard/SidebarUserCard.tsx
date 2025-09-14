@@ -42,9 +42,9 @@ const SidebarUserCard = ({ isOpen, user }: { isOpen: boolean; user: IUser }) => 
         </>
       ) : (
         <div className="h-10 w-10 rounded-xl overflow-hidden">
-          {/* {user?.image ? (
+          {user?.avatar ? (
             <Image
-              src={user?.image}
+              src={user?.avatar}
               alt="user"
               width={100}
               height={100}
@@ -54,11 +54,7 @@ const SidebarUserCard = ({ isOpen, user }: { isOpen: boolean; user: IUser }) => 
             <div className="h-10 w-10 rounded-xl bg-white/10 flex-center">
               <User className="w-5 h-5 text-white/50" />
             </div>
-          )} */}
-
-          <div className="h-10 w-10 rounded-xl bg-white/10 flex-center">
-            <User className="w-5 h-5 text-white/50" />
-          </div>
+          )}
         </div>
       )}
     </div>

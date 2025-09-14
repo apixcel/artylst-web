@@ -1,6 +1,6 @@
 "use client";
 
-import { Dropdown, Pagination } from "@/components"; // keeping your component usage
+import { Dropdown, Pagination, TableSkeleton } from "@/components"; // keeping your component usage
 import { statusOption } from "@/constants/orderStatus";
 import { useDebounce } from "@/hooks";
 import { DropdownOption } from "@/interface";
@@ -49,7 +49,7 @@ const BusinessOrder = () => {
   const [searchTerm, setSearchTerm] = useDebounce("");
   const [selected, setSelected] = useState<string[]>([]);
 
-  const { data } = useGetMyBusinessOrderQuery({
+  const { data, isLoading } = useGetMyBusinessOrderQuery({
     status: status.value,
     platform: platform.value,
     tier: tier.value,
@@ -161,62 +161,66 @@ const BusinessOrder = () => {
             </tr>
           </thead>
           <tbody>
-            {orderData.map((row) => (
-              <tr key={row._id} className="border-b border-white/5">
-                <td className="py-3 px-2">
-                  <input
-                    type="checkbox"
-                    className="accent-brand-4 w-4 h-4"
-                    checked={selected.includes(row._id)}
-                    onChange={(e) => toggleOne(row._id, e.target.checked)}
-                  />
-                </td>
-                <td className="py-3 pr-6">#{row.orderId}</td>
-                <td className="py-3 pr-6">
-                  {typeof row.artist === "string" ? row.artist : row.artist.fullName}
-                </td>
-                <td className="py-3 pr-6">{row.tier}</td>
-                <td className="py-3 pr-6 capitalize">{row.platform}</td>
-                <td className="py-3 pr-6">${row.price}</td>
-                <td className="py-3 pr-6">
-                  {row.eta ? dateUtils.formatDate(row.eta) : "-"}
-                </td>
-                <td className="py-3 pr-6">
-                  {row.revision}/{row.maxRevision || 0}
-                </td>
-                <td className="py-3 pr-6">
-                  <span
-                    className={`capitalize chip min-w-22 inline-block text-center ${statusOption[row.status as keyof typeof statusOption]?.className || "bg-white/10 text-white"}`}
-                  >
-                    {row.status}
-                  </span>
-                </td>
-                <td className="py-3">
-                  <div className="flex items-center gap-2">
-                    <Link
-                      className="px-2 py-1 rounded bg-white/10 text-xs"
-                      href={`/dashboard/business/orders/${row._id}`}
+            {isLoading ? (
+              <TableSkeleton row={4} columns={10} />
+            ) : (
+              orderData?.map((row) => (
+                <tr key={row._id} className="border-b border-white/5">
+                  <td className="py-3 px-2">
+                    <input
+                      type="checkbox"
+                      className="accent-brand-4 w-4 h-4"
+                      checked={selected.includes(row._id)}
+                      onChange={(e) => toggleOne(row._id, e.target.checked)}
+                    />
+                  </td>
+                  <td className="py-3 pr-6">#{row.orderId}</td>
+                  <td className="py-3 pr-6">
+                    {typeof row.artist === "string" ? row.artist : row.artist.fullName}
+                  </td>
+                  <td className="py-3 pr-6">{row.tier}</td>
+                  <td className="py-3 pr-6 capitalize">{row.platform}</td>
+                  <td className="py-3 pr-6">${row.price}</td>
+                  <td className="py-3 pr-6">
+                    {row.eta ? dateUtils.formatDate(row.eta) : "-"}
+                  </td>
+                  <td className="py-3 pr-6">
+                    {row.revision}/{row.maxRevision || 0}
+                  </td>
+                  <td className="py-3 pr-6">
+                    <span
+                      className={`capitalize chip min-w-22 inline-block text-center ${statusOption[row.status as keyof typeof statusOption]?.className || "bg-white/10 text-white"}`}
                     >
-                      Open
-                    </Link>
-                    <Link
-                      className="px-2 py-1 rounded bg-white/10 text-xs"
-                      href={`/dashboard/business/messages?order=${row._id}`}
-                    >
-                      Message
-                    </Link>
-                    <button className="px-2 py-1 rounded bg-white/10 text-xs">
-                      Dispute
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                      {row.status}
+                    </span>
+                  </td>
+                  <td className="py-3">
+                    <div className="flex items-center gap-2">
+                      <Link
+                        className="px-2 py-1 rounded bg-white/10 text-xs"
+                        href={`/dashboard/business/orders/${row._id}`}
+                      >
+                        Open
+                      </Link>
+                      <Link
+                        className="px-2 py-1 rounded bg-white/10 text-xs"
+                        href={`/dashboard/business/messages?order=${row._id}`}
+                      >
+                        Message
+                      </Link>
+                      <button className="px-2 py-1 rounded bg-white/10 text-xs">
+                        Dispute
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
 
         {/* Empty state */}
-        {orderData.length === 0 && (
+        {!isLoading && orderData.length === 0 && (
           <div className="py-12 text-center text-white/70">
             <div className="text-lg font-heading">No orders found</div>
             <div className="text-sm mt-1">Try adjusting filters or search terms</div>

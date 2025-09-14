@@ -21,6 +21,9 @@ import numberUtils from "@/utils/number";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import ProtectedRoute from "@/provider/ProtectedRoute";
+import { useAppSelector } from "@/hooks";
+import Image from "next/image";
+import { businessAvatarFallback } from "@/constants/fallBack";
 
 // ---- Types
 type FormValues = {
@@ -73,24 +76,12 @@ const stepSchemas = [
   }),
 ];
 
-const initialValues: FormValues = {
-  tierId: "",
-  price: 0,
-  occasion: "workout",
-  platform: "spotify",
-  language: "english",
-  deliveryWindow: "48",
-  note: "",
-  addon: undefined,
-  name: "",
-  email: "",
-};
-
 const stepsLabels = ["1. Choose tier", "2. Brief", "3. Add-ons", "4. Pay"] as const;
 
 export default function CheckoutPage() {
   const params = useParams();
   const userName = params.userName as string;
+  const { user } = useAppSelector((state) => state.user);
 
   const router = useRouter();
 
@@ -101,6 +92,19 @@ export default function CheckoutPage() {
 
   const isLast = step === 4;
   const currentSchema = stepSchemas[step - 1];
+
+  const initialValues: FormValues = {
+    tierId: "",
+    price: 0,
+    occasion: "workout",
+    platform: "spotify",
+    language: "english",
+    deliveryWindow: "48",
+    note: "",
+    addon: undefined,
+    name: user?.fullName ?? "",
+    email: (user?.email as string) ?? "",
+  };
 
   if (isLoading) {
     return <CheckoutSkeleton stepsLabels={[...stepsLabels]} />;
@@ -145,7 +149,7 @@ export default function CheckoutPage() {
       toast.error(error.data.message);
       return;
     }
-    router.push(`/`);
+    router.push(`/dashboard/orders`);
     toast.success("Order created successfully");
   };
   return (
@@ -159,6 +163,7 @@ export default function CheckoutPage() {
         initialValues={initialValues}
         validationSchema={currentSchema}
         validateOnMount
+        enableReinitialize
         onSubmit={handleSubmit}
       >
         {({
@@ -169,6 +174,7 @@ export default function CheckoutPage() {
           setFieldValue,
           validateForm,
           setFieldTouched,
+          submitForm,
         }) => {
           const addonPrice = values.addon ? (values.addon.price ?? 0) : 0;
           const tierPrice = values.price ?? 0;
@@ -201,15 +207,25 @@ export default function CheckoutPage() {
             });
 
           return (
-            <Form>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
               {/* Main */}
               <main className="pb-16 grid lg:grid-cols-[1fr_380px] gap-6">
                 {/* LEFT: step-by-step */}
                 <section className="space-y-6">
                   {/* Artist summary (static) */}
                   <div className="card p-4 flex items-center gap-4 bg-gradient-to-b from-brand-2/10 to-brand-1/10">
-                    <div className="h-14 w-14 rounded-full bg-white/10 border border-white/10 grid place-items-center text-[10px]">
-                      IMG
+                    <div className="h-14 w-14 rounded-full overflow-hidden">
+                      <Image
+                        src={data.data.avatar || businessAvatarFallback}
+                        alt={data.data.displayName}
+                        width={56}
+                        height={56}
+                        className="w-full h-full object-cover rounded-full"
+                      />
                     </div>
                     <div className="flex-1">
                       <span className="font-heading text-base mb-1 inline-block">
@@ -335,10 +351,11 @@ export default function CheckoutPage() {
                       </button>
                     ) : (
                       <button
-                        type="submit"
+                        type="button"
                         className="btn btn-primary cursor-pointer"
-                        disabled={!isValid}
+                        disabled={!isValid || isCreating}
                         title={!isValid ? "Complete required fields" : undefined}
+                        onClick={() => submitForm()}
                       >
                         Continue to payment
                       </button>

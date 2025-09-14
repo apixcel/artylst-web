@@ -63,34 +63,32 @@ const FavoritesPage = () => {
       </div>
 
       {/* Filters */}
-      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 gap-3 flex items-center justify-between flex-wrap">
+      <div className="rounded-2xl p-4 border border-white/10 bg-white/5 gap-3 flex items-end sm:justify-start md:justify-between flex-wrap">
         {/* Search */}
-        <div className="xl:col-span-1 col-span-2 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
+        <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3 flex-1">
           <Search className="h-4 w-4 text-white/60" />
           <input
             className="bg-transparent flex-1 py-2 outline-none"
-            placeholder="Search by name or handle"
+            placeholder="Search By Order Id, Buyer, Tier"
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <div className="flex items-center justify-center gap-3">
-          <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
-            <Filter className="h-4 w-4 text-white/60" />
-            <GenreSelector
-              className="w-[200px]"
-              onChange={(e) => setQuery({ ...query, genre: e?._id || "" })}
-            />
-          </div>
-          <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
-            <span className="text-white/60 text-sm">Sort</span>
-            <Dropdown
-              className="w-[200px]"
-              buttonClassName="bg-transparent border-transparent w-full"
-              panelClassName="bg-black"
-              options={sortOptions}
-              onChange={(e) => setQuery({ ...query, sort: e.value })}
-            />
-          </div>
+        <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
+          <Filter className="h-4 w-4 text-white/60" />
+          <GenreSelector
+            className="w-[200px]"
+            onChange={(e) => setQuery({ ...query, genre: e?._id || "" })}
+          />
+        </div>
+        <div className="flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg pl-3">
+          <span className="text-white/60 text-sm">Sort</span>
+          <Dropdown
+            className="w-[200px]"
+            buttonClassName="bg-transparent border-transparent w-full"
+            panelClassName="bg-black"
+            options={sortOptions}
+            onChange={(e) => setQuery({ ...query, sort: e.value })}
+          />
         </div>
       </div>
 
@@ -102,6 +100,7 @@ const FavoritesPage = () => {
             <FavoriteArtistCardSkeleton />
             <FavoriteArtistCardSkeleton />
             <FavoriteArtistCardSkeleton />
+            <FavoriteArtistCardSkeleton />
           </>
         ) : (
           favArtists?.map((a) => <FavoriteArtistCard key={a._id} artist={a} />)
@@ -109,7 +108,7 @@ const FavoritesPage = () => {
       </div>
 
       {/* Empty state */}
-      {favArtists.length === 0 && !isLoading && (
+      {!isFetching && favArtists.length === 0 && !isLoading && (
         <div className="py-16 text-center text-white/70">
           <div className="text-lg font-heading">No favorites match your filters</div>
           <div className="text-sm mt-1">

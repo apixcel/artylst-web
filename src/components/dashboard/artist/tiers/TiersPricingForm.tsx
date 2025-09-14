@@ -218,7 +218,7 @@ export const TierPricingCard: React.FC<{
       >
         {({ values, setFieldValue, setFieldTouched, handleSubmit }) => (
           <Form
-            className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-6"
+            className="grid grid-cols-1 xl:grid-cols-[1fr_480px] gap-6"
             onSubmit={handleSubmit}
           >
             {/* LEFT: Form */}
@@ -293,7 +293,7 @@ export const TierPricingCard: React.FC<{
                                 type="text"
                                 placeholder={`Description ${idx + 1}`}
                                 disabled={disabled || busy}
-                                className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2 disabled:opacity-50"
+                                className="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2 disabled:opacity-50"
                                 onBlur={markArrayTouched}
                               />
                               <button
