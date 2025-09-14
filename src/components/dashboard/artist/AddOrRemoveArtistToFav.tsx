@@ -37,12 +37,15 @@ const AddOrRemoveArtistToFav: React.FC<IProps> = ({ artist, className }) => {
       {!user || user.role === "artist" ? null : (
         <button
           className={twMerge(
-            `flex items-center justify-center border-[1px] border-red-campaign-red w-[40px] h-[40px] rounded-full cursor-pointer ${isFav ? "bg-red-campaign-red" : ""}`,
+            `flex items-center justify-center border-[1px] border-brand-4/30 w-[40px] h-[40px] rounded-full cursor-pointer ${isFav ? "bg-brand-4/20" : ""}`,
             className
           )}
           onClick={() => addOrRemove()}
         >
-          <Heart size={20} className={`${isFav ? "text-white" : "fill-white"}`} />
+          <Heart
+            size={20}
+            className={`${isFav ? "fill-brand-4 text-brand-4" : "text-brand-4"}`}
+          />
         </button>
       )}
     </>

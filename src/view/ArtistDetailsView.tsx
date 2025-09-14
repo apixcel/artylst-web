@@ -16,7 +16,7 @@ import {
   TiktokIcon,
   YTMusicIcon,
 } from "@/icons";
-import { GlobeIcon, Instagram, Link2, Youtube } from "lucide-react";
+import { GlobeIcon, Youtube } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 

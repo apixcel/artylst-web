@@ -20,6 +20,7 @@ import { useCreateBusinessOrderMutation } from "@/redux/features/order/order.api
 import numberUtils from "@/utils/number";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
+import ProtectedRoute from "@/provider/ProtectedRoute";
 
 // ---- Types
 type FormValues = {
@@ -41,13 +42,7 @@ type FormValues = {
   email: string;
 };
 
-const SERVICE_FEE_RATE = 0.2; // 20%
-const ADDONS_PRICE: Record<string, number> = {
-  rush: 12,
-  length: 10,
-  business: 25,
-  notes: 5,
-};
+const SERVICE_FEE_RATE = 0.2;
 
 // ---- Per-step validation
 const stepSchemas = [
@@ -108,7 +103,7 @@ export default function CheckoutPage() {
   const currentSchema = stepSchemas[step - 1];
 
   if (isLoading) {
-    return <CheckoutSkeleton />;
+    return <CheckoutSkeleton stepsLabels={[...stepsLabels]} />;
   }
 
   if (!data?.data) {
@@ -154,7 +149,7 @@ export default function CheckoutPage() {
     toast.success("Order created successfully");
   };
   return (
-    <>
+    <ProtectedRoute role="business">
       {/* Progress */}
       <section className="py-8">
         <CheckoutProgress current={step} steps={[...stepsLabels]} className="mx-auto" />
@@ -218,7 +213,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex-1">
                       <span className="font-heading text-base mb-1 inline-block">
-                        {data.data.fullName}
+                        {data.data.displayName}
                       </span>
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="chip flex items-center gap-1 text-[11px] bg-mario-coin/15 border border-mario-coin/40">
@@ -400,6 +395,6 @@ export default function CheckoutPage() {
           );
         }}
       </Formik>
-    </>
+    </ProtectedRoute>
   );
 }

@@ -3,6 +3,7 @@ export * from "./enrollNavLinks";
 export * from "./businessNavLinks";
 export * from "./businessDashboardLink";
 export * from "./artistDashboardLink";
+export * from "./streamingPlatforms";
 
 export * from "./footerLinks";
 export * from "./categoriesData";

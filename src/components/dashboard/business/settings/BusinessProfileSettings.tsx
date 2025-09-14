@@ -14,6 +14,10 @@ import BusinessProfileSettingsSkeleton from "./BusinessProfileSettingsSkeleton";
 import { FormikHelpers, useFormik } from "formik";
 import { toast } from "sonner";
 import * as Yup from "yup";
+import { IQueryMutationErrorResponse } from "@/interface";
+import { updateUser } from "@/redux/features/auth/user.slice";
+import { useAppSelector } from "@/hooks";
+import { useAppDispatch } from "@/hooks";
 
 const validationSchema = Yup.object({
   fullName: Yup.string()
@@ -30,9 +34,10 @@ const validationSchema = Yup.object({
 
 const BusinessProfileSettings = () => {
   const [isEditMode, setIsEditMode] = useState(false);
-  const { data, isLoading } = useGetBusinessPrfileQuery(undefined);
+  const { data, isLoading, refetch } = useGetBusinessPrfileQuery(undefined);
   const profile = data?.data as IBusinessProfile | undefined;
-
+  const { user } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [profilePhotoFile, setProfilePhotoFile] = useState<File | null>(null);
 
@@ -43,57 +48,65 @@ const BusinessProfileSettings = () => {
     () => ({
       fullName: profile?.fullName || "",
       businessName: profile?.businessName || "",
-      email: profile?.email || "",
     }),
-    [profile?.fullName, profile?.businessName, profile?.email]
+    [profile?.fullName, profile?.businessName]
   );
 
   const handleUpdateProfile = async (
     values: typeof initialValues,
     { setSubmitting, resetForm }: FormikHelpers<typeof initialValues>
   ) => {
-    try {
-      if (isUpdating || isUploading) return;
+    if (isUpdating || isUploading) return;
 
-      const payload: Partial<IBusinessProfile> = {};
+    const payload: Partial<IBusinessProfile> = {};
 
-      // only include changed text fields
-      if (values.fullName !== profile?.fullName)
-        payload.fullName = values.fullName.trim();
-      if (values.businessName !== profile?.businessName)
-        payload.businessName = values.businessName.trim();
+    // only include changed text fields
+    if (values.fullName !== profile?.fullName) payload.fullName = values.fullName.trim();
+    if (values.businessName !== profile?.businessName)
+      payload.businessName = values.businessName.trim();
 
-      // avatar change allowed even if not in edit mode
-      if (profilePhotoFile) {
-        const formData = new FormData();
-        formData.append("file", profilePhotoFile);
-        const res = await uploadFile(formData);
-        if (res?.data?.data) {
-          payload.avatar = res.data.data;
-        }
+    // avatar change allowed even if not in edit mode
+    if (profilePhotoFile) {
+      const formData = new FormData();
+      formData.append("file", profilePhotoFile);
+      const res = await uploadFile(formData);
+      if (res?.data?.data) {
+        payload.avatar = res.data.data;
       }
-
-      // nothing changed?
-      if (
-        !("fullName" in payload) &&
-        !("businessName" in payload) &&
-        !("avatar" in payload)
-      ) {
-        toast.error("Nothing changed");
-        setIsEditMode(false);
-        setSubmitting(false);
-        return;
-      }
-
-      await updateProfile(payload);
-      setIsEditMode(false);
-      setProfilePhotoFile(null);
-      resetForm({ values: { ...values } });
-    } catch {
-      // optional: toast.error("Failed to update profile");
-    } finally {
-      setSubmitting(false);
     }
+
+    // nothing changed?
+    if (
+      !("fullName" in payload) &&
+      !("businessName" in payload) &&
+      !("avatar" in payload)
+    ) {
+      toast.error("Nothing changed");
+      setIsEditMode(false);
+      setSubmitting(false);
+      return;
+    }
+
+    const res = await updateProfile(payload);
+    const err = res.error as IQueryMutationErrorResponse;
+    if (err) {
+      toast.error(err.data.message || "Something went wrong");
+      setSubmitting(false);
+      return;
+    }
+    toast.success("Profile updated successfully");
+    dispatch(
+      updateUser({
+        ...user,
+        fullName: values.fullName,
+        avatar: payload.avatar || user?.avatar || "",
+      })
+    );
+    await refetch();
+    setIsEditMode(false);
+    setProfilePhotoFile(null);
+    resetForm({ values: { ...values } });
+    setSubmitting(false);
   };
 
   const formik = useFormik({
@@ -249,7 +262,7 @@ const BusinessProfileSettings = () => {
               <input
                 className="w-full bg-white/10 rounded-lg px-3 py-2"
                 placeholder="Email"
-                value={formik.values.email}
+                value={user?.email || ""}
                 readOnly
               />
             </div>

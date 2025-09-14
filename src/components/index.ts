@@ -21,6 +21,8 @@ export { default as MultiDropdown } from "./shared/MultiDropdown";
 export { default as WhyChooseUs } from "./shared/WhyChooseUs";
 export { default as Security } from "./shared/Security";
 export { default as UnauthorizedMsgBox } from "./shared/UnauthorizedMsgBox";
+export { default as ArtistBookSkeleton } from "./shared/artist/ArtistBookSkeleton";
+export { default as CheckoutProgressSkeleton } from "./shared/CheckoutProgressSkeleton";
 
 // shared/main
 export { default as MainHeader } from "./shared/main/MainHeader";
@@ -52,6 +54,7 @@ export { default as GenreChips } from "./artists/GenreChips";
 export { default as ArtistsFilter } from "./artists/ArtistsFilter";
 export { default as ArtistTopbar } from "./artists/ArtistTopbar";
 export { default as ArtistCard } from "./artists/ArtistCard";
+export { default as ArtistCardSkeleton } from "./artists/ArtistCardSkeleton";
 export { default as ArtistIntroVideo } from "./artists/ArtistIntroVideo";
 export { default as TopArtistSteps } from "./artists/TopArtistSteps";
 export { default as ArtistCheckoutProgress } from "./artists/ArtistCheckoutProgress";

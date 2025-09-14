@@ -1,6 +1,7 @@
 "use client";
 
 import { Dropdown } from "@/components";
+import { STREAMING_PLATFORMS } from "@/constants";
 import type { DropdownOption } from "@/interface";
 
 type BriefValue = {
@@ -24,11 +25,6 @@ const occasionOptions: DropdownOption<string>[] = [
   { label: "Chill", value: "chill" },
   { label: "Wedding", value: "wedding" },
   { label: "Business ambiance", value: "business-ambiance" },
-];
-const platformOptions: DropdownOption<string>[] = [
-  { label: "Spotify", value: "spotify" },
-  { label: "Apple Music", value: "apple-music" },
-  { label: "YouTube Music", value: "youtube-music" },
 ];
 const languageOptions: DropdownOption<string>[] = [
   { label: "English", value: "english" },
@@ -68,8 +64,11 @@ const BookBrief = ({ value, onChange, errors, touched }: Props) => {
         <div className="flex flex-col gap-2">
           <label>Preferred platform</label>
           <Dropdown
-            value={findOpt(platformOptions, value.platform)}
-            options={platformOptions}
+            value={findOpt(
+              STREAMING_PLATFORMS as DropdownOption<string>[],
+              value.platform
+            )}
+            options={STREAMING_PLATFORMS as DropdownOption<string>[]}
             onChange={(opt) => onChange({ platform: opt?.value ?? null })}
             placeholder="Choose platform"
             buttonClassName="w-full"

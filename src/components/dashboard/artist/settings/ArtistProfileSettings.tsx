@@ -15,6 +15,8 @@ import { toast } from "sonner";
 import * as Yup from "yup";
 import { IQueryMutationErrorResponse, IUpdateArtistProfile } from "@/interface";
 import ArtistProfileSettingsSkeleton from "./ArtistProfileSettingsSkeleton";
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { updateUser } from "@/redux/features/auth/user.slice";
 
 const validationSchema = Yup.object({
   fullName: Yup.string()
@@ -28,6 +30,7 @@ const ArtistProfileSettings = () => {
   const [isEditMode, setIsEditMode] = useState(false);
   const { data, isLoading, refetch } = useGetMyArtistProfileQuery(undefined);
   const profile = data?.data as IArtist | undefined;
+  const { user } = useAppSelector((state) => state.user);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [profilePhotoFile, setProfilePhotoFile] = useState<File | null>(null);
@@ -35,12 +38,13 @@ const ArtistProfileSettings = () => {
   const [uploadFile, { isLoading: isUploading }] = useUploadSingleFileMutation();
   const [updateProfile, { isLoading: isUpdating }] = useUpdateMyArtistProfileMutation();
 
+  const dispatch = useAppDispatch();
+
   const initialValues = useMemo(
     () => ({
       fullName: profile?.fullName || "",
-      email: profile?.email || "",
     }),
-    [profile?.fullName, profile?.email]
+    [profile?.fullName]
   );
 
   const handleUpdateProfile = async (
@@ -82,6 +86,13 @@ const ArtistProfileSettings = () => {
     }
     toast.success("Profile updated successfully");
     await refetch();
+    dispatch(
+      updateUser({
+        ...user,
+        fullName: values.fullName,
+        avatar: payload.avatar || user?.avatar || "",
+      })
+    );
     setIsEditMode(false);
     setProfilePhotoFile(null);
     resetForm({ values: { ...values } });
@@ -210,7 +221,7 @@ const ArtistProfileSettings = () => {
               <input
                 className="w-full bg-white/10 rounded-lg px-3 py-2 disabled:opacity-60"
                 placeholder="Email"
-                value={formik.values.email}
+                value={user?.email || ""}
                 readOnly
                 disabled
               />

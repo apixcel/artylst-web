@@ -1,9 +1,9 @@
 "use client";
 
 import clsx from "clsx";
-import CheckoutProgressSkeleton from "../shared/CheckoutProgressSkeleton";
+import CheckoutProgressSkeleton from "../CheckoutProgressSkeleton";
 
-const CheckoutSkeleton = ({ stepsLabels }: { stepsLabels: string[] }) => {
+const ArtistBookSkeleton = ({ stepsLabels }: { stepsLabels: string[] }) => {
   return (
     <div>
       <>
@@ -26,44 +26,18 @@ const CheckoutSkeleton = ({ stepsLabels }: { stepsLabels: string[] }) => {
             </div>
 
             {/* STEP CONTENT placeholder (cards roughly matching each step) */}
-            {/* Pricing step skeleton */}
-            <div className="card p-5 bg-brand-1/10">
-              {/* Heading */}
-              <div className="h-6 w-40 rounded bg-white/20 animate-pulse mb-5" />
-
-              {/* Grid of tier cards (mirrors the real layout) */}
-              <div className="grid grid-cols-1 sm:grid-cols-4 xl:grid-cols-3 gap-4">
-                {Array.from({ length: 3 }).map((_, i) => (
-                  <div
-                    key={i}
-                    className={
-                      "card bg-gradient-to-b from-brand-1/10 to-brand-4/8 text-center p-5 flex flex-col cursor-not-allowed xl:col-span-1 sm:col-span-2 col-span-1 sm:col-start-auto"
-                    }
-                  >
-                    {/* Title + price */}
-                    <div className="flex flex-col gap-5 mb-6 items-center">
-                      <div className="h-4 w-20 rounded bg-white/25 animate-pulse" />
-                      <div className="h-7 w-24 rounded bg-white/30 animate-pulse" />
-                    </div>
-
-                    {/* Bullets */}
-                    <ul className="space-y-2 mb-5">
-                      {Array.from({ length: 3 }).map((__, j) => (
-                        <li key={j} className="flex gap-2 text-left items-center">
-                          <span
-                            className="w-4 h-4 rounded bg-white/30 shrink-0 animate-pulse"
-                            aria-hidden
-                          />
-                          <span className="h-3 w-[85%] rounded bg-white/20 animate-pulse" />
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* CTA placeholder */}
-                    <div className="h-9 w-full rounded bg-white/20 animate-pulse" />
+            <div className="card p-5 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl">
+              <div className="h-5 w-40 bg-white/20 rounded animate-pulse" />
+              <div className="grid md:grid-cols-2 gap-4 mt-4">
+                {Array.from({ length: 4 }).map((_, i) => (
+                  <div key={i} className="space-y-2">
+                    <div className="h-3 w-24 bg-white/20 rounded animate-pulse" />
+                    <div className="h-9 w-full bg-white/10 border border-white/15 rounded animate-pulse" />
+                    <div className="h-3 w-32 bg-white/10 rounded animate-pulse" />
                   </div>
                 ))}
               </div>
+              <p className="h-3 w-72 bg-white/10 rounded mt-4 animate-pulse" />
             </div>
 
             {/* Controls */}
@@ -122,4 +96,4 @@ const CheckoutSkeleton = ({ stepsLabels }: { stepsLabels: string[] }) => {
   );
 };
 
-export default CheckoutSkeleton;
+export default ArtistBookSkeleton;

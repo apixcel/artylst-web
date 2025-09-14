@@ -6,19 +6,15 @@ import Link from "next/link";
 import { useGetArtistPricingTierQuery } from "@/redux/features/artist/artist.api";
 import { useAppSelector } from "@/hooks";
 import { MouseEvent } from "react";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const ArtistPricingTier = ({ userName }: { userName: string }) => {
   const { data } = useGetArtistPricingTierQuery({ userName });
   const artistPricingData = data?.data || [];
   const { user } = useAppSelector((state) => state.user);
   const role = user?.role;
-
-  const isBusiness = role === "business";
-
-  // guard to stop navigation if not business
-  const guardClick = (e: MouseEvent<HTMLAnchorElement>, disabled: boolean) => {
-    if (disabled) e.preventDefault();
-  };
+  const router = useRouter();
 
   const DisabledMsg = ({ message }: { message: string }) => (
     <p className="text-xs text-gray flex gap-1.5 mt-2">
@@ -26,12 +22,30 @@ const ArtistPricingTier = ({ userName }: { userName: string }) => {
     </p>
   );
 
+  const handleChoose = (
+    e: MouseEvent<HTMLAnchorElement>,
+    href: string,
+    disabled: boolean
+  ) => {
+    if (disabled) {
+      e.preventDefault();
+      return;
+    }
+
+    if (!user) {
+      e.preventDefault();
+      Cookies.set("redirect_after_login", href, { expires: 1 });
+      router.push("/login");
+    }
+  };
+
   return (
     <section className="mb-[40px]">
       <h2 className="mb-3">Business Pricing</h2>
       <div className="grid grid-cols-1 sm:grid-cols-4 lg:grid-cols-3 gap-4">
         {artistPricingData.map((tier, index) => {
-          const disabled = !isBusiness;
+          const disabled = role === "artist";
+          const checkoutUrl = `/artists/${userName}/checkout`;
 
           return (
             <div
@@ -78,18 +92,19 @@ const ArtistPricingTier = ({ userName }: { userName: string }) => {
               </ul>
 
               <Link
-                href={`/artists/${userName}/checkout`}
-                onClick={(e) => guardClick(e, disabled)}
+                href={checkoutUrl}
+                onClick={(e) => handleChoose(e, checkoutUrl, disabled)}
                 aria-disabled={disabled || undefined}
                 tabIndex={disabled ? -1 : 0}
                 className={cn(
-                  "btn mt-auto w-full mt-4",
+                  "btn mt-auto w-full",
                   tier.order === 2 ? "btn-primary" : "btn-tertiary",
                   disabled && "opacity-50 cursor-not-allowed pointer-events-none"
                 )}
               >
                 Choose {tier.name}
               </Link>
+
               {disabled && (
                 <DisabledMsg message="Sorry, you cannot choose this pricing using this account" />
               )}
