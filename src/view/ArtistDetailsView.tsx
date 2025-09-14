@@ -1,25 +1,22 @@
 "use server";
 
-import { ArtistPricingTier, Review } from "@/components";
+import {
+  ArtistIntroVideo,
+  ArtistPricingTier,
+  ArtistWhatOffer,
+  Review,
+} from "@/components";
 import { reviewData } from "@/constants";
 import {
   AppleMusicIcon,
+  InstagramIcon,
   SoundCloudIcon,
   SpotifyIcon,
   StarIcon,
   TiktokIcon,
   YTMusicIcon,
 } from "@/icons";
-import {
-  Check,
-  HeadphonesIcon,
-  Instagram,
-  Link2,
-  MegaphoneIcon,
-  Music4,
-  MusicIcon,
-  Youtube,
-} from "lucide-react";
+import { GlobeIcon, Instagram, Link2, Youtube } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -49,6 +46,8 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
     platforms,
     bio,
     country,
+    introVideo,
+    socials,
   } = artist || {};
 
   return (
@@ -103,9 +102,7 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
 
               <p className="text-[16px] mb-[6px]">{designation || "Designation"}</p>
 
-              <Link className="text-brand-4" href={""}>
-                Video Introduction
-              </Link>
+              <ArtistIntroVideo introVideo={introVideo} />
 
               <p className="text-sm text-white/75 mt-2">{bio}</p>
             </div>
@@ -132,17 +129,17 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
                 ))}
               </div>
 
-              <div className="flex items-center gap-1 opacity-90">
-                <span className="bg-brand-4/20 rounded-full p-1">
+              <div className="flex items-center gap-1 opacity-90 mt-2">
+                <span className="footer-social-link">
                   <YTMusicIcon className="w-5 h-5" />
                 </span>
-                <span className="bg-brand-4/20 rounded-full p-1">
+                <span className="footer-social-link">
                   <SpotifyIcon className="w-5 h-5" />
                 </span>
-                <span className="bg-brand-4/20 rounded-full p-1">
+                <span className="footer-social-link">
                   <AppleMusicIcon className="w-5 h-5" />
                 </span>
-                <span className="bg-brand-4/20 rounded-full p-1">
+                <span className="footer-social-link">
                   <SoundCloudIcon className="w-5 h-5" />
                 </span>
               </div>
@@ -152,6 +149,68 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
               {country && <span className="chip">{country}</span>}
               {/* {timeZone && <span className="chip">{timeZone}</span>} */}
               {/* {language && <span className="chip">{language}</span>} */}
+            </div>
+
+            {/* connect with me */}
+            <div>
+              <h3 className="mb-4">Connect with me</h3>
+              <ul className="flex gap-3 text-light/90">
+                {/* spotify */}
+                <li className="inline-flex items-center gap-2">
+                  <Link
+                    className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
+                    href={socials.spotify}
+                    target="_blank"
+                  >
+                    <SpotifyIcon className="max-h-5 max-w-5 w-full h-full" />
+                    Spotify
+                  </Link>
+                </li>
+                {/* youtube */}
+                <li className="inline-flex items-center gap-2">
+                  <Link
+                    className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
+                    href={socials.youtube}
+                    target="_blank"
+                  >
+                    <Youtube className="max-h-5 max-w-5 w-full h-full" />
+                    Youtube
+                  </Link>
+                </li>
+                {/* instagram */}
+                <li className="inline-flex items-center gap-2">
+                  <Link
+                    className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
+                    href={socials.instagram}
+                    target="_blank"
+                  >
+                    <InstagramIcon className="max-h-5 max-w-5 w-full h-full" />
+                    Instagram
+                  </Link>
+                </li>
+                {/* tiktok */}
+                <li className="inline-flex items-center gap-2">
+                  <Link
+                    className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
+                    href={socials.tiktok}
+                    target="_blank"
+                  >
+                    <TiktokIcon className="max-h-5 max-w-5 w-full h-full" />
+                    Tiktok
+                  </Link>
+                </li>
+                {/* website */}
+                <li className="inline-flex items-center gap-2">
+                  <Link
+                    className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
+                    href={socials.website}
+                    target="_blank"
+                  >
+                    <GlobeIcon className="max-h-4.5 max-w-4.5 w-full h-full" />
+                    Website
+                  </Link>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -170,138 +229,7 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
               </div>
             </div>
 
-            <div className="xl:w-full w-full sm:w-1/2">
-              {/* What I Offer */}
-              <div>
-                <h4 className="text-lg font-semibold mb-2">What I Offer</h4>
-
-                {/* Personal Playlist Features */}
-                <div className="mb-4 card p-4">
-                  <h5 className="font-medium mb-2 flex items-center gap-2 ">
-                    <HeadphonesIcon className="w-5 h-5" /> Personal Playlist
-                  </h5>
-                  <ul className="list-disc list-inside text-sm space-y-1 text-muted">
-                    <li>Customized to your mood & taste</li>
-                    <li>Handpicked by top artists</li>
-                    <li>Perfect for daily listening</li>
-                  </ul>
-                  <Link
-                    href={`/artists/${userName}/book`}
-                    className="btn btn-primary w-full mt-3"
-                  >
-                    Request Personal Playlist
-                  </Link>
-                </div>
-
-                {/* Business Playlist Features */}
-                <div className="card p-4 mb-4">
-                  <h5 className="font-medium mb-2 flex items-center gap-2 ">
-                    <MusicIcon className="w-5 h-5" /> Business Playlist
-                  </h5>
-                  <ul className="text-sm space-y-1 text-muted">
-                    <li className="flex gap-2">
-                      <Check className="w-3 h-3 text-brand-4 mt-[2px]" /> Curated for
-                      restaurants, cafés & events
-                    </li>
-                    <li className="flex gap-2">
-                      <Check className="w-3 h-3 text-brand-4 mt-[2px]" /> Enhance your
-                      brand identity with music
-                    </li>
-                    <li className="flex gap-2">
-                      <Check className="w-3 h-3 text-brand-4 mt-[2px]" /> Licensed & ready
-                      for commercial use
-                    </li>
-                  </ul>
-                  <Link
-                    href={`/artists/${userName}/checkout`}
-                    className="btn btn-primary w-full mt-3"
-                  >
-                    Request Business Playlist
-                  </Link>
-                </div>
-
-                {/* Looking for more features */}
-                <div className="card p-4">
-                  <h5 className="font-medium mb-2 flex items-center gap-2 ">
-                    <MegaphoneIcon className="w-5 h-5" /> Looking for more?
-                  </h5>
-
-                  <p className="text-sm space-y-1 text-muted">
-                    We can help you with more features. Just let us know what you need.
-                  </p>
-                  <Link href={`/business/contact`} className="btn btn-ghost w-full mt-3">
-                    Request More Features
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* connect with me */}
-            <div>
-              <h3 className="mb-4">Connect with me</h3>
-              <ul className="flex flex-col gap-3 text-light/90">
-                {/* spotify */}
-                <li className="inline-flex items-center gap-2">
-                  <Music4 className="max-h-5 max-w-5 w-full h-full" />
-                  Spotify:
-                  <Link
-                    className="text-muted hover:text-brand-4/70 transition-all duration-300 truncate"
-                    href="https://open.spotify.com/artist/4YRxDV8wJFPHPTeXepOstw"
-                    target="_blank"
-                  >
-                    https://open.spotify.com/artist/4YRxDV8wJFPHPTeXepOstw
-                  </Link>
-                </li>
-                {/* youtube */}
-                <li className="inline-flex items-center gap-2">
-                  <Youtube className="h-5 w-5" />
-                  YT Music:
-                  <Link
-                    className="text-muted hover:text-brand-4/70 transition-all duration-300"
-                    href="https://www.youtube.com"
-                    target="_blank"
-                  >
-                    https://www.youtube.com
-                  </Link>
-                </li>
-                {/* instagram */}
-                <li className="inline-flex items-center gap-2">
-                  <Instagram className="h-5 w-5" />
-                  Instagram:
-                  <Link
-                    className="text-muted hover:text-brand-4/70 transition-all duration-300"
-                    href="https://www.instagram.com"
-                    target="_blank"
-                  >
-                    https://www.instagram.com
-                  </Link>
-                </li>
-                {/* tiktok */}
-                <li className="inline-flex items-center gap-2">
-                  <TiktokIcon className="h-5 w-5" />
-                  TikTok:
-                  <Link
-                    className="text-muted hover:text-brand-4/70 transition-all duration-300"
-                    href="https://www.tiktok.com"
-                    target="_blank"
-                  >
-                    https://www.tiktok.com
-                  </Link>
-                </li>
-                {/* website */}
-                <li className="inline-flex items-center gap-2">
-                  <Link2 className="h-5 w-5" />
-                  Website:
-                  <Link
-                    className="text-muted hover:text-brand-4/70 transition-all duration-300"
-                    href="https://www.example.com"
-                    target="_blank"
-                  >
-                    https://www.example.com
-                  </Link>
-                </li>
-              </ul>
-            </div>
+            <ArtistWhatOffer />
           </aside>
         </div>
       </section>

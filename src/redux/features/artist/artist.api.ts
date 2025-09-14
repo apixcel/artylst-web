@@ -1,4 +1,4 @@
-import { IArtist, IMeta, IUpdateArtistProfile } from "@/interface";
+import { IArtist, IArtistPricingTier, IMeta, IUpdateArtistProfile } from "@/interface";
 import { api } from "@/redux/api/api";
 import { generateQueryParams } from "@/utils";
 
@@ -34,6 +34,19 @@ const artistApi = api.injectEndpoints({
         const { userName } = query;
         return {
           url: `/artist/profile/${userName}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["artist"],
+    }),
+    getArtistPricingTier: builder.query<
+      { data: IArtistPricingTier[] },
+      { userName: string }
+    >({
+      query: (query) => {
+        const { userName } = query;
+        return {
+          url: `/artist/get-pricing/${userName}`,
           method: "GET",
         };
       },
@@ -144,6 +157,7 @@ export const {
   useGetAllArtistQuery,
   useGetRecentlyViewedArtistsQuery,
   useGetArtistProfileByUserNameQuery,
+  useGetArtistPricingTierQuery,
   useGetWeeklyPopulerArtistQuery,
   useGetTopViewedArtistQuery,
   useAmIFeaturedQuery,

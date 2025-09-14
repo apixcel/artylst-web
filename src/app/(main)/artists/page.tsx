@@ -47,6 +47,7 @@ const ArtistsPage = () => {
       minPrice,
       maxPrice,
       sort,
+      limit: 2,
     });
     updateSearchParams({
       sort: sort || undefined,
@@ -89,6 +90,7 @@ const ArtistsPage = () => {
 
           <Pagination
             totalDocs={metaData.totalDoc}
+            limit={2}
             onPageChange={(page) => setQuery({ ...query, page })}
           />
         </section>
