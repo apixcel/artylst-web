@@ -2,8 +2,9 @@
 import Loader from "@/components/ui/Loader";
 import { useAppSelector } from "@/hooks/redux";
 import { TUserRole } from "@/interface";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Cookies from "js-cookie";
 
 interface IProps {
   children: React.ReactNode;
@@ -13,10 +14,12 @@ interface IProps {
 const ProtectedRoute = ({ children, role }: IProps) => {
   const { user, isLoading } = useAppSelector((state) => state.user);
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (!isLoading) {
       if (!user) {
+        Cookies.set("redirect_after_login", pathname);
         router.replace("/login");
       }
 

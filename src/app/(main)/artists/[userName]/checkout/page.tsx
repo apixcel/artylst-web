@@ -20,6 +20,7 @@ import { useCreateBusinessOrderMutation } from "@/redux/features/order/order.api
 import numberUtils from "@/utils/number";
 import { useParams, useRouter } from "next/navigation";
 import { toast } from "sonner";
+import ProtectedRoute from "@/provider/ProtectedRoute";
 
 // ---- Types
 type FormValues = {
@@ -102,7 +103,7 @@ export default function CheckoutPage() {
   const currentSchema = stepSchemas[step - 1];
 
   if (isLoading) {
-    return <CheckoutSkeleton />;
+    return <CheckoutSkeleton stepsLabels={[...stepsLabels]} />;
   }
 
   if (!data?.data) {
@@ -148,7 +149,7 @@ export default function CheckoutPage() {
     toast.success("Order created successfully");
   };
   return (
-    <>
+    <ProtectedRoute role="business">
       {/* Progress */}
       <section className="py-8">
         <CheckoutProgress current={step} steps={[...stepsLabels]} className="mx-auto" />
@@ -394,6 +395,6 @@ export default function CheckoutPage() {
           );
         }}
       </Formik>
-    </>
+    </ProtectedRoute>
   );
 }

@@ -1,63 +1,123 @@
-import Skeleton from "../ui/Skeleton";
+"use client";
 
-const CheckoutSkeleton = () => {
+import clsx from "clsx";
+import CheckoutProgressSkeleton from "../shared/CheckoutProgressSkeleton";
+
+const CheckoutSkeleton = ({ stepsLabels }: { stepsLabels: string[] }) => {
   return (
-    <div className="flex flex-col gap-6 p-6">
-      {/* Header */}
-      <div className="flex justify-between">
-        <div className="flex items-center gap-4">
-          <Skeleton className="h-12 w-12 rounded-full" />
-          <div>
-            <Skeleton className="h-4 w-32 mb-2" />
-            <Skeleton className="h-3 w-20" />
-          </div>
+    <div>
+      <>
+        <div className="py-8">
+          <CheckoutProgressSkeleton steps={[...stepsLabels]} className="mx-auto" />
         </div>
-        <Skeleton className="h-4 w-24" />
-      </div>
-
-      <div className="grid grid-cols-4 gap-6">
-        {/* Choose a Tier (3 cards) */}
-        <div className="col-span-3">
-          <h2 className="mb-4 text-lg font-semibold">CHOOSE A TIER</h2>
-          <div className="grid grid-cols-3 gap-4">
-            {[...Array(3)].map((_, i) => (
-              <div
-                key={i}
-                className="p-4 border border-white/10 rounded-lg flex flex-col gap-3"
-              >
-                <Skeleton className="h-5 w-16" />
-                <Skeleton className="h-8 w-20" />
-                <Skeleton className="h-3 w-full" />
-                <Skeleton className="h-3 w-2/3" />
-                <Skeleton className="h-3 w-1/2" />
+        <div className="pb-16 grid lg:grid-cols-[1fr_380px] gap-6">
+          <div className="w-full space-y-6" aria-busy>
+            {/* Artist summary */}
+            <div className="card p-4 flex items-center gap-4 bg-gradient-to-b from-brand-2/10 to-brand-1/10">
+              <div className="h-14 w-14 rounded-full overflow-hidden bg-white/10 animate-pulse" />
+              <div className="flex-1 space-y-2">
+                <div className="h-4 w-[160px] rounded bg-white/20 animate-pulse" />
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="h-5 w-[90px] rounded bg-white/15 border border-white/20 animate-pulse" />
+                  <span className="h-5 w-[70px] rounded bg-white/15 border border-white/20 animate-pulse" />
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
+              <div className="h-4 w-[90px] rounded bg-white/20 animate-pulse" />
+            </div>
 
-        {/* Order Summary */}
-        <div className="col-span-1 flex flex-col gap-4">
-          <h2 className="text-lg font-semibold">ORDER SUMMARY</h2>
-          <div className="border border-white/10 rounded-lg p-4 flex flex-col gap-3">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-3/4" />
-            <Skeleton className="h-4 w-1/2" />
-            <Skeleton className="h-4 w-1/3" />
-          </div>
-          <h2 className="text-lg font-semibold">WHAT YOU’LL RECEIVE</h2>
-          <div className="border border-white/10 rounded-lg p-4 flex flex-col gap-3">
-            <Skeleton className="h-3 w-4/5" />
-            <Skeleton className="h-3 w-3/5" />
-            <Skeleton className="h-3 w-2/5" />
-          </div>
-        </div>
-      </div>
+            {/* STEP CONTENT placeholder (cards roughly matching each step) */}
+            {/* Pricing step skeleton */}
+            <div className="card p-5 bg-brand-1/10">
+              {/* Heading */}
+              <div className="h-6 w-40 rounded bg-white/20 animate-pulse mb-5" />
 
-      {/* Footer buttons */}
-      <div className="flex justify-between mt-6">
-        <Skeleton className="h-10 w-20 rounded-lg" />
-        <Skeleton className="h-10 w-20 rounded-lg" />
-      </div>
+              {/* Grid of tier cards (mirrors the real layout) */}
+              <div className="grid grid-cols-1 sm:grid-cols-4 xl:grid-cols-3 gap-4">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <div
+                    key={i}
+                    className={
+                      "card bg-gradient-to-b from-brand-1/10 to-brand-4/8 text-center p-5 flex flex-col cursor-not-allowed xl:col-span-1 sm:col-span-2 col-span-1 sm:col-start-auto"
+                    }
+                  >
+                    {/* Title + price */}
+                    <div className="flex flex-col gap-5 mb-6 items-center">
+                      <div className="h-4 w-20 rounded bg-white/25 animate-pulse" />
+                      <div className="h-7 w-24 rounded bg-white/30 animate-pulse" />
+                    </div>
+
+                    {/* Bullets */}
+                    <ul className="space-y-2 mb-5">
+                      {Array.from({ length: 3 }).map((__, j) => (
+                        <li key={j} className="flex gap-2 text-left items-center">
+                          <span
+                            className="w-4 h-4 rounded bg-white/30 shrink-0 animate-pulse"
+                            aria-hidden
+                          />
+                          <span className="h-3 w-[85%] rounded bg-white/20 animate-pulse" />
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* CTA placeholder */}
+                    <div className="h-9 w-full rounded bg-white/20 animate-pulse" />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Controls */}
+            <div className="flex items-center justify-between">
+              <div className="h-10 w-24 rounded bg-white/10 animate-pulse" />
+              <div className="h-10 w-40 rounded bg-white/15 animate-pulse" />
+            </div>
+          </div>
+
+          {/* RIGHT: summary */}
+          <aside className="space-y-3">
+            <div className="card p-5 bg-gradient-to-b from-brand-2/10 to-brand-1/10">
+              <div className="h-5 w-32 bg-white/20 rounded animate-pulse" />
+              <div className="mt-3 space-y-2 text-sm" id="summary">
+                {[
+                  ["Service tier", 80],
+                  ["Add-ons", 60],
+                  ["Subtotal", 90],
+                  ["Fee", 70],
+                  ["Total", 100],
+                ].map(([_, w], i) => (
+                  <div
+                    key={i}
+                    className={clsx(
+                      "flex items-center justify-between",
+                      i === 2 && "pt-2 border-t border-white/10"
+                    )}
+                  >
+                    <span className="h-3 w-24 bg-white/15 rounded animate-pulse" />
+                    <span
+                      className="h-3 rounded bg-white/20 animate-pulse"
+                      style={{ width: `${w as number}px` }}
+                    />
+                  </div>
+                ))}
+              </div>
+              <p className="h-3 w-64 bg-white/10 rounded mt-3 animate-pulse" />
+            </div>
+
+            <div className="card p-4 bg-gradient-to-b from-brand-1/10 to-brand-1/10">
+              <div className="h-4 w-40 bg-white/20 rounded animate-pulse" />
+              <ul className="mt-3 space-y-2">
+                {Array.from({ length: 3 }).map((_, i) => (
+                  <li key={i} className="h-3 w-[85%] bg-white/15 rounded animate-pulse" />
+                ))}
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </>
+
+      <style>{`
+@keyframes shimmer { 100% { transform: translateX(300%); } }
+`}</style>
     </div>
   );
 };
