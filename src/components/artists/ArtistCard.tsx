@@ -120,18 +120,18 @@ const ArtistCard = ({
           </div>
 
           {item.genre && item.genre.length > 0 && (
-            <div className="flex items-center justify-center gap-2 flex-wrap">
-              {item.genre.slice(0, 5).map((genre) => (
+            <div className="flex items-center gap-2 flex-wrap">
+              {item.genre.slice(0, 3).map((genre) => (
                 <span
                   key={genre._id}
-                  className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1"
+                  className="text-[12px] bg-white/10 border border-white/10 rounded-full px-2 py-[2px]"
                 >
                   {genre.slug.charAt(0).toUpperCase() + genre.slug.slice(1)}
                 </span>
               ))}
-              {item.genre.length > 5 && (
-                <span className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1">
-                  +{item.genre.length - 5}
+              {item.genre.length > 3 && (
+                <span className="text-[12px] bg-white/10 border border-white/10 rounded-full px-2 py-[2px]">
+                  +{item.genre.length - 3}
                 </span>
               )}
             </div>
@@ -246,17 +246,17 @@ const ArtistCard = ({
         <div className="flex flex-col gap-3 mb-2">
           {item.genre && item.genre.length > 0 && (
             <div className="flex items-center justify-center gap-2 flex-wrap">
-              {item.genre.slice(0, 5).map((genre) => (
+              {item.genre.slice(0, 3).map((genre) => (
                 <span
                   key={genre._id}
-                  className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1"
+                  className="text-[12px] bg-white/10 border border-white/10 rounded-full px-2 py-[2px]"
                 >
                   {genre.slug.charAt(0).toUpperCase() + genre.slug.slice(1)}
                 </span>
               ))}
-              {item.genre.length > 5 && (
-                <span className="text-[12px] bg-white/10 border border-white/10 rounded-full px-3 py-1">
-                  +{item.genre.length - 5}
+              {item.genre.length > 3 && (
+                <span className="text-[12px] bg-white/10 border border-white/10 rounded-full px-2 py-[2px]">
+                  +{item.genre.length - 3}
                 </span>
               )}
             </div>

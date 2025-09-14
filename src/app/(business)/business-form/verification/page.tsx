@@ -100,7 +100,7 @@ const BusinessVerificationPage = () => {
   };
 
   return (
-    <>
+    <div className="max-w-[530px]">
       <h1 className="text-[32px] text-center sm:text-left sm:text-[44px] mb-[20px]">
         Verify your email
       </h1>
@@ -137,7 +137,7 @@ const BusinessVerificationPage = () => {
           )}
         </span>
       </form>
-    </>
+    </div>
   );
 };
 

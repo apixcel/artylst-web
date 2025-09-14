@@ -16,6 +16,7 @@ import { useParams, useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { businessAvatarFallback } from "@/constants/fallBack";
+import ArtistBookSkeleton from "@/components/shared/artist/ArtistBookSkeleton";
 
 type FormValues = {
   // brief
@@ -123,7 +124,7 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
   );
 
   if (isLoading) {
-    return <div className="p-10">Loading…</div>;
+    return <ArtistBookSkeleton stepsLabels={[...stepsLabels]} />;
   }
 
   if (!artist) {

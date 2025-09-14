@@ -177,9 +177,10 @@ const BusinessForm = () => {
           validateField,
         }) => (
           <Form className="flex flex-col gap-4">
-            <div className="flex flex-col gap-5">
+            <div className="grid sm:grid-cols-2 gap-4">
               {/* full name */}
-              <div>
+              <div className="w-full">
+                <label className="mb-[4px] block">Full name</label>
                 <Input
                   className={`bg-brand-2/10 border ${touched.fullName && errors.fullName ? "border-red-500" : "border-white/10"} rounded-2xl px-4 py-3 w-full`}
                   type="text"
@@ -196,7 +197,8 @@ const BusinessForm = () => {
               </div>
 
               {/* work email */}
-              <div>
+              <div className="w-full">
+                <label className="mb-[4px] block">Work email</label>
                 <Input
                   className={`bg-brand-2/10 border ${touched.email && errors.email ? "border-red-500" : "border-white/10"} rounded-2xl px-4 py-3 w-full`}
                   type="email"
@@ -214,6 +216,7 @@ const BusinessForm = () => {
 
               {/* business name */}
               <div>
+                <label className="mb-[4px] block">Business name</label>
                 <Input
                   className={`bg-brand-2/10 border ${touched.businessName && errors.businessName ? "border-red-500" : "border-white/10"} rounded-2xl px-4 py-3 w-full`}
                   type="text"
@@ -231,6 +234,7 @@ const BusinessForm = () => {
 
               {/* genre (category) */}
               <div>
+                <label className="mb-[4px] block">Genre</label>
                 <Dropdown
                   value={categoryOpt}
                   options={genres.map((genre) => ({
@@ -256,6 +260,7 @@ const BusinessForm = () => {
 
               {/* business type */}
               <div>
+                <label className="mb-[4px] block">Business type</label>
                 <Dropdown
                   value={businessTypeOpt}
                   options={businessTypeOptions}
@@ -278,6 +283,7 @@ const BusinessForm = () => {
 
               {/* environment / vibe */}
               <div>
+                <label className="mb-[4px] block">Vibe</label>
                 <Dropdown
                   value={vibeOpt}
                   options={vibes.map((vibe) => ({
@@ -358,65 +364,69 @@ const BusinessForm = () => {
               </div>
 
               {/* usage type */}
-              <div>
-                <Dropdown
-                  value={usageOpt}
-                  options={usageOptions}
-                  onChange={(opt) => {
-                    setUsageOpt(opt);
-                    const usage = (opt?.value as FormValues["usage"]) || "daily";
+              <div className="col-span-2">
+                <div className="mb-3">
+                  <label className="mb-[4px] block">Usage type</label>
+                  <Dropdown
+                    value={usageOpt}
+                    options={usageOptions}
+                    onChange={(opt) => {
+                      setUsageOpt(opt);
+                      const usage = (opt?.value as FormValues["usage"]) || "daily";
 
-                    setFieldValue("usage", usage, true);
-                    validateField("usage");
+                      setFieldValue("usage", usage, true);
+                      validateField("usage");
 
-                    if (usage === "daily") {
-                      setFieldValue("useCase", "daily use", true);
-                      setFieldTouched("useCase", false, false); // clear any old touched/error
-                    } else if (usage === "special") {
-                      setFieldValue("useCase", "", true);
-                      setFieldTouched("useCase", false, false);
-                    } else {
-                      setFieldValue("useCase", "", true);
-                      setFieldTouched("useCase", false, false);
-                    }
-                  }}
-                  placeholder="Is this for daily use or special occasion?"
-                  className="w-full"
-                  buttonClassName="w-full bg-brand-2/10 rounded-2xl px-4 py-3 text-white/80"
-                  panelClassName="w-full"
-                  optionClassName="w-full"
-                  matchButtonWidth={false}
-                  aria-invalid={!!(touched.usage && errors.usage)}
-                />
+                      if (usage === "daily") {
+                        setFieldValue("useCase", "daily use", true);
+                        setFieldTouched("useCase", false, false); // clear any old touched/error
+                      } else if (usage === "special") {
+                        setFieldValue("useCase", "", true);
+                        setFieldTouched("useCase", false, false);
+                      } else {
+                        setFieldValue("useCase", "", true);
+                        setFieldTouched("useCase", false, false);
+                      }
+                    }}
+                    placeholder="Is this for daily use or special occasion?"
+                    className="w-full"
+                    buttonClassName="w-full bg-brand-2/10 rounded-2xl px-4 py-3 text-white/80"
+                    panelClassName="w-full"
+                    optionClassName="w-full"
+                    matchButtonWidth={false}
+                    aria-invalid={!!(touched.usage && errors.usage)}
+                  />
 
-                {touched.usage && errors.usage && (
-                  <p className="text-red-400 text-sm mt-1">{errors.usage as string}</p>
+                  {touched.usage && errors.usage && (
+                    <p className="text-red-400 text-sm mt-1">{errors.usage as string}</p>
+                  )}
+                </div>
+
+                {/* conditional useCase when usage is special */}
+                {values.usage === "special" && (
+                  <div>
+                    <input
+                      className="enroll-input"
+                      type="text"
+                      placeholder="What is the occasion/theme?"
+                      name="useCase"
+                      value={values.useCase}
+                      onChange={handleChange}
+                      onBlur={handleBlur}
+                      aria-invalid={!!(touched.useCase && errors.useCase)}
+                    />
+                    {touched.useCase && errors.useCase && (
+                      <p className="text-red-400 text-sm mt-1">
+                        {errors.useCase as string}
+                      </p>
+                    )}
+                  </div>
                 )}
               </div>
 
-              {/* conditional useCase when usage is special */}
-              {values.usage === "special" && (
-                <div>
-                  <input
-                    className="enroll-input"
-                    type="text"
-                    placeholder="What is the occasion/theme?"
-                    name="useCase"
-                    value={values.useCase}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    aria-invalid={!!(touched.useCase && errors.useCase)}
-                  />
-                  {touched.useCase && errors.useCase && (
-                    <p className="text-red-400 text-sm mt-1">
-                      {errors.useCase as string}
-                    </p>
-                  )}
-                </div>
-              )}
-
               {/* password */}
               <div>
+                <label className="mb-[4px] block">Password</label>
                 <Input
                   name="password"
                   type="password"
@@ -438,6 +448,7 @@ const BusinessForm = () => {
 
               {/* confirm password */}
               <div>
+                <label className="mb-[4px] block">Confirm password</label>
                 <Input
                   name="confirmPassword"
                   type="password"
@@ -481,7 +492,7 @@ const BusinessForm = () => {
         )}
       </Formik>
 
-      <div className="mt-[20px]">
+      <div className="mt-[20px] text-right">
         <Link className="text-muted text-[16px] font-[500] underline" href="/login">
           Sign into an existing account
         </Link>

@@ -39,7 +39,7 @@ const JoinAsArtistLayout = ({ children }: { children: React.ReactNode }) => {
       {/* wrapper */}
       <div className="flex-1 flex">
         {/* left side */}
-        <div className="lg:flex hidden w-1/2 bg-brand-5/10 flex-col relative">
+        <div className="lg:flex hidden w-[40%] bg-brand-5/10 flex-col justify-center relative 2xl:pl-0 pl-6">
           <div className="absolute top-8 left-4">
             <button
               onClick={() => router.back()}
@@ -54,7 +54,7 @@ const JoinAsArtistLayout = ({ children }: { children: React.ReactNode }) => {
             <div className="xl:max-w-[500px] max-w-[470px]">
               <h1 className="text-[44px] leading-[50px] mb-[20px]">
                 You&apos;re <span className="gradient-text">famous enough</span> to join
-                Artylst
+                ARTYLST
               </h1>
               <p className="text-muted text-[16px]">
                 We&apos;re looking for artists who are passionate about their music and
@@ -65,8 +65,8 @@ const JoinAsArtistLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         {/* right side */}
-        <div className="lg:w-1/2 w-full py-8 sm:px-14 px-6 bg-black/50">
-          <div className="py-4 max-w-[530px] mx-auto lg:hidden">
+        <div className="lg:w-[60%] w-full py-8 xl:px-14 px-6 bg-brand-5/10 flex flex-col justify-center">
+          <div className="py-4 max-w-[530px] lg:hidden">
             <button
               onClick={() => router.back()}
               className="text-light hover:text-muted inline-flex items-center gap-1 cursor-pointer"

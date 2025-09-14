@@ -1,6 +1,5 @@
 "use client";
 
-import { BusinessFormArrow, BusinessFormCouldBeBrand } from "@/icons";
 import { ChevronLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -40,7 +39,7 @@ const BusinessFormLayout = ({ children }: { children: React.ReactNode }) => {
       {/* wrapper */}
       <div className="flex-1 flex h-full">
         {/* left side */}
-        <div className="hidden lg:block w-1/2 bg-brand-5/10">
+        <div className="hidden lg:block w-[40%] bg-brand-5/10 pl-6">
           <div className="py-4 pl-4">
             <button
               onClick={() => router.back()}
@@ -51,42 +50,22 @@ const BusinessFormLayout = ({ children }: { children: React.ReactNode }) => {
             </button>
           </div>
 
-          <div className="flex-center">
-            <div className="max-w-[300px] flex flex-col items-center justify-center gap-[20px] mx-auto relative">
-              <Image
-                src="/images/business/business-form-phone-frame.png"
-                alt="business-form-left"
-                width={500}
-                height={500}
-                className="w-full h-full object-cover pointer-events-none select-none"
-                draggable={false}
-              />
-              <span className="absolute bottom-30 -left-26 xl:-left-40">
-                <BusinessFormCouldBeBrand />
-              </span>
-              <span className="absolute bottom-6 xl:-left-26 -left-16">
-                <BusinessFormArrow />
-              </span>
-
-              <div className="flex flex-col items-center gap-[8px]">
-                <Image
-                  src="/images/brands/brand-4.png"
-                  alt="business-form-logo"
-                  width={200}
-                  height={100}
-                  className="w-[150px] h-full object-cover"
-                />
-                <span className="text-business-use-case text-[16px]">
-                  Carson Kressley x GYMSHARK
-                </span>
-              </div>
+          <div className="flex-center h-[50%] xl:h-[80%]">
+            <div className="xl:max-w-[500px] max-w-[470px]">
+              <h1 className="text-[44px] leading-[50px] mb-[20px]">
+                Grow your <span className="gradient-text">business with ARTYLST</span>
+              </h1>
+              <p className="text-muted text-[16px]">
+                Partner with top artists to create the perfect vibe for your café, salon,
+                gym, or retail space. Curated music, made simple.
+              </p>
             </div>
           </div>
         </div>
 
         {/* right side */}
-        <div className="lg:w-1/2 w-full py-8 sm:px-14 px-6 bg-black/50">
-          <div className="py-4 max-w-[530px] mx-auto lg:hidden">
+        <div className="lg:w-[60%] w-full py-8 sm:px-14 px-6 bg-brand-5/10">
+          <div className="py-4 max-w-[530px] lg:hidden">
             <button
               onClick={() => router.back()}
               className="text-light hover:text-muted inline-flex items-center gap-1 cursor-pointer"
@@ -96,9 +75,7 @@ const BusinessFormLayout = ({ children }: { children: React.ReactNode }) => {
             </button>
           </div>
 
-          <div className="flex lg:justify-start justify-center items-center">
-            <div>{children}</div>
-          </div>
+          <div className="flex flex-col md:justify-center h-full">{children}</div>
         </div>
       </div>
     </div>

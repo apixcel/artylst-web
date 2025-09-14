@@ -6,11 +6,11 @@ import {
   ArtistTopbar,
   ArtistCard,
   Pagination,
+  ArtistCardSkeleton,
 } from "@/components";
 import { useEffect, useState } from "react";
 import { cn } from "@/utils";
 import { useGetAllArtistQuery } from "@/redux/features/artist/artist.api";
-import ArtistCardSkeleton from "@/components/artists/ArtistCardSkeleton";
 import { useDebounce, useSetSearchParams } from "@/hooks";
 
 const ArtistsPage = () => {
@@ -78,7 +78,9 @@ const ArtistsPage = () => {
             )}
           >
             {isLoading ? (
-              <ArtistCardSkeleton row={5} columns={6} />
+              Array.from({ length: 8 }).map((_, index) => (
+                <ArtistCardSkeleton key={index} view={view} />
+              ))
             ) : data?.data.length ? (
               artistData.map((item, index) => (
                 <ArtistCard key={index} item={item} index={index} view={view} />

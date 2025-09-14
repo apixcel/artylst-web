@@ -2,6 +2,7 @@ import { cn } from "@/utils";
 import { User } from "lucide-react";
 import Image from "next/image";
 import { IUser } from "@/interface/user.interface";
+import { businessAvatarFallback } from "@/constants/fallBack";
 
 const SidebarUserCard = ({ isOpen, user }: { isOpen: boolean; user: IUser }) => {
   return (
@@ -15,9 +16,9 @@ const SidebarUserCard = ({ isOpen, user }: { isOpen: boolean; user: IUser }) => 
         <>
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 rounded-xl overflow-hidden">
-              {/* {user?.image ? (
+              {user?.avatar ? (
                 <Image
-                  src={user?.image}
+                  src={user?.avatar || businessAvatarFallback}
                   alt="user"
                   width={100}
                   height={100}
@@ -27,7 +28,7 @@ const SidebarUserCard = ({ isOpen, user }: { isOpen: boolean; user: IUser }) => 
                 <div className="h-10 w-10 rounded-xl bg-white/10 flex-center">
                   <User className="w-5 h-5 text-white/50" />
                 </div>
-              )} */}
+              )}
 
               <div className="h-10 max-w-10 w-full rounded-xl bg-white/10 flex-center">
                 <User className="w-5 h-5 text-white/50" />

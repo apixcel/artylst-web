@@ -3,6 +3,7 @@ export { default as TopArtistView } from "./TopArtistView";
 export { default as FeaturedArtistView } from "./FeaturedArtistView";
 export { default as ArtistBookView } from "./ArtistBookView";
 export { default as BusinessHomeView } from "./BusinessHomeView";
+export { default as BusinessFormView } from "./BusinessFormView";
 export { default as ContactSalesView } from "./ContactSalesView";
 export { default as JoinAsArtistView } from "./JoinAsArtistView";
 //dashboard

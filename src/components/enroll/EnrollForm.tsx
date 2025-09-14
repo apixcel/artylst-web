@@ -192,9 +192,9 @@ const EnrollForm = () => {
     >
       {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => (
         <Form className="flex flex-col gap-4">
-          <div className="flex flex-col gap-3">
+          <div className="sm:grid-cols-2 grid gap-4">
             {/* full name */}
-            <div>
+            <div className="w-full">
               <label className="text-[16px] font-[500] block mb-[8px]">Full name</label>
               <input
                 name="fullName"
@@ -260,7 +260,7 @@ const EnrollForm = () => {
               <div className="mb-[8px]">
                 <label className="text-[16px] font-[500] block mb-[2px]">User Name</label>
                 <p className="text-muted">
-                  Use only letters, numbers, underscores, hyphens, and periods
+                  Only letters, numbers, underscores, hyphens, and periods
                 </p>
               </div>
               <input
@@ -295,9 +295,9 @@ const EnrollForm = () => {
             </div>
 
             {/* date of birth */}
-            <div>
-              <div className="mb-[8px]">
-                <label className="text-[16px] font-[500] block mb-[2px]">
+            <div className="w-full">
+              <div>
+                <label className="text-[16px] font-[500] block mb-[8px]">
                   Date of birth
                 </label>
                 <DateSelector
@@ -318,7 +318,7 @@ const EnrollForm = () => {
             </div>
 
             {/* email */}
-            <div>
+            <div className="w-full">
               <div className="mb-[8px]">
                 <label className="text-[16px] font-[500] block mb-[2px]">Email</label>
               </div>
@@ -383,21 +383,20 @@ const EnrollForm = () => {
                 <p className="text-red-400 text-sm mt-1">{errors.confirmPassword}</p>
               )}
             </div>
-
-            {/* terms */}
-            <div>
-              <p className="text-muted">
-                By clicking &quot;Create account&quot;, you agree to our{" "}
-                <Link href="/terms-and-conditions" className="text-white">
-                  Terms of Service
-                </Link>{" "}
-                and{" "}
-                <Link href="/privacy-policy" className="text-white">
-                  Privacy Policy
-                </Link>
-                .
-              </p>
-            </div>
+          </div>
+          {/* terms */}
+          <div>
+            <p className="text-muted">
+              By clicking &quot;Create account&quot;, you agree to our{" "}
+              <Link href="/terms-and-conditions" className="text-white">
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link href="/privacy-policy" className="text-white">
+                Privacy Policy
+              </Link>
+              .
+            </p>
           </div>
 
           {/* submit */}

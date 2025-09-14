@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/utils";
 import { Trash2 } from "lucide-react";
 
 type AddOn = {
@@ -52,8 +53,12 @@ const CheckoutAddOnns = ({ selected, onChange }: Props) => {
           return (
             <label
               key={o.value}
-              className={`card p-4 flex items-start gap-3 cursor-pointer transition
-                border ${active ? "ring-1 ring-light/60 border-light bg-white/5" : "border-white/10 hover:border-white/30"}`}
+              className={cn(
+                "card p-4 flex flex-col gap-2 cursor-pointer transition border relative group",
+                active
+                  ? "ring-1 ring-light/60 border-light bg-white/5"
+                  : "border-white/10 hover:border-white/30"
+              )}
             >
               <input
                 type="radio"
@@ -62,26 +67,33 @@ const CheckoutAddOnns = ({ selected, onChange }: Props) => {
                 checked={active}
                 onChange={() => onChange(o)}
               />
-              <div>
-                <div className="font-heading">{o.title}</div>
-                <div className="text-white/70 text-xs">{o.desc}</div>
+
+              <div className="flex items-start gap-3 w-full">
+                <div>
+                  <div className="font-heading">{o.title}</div>
+                  <div className="text-white/70 text-xs">{o.desc}</div>
+                </div>
+                <div className="ml-auto">${o.price}</div>
               </div>
-              <div className="ml-auto">${o.price}</div>
+
+              {active && (
+                <div className="absolute top-2 right-2 group-hover:opacity-100 opacity-0 transition-opacity duration-300">
+                  <button
+                    type="button"
+                    className="text-xs w-[120px] text-light border bg-red-campaign-red border-red-campaign-red flex items-center justify-end gap-2 py-1 px-2 rounded"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      onChange(undefined);
+                    }}
+                  >
+                    Clear add-on <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              )}
             </label>
           );
         })}
-
-        {selected ? (
-          <button
-            type="button"
-            className="card p-3 text-xs opacity-80 hover:opacity-100 text-red-campaign-red border-red-campaign-red bg-red-campaign-red/5 flex items-center justify-center gap-2 text-[16px] cursor-pointer"
-            onClick={() => onChange(undefined)}
-          >
-            Clear add-on <Trash2 className="w-4 h-4" />
-          </button>
-        ) : (
-          ""
-        )}
       </fieldset>
     </div>
   );

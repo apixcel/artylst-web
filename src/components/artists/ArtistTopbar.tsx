@@ -7,11 +7,11 @@ import { useSetSearchParams } from "@/hooks";
 import { useEffect, useState } from "react";
 
 const artistSortOptions = [
-  { label: "Recommended", value: "" },
-  { label: "Price: Low to High", value: "low-to-high" },
-  { label: "Price: High to Low", value: "high-to-low" },
-  { label: "Delivery time", value: "delivery-time" },
+  { label: "Newest", value: "newest" },
+  { label: "Price: Low to High", value: "price-asc" },
+  { label: "Price: High to Low", value: "price-desc" },
   { label: "Rating", value: "rating" },
+  { label: "Rating: Low to High", value: "rating-asc" },
   { label: "Most orders", value: "most-orders" },
 ];
 
@@ -24,8 +24,8 @@ type Props = {
 
 const ArtistTopbar = ({ view, setView, setSearchTerm, metaData }: Props) => {
   const [sort, setSort] = useState<DropdownOption<string> | null>({
-    label: "Recommended",
-    value: "",
+    label: "Newest",
+    value: "newest",
   });
   const { updateSearchParams } = useSetSearchParams();
 

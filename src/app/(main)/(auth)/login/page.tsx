@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import * as Yup from "yup";
+import Cookies from "js-cookie";
 
 interface FormValues {
   identifier: string;
@@ -30,6 +31,17 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
 
+  // avoid open-redirects: only allow same-origin relative paths
+  const safeRedirect = (url: string | undefined | null) => {
+    if (!url) return null;
+    try {
+      if (url.startsWith("/") && !url.startsWith("//")) return url;
+      return null;
+    } catch {
+      return null;
+    }
+  };
+
   const handleSubmit = async (values: FormValues) => {
     if (isLoading) return;
 
@@ -48,6 +60,17 @@ const Login = () => {
     if (user && token) {
       dispatch(updateAuthState({ user, token, isLoading: false }));
       toast.success("Login successful");
+
+      // read intended redirect (set earlier from pricing choose)
+      const cookieRedirect = Cookies.get("redirect_after_login");
+      const redirectUrl = safeRedirect(cookieRedirect);
+
+      if (redirectUrl) {
+        Cookies.remove("redirect_after_login");
+        router.push(redirectUrl);
+        return;
+      }
+
       router.push(user.role === "fan" ? "/profile" : "/dashboard");
     }
   };
@@ -78,7 +101,7 @@ const Login = () => {
                   className="w-full bg-white/10 border border-white/10 focus:outline-none focus:ring-1 focus:ring-light rounded-xl pl-10 pr-4 py-2.5 placeholder-white/40"
                   type="text"
                   inputMode="email"
-                  autoComplete="identifier"
+                  autoComplete="username"
                   placeholder="Enter your email or username"
                 />
                 {/* mail icon */}
@@ -137,15 +160,7 @@ const Login = () => {
               )}
             </label>
 
-            {/* Extras row */}
-            <div className="flex items-center justify-between">
-              <label className="text-muted inline-flex items-center gap-2 select-none">
-                <input
-                  type="checkbox"
-                  className="accent-brand-4 w-3.5 h-3.5 bg-light border-white/20 rounded"
-                />
-                Remember me
-              </label>
+            <div className="flex items-center justify-end">
               <Link
                 href="/forgot-password"
                 className="text-sm text-white/70 hover:text-white underline underline-offset-4"
@@ -162,14 +177,14 @@ const Login = () => {
             >
               {isLoading ? "Logging in..." : "Login"}
             </button>
-
-            {/* tiny policy line */}
-            <p className="text-[11px] text-muted text-center">
-              ARTYLST protects your privacy. We never share personal contact info.
-            </p>
           </Form>
         )}
       </Formik>
+
+      {/* tiny policy line */}
+      <p className="text-[11px] text-muted text-center">
+        ARTYLST protects your privacy. We never share personal contact info.
+      </p>
     </div>
   );
 };

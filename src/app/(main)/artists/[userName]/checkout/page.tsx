@@ -41,13 +41,7 @@ type FormValues = {
   email: string;
 };
 
-const SERVICE_FEE_RATE = 0.2; // 20%
-const ADDONS_PRICE: Record<string, number> = {
-  rush: 12,
-  length: 10,
-  business: 25,
-  notes: 5,
-};
+const SERVICE_FEE_RATE = 0.2;
 
 // ---- Per-step validation
 const stepSchemas = [
@@ -218,7 +212,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex-1">
                       <span className="font-heading text-base mb-1 inline-block">
-                        {data.data.fullName}
+                        {data.data.displayName}
                       </span>
                       <div className="flex flex-wrap items-center gap-2">
                         <span className="chip flex items-center gap-1 text-[11px] bg-mario-coin/15 border border-mario-coin/40">

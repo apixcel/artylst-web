@@ -10,7 +10,15 @@ import {
   CreateTierPayload,
   UpdateTierPayload,
 } from "@/interface";
-import { Formik, Form, Field, FieldArray, useField } from "formik";
+import {
+  Formik,
+  Form,
+  Field,
+  FieldArray,
+  useField,
+  useFormikContext,
+  getIn,
+} from "formik";
 import * as Yup from "yup";
 import { cn } from "@/utils";
 
@@ -22,12 +30,18 @@ export const TIER_NAME_BY_KEY: Record<TierKey, TierName> = {
 
 type Option = { value: string; label: string };
 
+/** --- CHANGE #1: Small, reliable FieldError --- */
 const FieldError: React.FC<{ name: string }> = ({ name }) => {
   const [, meta] = useField(name);
-  return meta.touched && meta.error ? (
-    <p className="text-xs text-red-400 mt-1">{String(meta.error as string)}</p>
-  ) : null;
+  const { submitCount, errors } = useFormikContext<Record<string, unknown>>();
+  const error = meta.error ?? getIn(errors, name);
+
+  const show =
+    (meta.touched || submitCount > 0) && typeof error === "string" && error.length > 0;
+
+  return show ? <p className="text-xs text-red-400 mt-1">{String(error)}</p> : null;
 };
+// --- End change ---
 
 // Live preview for a single tier
 const TierPreview: React.FC<{
@@ -109,10 +123,9 @@ const TierSchema = Yup.object({
     .required("Price is required"),
   deliveryTime: Yup.string().required("Delivery time is required"),
   descriptionList: Yup.array()
-    .of(Yup.string())
-    .test("at-least-one-non-empty", "At least one description is required", (arr) =>
-      (arr || []).some((s) => !!String(s || "").trim())
-    ),
+    .of(Yup.string().trim().required("Description is required"))
+    .min(1, "At least one description is required")
+    .max(5, "Maximum 5 descriptions"),
   revisionCount: Yup.number()
     .typeError("Must be a number")
     .integer("Must be an integer")
@@ -168,7 +181,7 @@ export const TierPricingCard: React.FC<{
           songs,
           price,
           deliveryTime: defaultDeliveryTime,
-          descriptionList: descriptions.length > 0 ? descriptions : ["", "", ""],
+          descriptionList: descriptions.length > 0 ? descriptions : [],
           revisionCount: revisionCount,
         }}
         validationSchema={TierSchema}
@@ -203,7 +216,7 @@ export const TierPricingCard: React.FC<{
           }
         }}
       >
-        {({ values, setFieldValue, handleSubmit }) => (
+        {({ values, setFieldValue, setFieldTouched, handleSubmit }) => (
           <Form
             className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-6"
             onSubmit={handleSubmit}
@@ -261,64 +274,69 @@ export const TierPricingCard: React.FC<{
               <div>
                 <label className="text-sm text-white/60">Descriptions</label>
                 <FieldArray name="descriptionList">
-                  {({ push, remove }) => (
-                    <div className="mt-2 space-y-2">
-                      {values.descriptionList.length > 0 ? (
-                        values.descriptionList.map((_, idx) => {
-                          const isLast = idx === values.descriptionList.length - 1;
-                          return (
-                            <div key={idx} className="flex items-center gap-2">
+                  {({ push, remove }) => {
+                    const allFilled = values.descriptionList.every(
+                      (v) => typeof v === "string" && v.trim().length > 0
+                    );
+                    const canAdd = values.descriptionList.length < 5 && allFilled;
+
+                    const markArrayTouched = () =>
+                      setFieldTouched("descriptionList", true, true);
+
+                    return (
+                      <div className="mt-2 space-y-2">
+                        {values.descriptionList.map((_, idx) => (
+                          <div key={idx} className="flex flex-col gap-1">
+                            <div className="flex items-center gap-2">
                               <Field
                                 name={`descriptionList.${idx}`}
                                 type="text"
                                 placeholder={`Description ${idx + 1}`}
                                 disabled={disabled || busy}
                                 className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2 disabled:opacity-50"
+                                onBlur={markArrayTouched}
                               />
                               <button
                                 type="button"
-                                onClick={() => remove(idx)}
+                                onClick={() => {
+                                  remove(idx);
+                                  markArrayTouched();
+                                }}
                                 disabled={disabled || busy}
                                 className="inline-flex items-center justify-center rounded-lg border border-white/10 px-2 py-2 hover:bg-white/10 disabled:opacity-50"
                                 aria-label={`Remove description ${idx + 1}`}
                               >
                                 <X className="w-4 h-4" />
                               </button>
-
-                              {isLast && (
-                                <div className="flex gap-2">
-                                  <button
-                                    type="button"
-                                    onClick={() => push("")}
-                                    disabled={disabled || busy}
-                                    className="btn-tertiary inline-flex items-center gap-2 disabled:opacity-50"
-                                  >
-                                    <Plus className="w-4 h-4" /> Add item
-                                  </button>
-                                </div>
-                              )}
                             </div>
-                          );
-                        })
-                      ) : (
-                        // When there are no fields, still show the Add item button
-                        <div className="flex items-center gap-2">
-                          <div className="flex gap-2">
-                            <button
-                              type="button"
-                              onClick={() => push("")}
-                              disabled={disabled || busy}
-                              className="btn-tertiary inline-flex items-center gap-2 disabled:opacity-50"
-                            >
-                              <Plus className="w-4 h-4" /> Add item
-                            </button>
-                          </div>
-                        </div>
-                      )}
 
-                      <FieldError name="descriptionList" />
-                    </div>
-                  )}
+                            <FieldError name={`descriptionList.${idx}`} />
+                          </div>
+                        ))}
+
+                        <div className="flex items-center justify-between pt-1">
+                          <p className="text-xs text-white/60">
+                            {values.descriptionList.length}/5 items
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              if (canAdd) {
+                                push("");
+                                markArrayTouched();
+                              }
+                            }}
+                            disabled={disabled || busy || !canAdd}
+                            className="btn-tertiary inline-flex items-center gap-2 disabled:opacity-50"
+                          >
+                            <Plus className="w-4 h-4" /> Add item
+                          </button>
+                        </div>
+
+                        <FieldError name="descriptionList" />
+                      </div>
+                    );
+                  }}
                 </FieldArray>
               </div>
 
