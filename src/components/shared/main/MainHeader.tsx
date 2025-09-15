@@ -9,6 +9,7 @@ import { logout as logoutAction } from "@/redux/features/auth/user.slice";
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const MainHeader = () => {
@@ -16,6 +17,9 @@ const MainHeader = () => {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [logout] = useLogoutMutation();
+  const pathname = usePathname();
+
+  const isProfilePage = pathname.startsWith("/profile");
 
   const handleLogout = async () => {
     await logout(undefined);
@@ -70,18 +74,20 @@ const MainHeader = () => {
             </Link>
 
             {/* nav links */}
-            <ul className="lg:flex hidden items-center">
-              {mainNavLinks.map((link) => (
-                <li key={link.href}>
-                  <Link
-                    className="text-light rounded-[20px] hover:bg-brand-2/10 text-[16px] flex-1 py-[8px] px-[12px]"
-                    href={link.href}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            {!isProfilePage && (
+              <ul className="lg:flex hidden items-center">
+                {mainNavLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      className="text-light rounded-[20px] hover:bg-brand-2/10 text-[16px] flex-1 py-[8px] px-[12px]"
+                      href={link.href}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <div className="flex items-center justify-end gap-4 lg:flex-1">

@@ -23,7 +23,7 @@ const FeaturedArtists = async () => {
         </Link>
       </div>
 
-      <ArtistCardSlider artists={artists} />
+      <ArtistCardSlider variant="default" artists={artists} />
     </section>
   );
 };

@@ -1,8 +1,8 @@
 "use client";
 
 import clsx from "clsx";
-import CheckoutProgressSkeleton from "../shared/CheckoutProgressSkeleton";
-import CheckoutPricingTierSkeleton from "./CheckoutPricingTierSkeleton";
+import CheckoutProgressSkeleton from "./CheckoutProgressSkeleton";
+import CheckoutPricingTierSkeleton from "../checkout/CheckoutPricingTierSkeleton";
 
 const CheckoutSkeleton = ({ stepsLabels }: { stepsLabels: string[] }) => {
   return (
@@ -57,6 +57,7 @@ const CheckoutSkeleton = ({ stepsLabels }: { stepsLabels: string[] }) => {
                   ["Subtotal", 90],
                   ["Fee", 70],
                   ["Total", 100],
+                  // eslint-disable-next-line @typescript-eslint/no-unused-vars
                 ].map(([_, w], i) => (
                   <div
                     key={i}

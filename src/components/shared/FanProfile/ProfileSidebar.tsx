@@ -9,7 +9,7 @@ const ProfileSidebar = () => {
   const { user } = useAppSelector((state) => state.user);
   const pathname = usePathname();
   return (
-    <div className="w-full lg:w-[300px] shrink-0 lg:sticky top-[125px] flex flex-col gap-5">
+    <div className="w-full xl:w-[300px] shrink-0 xl:sticky top-[125px] flex flex-col gap-5">
       <div className="card rounded-[8px] p-4">
         <div className="flex items-center justify-start gap-3">
           <div className="w-[70px] h-[70px] rounded-full overflow-hidden shrink-0">
@@ -29,7 +29,7 @@ const ProfileSidebar = () => {
           </div>
         </div>
       </div>
-      <div className="card p-4 flex-col gap-2 w-full hidden lg:flex">
+      <div className="card p-4 flex-col gap-2 w-full hidden xl:flex">
         {fanProfileLinks.map((link, index) => (
           <Link
             key={index + link.label}
@@ -42,7 +42,8 @@ const ProfileSidebar = () => {
         ))}
       </div>
 
-      <div className="flex items-center gap-2 flex-wrap justify-start">
+      {/* mobile */}
+      <div className="xl:hidden flex items-center sm:gap-2 gap-1 flex-wrap justify-start">
         {fanProfileLinks.map((link, index) => (
           <Link
             key={index + link.label}

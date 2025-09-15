@@ -6,7 +6,13 @@ import { ArtistCard } from "@/components";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { IRankedArtist } from "@/interface";
 
-const ArtistCardSlider = ({ artists }: { artists: IRankedArtist[] }) => {
+const ArtistCardSlider = ({
+  artists,
+  variant = "home",
+}: {
+  artists: IRankedArtist[];
+  variant?: "home" | "default";
+}) => {
   return (
     <Swiper
       spaceBetween={12}
@@ -31,7 +37,7 @@ const ArtistCardSlider = ({ artists }: { artists: IRankedArtist[] }) => {
       {artists.map((item, index) => (
         <SwiperSlide key={item._id} className="!h-auto flex">
           <div className="h-full">
-            <ArtistCard item={item} index={index} variant="home" />
+            <ArtistCard item={item} index={index} variant={variant} />
           </div>
         </SwiperSlide>
       ))}
