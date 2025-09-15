@@ -84,7 +84,9 @@ const ArtistWhatOffer = () => {
             commercial use
           </li>
         </ul>
-        <Link {...linkProps(`/artists/${userName}/checkout`, isBusinessDisabled)}>
+        <Link
+          {...linkProps(`/artists-for-business/${userName}/checkout`, isBusinessDisabled)}
+        >
           Request Business Playlist
         </Link>
         {isBusinessDisabled && (

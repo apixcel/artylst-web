@@ -2,7 +2,7 @@
 
 import {
   ArtistIntroVideo,
-  ArtistPricingTier,
+  // ArtistPricingTier,
   ArtistWhatOffer,
   Review,
 } from "@/components";
@@ -235,7 +235,7 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
       </section>
 
       {/* Pricing tiers */}
-      <ArtistPricingTier userName={userName} />
+      {/* <ArtistPricingTier userName={userName} /> */}
 
       <section className="mb-[30px]">
         {/* sample vibes I love */}

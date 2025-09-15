@@ -85,8 +85,8 @@ const FanProfileManagementView = () => {
   const saveDisabled = nothingChanged || !formik.isValid || formik.isSubmitting;
 
   return (
-    <div className="p-4">
-      <h4 className="text-lg font-semibold">Account Information</h4>
+    <div>
+      <h3>Account Information</h3>
 
       <form onSubmit={formik.handleSubmit}>
         <div
@@ -113,7 +113,7 @@ const FanProfileManagementView = () => {
         {profilePhotoFile ? (
           <button
             type="button"
-            className="btn btn-primary mt-3"
+            className="btn btn-ghost mt-3"
             onClick={() => setProfilePhotoFile(null)}
           >
             Cancel Photo

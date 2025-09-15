@@ -7,18 +7,23 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import * as Yup from "yup";
 
-import { BookBrief, CheckoutAddOnns, CheckoutProgress, Input } from "@/components";
+import {
+  BookBrief,
+  CheckoutAddOnns,
+  CheckoutProgress,
+  CheckoutSkeleton,
+  CheckoutTier,
+} from "@/components";
 import { IQueryMutationErrorResponse, IUser } from "@/interface";
 import { useGetArtistProfileByUserNameQuery } from "@/redux/features/artist/artist.api";
-import { updateAuthState } from "@/redux/features/auth/user.slice";
 import { useCreateFanOrderMutation } from "@/redux/features/order/order.api";
 import { useParams, useRouter } from "next/navigation";
-import { useDispatch } from "react-redux";
 import { toast } from "sonner";
 import { businessAvatarFallback } from "@/constants/fallBack";
-import ArtistBookSkeleton from "@/components/shared/artist/ArtistBookSkeleton";
+import ProtectedRoute from "@/provider/ProtectedRoute";
 
 type FormValues = {
+  tierId: string | null;
   // brief
   occasion: string | null;
   platform: string | null;
@@ -34,13 +39,39 @@ type FormValues = {
   // buyer
   name: string;
   email: string;
-  password: string;
-  confirmPassword: string;
 };
 
-const SERVICE_FEE_RATE = 0.2; // 20%
+const SERVICE_FEE_RATE = 0.2;
 
-const stepsLabels = ["1. Brief", "2. Add-ons", "3. Pay"] as const;
+const stepSchemas = [
+  // step 1: tier
+  Yup.object({
+    price: Yup.number().required("Please select a tier."),
+    tierId: Yup.string().required("Please select a tier."),
+  }),
+  // step 2: brief
+  Yup.object({
+    occasion: Yup.string().required("Choose an occasion"),
+    platform: Yup.string().required("Pick a platform"),
+    language: Yup.string().required("Select language"),
+    deliveryWindow: Yup.string().required("Select delivery window"),
+    note: Yup.string().max(500, "Max 500 characters"),
+  }),
+  // step 3: add-ons (optional) — no required fields
+  Yup.object({
+    addon: Yup.object({
+      label: Yup.string(),
+      price: Yup.number(),
+    }).optional(),
+  }),
+  // step 4: buyer info
+  Yup.object({
+    name: Yup.string().required("Your name is required"),
+    email: Yup.string().email("Invalid email").required("Email is required"),
+  }),
+];
+
+const stepsLabels = ["1. Choose tier", "2. Brief", "3. Add-ons", "4. Pay"] as const;
 
 const ArtistBookView = ({ user }: { user: IUser }) => {
   const params = useParams();
@@ -51,63 +82,17 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
   const artist = data?.data || null;
 
   const [createOrder, { isLoading: isCreating }] = useCreateFanOrderMutation();
-  const [step, setStep] = useState<1 | 2 | 3>(1);
-
-  const dispatch = useDispatch();
+  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
 
   const isLoggedIn = Boolean(user && user?._id);
 
-  // --- Dynamic validation: skip password rules when user exists ---
-  const stepSchemas = useMemo(() => {
-    const briefSchema = Yup.object({
-      occasion: Yup.string().required("Choose an occasion"),
-      platform: Yup.string().required("Pick a platform"),
-      language: Yup.string().required("Select language"),
-      deliveryWindow: Yup.string().required("Select delivery window"),
-      note: Yup.string().max(500, "Max 500 characters"),
-    });
-
-    const addonsSchema = Yup.object({
-      addon: Yup.object({
-        label: Yup.string(),
-        price: Yup.number(),
-      }).optional(),
-    });
-
-    const buyerSchemaWhenLoggedOut = Yup.object({
-      name: Yup.string().required("Your name is required"),
-      email: Yup.string().email("Invalid email").required("Email is required"),
-      password: Yup.string()
-        .min(8, "Password must be at least 8 characters")
-        .matches(/\d/, "Password must contain a number")
-        .matches(/[a-z]/, "Password must contain a lowercase letter")
-        .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-        .matches(/[@$!%*?&^#_\-]/, "Password must contain at least one special character")
-        .required("Password is required"),
-      confirmPassword: Yup.string()
-        .oneOf([Yup.ref("password")], "Passwords must match")
-        .required("Please confirm your password"),
-    });
-
-    const buyerSchemaWhenLoggedIn = Yup.object({
-      name: Yup.string().required("Your name is required"),
-      email: Yup.string().email("Invalid email").required("Email is required"),
-      // passwords omitted
-    });
-
-    return [
-      briefSchema,
-      addonsSchema,
-      isLoggedIn ? buyerSchemaWhenLoggedIn : buyerSchemaWhenLoggedOut,
-    ] as const;
-  }, [isLoggedIn]);
-
   const currentSchema = stepSchemas[step - 1];
-  const isLast = step === 3;
+  const isLast = step === 4;
 
   // --- Initial values: auto-fill from user when available ---
   const initialValues: FormValues = useMemo(
     () => ({
+      tierId: "",
       occasion: "workout",
       price: 0,
       platform: "spotify",
@@ -117,14 +102,12 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
       addon: undefined,
       name: user?.fullName ?? "",
       email: (user?.email as string) ?? "",
-      password: "",
-      confirmPassword: "",
     }),
     [user]
   );
 
   if (isLoading) {
-    return <ArtistBookSkeleton stepsLabels={[...stepsLabels]} />;
+    return <CheckoutSkeleton stepsLabels={[...stepsLabels]} />;
   }
 
   if (!artist) {
@@ -157,11 +140,10 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
         : {
             email: values.email,
             name: values.name,
-            password: values.password, // only when creating a new user
           },
       deliveryWindow: values.deliveryWindow || undefined,
       platform: values.platform || "spotify",
-      price: 100,
+      price: values.price || 0,
       brief: {
         occasion: values.occasion,
         language: values.language,
@@ -176,23 +158,12 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
       toast.error(error.data?.message || "Failed to create order");
       return;
     }
-
-    const fan = res?.data?.data?.fan || undefined;
-    const accessToken = res?.data?.data?.accessToken || undefined;
-
-    if (fan && accessToken) {
-      dispatch(updateAuthState({ user: fan, token: accessToken, isLoading: false }));
-    }
+    router.push(`/profile/orders`);
     toast.success("Order created successfully");
-    router.push(`/profile`);
-
-    if (user?.role === "business") {
-      router.push(`/dashboard/orders`);
-    }
   };
 
   return (
-    <>
+    <ProtectedRoute role="fan">
       {/* Progress */}
       <section className="py-8">
         <CheckoutProgress current={step} steps={[...stepsLabels]} className="mx-auto" />
@@ -227,14 +198,14 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
               Object.prototype.hasOwnProperty.call(stepSchemas[step - 1].fields, k)
             );
             if (!hasErr) {
-              setStep((s) => (s === 1 ? 2 : s === 2 ? 3 : 3));
+              setStep((s) => (s === 1 ? 2 : s === 2 ? 3 : s === 3 ? 4 : 4));
             } else {
               Object.keys(stepErr).forEach((key) => setFieldTouched(key, true));
             }
           };
 
           const goBack = () => {
-            setStep((s) => (s === 3 ? 2 : s === 2 ? 1 : 1));
+            setStep((s) => (s === 4 ? 3 : s === 3 ? 2 : s === 2 ? 1 : 1));
           };
 
           return (
@@ -281,6 +252,19 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
 
                   {/* STEP CONTENT */}
                   {step === 1 && (
+                    <>
+                      <CheckoutTier
+                        userName={userName}
+                        selected={values.tierId}
+                        onSelect={(price) => {
+                          setFieldValue("tierId", price._id, true);
+                          setFieldValue("price", price.priceUsd, true);
+                        }}
+                      />
+                    </>
+                  )}
+
+                  {step === 2 && (
                     <BookBrief
                       value={{
                         occasion: values.occasion,
@@ -297,7 +281,7 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
                     />
                   )}
 
-                  {step === 2 && (
+                  {step === 3 && (
                     <CheckoutAddOnns
                       selected={values.addon?.label}
                       onChange={(val) =>
@@ -309,7 +293,7 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
                     />
                   )}
 
-                  {step === 3 && (
+                  {step === 4 && (
                     <div className="card p-5 bg-gradient-to-b from-brand-4/8 to-brand-1/10 backdrop-blur-2xl">
                       <h2 className="font-heading text-lg">Your info</h2>
                       <div className="grid md:grid-cols-2 gap-4 mt-3">
@@ -341,42 +325,6 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
                             </p>
                           )}
                         </div>
-
-                        {/* Only show password fields when NOT logged in */}
-                        {!isLoggedIn && (
-                          <>
-                            <div>
-                              <label className="label">Password</label>
-                              <Field
-                                as={Input}
-                                name="password"
-                                type="password"
-                                className="input mt-1"
-                                placeholder="Password"
-                              />
-                              {touched.password && errors.password && (
-                                <p className="text-xs text-red-400 mt-1">
-                                  {errors.password as string}
-                                </p>
-                              )}
-                            </div>
-                            <div>
-                              <label className="label">Confirm password</label>
-                              <Field
-                                as={Input}
-                                name="confirmPassword"
-                                type="password"
-                                className="input mt-1"
-                                placeholder="Re-type password"
-                              />
-                              {touched.confirmPassword && errors.confirmPassword && (
-                                <p className="text-xs text-red-400 mt-1">
-                                  {errors.confirmPassword as string}
-                                </p>
-                              )}
-                            </div>
-                          </>
-                        )}
                       </div>
                       <p className="text-xs text-white/60 mt-2">
                         ARTYLST will email your private playlist link and 30s
@@ -460,7 +408,7 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
           );
         }}
       </Formik>
-    </>
+    </ProtectedRoute>
   );
 };
 

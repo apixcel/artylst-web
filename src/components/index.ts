@@ -22,7 +22,7 @@ export { default as MultiDropdown } from "./shared/MultiDropdown";
 export { default as WhyChooseUs } from "./shared/WhyChooseUs";
 export { default as Security } from "./shared/Security";
 export { default as UnauthorizedMsgBox } from "./shared/UnauthorizedMsgBox";
-export { default as ArtistBookSkeleton } from "./shared/artist/ArtistBookSkeleton";
+export { default as CheckoutSkeleton } from "./shared/CheckoutSkeleton";
 export { default as CheckoutProgressSkeleton } from "./shared/CheckoutProgressSkeleton";
 export { default as TableSkeleton } from "./shared/TableSkeleton";
 

@@ -12,7 +12,7 @@ import {
   CheckoutProgress,
   CheckoutTier,
 } from "@/components";
-import CheckoutSkeleton from "@/components/checkout/CheckoutSkeleton";
+import CheckoutSkeleton from "@/components/shared/CheckoutSkeleton";
 import { IQueryMutationErrorResponse } from "@/interface";
 import { IOrder } from "@/interface/order.interface";
 import { useGetArtistProfileByUserNameQuery } from "@/redux/features/artist/artist.api";
@@ -47,7 +47,6 @@ type FormValues = {
 
 const SERVICE_FEE_RATE = 0.2;
 
-// ---- Per-step validation
 const stepSchemas = [
   // step 1: tier
   Yup.object({
@@ -391,8 +390,6 @@ export default function CheckoutPage() {
                       </div>
                     </div>
 
-                    {/* NOTE: এখানে "Continue to payment" আর ডানপাশে আলাদা নেই;
-                        আমরা বামপাশের কন্ট্রোলের submit বাটনকেই final ব্যবহার করছি। */}
                     <p className="text-[11px] text-white/60 mt-2">
                       Payment is held in escrow and released to the artist upon delivery.
                     </p>
