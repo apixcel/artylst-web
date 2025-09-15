@@ -6,6 +6,7 @@ export { default as Pagination } from "./ui/Pagination";
 export { default as QueryPagination } from "./ui/QueryPagination";
 export { default as RichTextArea } from "./ui/RichTextArea";
 export { default as Textarea } from "./ui/Textarea";
+export { default as Loader } from "./ui/Loader";
 
 /* shared */
 export { default as NavSearch } from "./shared/header/NavSearch";
@@ -23,6 +24,7 @@ export { default as Security } from "./shared/Security";
 export { default as UnauthorizedMsgBox } from "./shared/UnauthorizedMsgBox";
 export { default as ArtistBookSkeleton } from "./shared/artist/ArtistBookSkeleton";
 export { default as CheckoutProgressSkeleton } from "./shared/CheckoutProgressSkeleton";
+export { default as TableSkeleton } from "./shared/TableSkeleton";
 
 // shared/main
 export { default as MainHeader } from "./shared/main/MainHeader";

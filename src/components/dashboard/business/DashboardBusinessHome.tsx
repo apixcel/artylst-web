@@ -99,9 +99,9 @@ const DashboardBusinessHome = () => {
         </div>
       </div>
 
-      {/* Two-column: Left (In progress + Deadlines), Right (Spend chart + Activity) */}
-      <div className="grid desktop:grid-cols-3 gap-4 items-stretch">
-        <div className="desktop:col-span-2 flex flex-col gap-4 self-stretch">
+      {/* responsive issue from here */}
+      <div className="grid xl:grid-cols-3 gap-4 overflow-x-hidden">
+        <div className="xl:col-span-2 flex flex-col gap-4 min-w-0">
           {/* Quick actions */}
           <div className="grid sm:grid-cols-4 gap-3">
             <Link
@@ -227,11 +227,11 @@ const DashboardBusinessHome = () => {
           </div>
         </div>
 
-        <div className="space-y-4 flex flex-col self-stretch">
+        <div className="space-y-4 flex flex-col min-w-0">
           {/* Spend snapshot */}
           <Card>
             <div className="font-logam">Spending (Last 60 days)</div>
-            <div className="h-40 mt-3">
+            <div className="h-40 mt-3 overflow-hidden">
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart
                   data={spendData}
@@ -294,6 +294,7 @@ const DashboardBusinessHome = () => {
           </Card>
         </div>
       </div>
+      {/* responsive issue to here */}
 
       {/* Recommendations */}
       <Card>

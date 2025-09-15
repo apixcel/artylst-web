@@ -41,7 +41,7 @@ const availabilityApi = api.injectEndpoints({
     }),
     createUnavailableDates: builder.mutation<
       { data: IUnavailableDates },
-      Pick<IUnavailableDates, "startTime" | "endTime">
+      Pick<IUnavailableDates, "startTime" | "endTime" | "canBuyersContact">
     >({
       query: (body) => {
         return {

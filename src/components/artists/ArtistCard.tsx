@@ -211,7 +211,7 @@ const ArtistCard = ({
               alt={item.displayName || "Artist"}
               width={800}
               height={800}
-              className="h-[250px] w-full object-cover"
+              className="h-[200px] lg:h-[250px] w-full object-cover"
             />
           ) : (
             <div className="h-[250px] w-full">
@@ -243,7 +243,7 @@ const ArtistCard = ({
           <p className="text-sm text-muted">{item.designation}</p>
         </div>
 
-        <div className="flex flex-col gap-3 mb-2">
+        <div className="flex flex-col gap-3">
           {item.genre && item.genre.length > 0 && (
             <div className="flex items-center justify-center gap-2 flex-wrap">
               {item.genre.slice(0, 3).map((genre) => (

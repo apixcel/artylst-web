@@ -11,7 +11,6 @@ const artistSortOptions = [
   { label: "Price: Low to High", value: "price-asc" },
   { label: "Price: High to Low", value: "price-desc" },
   { label: "Rating", value: "rating" },
-  { label: "Rating: Low to High", value: "rating-asc" },
   { label: "Most orders", value: "most-orders" },
 ];
 

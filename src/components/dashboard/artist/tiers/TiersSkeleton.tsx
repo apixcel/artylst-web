@@ -70,7 +70,7 @@ export const TierPricingCardSkeleton: React.FC<{ name?: string; className?: stri
       )}
     </h3>
 
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_480px] gap-6">
+    <div className="grid grid-cols-1 xl:grid-cols-[1fr_480px] gap-6">
       {/* LEFT: Form fields */}
       <div className="flex flex-col gap-3">
         <div className="grid grid-cols-2 gap-3">

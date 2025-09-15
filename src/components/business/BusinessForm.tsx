@@ -364,7 +364,7 @@ const BusinessForm = () => {
               </div>
 
               {/* usage type */}
-              <div className="col-span-2">
+              <div className="sm:col-span-2">
                 <div className="mb-3">
                   <label className="mb-[4px] block">Usage type</label>
                   <Dropdown
@@ -492,7 +492,7 @@ const BusinessForm = () => {
         )}
       </Formik>
 
-      <div className="mt-[20px] text-right">
+      <div className="mt-[20px] text-center lg:text-right">
         <Link className="text-muted text-[16px] font-[500] underline" href="/login">
           Sign into an existing account
         </Link>

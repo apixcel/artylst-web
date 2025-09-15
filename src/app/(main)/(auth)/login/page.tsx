@@ -76,7 +76,7 @@ const Login = () => {
   };
 
   return (
-    <div className="rounded-2xl bg-gradient-to-b from-brand-2/10 to-brand-1/10 border border-white/10 p-6 max-w-md w-full">
+    <div className="rounded-2xl bg-gradient-to-b from-brand-2/10 to-brand-1/10 border border-white/10 p-4 sm:p-6 max-w-md w-full">
       <h1 className="text-2xl text-center">Log in</h1>
       <p className="text-sm text-muted text-center">
         Use your account email and password

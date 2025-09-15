@@ -64,7 +64,7 @@ const BusinessFormLayout = ({ children }: { children: React.ReactNode }) => {
         </div>
 
         {/* right side */}
-        <div className="lg:w-[60%] w-full py-8 sm:px-14 px-6 bg-brand-5/10">
+        <div className="lg:w-[60%] w-full py-8 sm:pl-14 px-6 bg-brand-5/10 sm:pr-12 lg:pr-6 xl:pr-10 2xl:pr-[145px]">
           <div className="py-4 max-w-[530px] lg:hidden">
             <button
               onClick={() => router.back()}

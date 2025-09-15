@@ -10,7 +10,7 @@ import {
   useBecomeFeaturedMutation,
 } from "@/redux/features/artist/artist.api";
 import Image from "next/image";
-import React, { useMemo, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 const FEATURES = [
@@ -176,8 +176,6 @@ const JoinAsFeaturedPage = () => {
   const [agree, setAgree] = useState(false);
   const isFeatured = plan === "featured";
 
-  const total = useMemo(() => (isFeatured ? PRICE : 0), [isFeatured]);
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
@@ -187,15 +185,6 @@ const JoinAsFeaturedPage = () => {
       alert("Please accept the terms to continue.");
       return;
     }
-
-    const form = new FormData(e.currentTarget);
-    const payload = {
-      plan,
-      subscribe: isFeatured,
-      cardNumber: isFeatured ? form.get("cardNumber") : undefined,
-      exp: isFeatured ? form.get("exp") : undefined,
-      cvc: isFeatured ? form.get("cvc") : undefined,
-    };
 
     const response = await becomeFeatured(undefined);
     const error = response?.error as IQueryMutationErrorResponse;

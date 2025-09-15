@@ -35,7 +35,7 @@ export default function BusinessArtistsPage() {
             Create a brief
           </Link>
           <Link
-            href="/favorites"
+            href="/dashboard/favorites"
             className="px-3 py-2 rounded-lg bg-white/10 border border-white/10 text-sm hover:bg-white/20 transition"
           >
             Favorites
@@ -44,7 +44,7 @@ export default function BusinessArtistsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 overflow-x-auto w-full">
+      <div className="flex items-center gap-2 overflow-x-auto pb-3 w-full">
         {[
           { key: "all", label: "All" },
           { key: "recommended", label: "Recommended" },

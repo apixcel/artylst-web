@@ -26,7 +26,6 @@ const ArtistsPage = () => {
 
   const { data, isLoading } = useGetAllArtistQuery({ ...query, searchTerm });
   const artistData = data?.data || [];
-  console.log(artistData);
   const metaData = data?.meta || { totalDoc: 0, page: 1 };
 
   useEffect(() => {
@@ -47,7 +46,7 @@ const ArtistsPage = () => {
       minPrice,
       maxPrice,
       sort,
-      limit: 2,
+      limit: 8,
     });
     updateSearchParams({
       sort: sort || undefined,
@@ -77,22 +76,27 @@ const ArtistsPage = () => {
                 : "flex flex-col gap-3"
             )}
           >
-            {isLoading ? (
-              Array.from({ length: 8 }).map((_, index) => (
-                <ArtistCardSkeleton key={index} view={view} />
-              ))
-            ) : data?.data.length ? (
-              artistData.map((item, index) => (
-                <ArtistCard key={index} item={item} index={index} view={view} />
-              ))
-            ) : (
-              <p className="text-center text-gray-500">No artists found</p>
-            )}
+            {isLoading
+              ? Array.from({ length: 8 }).map((_, index) => (
+                  <ArtistCardSkeleton key={index} view={view} />
+                ))
+              : artistData.map((item, index) => (
+                  <ArtistCard key={index} item={item} index={index} view={view} />
+                ))}
           </div>
+
+          {!isLoading && artistData.length === 0 && (
+            <div className="flex flex-col gap-2 justify-center py-10">
+              <p className="text-center text-light text-[18px]">No artists found</p>
+              <p className="text-center text-muted text-[14px]">
+                Try different filters or search
+              </p>
+            </div>
+          )}
 
           <Pagination
             totalDocs={metaData.totalDoc}
-            limit={2}
+            limit={8}
             onPageChange={(page) => setQuery({ ...query, page })}
           />
         </section>

@@ -179,7 +179,7 @@ const BusinessProfileSettings = () => {
             ) : null}
             <button
               type="button"
-              className="btn btn-sm btn-primary cursor-pointer"
+              className="btn btn-sm btn-ghost cursor-pointer lg:hidden"
               onClick={() => fileInputRef.current?.click()}
             >
               Change Photo
