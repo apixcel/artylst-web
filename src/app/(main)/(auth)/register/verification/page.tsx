@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
-const ArtistVerificationPage = () => {
+const FanVerificationPage = () => {
   const [sendVerificationEmail] = useSendVerificationEmailMutation();
   const [remainingTime, setRemainingTime] = useState<number>(0);
   const user = useAppSelector((state) => state.user.user);
@@ -93,7 +93,9 @@ const ArtistVerificationPage = () => {
       return;
     }
 
-    toast.success("Email verified successfully! Please login to continue");
+    toast.success("Email Successfully Verified!", {
+      description: "Please login to continue.",
+    });
     router.push("/login");
 
     setErrorMessage("");
@@ -141,4 +143,4 @@ const ArtistVerificationPage = () => {
   );
 };
 
-export default ArtistVerificationPage;
+export default FanVerificationPage;

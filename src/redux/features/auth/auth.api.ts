@@ -1,14 +1,34 @@
 import { ISession } from "@/interface/session.interface";
-import {
-  IUser,
-  RegisterArtistPayload,
-  RegisterBusinessPayload,
-} from "@/interface/user.interface";
+import { IUser, RegisterBusinessPayload } from "@/interface/user.interface";
 import { api } from "@/redux/api/api";
 
 const userApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    registerArtist: builder.mutation<{ data: { email: string } }, RegisterArtistPayload>({
+    registerFan: builder.mutation<
+      { data: { email: string } },
+      Pick<IUser, "email" | "fullName" | "password" | "isEmailVerified">
+    >({
+      query: (post) => ({
+        url: "/auth/fan/register",
+        method: "POST",
+        body: post,
+      }),
+      invalidatesTags: ["user"],
+    }),
+    registerArtist: builder.mutation<
+      { data: { email: string } },
+      Pick<
+        IUser,
+        | "email"
+        | "fullName"
+        | "gender"
+        | "displayName"
+        | "userName"
+        | "dob"
+        | "password"
+        | "isEmailVerified"
+      >
+    >({
       query: (post) => ({
         url: "/auth/artist/register",
         method: "POST",
@@ -56,7 +76,7 @@ const userApi = api.injectEndpoints({
     }),
     login: builder.mutation<
       { data: { profile: IUser; accessToken: string } },
-      { identifier: string; password: string }
+      { email: string; password: string }
     >({
       query: (payload) => ({
         url: "/auth/login",
@@ -146,4 +166,5 @@ export const {
   useRevokeSessionBySessionIdMutation,
   useChangePasswordMutation,
   useGetAuthorQuery,
+  useRegisterFanMutation,
 } = userApi;

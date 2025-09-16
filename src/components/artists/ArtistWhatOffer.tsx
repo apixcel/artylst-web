@@ -12,7 +12,7 @@ const ArtistWhatOffer = () => {
   const role = user?.role;
 
   // permission rules
-  const isPersonalDisabled = role === "artist";
+  const isPersonalDisabled = role === "artist" || role === "business";
   const isBusinessDisabled = role === "artist" || role === "fan";
   const isMoreDisabled = role === "artist";
 
@@ -37,9 +37,26 @@ const ArtistWhatOffer = () => {
     ].join(" "),
   });
 
-  const DisabledMsg = ({ message }: { message: string }) => (
-    <p className="text-xs text-gray flex gap-1.5 mt-2">
-      <Info className="w-3.5 h-3.5 mt-[2px] text-gold" /> {message}
+  const DisabledMsg = ({
+    message,
+    cta,
+  }: {
+    message: string;
+    cta?: { href: string; label?: string };
+  }) => (
+    <p className="text-xs text-gray inline-flex gap-1.5 mt-2">
+      <Info className="max-w-3.5 w-full h-3.5 text-gold mt-[2px]" />
+      <span>
+        {message}{" "}
+        {cta && (
+          <Link
+            href={cta.href}
+            className="underline text-xs text-gold hover:text-gold/80"
+          >
+            {cta.label ?? "click here"}
+          </Link>
+        )}
+      </span>
     </p>
   );
 
@@ -61,7 +78,10 @@ const ArtistWhatOffer = () => {
           Request Personal Playlist
         </Link>
         {isPersonalDisabled && (
-          <DisabledMsg message="Sorry, you cannot request personal playlist using this account" />
+          <DisabledMsg
+            message="Sorry, you cannot request personal playlist using this account"
+            cta={{ href: "/register", label: "Click here" }}
+          />
         )}
       </div>
 
@@ -90,7 +110,10 @@ const ArtistWhatOffer = () => {
           Request Business Playlist
         </Link>
         {isBusinessDisabled && (
-          <DisabledMsg message="Sorry, you cannot request business playlist using this account" />
+          <DisabledMsg
+            message="Sorry, you cannot request business playlist using this account. To get access to this feature,"
+            cta={{ href: "/business-form", label: "Click here" }}
+          />
         )}
       </div>
 

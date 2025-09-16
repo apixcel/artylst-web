@@ -20,18 +20,6 @@ export interface IUser {
   updatedAt?: string;
 }
 
-export interface RegisterArtistPayload {
-  email: string;
-  fullName: string;
-  gender: TGender;
-  displayName: string;
-  userName: string;
-  dob: string;
-  password: string;
-  // phoneNumber?: string; // include if backend accepts it
-  isEmailVerified: boolean;
-}
-
 export interface RegisterBusinessPayload {
   fullName: string;
   businessName: string;

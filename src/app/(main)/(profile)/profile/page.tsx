@@ -1,5 +1,7 @@
+import FanProfileSettingsView from "@/view/fanProfileViews/FanProfileSettingsView";
+
 const page = () => {
-  return <div>page</div>;
+  return <FanProfileSettingsView />;
 };
 
 export default page;

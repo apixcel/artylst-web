@@ -11,7 +11,7 @@ import * as Yup from "yup";
 import { DateSelector, Dropdown, Input } from "@/components";
 import { useAppDispatch, useDebounce } from "@/hooks";
 import { DropdownOption, IQueryMutationErrorResponse } from "@/interface";
-import { RegisterArtistPayload, TGender } from "@/interface/user.interface";
+import { TGender } from "@/interface/user.interface";
 import {
   useCheckArtistUserNameMutation,
   useRegisterArtistMutation,
@@ -156,7 +156,7 @@ const EnrollForm = () => {
       return;
     }
 
-    const payload: RegisterArtistPayload = {
+    const payload = {
       fullName: values.fullName.trim(),
       gender: values.gender!.value,
       displayName: values.displayName.trim(),
@@ -175,237 +175,250 @@ const EnrollForm = () => {
       else toast.error("Something went wrong");
       return;
     }
-
-    toast.success("Account created successfully! Verify your email to continue.");
-
     const email = res.data?.data.email;
     dispatch(setUser({ email }));
+
     router.push("/join-as-artist/verification");
+    toast.success("Account created successfully!", {
+      description: "Verify your email to continue.",
+    });
   };
 
   return (
-    <Formik<FormValues>
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={handleSubmit}
-      validateOnMount
-    >
-      {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => (
-        <Form className="flex flex-col gap-4">
-          <div className="sm:grid-cols-2 grid gap-4">
-            {/* full name */}
-            <div className="w-full">
-              <label className="text-[16px] font-[500] block mb-[8px]">Full name</label>
-              <input
-                name="fullName"
-                className={`enroll-input ${touched.fullName && errors.fullName ? "border-red-500" : ""}`}
-                type="text"
-                value={values.fullName}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                aria-invalid={!!(touched.fullName && errors.fullName)}
-              />
-              {touched.fullName && errors.fullName && (
-                <p className="text-red-400 text-sm mt-1">{errors.fullName}</p>
-              )}
-            </div>
-
-            {/* gender */}
-            <div className="w-full">
-              <label className="text-[16px] font-[500] block mb-[8px]">Gender</label>
-              <Dropdown
-                value={values.gender}
-                options={genderOptions}
-                onChange={(opt) => setFieldValue("gender", opt)}
-                placeholder="Choose gender"
-                className="w-full"
-                buttonClassName="w-full bg-brand-2/10 py-4 rounded-2xl px-4 py-3"
-                panelClassName="w-full"
-                optionClassName="w-full"
-                matchButtonWidth={false}
-              />
-              {touched.gender && errors.gender && (
-                <p className="text-red-400 text-sm mt-1">
-                  {typeof errors.gender === "string"
-                    ? errors.gender
-                    : "Please choose a gender"}
-                </p>
-              )}
-            </div>
-
-            {/* display name */}
-            <div>
-              <div className="mb-[8px]">
-                <label className="text-[16px] font-[500] block mb-[2px]">
-                  Display name
-                </label>
-                <p className="text-muted">This appears on your profile</p>
-              </div>
-              <input
-                name="displayName"
-                className={`enroll-input ${touched.displayName && errors.displayName ? "border-red-500" : ""}`}
-                type="text"
-                value={values.displayName}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                aria-invalid={!!(touched.displayName && errors.displayName)}
-              />
-              {touched.displayName && errors.displayName && (
-                <p className="text-red-400 text-sm mt-1">{errors.displayName}</p>
-              )}
-            </div>
-
-            {/* username */}
-            <div>
-              <div className="mb-[8px]">
-                <label className="text-[16px] font-[500] block mb-[2px]">User Name</label>
-                <p className="text-muted">
-                  Only letters, numbers, underscores, hyphens, and periods
-                </p>
-              </div>
-              <input
-                name="userName"
-                className={`enroll-input ${touched.userName && errors.userName ? "border-red-500" : ""}`}
-                type="text"
-                value={values.userName}
-                onChange={(e) => {
-                  handleChange(e);
-                  const next = e.target.value.trim().toLowerCase();
-                  setDebouncedUsername(next);
-                }}
-                onBlur={handleBlur}
-                aria-invalid={!!(touched.userName && errors.userName)}
-                aria-describedby="username-help"
-                aria-live="polite"
-              />
-              {touched.userName && errors.userName && (
-                <p className="text-red-400 text-sm mt-1">{errors.userName}</p>
-              )}
-              {values.userName && !errors.userName && (
-                <p id="username-help" className="text-sm mt-1">
-                  {isUsernameChecking && "Checking availability…"}
-                  {!isUsernameChecking &&
-                    isUsernameTaken === false &&
-                    "✅ Username is available"}
-                  {!isUsernameChecking &&
-                    isUsernameTaken === true &&
-                    "❌ Username is taken"}
-                </p>
-              )}
-            </div>
-
-            {/* date of birth */}
-            <div className="w-full">
-              <div>
-                <label className="text-[16px] font-[500] block mb-[8px]">
-                  Date of birth
-                </label>
-                <DateSelector
-                  value={values.dob ? new DateObject(values.dob) : undefined}
-                  onChange={(value) => {
-                    const iso = value ? value.toDate().toISOString() : null;
-                    setFieldValue("dob", iso);
-                  }}
+    <>
+      <Formik<FormValues>
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+        validateOnMount
+      >
+        {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => (
+          <Form className="flex flex-col gap-4">
+            <div className="sm:grid-cols-2 grid gap-4">
+              {/* full name */}
+              <div className="w-full">
+                <label className="text-[16px] font-[500] block mb-[8px]">Full name</label>
+                <input
+                  name="fullName"
+                  className={`enroll-input ${touched.fullName && errors.fullName ? "border-red-500" : ""}`}
+                  type="text"
+                  value={values.fullName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  aria-invalid={!!(touched.fullName && errors.fullName)}
                 />
+                {touched.fullName && errors.fullName && (
+                  <p className="text-red-400 text-sm mt-1">{errors.fullName}</p>
+                )}
               </div>
-              {touched.dob && errors.dob && (
-                <p className="text-red-400 text-sm mt-1">
-                  {typeof errors.dob === "string"
-                    ? errors.dob
-                    : "Please enter a valid date"}
-                </p>
-              )}
-            </div>
 
-            {/* email */}
-            <div className="w-full">
-              <div className="mb-[8px]">
-                <label className="text-[16px] font-[500] block mb-[2px]">Email</label>
+              {/* gender */}
+              <div className="w-full">
+                <label className="text-[16px] font-[500] block mb-[8px]">Gender</label>
+                <Dropdown
+                  value={values.gender}
+                  options={genderOptions}
+                  onChange={(opt) => setFieldValue("gender", opt)}
+                  placeholder="Choose gender"
+                  className="w-full"
+                  buttonClassName="w-full bg-brand-2/10 py-4 rounded-2xl px-4 py-3"
+                  panelClassName="w-full"
+                  optionClassName="w-full"
+                  matchButtonWidth={false}
+                />
+                {touched.gender && errors.gender && (
+                  <p className="text-red-400 text-sm mt-1">
+                    {typeof errors.gender === "string"
+                      ? errors.gender
+                      : "Please choose a gender"}
+                  </p>
+                )}
               </div>
-              <input
-                name="email"
-                className={`enroll-input ${touched.email && errors.email ? "border-red-500" : ""}`}
-                type="email"
-                value={values.email}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                aria-invalid={!!(touched.email && errors.email)}
-              />
-              {touched.email && errors.email && (
-                <p className="text-red-400 text-sm mt-1">{errors.email}</p>
-              )}
-            </div>
 
-            {/* password */}
+              {/* display name */}
+              <div>
+                <div className="mb-[8px]">
+                  <label className="text-[16px] font-[500] block mb-[2px]">
+                    Display name
+                  </label>
+                  <p className="text-muted">This appears on your profile</p>
+                </div>
+                <input
+                  name="displayName"
+                  className={`enroll-input ${touched.displayName && errors.displayName ? "border-red-500" : ""}`}
+                  type="text"
+                  value={values.displayName}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  aria-invalid={!!(touched.displayName && errors.displayName)}
+                />
+                {touched.displayName && errors.displayName && (
+                  <p className="text-red-400 text-sm mt-1">{errors.displayName}</p>
+                )}
+              </div>
+
+              {/* username */}
+              <div>
+                <div className="mb-[8px]">
+                  <label className="text-[16px] font-[500] block mb-[2px]">
+                    User Name
+                  </label>
+                  <p className="text-muted">
+                    Only letters, numbers, underscores, hyphens, and periods
+                  </p>
+                </div>
+                <input
+                  name="userName"
+                  className={`enroll-input ${touched.userName && errors.userName ? "border-red-500" : ""}`}
+                  type="text"
+                  value={values.userName}
+                  onChange={(e) => {
+                    handleChange(e);
+                    const next = e.target.value.trim().toLowerCase();
+                    setDebouncedUsername(next);
+                  }}
+                  onBlur={handleBlur}
+                  aria-invalid={!!(touched.userName && errors.userName)}
+                  aria-describedby="username-help"
+                  aria-live="polite"
+                />
+                {touched.userName && errors.userName && (
+                  <p className="text-red-400 text-sm mt-1">{errors.userName}</p>
+                )}
+                {values.userName && !errors.userName && (
+                  <p id="username-help" className="text-sm mt-1">
+                    {isUsernameChecking && "Checking availability…"}
+                    {!isUsernameChecking &&
+                      isUsernameTaken === false &&
+                      "✅ Username is available"}
+                    {!isUsernameChecking &&
+                      isUsernameTaken === true &&
+                      "❌ Username is taken"}
+                  </p>
+                )}
+              </div>
+
+              {/* date of birth */}
+              <div className="w-full">
+                <div>
+                  <label className="text-[16px] font-[500] block mb-[8px]">
+                    Date of birth
+                  </label>
+                  <DateSelector
+                    value={values.dob ? new DateObject(values.dob) : undefined}
+                    onChange={(value) => {
+                      const iso = value ? value.toDate().toISOString() : null;
+                      setFieldValue("dob", iso);
+                    }}
+                  />
+                </div>
+                {touched.dob && errors.dob && (
+                  <p className="text-red-400 text-sm mt-1">
+                    {typeof errors.dob === "string"
+                      ? errors.dob
+                      : "Please enter a valid date"}
+                  </p>
+                )}
+              </div>
+
+              {/* email */}
+              <div className="w-full">
+                <div className="mb-[8px]">
+                  <label className="text-[16px] font-[500] block mb-[2px]">Email</label>
+                </div>
+                <input
+                  name="email"
+                  className={`enroll-input ${touched.email && errors.email ? "border-red-500" : ""}`}
+                  type="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  aria-invalid={!!(touched.email && errors.email)}
+                />
+                {touched.email && errors.email && (
+                  <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+                )}
+              </div>
+
+              {/* password */}
+              <div>
+                <div className="mb-[8px]">
+                  <label className="text-[16px] font-[500] block mb-[2px]">
+                    Password
+                  </label>
+                </div>
+                <Input
+                  name="password"
+                  type="password"
+                  className={`bg-brand-2/10 border ${
+                    touched.password && errors.password
+                      ? "border-red-500"
+                      : "border-white/10"
+                  } rounded-2xl px-4 py-3 w-full`}
+                  value={values.password}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+                  onBlur={handleBlur}
+                  aria-invalid={!!(touched.password && errors.password)}
+                />
+                {touched.password && errors.password && (
+                  <p className="text-red-400 text-sm mt-1">{errors.password}</p>
+                )}
+              </div>
+
+              {/* confirm password */}
+              <div>
+                <div className="mb-[8px]">
+                  <label className="text-[16px] font-[500] block mb-[2px]">
+                    Confirm password
+                  </label>
+                </div>
+                <Input
+                  name="confirmPassword"
+                  type="password"
+                  className={`bg-brand-2/10 border ${
+                    touched.confirmPassword && errors.confirmPassword
+                      ? "border-red-500"
+                      : "border-white/10"
+                  } rounded-2xl px-4 py-3 w-full`}
+                  value={values.confirmPassword}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+                  onBlur={handleBlur}
+                  aria-invalid={!!(touched.confirmPassword && errors.confirmPassword)}
+                />
+                {touched.confirmPassword && errors.confirmPassword && (
+                  <p className="text-red-400 text-sm mt-1">{errors.confirmPassword}</p>
+                )}
+              </div>
+            </div>
+            {/* terms */}
             <div>
-              <div className="mb-[8px]">
-                <label className="text-[16px] font-[500] block mb-[2px]">Password</label>
-              </div>
-              <Input
-                name="password"
-                type="password"
-                className={`bg-brand-2/10 border ${
-                  touched.password && errors.password
-                    ? "border-red-500"
-                    : "border-white/10"
-                } rounded-2xl px-4 py-3 w-full`}
-                value={values.password}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
-                onBlur={handleBlur}
-                aria-invalid={!!(touched.password && errors.password)}
-              />
-              {touched.password && errors.password && (
-                <p className="text-red-400 text-sm mt-1">{errors.password}</p>
-              )}
+              <p className="text-muted">
+                By clicking &quot;Create account&quot;, you agree to our{" "}
+                <Link href="/terms-and-conditions" className="text-white">
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link href="/privacy-policy" className="text-white">
+                  Privacy Policy
+                </Link>
+                .
+              </p>
             </div>
 
-            {/* confirm password */}
-            <div>
-              <div className="mb-[8px]">
-                <label className="text-[16px] font-[500] block mb-[2px]">
-                  Confirm password
-                </label>
-              </div>
-              <Input
-                name="confirmPassword"
-                type="password"
-                className={`bg-brand-2/10 border ${
-                  touched.confirmPassword && errors.confirmPassword
-                    ? "border-red-500"
-                    : "border-white/10"
-                } rounded-2xl px-4 py-3 w-full`}
-                value={values.confirmPassword}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
-                onBlur={handleBlur}
-                aria-invalid={!!(touched.confirmPassword && errors.confirmPassword)}
-              />
-              {touched.confirmPassword && errors.confirmPassword && (
-                <p className="text-red-400 text-sm mt-1">{errors.confirmPassword}</p>
-              )}
-            </div>
-          </div>
-          {/* terms */}
-          <div>
-            <p className="text-muted">
-              By clicking &quot;Create account&quot;, you agree to our{" "}
-              <Link href="/terms-and-conditions" className="text-white">
-                Terms of Service
-              </Link>{" "}
-              and{" "}
-              <Link href="/privacy-policy" className="text-white">
-                Privacy Policy
-              </Link>
-              .
-            </p>
-          </div>
+            {/* submit */}
+            <button type="submit" className="btn-primary-light" disabled={isLoading}>
+              {isLoading ? "Creating..." : "Create account"}
+            </button>
+          </Form>
+        )}
+      </Formik>
 
-          {/* submit */}
-          <button type="submit" className="btn-primary-light" disabled={isLoading}>
-            {isLoading ? "Creating..." : "Create account"}
-          </button>
-        </Form>
-      )}
-    </Formik>
+      <div className="mt-[20px] text-center lg:text-right">
+        <Link className="text-muted text-[16px] font-[500] underline" href="/login">
+          Sign into an existing account
+        </Link>
+      </div>
+    </>
   );
 };
 

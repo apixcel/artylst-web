@@ -8,7 +8,7 @@ import Cookies from "js-cookie";
 
 interface IProps {
   children: React.ReactNode;
-  role: TUserRole | "*";
+  role: TUserRole[] | "*";
 }
 
 const ProtectedRoute = ({ children, role }: IProps) => {
@@ -23,7 +23,7 @@ const ProtectedRoute = ({ children, role }: IProps) => {
         router.replace("/login");
       }
 
-      if (user && user.role !== role && role !== "*") {
+      if (user && role !== "*" && role && !role.includes(user.role!)) {
         router.replace("/");
       }
     }
@@ -33,7 +33,7 @@ const ProtectedRoute = ({ children, role }: IProps) => {
     return <Loader className="h-[100dvh]" />;
   }
 
-  if (!user || (user.role !== role && role !== "*")) {
+  if (!user || (role !== "*" && role && !role.includes(user.role!))) {
     return null;
   }
 

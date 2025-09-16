@@ -68,7 +68,7 @@ const CheckoutAddOnns = ({ selected, onChange }: Props) => {
                 onChange={() => onChange(o)}
               />
 
-              <div className="flex items-start gap-3 w-full">
+              <div className="flex items-center gap-3 w-full">
                 <div>
                   <div className="font-heading">{o.title}</div>
                   <div className="text-white/70 text-xs">{o.desc}</div>
@@ -80,7 +80,7 @@ const CheckoutAddOnns = ({ selected, onChange }: Props) => {
                 <div className="absolute top-2 right-2 group-hover:opacity-100 opacity-0 transition-opacity duration-300">
                   <button
                     type="button"
-                    className="text-xs text-light border bg-red-campaign-red border-red-campaign-red flex items-center justify-end gap-2 py-1 px-2 rounded"
+                    className="text-xs text-light border bg-gray-40 border-white/10 flex items-center justify-end gap-2 py-1 px-2 rounded"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();

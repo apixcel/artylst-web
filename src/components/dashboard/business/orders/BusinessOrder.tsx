@@ -176,7 +176,7 @@ const BusinessOrder = () => {
                   </td>
                   <td className="py-3 pr-6">#{row.orderId}</td>
                   <td className="py-3 pr-6">
-                    {typeof row.artist === "string" ? row.artist : row.artist.fullName}
+                    {typeof row.artist === "string" ? row.artist : row.artist.displayName}
                   </td>
                   <td className="py-3 pr-6">{row.tier}</td>
                   <td className="py-3 pr-6 capitalize">{row.platform}</td>

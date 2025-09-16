@@ -15,7 +15,7 @@ export default function BusinessArtistsPage() {
 
   const [tab, setTab] = useState<"all" | "recommended" | "popular" | "browsed">("all");
 
-  if (role !== "business") return <UnauthorizedMsgBox />;
+  if (role !== "business" && role !== "fan") return <UnauthorizedMsgBox />;
 
   return (
     <section className="p-6 space-y-6">
