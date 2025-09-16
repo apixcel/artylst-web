@@ -105,7 +105,7 @@ const FanOrdersView = () => {
       </div>
 
       {/* Desktop table (md and up) */}
-      <div className="hidden md:block rounded-2xl p-4 border border-white/10 bg-white/5 overflow-x-auto">
+      <div className="hidden md:block rounded-2xl p-4 border border-white/10 bg-white/5 overflow-x-auto custom-scrollbar">
         <table className="w-full">
           <thead className="text-white/60 border-b border-white/10">
             <tr>
@@ -170,7 +170,7 @@ const FanOrdersView = () => {
       </div>
 
       {/* Mobile list (under md) */}
-      <table className="md:hidden space-y-3">
+      <div className="md:hidden space-y-3">
         {orderData.length > 0 ? (
           orderData.map((row) => (
             <div
@@ -226,7 +226,7 @@ const FanOrdersView = () => {
             </Link>
           </div>
         )}
-      </table>
+      </div>
 
       <div className="mt-2">
         <Pagination

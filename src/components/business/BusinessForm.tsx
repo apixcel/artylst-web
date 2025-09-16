@@ -102,8 +102,8 @@ const validationSchema = Yup.object({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Please confirm your password"),
-  usage: Yup.mixed<FormValues["usage"]>()
-    .oneOf(["daily", "special", ""], "Invalid option")
+  usage: Yup.string()
+    .oneOf(["daily", "special"], "Select daily or special")
     .required("Select a usage type"),
   useCase: Yup.string().when("usage", {
     is: "special",
@@ -123,7 +123,6 @@ const BusinessForm = () => {
     null
   );
   const [vibeOpt, setVibeOpt] = useState<DropdownOption<string> | null>(null);
-  const [usageOpt, setUsageOpt] = useState<DropdownOption<string> | null>(null);
 
   const [registerBusiness, { isLoading }] = useRegisterBusinessMutation();
   const dispatch = useAppDispatch();
@@ -145,16 +144,13 @@ const BusinessForm = () => {
       else toast.error("Something went wrong");
       return;
     }
-
-    toast.success(
-      "Business account created successfully! Verify your email to continue."
-    );
-
     const email = res.data?.data.email;
-    console.log("logging from business form email", email);
-
     dispatch(setUser({ email }));
+
     router.push("/business-form/verification");
+    toast.success("Business Account registered successfully!", {
+      description: "Verify your email to continue.",
+    });
   };
 
   return (
@@ -174,7 +170,6 @@ const BusinessForm = () => {
           handleChange,
           setFieldValue,
           setFieldTouched,
-          validateField,
         }) => (
           <Form className="flex flex-col gap-4">
             <div className="grid sm:grid-cols-2 gap-4">
@@ -368,26 +363,26 @@ const BusinessForm = () => {
                 <div className="mb-3">
                   <label className="mb-[4px] block">Usage type</label>
                   <Dropdown
-                    value={usageOpt}
+                    value={usageOptions.find((o) => o.value === values.usage) ?? null}
                     options={usageOptions}
                     onChange={(opt) => {
-                      setUsageOpt(opt);
-                      const usage = (opt?.value as FormValues["usage"]) || "daily";
-
-                      setFieldValue("usage", usage, true);
-                      validateField("usage");
+                      const usage = (opt?.value as FormValues["usage"]) ?? "";
+                      // setFieldValue("usage", usage, true);
+                      setFieldTouched("usage", true);
 
                       if (usage === "daily") {
-                        setFieldValue("useCase", "daily use", true);
-                        setFieldTouched("useCase", false, false); // clear any old touched/error
+                        setFieldValue("usage", "daily");
+                        console.log("daily");
                       } else if (usage === "special") {
-                        setFieldValue("useCase", "", true);
-                        setFieldTouched("useCase", false, false);
+                        setFieldValue("usage", "special");
+
+                        console.log("special");
                       } else {
-                        setFieldValue("useCase", "", true);
-                        setFieldTouched("useCase", false, false);
+                        setFieldValue("usage", "");
+                        console.log("daily");
                       }
                     }}
+                    // onBlur={() => setFieldTouched("usage", true, false)}
                     placeholder="Is this for daily use or special occasion?"
                     className="w-full"
                     buttonClassName="w-full bg-brand-2/10 rounded-2xl px-4 py-3 text-white/80"
@@ -396,7 +391,6 @@ const BusinessForm = () => {
                     matchButtonWidth={false}
                     aria-invalid={!!(touched.usage && errors.usage)}
                   />
-
                   {touched.usage && errors.usage && (
                     <p className="text-red-400 text-sm mt-1">{errors.usage as string}</p>
                   )}

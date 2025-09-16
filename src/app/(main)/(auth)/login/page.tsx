@@ -12,17 +12,17 @@ import * as Yup from "yup";
 import Cookies from "js-cookie";
 
 interface FormValues {
-  identifier: string;
+  email: string;
   password: string;
 }
 
 const initialValues: FormValues = {
-  identifier: "",
+  email: "",
   password: "",
 };
 
 const validationSchema = Yup.object({
-  identifier: Yup.string().required("Identifier is required"),
+  email: Yup.string().email("Enter a valid email").required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
 
@@ -61,7 +61,6 @@ const Login = () => {
       dispatch(updateAuthState({ user, token, isLoading: false }));
       toast.success("Login successful");
 
-      // read intended redirect (set earlier from pricing choose)
       const cookieRedirect = Cookies.get("redirect_after_login");
       const redirectUrl = safeRedirect(cookieRedirect);
 
@@ -91,13 +90,13 @@ const Login = () => {
           <Form className="mt-5 space-y-4">
             {/* Email */}
             <label className="block">
-              <span className="text-sm text-muted">Email/Username</span>
+              <span className="text-sm text-muted">Email</span>
               <div className="relative mt-1">
                 <input
-                  value={values.identifier}
+                  value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  name="identifier"
+                  name="email"
                   className="w-full bg-white/10 border border-white/10 focus:outline-none focus:ring-1 focus:ring-light rounded-xl pl-10 pr-4 py-2.5 placeholder-white/40"
                   type="text"
                   inputMode="email"
@@ -120,8 +119,8 @@ const Login = () => {
                   />
                 </svg>
               </div>
-              {touched.identifier && errors.identifier && (
-                <p className="text-red-400 text-sm mt-1">{errors.identifier}</p>
+              {touched.email && errors.email && (
+                <p className="text-red-400 text-sm mt-1">{errors.email}</p>
               )}
             </label>
 
@@ -163,7 +162,7 @@ const Login = () => {
             <div className="flex items-center justify-end">
               <Link
                 href="/forgot-password"
-                className="text-sm text-white/70 hover:text-white underline underline-offset-4"
+                className="text-sm text-muted hover:text-white underline underline-offset-4"
               >
                 Forgot password?
               </Link>
@@ -180,6 +179,16 @@ const Login = () => {
           </Form>
         )}
       </Formik>
+
+      <p className="flex items-center justify-center gap-1 my-3 text-muted">
+        Don&apos;t have an account?
+        <Link
+          className="text-sm text-light hover:text-white/70 underline underline-offset-4"
+          href="/choose-role"
+        >
+          Create an account
+        </Link>
+      </p>
 
       {/* tiny policy line */}
       <p className="text-[11px] text-muted text-center">

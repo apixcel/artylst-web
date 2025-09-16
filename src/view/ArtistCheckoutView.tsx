@@ -16,7 +16,7 @@ import CheckoutSkeleton from "@/components/shared/CheckoutSkeleton";
 import { IQueryMutationErrorResponse, IUser } from "@/interface";
 import { IOrder } from "@/interface/order.interface";
 import { useGetArtistProfileByUserNameQuery } from "@/redux/features/artist/artist.api";
-import { useCreateFanOrderMutation } from "@/redux/features/order/order.api";
+import { useCreateBusinessOrderMutation } from "@/redux/features/order/order.api";
 import numberUtils from "@/utils/number";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
@@ -75,7 +75,7 @@ const stepSchemas = [
 
 const stepsLabels = ["1. Choose tier", "2. Brief", "3. Add-ons", "4. Pay"] as const;
 
-const ArtistBookView = ({ user }: { user: IUser }) => {
+const ArtistCheckoutView = ({ user }: { user: IUser }) => {
   const params = useParams();
   const userName = params.userName as string;
   const router = useRouter();
@@ -86,7 +86,7 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
   const preselectedTierId = searchParams.get("tierId") || "";
 
   const { data, isLoading } = useGetArtistProfileByUserNameQuery({ userName });
-  const [createOrder, { isLoading: isCreating }] = useCreateFanOrderMutation();
+  const [createOrder, { isLoading: isCreating }] = useCreateBusinessOrderMutation();
   const { data: tiersData, isLoading: tiersLoading } = useGetPricingTierByUserNameQuery({
     userName,
   });
@@ -154,7 +154,7 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
       toast.error(error.data.message);
       return;
     }
-    router.push(`/profile/orders`);
+    router.push(`/dashboard/orders`);
     toast.success("Order created successfully");
   };
 
@@ -194,7 +194,7 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
 
             if (!hasErr && step === 1 && !user) {
               Cookies.set("redirect_after_login", url, { expires: 1 });
-              router.push("/register");
+              router.push("/business-form");
               return;
             }
 
@@ -414,4 +414,4 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
   );
 };
 
-export default ArtistBookView;
+export default ArtistCheckoutView;

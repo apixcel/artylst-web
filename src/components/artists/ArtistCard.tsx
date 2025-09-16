@@ -160,7 +160,7 @@ const ArtistCard = ({
                 <p className="text-muted line-through">${item.oldPrice}+</p>
               )} */}
 
-              <p className="text-muted line-through">${item.minStartingPrice}+</p>
+              <p className="text-muted">${item.minStartingPrice}+</p>
             </div>
             <div className="flex items-center gap-1">
               <div>

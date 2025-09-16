@@ -14,8 +14,8 @@ const RecentlyViewedArtistSlide = ({ data }: { data: IArtist[] }) => {
       slidesPerView={1}
       modules={[FreeMode, Navigation]}
       breakpoints={{
-        1440: { slidesPerView: 5.8 },
-        1280: { slidesPerView: 5.5 },
+        1440: { slidesPerView: 5.5 },
+        1280: { slidesPerView: 5.2 },
         1024: { slidesPerView: 4.3 },
         768: { slidesPerView: 3.1 },
         640: { slidesPerView: 2.8 },

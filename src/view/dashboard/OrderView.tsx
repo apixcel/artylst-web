@@ -1,13 +1,19 @@
 "use client";
 
-import { ArtistOrder, BusinessOrder } from "@/components";
+import { ArtistOrder, BusinessOrder, UnauthorizedMsgBox } from "@/components";
 import { useAppSelector } from "@/hooks";
 
 const OrdersPageView = () => {
   const { user } = useAppSelector((state) => state.user);
   const role = user?.role;
 
-  return <>{role === "artist" ? <ArtistOrder /> : <BusinessOrder />}</>;
+  if (role === "business") {
+    return <BusinessOrder />;
+  } else if (role === "artist") {
+    return <ArtistOrder />;
+  } else {
+    return <UnauthorizedMsgBox />;
+  }
 };
 
 export default OrdersPageView;

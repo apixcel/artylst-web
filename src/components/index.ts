@@ -7,6 +7,7 @@ export { default as QueryPagination } from "./ui/QueryPagination";
 export { default as RichTextArea } from "./ui/RichTextArea";
 export { default as Textarea } from "./ui/Textarea";
 export { default as Loader } from "./ui/Loader";
+export { default as FormErrorMessage } from "./ui/FormErrorMessage";
 
 /* shared */
 export { default as NavSearch } from "./shared/header/NavSearch";

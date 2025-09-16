@@ -1,16 +1,15 @@
-import { Heart, Settings, ShoppingBag } from "lucide-react";
+import { Heart, ShoppingBag, User } from "lucide-react";
 
 export const fanProfileLinks = [
+  {
+    label: "Profile",
+    route: "/profile",
+    icon: User,
+  },
   {
     label: "Orders",
     route: "/profile/orders",
     icon: ShoppingBag,
-  },
-
-  {
-    label: "Settings",
-    route: "/profile/settings",
-    icon: Settings,
   },
   {
     label: "Favorite Artists",

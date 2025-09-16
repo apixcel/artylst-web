@@ -1,20 +1,41 @@
 "use client";
 
 import { IArtistPricingTier } from "@/interface";
-import { useGetPricingTierByUserNameQuery } from "@/redux/features/artist/pricingTier.api";
 import { cn } from "@/utils";
 import { ErrorMessage } from "formik";
 import { Check } from "lucide-react";
 import CheckoutPricingTierSkeleton from "./CheckoutPricingTierSkeleton";
+import { useEffect } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type Props = {
   selected: string | null;
   onSelect: (price: IArtistPricingTier) => void;
-  userName: string;
+  tiers: IArtistPricingTier[];
+  isLoading: boolean;
 };
 
-const CheckoutTier = ({ selected, onSelect, userName }: Props) => {
-  const { data, isLoading } = useGetPricingTierByUserNameQuery({ userName });
+const CheckoutTier = ({ selected, onSelect, tiers, isLoading }: Props) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const urlTierId = searchParams.get("tierId");
+    if (!tiers || !urlTierId) return;
+    if (selected === urlTierId) return;
+
+    const tier = tiers.find((t) => t._id === urlTierId);
+    if (tier) {
+      onSelect(tier);
+    }
+  }, [tiers, searchParams, selected, onSelect]);
+
+  const setTierInUrl = (tierId: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("tierId", tierId);
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+  };
 
   return (
     <div className="card p-5 bg-brand-1/10">
@@ -27,7 +48,7 @@ const CheckoutTier = ({ selected, onSelect, userName }: Props) => {
             <CheckoutPricingTierSkeleton />
           </>
         ) : (
-          data?.data.map((tier, index) => {
+          tiers.map((tier, index) => {
             const active = selected === tier._id;
             return (
               <div
@@ -41,7 +62,10 @@ const CheckoutTier = ({ selected, onSelect, userName }: Props) => {
                     ? "border-brand-4/80 border"
                     : "hover:scale-[1.03] duration-[0.3s]"
                 )}
-                onClick={() => onSelect(tier)}
+                onClick={() => {
+                  onSelect(tier); // Formik values সেট হবে (parent এ)
+                  setTierInUrl(tier._id); // URL আপডেট
+                }}
               >
                 <div className="flex flex-col gap-5 mb-6">
                   <h4 className="text-[16px] text-muted text-center uppercase">
@@ -66,7 +90,7 @@ const CheckoutTier = ({ selected, onSelect, userName }: Props) => {
       <ErrorMessage
         name="tierId"
         component="span"
-        className="text-xs text-red-400 mt-1"
+        className="text-red-400 mt-2 inline-block"
       />
     </div>
   );

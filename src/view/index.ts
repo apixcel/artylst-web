@@ -17,3 +17,6 @@ export { default as ArtistTiersView } from "./dashboard/artist/ArtistTiersView";
 export { default as ArtistAvailabilityView } from "./dashboard/artist/ArtistAvailabilityView";
 export { default as ArtistProfileView } from "./dashboard/artist/ArtistProfileView";
 export { default as ArtistSocialLinks } from "./dashboard/artist/ArtistSocialLinks";
+export { default as ArtistCheckoutView } from "./ArtistCheckoutView";
+// fan
+export { default as FanRegisterView } from "./FanRegisterView";
