@@ -15,7 +15,7 @@ const pricingTierApi = api.injectEndpoints({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["pricingTier"],
+      invalidatesTags: ["pricingTier", "artist"],
     }),
 
     updatePricingTier: builder.mutation<{ data: IArtistPricingTier }, IArtistPricingTier>(

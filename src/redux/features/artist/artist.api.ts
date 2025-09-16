@@ -1,4 +1,10 @@
-import { IArtist, IArtistPricingTier, IMeta, IUpdateArtistProfile } from "@/interface";
+import {
+  IArtist,
+  IArtistPricingTier,
+  IArtistProfileCompleteness,
+  IMeta,
+  IUpdateArtistProfile,
+} from "@/interface";
 import { api } from "@/redux/api/api";
 import { generateQueryParams } from "@/utils";
 
@@ -47,6 +53,18 @@ const artistApi = api.injectEndpoints({
         const { userName } = query;
         return {
           url: `/artist/get-pricing/${userName}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["artist"],
+    }),
+    getArtistProfileCompleteness: builder.query<
+      { data: IArtistProfileCompleteness },
+      undefined
+    >({
+      query: () => {
+        return {
+          url: `/artist/profile-stats`,
           method: "GET",
         };
       },
@@ -125,7 +143,7 @@ const artistApi = api.injectEndpoints({
           body: payload,
         };
       },
-      invalidatesTags: ["user"],
+      invalidatesTags: ["user", "artist"],
     }),
 
     getFavArtist: builder.query<
@@ -164,7 +182,7 @@ export const {
   useBecomeFeaturedMutation,
   useGetMyArtistProfileQuery,
   useUpdateMyArtistProfileMutation,
-
+  useGetArtistProfileCompletenessQuery,
   useAddOrRemoveFavArtistMutation,
   useGetFavArtistQuery,
 } = artistApi;

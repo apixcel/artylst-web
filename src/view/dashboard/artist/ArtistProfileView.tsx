@@ -1,17 +1,14 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Music4, Pencil, ShieldCheck, Tally5, Trash2, User } from "lucide-react";
 import {
-  CheckCircle2,
-  Music4,
-  Pencil,
-  ShieldCheck,
-  Sparkles,
-  Tally5,
-  Trash2,
-  User,
-} from "lucide-react";
-import { ArtistMedia, Dropdown, MultiDropdown, UnauthorizedMsgBox } from "@/components";
+  ArtistMedia,
+  Dropdown,
+  MultiDropdown,
+  ProfileCompletenessMeter,
+  UnauthorizedMsgBox,
+} from "@/components";
 import {
   DropdownOption,
   IArtist,
@@ -45,7 +42,9 @@ const Chip = ({ children }: { children: React.ReactNode }) => (
   </span>
 );
 
+// === genre limits ===
 const MAX_GENRES = 5;
+const MIN_GENRES = 3;
 
 const SectionSaveButton = ({
   label,
@@ -119,6 +118,43 @@ function isValidUrlOrEmpty(v: string) {
   }
 }
 
+// --- helper: map API profile -> FormState (no UI/design changes) ---
+function profileToForm(profile?: IArtist): FormState {
+  if (!profile)
+    return {
+      displayName: "",
+      bio: "",
+      language: languageOptions[0],
+      timezone: "GMT+6 (Dhaka)",
+      country: "",
+      genre: [],
+      socials: { ...emptySocials },
+    };
+
+  return {
+    displayName: profile.displayName || "",
+    bio: profile.bio || "",
+    language:
+      typeof profile.language === "string"
+        ? { label: profile.language, value: profile.language }
+        : (profile.language as DropdownOption<string>) || languageOptions[0],
+    timezone: profile.timezone || "GMT+6 (Dhaka)",
+    country: profile.country || "",
+    genre: (profile.genre || []).map((g) => ({
+      label: (g as IGenre).label ?? "",
+      value: (g as IGenre)._id ?? "",
+    })),
+    socials: {
+      spotify: profile.socials?.spotify || "",
+      youtube: profile.socials?.youtube || "",
+      instagram: profile.socials?.instagram || "",
+      tiktok: profile.socials?.tiktok || "",
+      website: profile.socials?.website || "",
+      playlist: profile.socials?.playlist || "",
+    },
+  };
+}
+
 export default function ArtistProfileView() {
   const { data } = useGetMyArtistProfileQuery(undefined);
   const profile = data?.data as IArtist | undefined;
@@ -134,57 +170,16 @@ export default function ArtistProfileView() {
 
   const [updateProfile] = useUpdateMyArtistProfileMutation();
 
-  // ----- Form state -----
-  const [form, setForm] = useState<FormState>({
-    displayName: "",
-    bio: "",
-    language: languageOptions[0],
-    timezone: "GMT+6 (Dhaka)",
-    country: "",
-    genre: [],
-    socials: emptySocials,
-  });
+  // ----- Form + baseline state (fixes: button stays disabled after save without reload) -----
+  const [original, setOriginal] = useState<FormState>(profileToForm(profile));
+  const [form, setForm] = useState<FormState>(profileToForm(profile));
 
-  // Keep a snapshot of the original values to compute per-section dirty states
-  const original = useMemo(() => {
-    if (!profile)
-      return {
-        displayName: "",
-        bio: "",
-        language: languageOptions[0],
-        timezone: "GMT+6 (Dhaka)",
-        country: "",
-        genre: [] as DropdownOption<string>[],
-        socials: emptySocials,
-      };
-
-    return {
-      displayName: profile.displayName || "",
-      bio: profile.bio || "",
-      language: profile.language || languageOptions[0],
-      timezone: profile.timezone || "GMT+6 (Dhaka)",
-      country: profile.country || "",
-      genre: (profile.genre || []).map((g) => ({
-        label: (g as IGenre).label ?? (g as IGenre).label ?? "",
-        value: (g as IGenre)._id ?? (g as IGenre)._id,
-      })),
-      socials: {
-        spotify: profile.socials?.spotify || "",
-        youtube: profile.socials?.youtube || "",
-        instagram: profile.socials?.instagram || "",
-        tiktok: profile.socials?.tiktok || "",
-        website: profile.socials?.website || "",
-        playlist: profile.socials?.playlist || "",
-      },
-    } as FormState;
-  }, [profile]);
-
-  // Load initial values from profile into form
+  // sync from API when profile changes
   useEffect(() => {
-    setForm(original);
-  }, [original]);
-
-  if (role !== "artist") return <UnauthorizedMsgBox />;
+    const next = profileToForm(profile);
+    setOriginal(next);
+    setForm(next);
+  }, [profile]);
 
   // --- Controlled setters ---
   const setField = <K extends keyof FormState>(key: K, val: FormState[K]) =>
@@ -209,7 +204,6 @@ export default function ArtistProfileView() {
   };
 
   // --- Per-section saving flags ---
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [saving, setSaving] = useState({
     displayName: false,
     bio: false,
@@ -218,25 +212,27 @@ export default function ArtistProfileView() {
     socials: false,
   });
 
-  // --- Shared updater helper (send only the fields you intend to change) ---
+  // --- Shared updater helper (now calls onSuccess, uses unwrap) ---
   async function patchProfile(partial: IUpdateArtistProfile, onSuccess?: () => void) {
-    const res = await updateProfile(partial);
-    const err = res.error as IQueryMutationErrorResponse;
-    if (err) {
+    try {
+      await updateProfile(partial).unwrap();
+      toast.success("Updated successfully!");
+      onSuccess?.();
+    } catch (e) {
+      const err = e as IQueryMutationErrorResponse;
       toast.error(err?.data?.message || "Failed to update profile");
-      return;
     }
-
-    toast.success("Updated successfully!");
   }
 
   // --- Save handlers ---
   async function saveDisplayName() {
     if (!dirty.displayName) return;
     setSaving((s) => ({ ...s, displayName: true }));
-    await patchProfile({ displayName: form.displayName.trim() }, () =>
-      setForm((f) => ({ ...f, displayName: f.displayName.trim() }))
-    );
+    const trimmed = form.displayName.trim();
+    await patchProfile({ displayName: trimmed }, () => {
+      setForm((f) => ({ ...f, displayName: trimmed }));
+      setOriginal((o) => ({ ...o, displayName: trimmed }));
+    });
     setSaving((s) => ({ ...s, displayName: false }));
   }
 
@@ -247,7 +243,11 @@ export default function ArtistProfileView() {
     }
     if (!dirty.bio) return;
     setSaving((s) => ({ ...s, bio: true }));
-    await patchProfile({ bio: form.bio.trim() });
+    const trimmed = form.bio.trim();
+    await patchProfile({ bio: trimmed }, () => {
+      setForm((f) => ({ ...f, bio: trimmed }));
+      setOriginal((o) => ({ ...o, bio: trimmed }));
+    });
     setSaving((s) => ({ ...s, bio: false }));
   }
 
@@ -257,8 +257,15 @@ export default function ArtistProfileView() {
       toast.error(`You can select up to ${MAX_GENRES} genres.`);
       return;
     }
+    if (form.genre.length < MIN_GENRES) {
+      toast.error(`Please select at least ${MIN_GENRES} genres.`);
+      return;
+    }
     setSaving((s) => ({ ...s, genre: true }));
-    await patchProfile({ genre: form.genre.map((g) => g.value) });
+    await patchProfile({ genre: form.genre.map((g) => g.value) }, () => {
+      // reset baseline for just this section
+      setOriginal((o) => ({ ...o, genre: form.genre }));
+    });
     setSaving((s) => ({ ...s, genre: false }));
   }
 
@@ -270,17 +277,27 @@ export default function ArtistProfileView() {
       return;
     }
     setSaving((s) => ({ ...s, locale: true }));
-    await patchProfile({
-      language: form.language.value,
-      timezone: form.timezone,
-      country: form.country.trim(),
-    });
+    await patchProfile(
+      {
+        language: form.language.value,
+        timezone: form.timezone,
+        country: form.country.trim(),
+      },
+      () => {
+        setForm((f) => ({ ...f, country: f.country.trim() }));
+        setOriginal((o) => ({
+          ...o,
+          language: form.language,
+          timezone: form.timezone,
+          country: form.country.trim(),
+        }));
+      }
+    );
     setSaving((s) => ({ ...s, locale: false }));
   }
 
   async function saveSocials() {
     if (!dirty.socials) return;
-    // basic URL validation (allow empty)
     const badKey = (Object.keys(form.socials) as (keyof FormState["socials"])[]).find(
       (k) => !isValidUrlOrEmpty(form.socials[k])
     );
@@ -289,20 +306,11 @@ export default function ArtistProfileView() {
       return;
     }
     setSaving((s) => ({ ...s, socials: true }));
-    await patchProfile({ socials: { ...form.socials } });
+    await patchProfile({ socials: { ...form.socials } }, () => {
+      setOriginal((o) => ({ ...o, socials: { ...form.socials } }));
+    });
     setSaving((s) => ({ ...s, socials: false }));
   }
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const completeness = useMemo(() => {
-    let pct = 0;
-    if (form.displayName.trim()) pct += 20;
-    if (form.bio.trim()) pct += 20;
-    if (form.genre.length) pct += 20;
-    if (parseLanguages(form.language.value).length) pct += 20;
-    if (Object.values(form.socials).some(Boolean)) pct += 20;
-    return Math.min(100, pct);
-  }, [form]);
 
   function handleGenresChange(vals: DropdownOption<string>[]) {
     if (vals.length > MAX_GENRES) {
@@ -311,6 +319,8 @@ export default function ArtistProfileView() {
     }
     setField("genre", vals);
   }
+
+  if (role !== "artist") return <UnauthorizedMsgBox />;
 
   return (
     <section className="space-y-6">
@@ -330,35 +340,7 @@ export default function ArtistProfileView() {
         </div>
       </div>
 
-      {/* Completeness meter */}
-      <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 backdrop-blur-2xl">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5" /> Profile completeness
-          </div>
-          <div className="text-base text-muted">{completeness}%</div>
-        </div>
-        <div className="h-2 mt-3 rounded-full bg-white/10 overflow-hidden">
-          <div
-            className="h-full bg-white/70 rounded-full"
-            style={{ width: `${completeness}%` }}
-          />
-        </div>
-        <ul className="mt-3 flex flex-wrap gap-2 text-xs text-white/70">
-          <li className="flex items-center gap-1">
-            <CheckCircle2 className="h-3 w-3" /> Display name
-          </li>
-          <li className="flex items-center gap-1">
-            <CheckCircle2 className="h-3 w-3" /> Bio
-          </li>
-          <li className="flex items-center gap-1 opacity-60">
-            <CheckCircle2 className="h-3 w-3" /> Intro video
-          </li>
-          <li className="flex items-center gap-1 opacity-60">
-            <CheckCircle2 className="h-3 w-3" /> Streaming connected
-          </li>
-        </ul>
-      </div>
+      <ProfileCompletenessMeter />
 
       {/* Content card */}
       <div className="xl:col-span-2 rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-6">
@@ -421,7 +403,11 @@ export default function ArtistProfileView() {
             <SectionSaveButton
               label="Save genres"
               onClick={saveGenres}
-              disabled={!dirty.genre}
+              disabled={
+                !dirty.genre ||
+                form.genre.length < MIN_GENRES ||
+                form.genre.length > MAX_GENRES
+              }
               isSaving={saving.genre}
             />
           </div>
@@ -435,7 +421,6 @@ export default function ArtistProfileView() {
             <div>
               <label className="text-sm text-white/60">Language</label>
               <Dropdown<string>
-                // form.language (string) -> Dropdown expects DropdownOption or null
                 value={
                   languageOptions.find((o) => o.value === form.language.value) ?? null
                 }
@@ -451,7 +436,6 @@ export default function ArtistProfileView() {
             </div>
             <div>
               <label className="text-sm text-white/60">Timezone</label>
-              {/* You can swap to a select if you maintain a list */}
               <input
                 className="w-full mt-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2"
                 value={form.timezone}

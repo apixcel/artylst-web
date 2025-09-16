@@ -22,6 +22,14 @@ import {
 import * as Yup from "yup";
 import { cn } from "@/utils";
 
+type FormValues = {
+  songs: number;
+  price: number;
+  deliveryTime: string;
+  descriptionList: string[];
+  revisionCount: number;
+};
+
 export const TIER_NAME_BY_KEY: Record<TierKey, TierName> = {
   mini: "Mini",
   standard: "Standard",
@@ -175,13 +183,13 @@ export const TierPricingCard: React.FC<{
     >
       <h3 className="text-lg font-semibold mb-2">{name}</h3>
 
-      <Formik
+      <Formik<FormValues>
         enableReinitialize
         initialValues={{
           songs,
           price,
           deliveryTime: defaultDeliveryTime,
-          descriptionList: descriptions.length > 0 ? descriptions : [],
+          descriptionList: descriptions.length > 0 ? descriptions : [""],
           revisionCount: revisionCount,
         }}
         validationSchema={TierSchema}

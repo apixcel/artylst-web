@@ -103,10 +103,7 @@ const MainHeader = () => {
                 onLogout={handleLogout}
                 items={
                   user.role === "fan"
-                    ? [
-                        { type: "link", label: "Profile", href: "/profile" },
-                        { type: "link", label: "Settings", href: "/profile/settings" },
-                      ]
+                    ? [{ type: "link", label: "Profile", href: "/profile" }]
                     : [
                         { type: "link", label: "Dashboard", href: "/dashboard" },
                         { type: "link", label: "Settings", href: "/dashboard/settings" },

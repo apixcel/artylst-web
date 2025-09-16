@@ -60,13 +60,13 @@ const ArtistComonCard: React.FC<IProps> = ({ artist }) => {
 
       <div className="mt-3 flex gap-2">
         <Link
-          href={`/artists/${artist?.userName}`}
+          href={`/artists-for-business/${artist?.userName}`}
           className="flex-1 px-3 py-2 rounded-lg bg-white/10 text-sm text-center"
         >
           View
         </Link>
         <Link
-          href={`/artists/${artist?.userName}/checkout`}
+          href={`/artists-for-business/${artist?.userName}/checkout`}
           className="flex-1 px-3 py-2 rounded-lg bg-white/10 text-sm text-center"
         >
           Request
