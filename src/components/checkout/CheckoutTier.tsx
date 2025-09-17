@@ -63,8 +63,8 @@ const CheckoutTier = ({ selected, onSelect, tiers, isLoading }: Props) => {
                     : "hover:scale-[1.03] duration-[0.3s]"
                 )}
                 onClick={() => {
-                  onSelect(tier); // Formik values সেট হবে (parent এ)
-                  setTierInUrl(tier._id); // URL আপডেট
+                  onSelect(tier);
+                  setTierInUrl(tier._id);
                 }}
               >
                 <div className="flex flex-col gap-5 mb-6">

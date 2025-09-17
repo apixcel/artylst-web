@@ -194,7 +194,7 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
 
             if (!hasErr && step === 1 && !user) {
               Cookies.set("redirect_after_login", url, { expires: 1 });
-              router.push("/register");
+              router.push("/login");
               return;
             }
 

@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { Dropdown } from "@/components";
-import { Check, Plus, X } from "lucide-react";
+import { Check, Plus, Trash2, X } from "lucide-react";
 import {
   ITierDefaults,
   TierKey,
@@ -181,7 +181,13 @@ export const TierPricingCard: React.FC<{
     <div
       className={`rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-4/8 backdrop-blur-2xl ${disabled ? "opacity-60" : ""}`}
     >
-      <h3 className="text-lg font-semibold mb-2">{name}</h3>
+      <div className="flex items-center justify-between">
+        <h3 className="text-lg font-semibold mb-2">{name}</h3>
+        <button className="flex items-center gap-2 text-red-400 cursor-pointer">
+          <Trash2 className="w-4 h-4" />
+          Delete
+        </button>
+      </div>
 
       <Formik<FormValues>
         enableReinitialize

@@ -17,6 +17,20 @@ const pricingTierApi = api.injectEndpoints({
       }),
       invalidatesTags: ["pricingTier", "artist"],
     }),
+    createBusinessPricingTier: builder.mutation<
+      { data: IArtistPricingTier },
+      Pick<
+        IArtistPricingTier,
+        "name" | "songs" | "deliveryTime" | "priceUsd" | "description" | "revisionCount"
+      >
+    >({
+      query: (body) => ({
+        url: `/artist/create-business-pricing`,
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["pricingTier", "artist"],
+    }),
 
     updatePricingTier: builder.mutation<{ data: IArtistPricingTier }, IArtistPricingTier>(
       {
@@ -31,10 +45,31 @@ const pricingTierApi = api.injectEndpoints({
         invalidatesTags: ["pricingTier"],
       }
     ),
+    updateBusinessPricingTier: builder.mutation<
+      { data: IArtistPricingTier },
+      IArtistPricingTier
+    >({
+      query: (body) => {
+        const { _id, ...rest } = body;
+        return {
+          url: `/artist/update-business-pricing/${_id}`,
+          method: "PATCH",
+          body: rest,
+        };
+      },
+      invalidatesTags: ["pricingTier"],
+    }),
 
     getMyPricingTier: builder.query<{ data: IArtistPricingTier[] }, void>({
       query: () => ({
         url: `/artist/get-pricing`,
+        method: "GET",
+      }),
+      providesTags: ["pricingTier"],
+    }),
+    getMyBusinessPricingTier: builder.query<{ data: IArtistPricingTier[] }, void>({
+      query: () => ({
+        url: `/artist/get-business-pricing`,
         method: "GET",
       }),
       providesTags: ["pricingTier"],
@@ -50,6 +85,16 @@ const pricingTierApi = api.injectEndpoints({
       }),
       providesTags: ["pricingTier"],
     }),
+    getBusinessPricingTierByUserName: builder.query<
+      { data: IArtistPricingTier[] },
+      { userName: string }
+    >({
+      query: ({ userName }) => ({
+        url: `/artist/get-business-pricing/${userName}`,
+        method: "GET",
+      }),
+      providesTags: ["pricingTier"],
+    }),
   }),
 });
 
@@ -58,4 +103,8 @@ export const {
   useUpdatePricingTierMutation,
   useGetMyPricingTierQuery,
   useGetPricingTierByUserNameQuery,
+  useCreateBusinessPricingTierMutation,
+  useUpdateBusinessPricingTierMutation,
+  useGetMyBusinessPricingTierQuery,
+  useGetBusinessPricingTierByUserNameQuery,
 } = pricingTierApi;

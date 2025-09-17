@@ -5,12 +5,31 @@ import { useGetArtistProfileCompletenessQuery } from "@/redux/features/artist/ar
 import ProfileCompletenessSkeleton from "./ProfileCompletenessSkeleton";
 import { useEffect } from "react";
 
+const labelMap: Record<string, string> = {
+  coverPhoto: "Cover Photo",
+  avatar: "Avatar",
+  bio: "Bio",
+  plan: "Tier",
+};
+
+const startCase = (str: string) =>
+  str
+    .replace(/[_-]+/g, " ")
+    .replace(/([a-z])([A-Z])/g, "$1 $2")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\w\S*/g, (w) => w.charAt(0).toUpperCase() + w.slice(1));
+
+const getLabel = (field: string) => labelMap[field] ?? startCase(field);
+
 const ProfileCompletenessMeter = () => {
   const { data, isLoading } = useGetArtistProfileCompletenessQuery(undefined);
-  const { completedPercent, completed, pending } = data?.data || {
+
+  const { completedPercent, completed, pending, requiredFields } = data?.data || {
     completedPercent: 0,
     completed: [],
     pending: [],
+    requiredFields: [],
   };
 
   useEffect(() => {
@@ -21,15 +40,20 @@ const ProfileCompletenessMeter = () => {
     <li
       key={field}
       className={`flex items-center gap-1 ${
-        isCompleted ? "opacity-100 text-light" : "opacity-60"
+        isCompleted ? "text-brand-4" : "text-light opacity-90"
       }`}
     >
       <CheckCircle2 className="h-3 w-3" />
-      {field.charAt(0).toUpperCase() + field.slice(1)}
+      {getLabel(field)}
     </li>
   );
 
   if (isLoading) return <ProfileCompletenessSkeleton />;
+
+  const ordered = (
+    requiredFields?.length ? requiredFields : [...completed, ...pending]
+  ) as string[];
+  const completedSet = new Set(completed);
 
   return (
     <div className="rounded-2xl p-5 border border-white/10 bg-brand-2/10 backdrop-blur-2xl">
@@ -48,8 +72,7 @@ const ProfileCompletenessMeter = () => {
       </div>
 
       <ul className="mt-3 flex flex-wrap gap-2 text-xs text-white/70">
-        {completed?.map((field: string) => renderField(field, true))}
-        {pending?.map((field: string) => renderField(field, false))}
+        {ordered.map((field) => renderField(field, completedSet.has(field)))}
       </ul>
     </div>
   );

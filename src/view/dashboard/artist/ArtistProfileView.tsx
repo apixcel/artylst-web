@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Music4, Pencil, ShieldCheck, Tally5, Trash2, User } from "lucide-react";
+import { Music4, Pencil, ShieldCheck, Trash2, User } from "lucide-react";
 import {
   ArtistMedia,
   Dropdown,
+  ManageTiersButton,
   MultiDropdown,
   ProfileCompletenessMeter,
   UnauthorizedMsgBox,
@@ -332,12 +333,7 @@ export default function ArtistProfileView() {
             What fans and businesses see on your public page
           </p>
         </div>
-        <div className="flex gap-2">
-          <Link href="/dashboard/tiers" className="btn-tertiary btn gap-1">
-            <Tally5 className="h-4 w-4" /> Manage tiers
-          </Link>
-          {/* Global Save removed in favor of per-section saves; keep if you still want */}
-        </div>
+        <ManageTiersButton />
       </div>
 
       <ProfileCompletenessMeter />

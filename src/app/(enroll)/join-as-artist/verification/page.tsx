@@ -93,7 +93,9 @@ const ArtistVerificationPage = () => {
       return;
     }
 
-    toast.success("Email verified successfully! Please login to continue");
+    toast.success("Email verified successfully!", {
+      description: "Please login to continue.",
+    });
     router.push("/login");
 
     setErrorMessage("");
