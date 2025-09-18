@@ -167,7 +167,7 @@ export default function Dropdown<TValue = string>({
           tabIndex={-1}
           onKeyDown={onListKeyDown}
           className={cn(
-            "absolute z-30 mt-2 max-h-56 custom-scrollbar overflow-auto rounded-[8px] p-2 text-light shadow-lg focus:outline-none bg-base-900 border border-white/10",
+            "absolute z-30 mt-2 max-h-56 custom-scrollbar overflow-auto rounded-[8px] p-2 text-light shadow-lg focus:outline-none bg-white/5 backdrop-blur-xl border border-white/10",
             matchButtonWidth && "min-w-[var(--btn-w)] custom-scrollbar",
             panelClassName
           )}
@@ -205,8 +205,8 @@ export default function Dropdown<TValue = string>({
                   data-index={i}
                   disabled={opt.disabled}
                   className={cn(
-                    "flex w-full items-center justify-between gap-2 rounded-[8px] px-3 py-1 text-left text-sm hover:bg-white/10 focus:bg-white/10 focus:outline-none cursor-pointer",
-                    isSelected && "bg-white/10",
+                    "flex w-full items-center justify-between gap-2 rounded-[8px] px-3 py-1 text-left text-sm focus:bg-white/10 focus:outline-none cursor-pointer text-light hover:bg-dark",
+                    isSelected && "bg-dark",
                     opt.disabled && "opacity-50 cursor-not-allowed",
                     optionClassName
                   )}
