@@ -11,7 +11,7 @@ const pricingTierApi = api.injectEndpoints({
       >
     >({
       query: (body) => ({
-        url: `/artist/create-pricing`,
+        url: `/pricing/create`,
         method: "POST",
         body,
       }),
@@ -23,7 +23,7 @@ const pricingTierApi = api.injectEndpoints({
         query: (body) => {
           const { _id, ...rest } = body;
           return {
-            url: `/artist/update-pricing/${_id}`,
+            url: `/artist/update/${_id}`,
             method: "PATCH",
             body: rest,
           };
@@ -34,7 +34,7 @@ const pricingTierApi = api.injectEndpoints({
 
     getMyPricingTier: builder.query<{ data: IArtistPricingTier[] }, void>({
       query: () => ({
-        url: `/artist/get-pricing`,
+        url: `/pricing/get`,
         method: "GET",
       }),
       providesTags: ["pricingTier"],
@@ -45,7 +45,7 @@ const pricingTierApi = api.injectEndpoints({
       { userName: string }
     >({
       query: ({ userName }) => ({
-        url: `/artist/get-pricing/${userName}`,
+        url: `/pricing/get/${userName}`,
         method: "GET",
       }),
       providesTags: ["pricingTier"],

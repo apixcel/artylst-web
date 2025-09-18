@@ -46,7 +46,7 @@ const artistApi = api.injectEndpoints({
       query: (query) => {
         const { userName } = query;
         return {
-          url: `/artist/get-pricing/${userName}`,
+          url: `/pricing/get/${userName}`,
           method: "GET",
         };
       },
