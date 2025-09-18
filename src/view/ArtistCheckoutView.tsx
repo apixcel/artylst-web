@@ -3,7 +3,7 @@
 import { Field, Form, Formik } from "formik";
 import { Loader2, Star } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import * as Yup from "yup";
 
 import {
@@ -93,15 +93,34 @@ const ArtistCheckoutView = ({ user }: { user: IUser }) => {
     });
   const tiers = tiersData?.data || [];
 
+  // Only ACTIVE tiers
+  const activeTiers = useMemo(() => (tiers || []).filter((t) => t.isActive), [tiers]);
+
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
 
-  const isLast = step === 4;
-  const currentSchema = stepSchemas[step - 1];
+  const tierSchema = useMemo(
+    () =>
+      Yup.object({
+        price: Yup.number().required("Please select a tier."),
+        tierId: Yup.string()
+          .oneOf(
+            activeTiers.map((t) => t._id),
+            "Please select an active tier."
+          )
+          .required("Please select a tier."),
+      }),
+    [activeTiers]
+  );
+
+  const isTierActive = (id?: string | null) =>
+    !!id && activeTiers.some((t) => t._id === id);
+
+  const currentSchema = step === 1 ? tierSchema : stepSchemas[step - 1];
 
   const initialValues: FormValues = {
-    tierId: preselectedTierId,
-    price: preselectedTierId
-      ? (tiers.find((t) => t._id === preselectedTierId)?.priceUsd ?? 0)
+    tierId: isTierActive(preselectedTierId) ? preselectedTierId : null,
+    price: isTierActive(preselectedTierId)
+      ? (activeTiers.find((t) => t._id === preselectedTierId)?.priceUsd ?? 0)
       : 0,
     occasion: "workout",
     platform: "spotify",
@@ -190,12 +209,21 @@ const ArtistCheckoutView = ({ user }: { user: IUser }) => {
             const stepErr = await validateForm();
 
             const hasErr = Object.keys(stepErr).some((k) =>
-              Object.prototype.hasOwnProperty.call(stepSchemas[step - 1].fields, k)
+              Object.prototype.hasOwnProperty.call(
+                (step === 1 ? tierSchema : stepSchemas[step - 1]).fields,
+                k
+              )
             );
+
+            // Step-1 guard if no active tiers exist
+            if (!hasErr && step === 1 && activeTiers.length === 0) {
+              toast.error("No active tiers available for this artist.");
+              return;
+            }
 
             if (!hasErr && step === 1 && !user) {
               Cookies.set("redirect_after_login", url, { expires: 1 });
-              router.push("/business-form");
+              router.push("/login");
               return;
             }
 
@@ -264,15 +292,31 @@ const ArtistCheckoutView = ({ user }: { user: IUser }) => {
 
                   {/* STEP CONTENT */}
                   {step === 1 && (
-                    <CheckoutTier
-                      tiers={tiers}
-                      isLoading={tiersLoading}
-                      selected={values.tierId}
-                      onSelect={(price) => {
-                        setFieldValue("tierId", price._id, true);
-                        setFieldValue("price", price.priceUsd, true);
-                      }}
-                    />
+                    <>
+                      {activeTiers.length === 0 && !tiersLoading ? (
+                        <div className="card p-5 bg-gradient-to-b from-red-500/10 to-red-500/5 border border-red-500/30">
+                          <h3 className="font-heading text-lg mb-1">No active tiers</h3>
+                          <p className="text-sm text-white/70">
+                            This artist currently has no active tiers available for
+                            checkout. Please check back later or{" "}
+                            <Link href="/artists" className="underline text-white/80">
+                              browse other artists
+                            </Link>
+                            .
+                          </p>
+                        </div>
+                      ) : (
+                        <CheckoutTier
+                          tiers={activeTiers}
+                          isLoading={tiersLoading}
+                          selected={values.tierId}
+                          onSelect={(price) => {
+                            setFieldValue("tierId", price._id, true);
+                            setFieldValue("price", price.priceUsd, true);
+                          }}
+                        />
+                      )}
+                    </>
                   )}
 
                   {step === 2 && (
@@ -349,11 +393,19 @@ const ArtistCheckoutView = ({ user }: { user: IUser }) => {
                       Back
                     </button>
 
-                    {!isLast ? (
+                    {step !== 4 ? (
                       <button
                         type="button"
                         onClick={goNext}
                         className="btn btn-primary cursor-pointer"
+                        disabled={
+                          step === 1 && (tiersLoading || activeTiers.length === 0)
+                        }
+                        title={
+                          step === 1 && activeTiers.length === 0
+                            ? "No active tiers"
+                            : undefined
+                        }
                       >
                         Next
                       </button>

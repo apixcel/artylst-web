@@ -21,6 +21,7 @@ import { useAppSelector } from "@/hooks";
 import { cn } from "@/utils";
 
 const ArtistPersonalTiersView = () => {
+  const [activeTier, setActiveTier] = useState<boolean>(false);
   const { user } = useAppSelector((state) => state.user);
   const role = user?.role;
 
@@ -37,7 +38,6 @@ const ArtistPersonalTiersView = () => {
   const isUpdateMode = Boolean(mini || standard || pro);
 
   const [showForms, setShowForms] = useState<boolean>(isUpdateMode);
-  const [activeTier, setActiveTier] = useState<boolean>(false);
   const [createdIds, setCreatedIds] = useState<Record<TierKey, string | undefined>>({
     mini: mini?._id,
     standard: standard?._id,
@@ -51,6 +51,38 @@ const ArtistPersonalTiersView = () => {
       pro: pro?._id,
     });
   }, [isUpdateMode, mini?._id, standard?._id, pro?._id]);
+
+  useEffect(() => {
+    const tiers = [mini, standard, pro].filter(Boolean) as IArtistPricingTier[];
+
+    const allExistAndActive =
+      tiers.length === 3 && tiers.every((t) => t.isActive === true);
+
+    setActiveTier(allExistAndActive);
+  }, [mini, pro, standard]);
+
+  const handleToggleAll = async () => {
+    if (busy) return;
+
+    const tiers = [mini, standard, pro].filter(Boolean) as IArtistPricingTier[];
+    const wantActive = !activeTier;
+
+    try {
+      await Promise.all(
+        tiers.map((t) =>
+          updateTier({
+            ...t,
+            isActive: wantActive,
+          } as IArtistPricingTier)
+        )
+      );
+
+      setActiveTier(wantActive);
+      toast.success(wantActive ? "All tiers activated" : "All tiers deactivated");
+    } catch (e) {
+      toast.error("Something went wrong while toggling tiers");
+    }
+  };
 
   // Always render 3 cards; defaults come from server if any, else from fallback
   const defaults = useMemo(() => {
@@ -145,7 +177,7 @@ const ArtistPersonalTiersView = () => {
 
   return (
     <section className="space-y-6">
-      <div className="flex items-center gap-2">
+      <div className="flex justify-between items-center gap-2">
         <div>
           <h1 className="text-2xl md:text-3xl">Pricing Tiers for Personal Playlists</h1>
           <p className="text-muted text-sm mt-1">
@@ -155,13 +187,13 @@ const ArtistPersonalTiersView = () => {
 
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-2">
-            <label className="text-muted mb-1">All buyers can contact me</label>
+            <label className="text-muted">Active/Deactivate Tier</label>
             <button
               type="button"
-              onClick={() => setActiveTier((v: boolean) => !v)}
+              onClick={handleToggleAll}
               disabled={busy}
               aria-pressed={activeTier}
-              aria-label="Toggle allow all buyers to contact"
+              aria-label="Toggle all pricing tiers active state"
               className={cn(
                 "relative inline-flex h-4.5 sm:h-7 w-8 sm:w-12 items-center rounded-full transition-colors duration-300 outline-none",
                 activeTier

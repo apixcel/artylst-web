@@ -7,7 +7,6 @@ import {
   Dropdown,
   ManageTiersButton,
   MultiDropdown,
-  ProfileCompletenessMeter,
   UnauthorizedMsgBox,
 } from "@/components";
 import {
@@ -335,8 +334,6 @@ export default function ArtistProfileView() {
         </div>
         <ManageTiersButton />
       </div>
-
-      <ProfileCompletenessMeter />
 
       {/* Content card */}
       <div className="xl:col-span-2 rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-6">

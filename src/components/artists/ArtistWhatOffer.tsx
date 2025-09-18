@@ -14,9 +14,12 @@ const ArtistWhatOffer = () => {
   const { userName } = useParams<{ userName: string }>();
   const { user } = useAppSelector((state) => state.user);
   const role = user?.role;
+
+  // fetch tiers
   const { data: personalTiersData, isLoading: isPersonalTiersLoading } =
     useGetPricingTierByUserNameQuery({ userName });
   const personalTiers = personalTiersData?.data || [];
+
   const { data: businessTiersData, isLoading } = useGetBusinessPricingTierByUserNameQuery(
     { userName }
   );
@@ -27,12 +30,14 @@ const ArtistWhatOffer = () => {
   const isBusinessDisabledBase = role === "artist" || role === "fan";
   const isMoreDisabled = role === "artist";
 
-  // if tiers are empty (and not loading), treat Business Playlist as unavailable
-  const noPersonalTiers = !isLoading && personalTiers.length === 0;
-  const isPersonalDisabled = isPersonalDisabledBase || noPersonalTiers;
+  // === Availability rules (consider ACTIVE state) ===
+  const hasActivePersonal = personalTiers.some((t) => t.isActive);
+  const noPersonalAvailable = !isPersonalTiersLoading && !hasActivePersonal;
+  const isPersonalDisabled = isPersonalDisabledBase || noPersonalAvailable;
 
-  const noBusinessTiers = !isLoading && businessTiers.length === 0;
-  const isBusinessDisabled = isBusinessDisabledBase || noBusinessTiers;
+  const hasActiveBusiness = businessTiers.some((t) => t.isActive);
+  const noBusinessAvailable = !isLoading && !hasActiveBusiness;
+  const isBusinessDisabled = isBusinessDisabledBase || noBusinessAvailable;
 
   const guardClick = (disabled: boolean) => (e: MouseEvent) => {
     if (disabled) e.preventDefault();
@@ -84,7 +89,9 @@ const ArtistWhatOffer = () => {
 
       {/* Personal Playlist */}
       <div className="relative mb-4">
-        <div className={`card p-4 ${noPersonalTiers ? "blur-[2px] select-none" : ""}`}>
+        <div
+          className={`card p-4 ${noPersonalAvailable ? "blur-[2px] select-none" : ""}`}
+        >
           <h5 className="font-medium mb-2 flex items-center gap-2">
             <HeadphonesIcon className="w-5 h-5" /> Personal Playlist
           </h5>
@@ -104,12 +111,12 @@ const ArtistWhatOffer = () => {
           )}
         </div>
 
-        {/* Overlay when the artist doesn't offer business tiers */}
-        {noPersonalTiers && (
+        {/* Overlay when no ACTIVE personal tiers */}
+        {noPersonalAvailable && (
           <div className="absolute inset-0 z-10 grid place-items-center rounded-xl bg-black/40 backdrop-blur-sm">
             <div className="text-center px-6 py-4">
               <p className="text-white font-medium">
-                This artist doesn&apos;t offer a personal playlist
+                This artist doesn&apos;t offer a personal playlist right now
               </p>
               <p className="text-white/80 text-xs mt-1">
                 Try another artist or{" "}
@@ -123,10 +130,12 @@ const ArtistWhatOffer = () => {
         )}
       </div>
 
-      {/* Business Playlist (with blur + overlay if no tiers) */}
+      {/* Business Playlist (with blur + overlay if no ACTIVE tiers) */}
       <div className="relative mb-4">
         {/* Card content */}
-        <div className={`card p-4 ${noBusinessTiers ? "blur-[2px] select-none" : ""}`}>
+        <div
+          className={`card p-4 ${noBusinessAvailable ? "blur-[2px] select-none" : ""}`}
+        >
           <h5 className="font-medium mb-2 flex items-center gap-2">
             <MusicIcon className="w-5 h-5" /> Business Playlist
           </h5>
@@ -160,12 +169,12 @@ const ArtistWhatOffer = () => {
           )}
         </div>
 
-        {/* Overlay when the artist doesn't offer business tiers */}
-        {noBusinessTiers && (
+        {/* Overlay when no ACTIVE business tiers */}
+        {noBusinessAvailable && (
           <div className="absolute inset-0 z-10 grid place-items-center rounded-xl bg-black/40 backdrop-blur-sm">
             <div className="text-center px-6 py-4">
               <p className="text-white font-medium">
-                This artist doesn&apos;t offer a business playlist
+                This artist doesn&apos;t offer a business playlist right now
               </p>
               <p className="text-white/80 text-xs mt-1">
                 Try another artist or{" "}
