@@ -65,6 +65,7 @@ export { default as CheckoutProgress } from "./shared/CheckoutProgress";
 export { default as ArtistPricingTier } from "./artists/ArtistPricingTier";
 export { default as ArtistCardSlider } from "./artists/ArtistCardSlider";
 export { default as ArtistWhatOffer } from "./artists/ArtistWhatOffer";
+export { default as ArtistWhatOfferSkeleton } from "./artists/ArtistWhatOfferSkeleton";
 
 // book
 export { default as BookBrief } from "./book/BookBrief";

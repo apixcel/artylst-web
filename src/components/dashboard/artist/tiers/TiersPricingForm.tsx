@@ -183,10 +183,6 @@ export const TierPricingCard: React.FC<{
     >
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold mb-2">{name}</h3>
-        <button className="flex items-center gap-2 text-red-400 cursor-pointer">
-          <Trash2 className="w-4 h-4" />
-          Delete
-        </button>
       </div>
 
       <Formik<FormValues>

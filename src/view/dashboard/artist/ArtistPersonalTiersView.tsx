@@ -18,8 +18,10 @@ import {
 
 import { TiersPricingForm, TiersSkeleton, UnauthorizedMsgBox } from "@/components";
 import { useAppSelector } from "@/hooks";
+import { cn } from "@/utils";
 
 const ArtistPersonalTiersView = () => {
+  const [activeTier, setActiveTier] = useState<boolean>(false);
   const { user } = useAppSelector((state) => state.user);
   const role = user?.role;
 
@@ -36,7 +38,6 @@ const ArtistPersonalTiersView = () => {
   const isUpdateMode = Boolean(mini || standard || pro);
 
   const [showForms, setShowForms] = useState<boolean>(isUpdateMode);
-
   const [createdIds, setCreatedIds] = useState<Record<TierKey, string | undefined>>({
     mini: mini?._id,
     standard: standard?._id,
@@ -50,6 +51,38 @@ const ArtistPersonalTiersView = () => {
       pro: pro?._id,
     });
   }, [isUpdateMode, mini?._id, standard?._id, pro?._id]);
+
+  useEffect(() => {
+    const tiers = [mini, standard, pro].filter(Boolean) as IArtistPricingTier[];
+
+    const allExistAndActive =
+      tiers.length === 3 && tiers.every((t) => t.isActive === true);
+
+    setActiveTier(allExistAndActive);
+  }, [mini, pro, standard]);
+
+  const handleToggleAll = async () => {
+    if (busy) return;
+
+    const tiers = [mini, standard, pro].filter(Boolean) as IArtistPricingTier[];
+    const wantActive = !activeTier;
+
+    try {
+      await Promise.all(
+        tiers.map((t) =>
+          updateTier({
+            ...t,
+            isActive: wantActive,
+          } as IArtistPricingTier)
+        )
+      );
+
+      setActiveTier(wantActive);
+      toast.success(wantActive ? "All tiers activated" : "All tiers deactivated");
+    } catch (e) {
+      toast.error("Something went wrong while toggling tiers");
+    }
+  };
 
   // Always render 3 cards; defaults come from server if any, else from fallback
   const defaults = useMemo(() => {
@@ -144,11 +177,40 @@ const ArtistPersonalTiersView = () => {
 
   return (
     <section className="space-y-6">
-      <div>
-        <h1 className="text-2xl md:text-3xl">Pricing Tiers for Personal Playlists</h1>
-        <p className="text-muted text-sm mt-1">
-          Fans choose between tiers when commissioning a personal p laylist
-        </p>
+      <div className="flex justify-between items-center gap-2">
+        <div>
+          <h1 className="text-2xl md:text-3xl">Pricing Tiers for Personal Playlists</h1>
+          <p className="text-muted text-sm mt-1">
+            Fans choose between tiers when commissioning a personal p laylist
+          </p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
+            <label className="text-muted">Active/Deactivate Tier</label>
+            <button
+              type="button"
+              onClick={handleToggleAll}
+              disabled={busy}
+              aria-pressed={activeTier}
+              aria-label="Toggle all pricing tiers active state"
+              className={cn(
+                "relative inline-flex h-4.5 sm:h-7 w-8 sm:w-12 items-center rounded-full transition-colors duration-300 outline-none",
+                activeTier
+                  ? "bg-brand-4/80 border-brand-4/40"
+                  : "bg-white/10 border-white/20",
+                busy ? "opacity-50 cursor-not-allowed" : "cursor-pointer"
+              )}
+            >
+              <span
+                className={cn(
+                  "inline-block h-3 sm:h-5 w-3 sm:w-5 transform rounded-full bg-white shadow-md transition-transform duration-300",
+                  activeTier ? "translate-x-4 sm:translate-x-6" : "translate-x-1"
+                )}
+              />
+            </button>
+          </div>
+        </div>
       </div>
 
       {isLoading ? (

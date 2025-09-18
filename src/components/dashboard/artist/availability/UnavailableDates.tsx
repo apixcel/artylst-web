@@ -161,7 +161,9 @@ const UnavailableDates = () => {
           <DatePicker
             value={startDO}
             onChange={(val) =>
-              setStartDO((prev) => keepTimeOnlyIfMidnight(val as DateObject, prev))
+              setStartDO((prev: DateObject | null) =>
+                keepTimeOnlyIfMidnight(val as DateObject, prev)
+              )
             }
             inputClass="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2"
             className="w-full"
@@ -179,7 +181,9 @@ const UnavailableDates = () => {
           <DatePicker
             value={endDO}
             onChange={(val) =>
-              setEndDO((prev) => keepTimeOnlyIfMidnight(val as DateObject, prev))
+              setEndDO((prev: DateObject | null) =>
+                keepTimeOnlyIfMidnight(val as DateObject, prev)
+              )
             }
             inputClass="w-full bg-white/10 border border-white/10 rounded-lg px-3 py-2"
             className="w-full"
@@ -256,9 +260,9 @@ const UnavailableDates = () => {
             {unavailableDates.map((item: IUnavailableDates) => (
               <li
                 key={item._id}
-                className="flex items-center justify-between border border-white/10 rounded-xl p-4 bg-white/5"
+                className="flex items-center justify-between border border-white/10 rounded-xl p-4 bg-white/5 sm:flex-row flex-col sm:gap-0 gap-3"
               >
-                <div className="flex flex-col">
+                <div className="flex items-center sm:gap-2 gap-1 sm:flex-row flex-col">
                   <span className="font-medium">
                     {format(item.startTime, "MMM dd, yyyy h:mm a")} →{" "}
                     {format(item.endTime, "MMM dd, yyyy h:mm a")}
