@@ -13,7 +13,8 @@ export { default as MessagesView } from "./dashboard/MessagesView";
 export { default as DashboardHomeView } from "./dashboard/DashboardHomeView";
 
 //dashboard/artist
-export { default as ArtistTiersView } from "./dashboard/artist/ArtistTiersView";
+export { default as ArtistBusinessTiersView } from "./dashboard/artist/ArtistBusinessTiersView";
+export { default as ArtistPersonalTiersView } from "./dashboard/artist/ArtistPersonalTiersView";
 export { default as ArtistAvailabilityView } from "./dashboard/artist/ArtistAvailabilityView";
 export { default as ArtistProfileView } from "./dashboard/artist/ArtistProfileView";
 export { default as ArtistSocialLinks } from "./dashboard/artist/ArtistSocialLinks";

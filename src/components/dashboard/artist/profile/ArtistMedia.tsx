@@ -64,7 +64,7 @@ const ArtistMedia = () => {
       return false;
     }
     if (!isSmall) {
-      toast.error(`Image must be ≤ ${MAX_MB}MB.`);
+      toast.error(`Image must be less than ${MAX_MB}MB.`);
       return false;
     }
     return true;
@@ -154,11 +154,24 @@ const ArtistMedia = () => {
                   height={80}
                   className="w-full h-full object-cover"
                 />
+
+                {/* lock overlay while avatar busy or global busy */}
+                {(avatarBusy || isBusy) && (
+                  <div className="absolute inset-0 bg-black/40 grid place-items-center rounded-full pointer-events-none">
+                    <span className="text-[10px] text-white/90">Uploading…</span>
+                  </div>
+                )}
+
                 <button
                   type="button"
-                  onClick={() => avatarInputRef.current?.click()}
-                  className="w-0 h-0 overflow-hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/50 flex items-center justify-center group-hover/avatar:w-full group-hover/avatar:h-full duration-100 cursor-pointer rounded-full"
+                  onClick={() => {
+                    if (!isBusy) avatarInputRef.current?.click();
+                  }}
+                  className={`w-0 h-0 overflow-hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-black/50 flex items-center justify-center group-hover/avatar:w-full group-hover/avatar:h-full duration-100 rounded-full ${
+                    isBusy ? "cursor-not-allowed" : "cursor-pointer"
+                  }`}
                   aria-label="Change Photo"
+                  aria-disabled={isBusy}
                 >
                   <UploadIcon className="w-6 h-6 text-white" />
                 </button>
@@ -169,7 +182,9 @@ const ArtistMedia = () => {
                 ref={avatarInputRef}
                 accept="image/*"
                 className="hidden"
+                disabled={isBusy}
                 onChange={(e) => {
+                  if (isBusy) return;
                   const f = e.target.files?.[0] || null;
                   if (validateImage(f)) setAvatarFile(f);
                 }}
@@ -178,8 +193,10 @@ const ArtistMedia = () => {
               <div className="flex gap-2 items-center">
                 <button
                   type="button"
-                  className="text-sm inline-flex justify-center items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/15 cursor-pointer"
-                  onClick={() => avatarInputRef.current?.click()}
+                  className="text-sm inline-flex justify-center items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/15 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60"
+                  onClick={() => {
+                    if (!isBusy) avatarInputRef.current?.click();
+                  }}
                   disabled={isBusy}
                 >
                   Change Avatar
@@ -187,8 +204,11 @@ const ArtistMedia = () => {
                 {avatarFile ? (
                   <button
                     type="button"
-                    className="btn hover:text-muted"
-                    onClick={() => setAvatarFile(null)}
+                    className="btn hover:text-muted disabled:cursor-not-allowed disabled:opacity-60"
+                    onClick={() => {
+                      if (isBusy) return;
+                      setAvatarFile(null);
+                    }}
                     disabled={isBusy}
                   >
                     Remove Photo
@@ -207,14 +227,20 @@ const ArtistMedia = () => {
             <label className="text-sm text-muted">Cover image</label>
 
             <div
-              className="mt-3 h-32 md:h-36 rounded-lg bg-black/30 border border-white/10 relative overflow-hidden group/cover cursor-pointer"
-              onClick={() => coverInputRef.current?.click()}
+              className={`mt-3 h-32 md:h-36 rounded-lg bg-black/30 border border-white/10 relative overflow-hidden group/cover ${
+                isBusy ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+              }`}
+              onClick={() => {
+                if (!isBusy) coverInputRef.current?.click();
+              }}
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
+                if (isBusy) return;
                 if (e.key === "Enter" || e.key === " ") coverInputRef.current?.click();
               }}
               aria-label="Change cover image"
+              aria-disabled={isBusy}
             >
               {coverPreview ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -229,14 +255,23 @@ const ArtistMedia = () => {
                 </div>
               )}
 
+              {/* lock overlay while cover busy or global busy */}
+              {(coverBusy || isBusy) && (
+                <div className="absolute inset-0 bg-black/40 grid place-items-center">
+                  <span className="text-xs text-white/90">Uploading…</span>
+                </div>
+              )}
+
               <button
                 type="button"
                 onClick={(e) => {
+                  if (isBusy) return;
                   e.stopPropagation();
                   coverInputRef.current?.click();
                 }}
-                className="absolute inset-0 flex items-center justify-center rounded-lg bg-black/50 transition-transform duration-150 ease-out origin-center scale-0 group-hover/cover:scale-100 focus-visible:scale-100 cursor-pointer"
+                className={`absolute inset-0 flex items-center justify-center rounded-lg bg-black/50 transition-transform duration-150 ease-out origin-center scale-0 group-hover/cover:scale-100 focus-visible:scale-100 ${isBusy ? "cursor-not-allowed" : "cursor-pointer"}`}
                 aria-label="Change cover image"
+                aria-disabled={isBusy}
               >
                 <Upload className="w-6 h-6 text-white" />
                 <span className="sr-only">Change cover</span>
@@ -248,7 +283,9 @@ const ArtistMedia = () => {
               ref={coverInputRef}
               accept="image/*"
               className="hidden"
+              disabled={isBusy}
               onChange={(e) => {
+                if (isBusy) return;
                 const f = e.target.files?.[0] || null;
                 if (validateImage(f)) setCoverFile(f);
               }}
@@ -257,8 +294,10 @@ const ArtistMedia = () => {
             <div className="mt-3 flex items-center gap-2">
               <button
                 type="button"
-                onClick={() => coverInputRef.current?.click()}
-                className="text-sm inline-flex justify-center items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/15 cursor-pointer"
+                onClick={() => {
+                  if (!isBusy) coverInputRef.current?.click();
+                }}
+                className={`text-sm inline-flex justify-center items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/15 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 ${isBusy ? "cursor-not-allowed" : "cursor-pointer"}`}
                 disabled={isBusy}
               >
                 <Upload className="h-4 w-4" /> Upload Cover
@@ -266,8 +305,11 @@ const ArtistMedia = () => {
               {coverFile ? (
                 <button
                   type="button"
-                  className="btn btn-sm hover:text-muted"
-                  onClick={() => setCoverFile(null)}
+                  className="btn btn-sm hover:text-muted disabled:cursor-not-allowed disabled:opacity-60"
+                  onClick={() => {
+                    if (isBusy) return;
+                    setCoverFile(null);
+                  }}
                   disabled={isBusy}
                 >
                   Remove Cover
@@ -288,7 +330,7 @@ const ArtistMedia = () => {
         <button
           type="button"
           onClick={saveChanges}
-          className="btn btn-primary"
+          className="btn btn-primary disabled:cursor-not-allowed disabled:opacity-60"
           disabled={!anythingSelected || isBusy}
         >
           {isBusy ? "Saving..." : "Save Changes"}

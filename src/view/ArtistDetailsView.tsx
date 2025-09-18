@@ -156,60 +156,70 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
               <h3 className="mb-4">Connect with me</h3>
               <ul className="flex gap-3 text-light/90">
                 {/* spotify */}
-                <li className="inline-flex items-center gap-2">
-                  <Link
-                    className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
-                    href={socials.spotify}
-                    target="_blank"
-                  >
-                    <SpotifyIcon className="max-h-5 max-w-5 w-full h-full" />
-                    Spotify
-                  </Link>
-                </li>
+                {socials.spotify && (
+                  <li className="inline-flex items-center gap-2">
+                    <Link
+                      className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
+                      href={socials.spotify}
+                      target="_blank"
+                    >
+                      <SpotifyIcon className="max-h-5 max-w-5 w-full h-full" />
+                      Spotify
+                    </Link>
+                  </li>
+                )}
                 {/* youtube */}
-                <li className="inline-flex items-center gap-2">
-                  <Link
-                    className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
-                    href={socials.youtube}
-                    target="_blank"
-                  >
-                    <Youtube className="max-h-5 max-w-5 w-full h-full" />
-                    Youtube
-                  </Link>
-                </li>
+                {socials.youtube && (
+                  <li className="inline-flex items-center gap-2">
+                    <Link
+                      className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
+                      href={socials.youtube}
+                      target="_blank"
+                    >
+                      <Youtube className="max-h-5 max-w-5 w-full h-full" />
+                      Youtube
+                    </Link>
+                  </li>
+                )}
                 {/* instagram */}
-                <li className="inline-flex items-center gap-2">
-                  <Link
-                    className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
-                    href={socials.instagram}
-                    target="_blank"
-                  >
-                    <InstagramIcon className="max-h-5 max-w-5 w-full h-full" />
-                    Instagram
-                  </Link>
-                </li>
+                {socials.instagram && (
+                  <li className="inline-flex items-center gap-2">
+                    <Link
+                      className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
+                      href={socials.instagram}
+                      target="_blank"
+                    >
+                      <InstagramIcon className="max-h-5 max-w-5 w-full h-full" />
+                      Instagram
+                    </Link>
+                  </li>
+                )}
                 {/* tiktok */}
-                <li className="inline-flex items-center gap-2">
-                  <Link
-                    className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
-                    href={socials.tiktok}
-                    target="_blank"
-                  >
-                    <TiktokIcon className="max-h-5 max-w-5 w-full h-full" />
-                    Tiktok
-                  </Link>
-                </li>
+                {socials.tiktok && (
+                  <li className="inline-flex items-center gap-2">
+                    <Link
+                      className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
+                      href={socials.tiktok}
+                      target="_blank"
+                    >
+                      <TiktokIcon className="max-h-5 max-w-5 w-full h-full" />
+                      Tiktok
+                    </Link>
+                  </li>
+                )}
                 {/* website */}
-                <li className="inline-flex items-center gap-2">
-                  <Link
-                    className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
-                    href={socials.website}
-                    target="_blank"
-                  >
-                    <GlobeIcon className="max-h-4.5 max-w-4.5 w-full h-full" />
-                    Website
-                  </Link>
-                </li>
+                {socials.website && (
+                  <li className="inline-flex items-center gap-2">
+                    <Link
+                      className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
+                      href={socials.website}
+                      target="_blank"
+                    >
+                      <GlobeIcon className="max-h-4.5 max-w-4.5 w-full h-full" />
+                      Website
+                    </Link>
+                  </li>
+                )}
               </ul>
             </div>
           </div>

@@ -2,7 +2,6 @@ import {
   Heart,
   Home,
   MessageCircle,
-  Receipt,
   Settings,
   ShoppingBag,
   User,
@@ -12,6 +11,8 @@ import {
   Clock,
   PlayCircle,
   IdCard,
+  Music4,
+  Briefcase,
 } from "lucide-react";
 
 export const artistDashboardLink = [
@@ -49,6 +50,18 @@ export const artistDashboardLink = [
     label: "Tiers",
     route: "/dashboard/tiers",
     icon: Layers,
+    submenu: [
+      {
+        label: "Tiers For Personal Playlists",
+        route: "/dashboard/tiers/personal",
+        icon: Music4,
+      },
+      {
+        label: "Tiers For Business Playlists",
+        route: "/dashboard/tiers/business",
+        icon: Briefcase,
+      },
+    ],
   },
   {
     label: "Availability",

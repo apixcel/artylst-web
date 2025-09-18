@@ -51,3 +51,12 @@ export type IUpdateArtistProfile = Partial<Omit<IArtist, "genre" | "language">> 
 export interface IRankedArtist extends IArtist {
   artistId: string;
 }
+
+export type CompletenessFields = string[];
+
+export interface IArtistProfileCompleteness {
+  requiredFields: CompletenessFields;
+  completed: CompletenessFields;
+  pending: CompletenessFields;
+  completedPercent: number;
+}

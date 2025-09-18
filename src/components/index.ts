@@ -122,6 +122,8 @@ export { default as ArtistSettings } from "./dashboard/artist/settings/ArtistSet
 export { default as ArtistMessages } from "./dashboard/artist/messages/ArtistMessages";
 export { default as ArtistMedia } from "./dashboard/artist/profile/ArtistMedia";
 export { default as ArtistProfileSettingsSkeleton } from "./dashboard/artist/settings/ArtistProfileSettingsSkeleton";
+export { default as ProfileCompletenessMeter } from "./dashboard/artist/profile/ProfileCompletenessMeter";
+export { default as ManageTiersButton } from "./dashboard/artist/profile/ManageTiersButton";
 
 // tiers
 export { default as TiersPricingForm } from "./dashboard/artist/tiers/TiersPricingForm";

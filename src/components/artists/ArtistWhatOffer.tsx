@@ -5,16 +5,34 @@ import { Check, HeadphonesIcon, Info, MegaphoneIcon, MusicIcon } from "lucide-re
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { MouseEvent } from "react";
+import {
+  useGetBusinessPricingTierByUserNameQuery,
+  useGetPricingTierByUserNameQuery,
+} from "@/redux/features/artist/pricingTier.api";
 
 const ArtistWhatOffer = () => {
   const { userName } = useParams<{ userName: string }>();
   const { user } = useAppSelector((state) => state.user);
   const role = user?.role;
+  const { data: personalTiersData, isLoading: isPersonalTiersLoading } =
+    useGetPricingTierByUserNameQuery({ userName });
+  const personalTiers = personalTiersData?.data || [];
+  const { data: businessTiersData, isLoading } = useGetBusinessPricingTierByUserNameQuery(
+    { userName }
+  );
+  const businessTiers = businessTiersData?.data || [];
 
   // permission rules
-  const isPersonalDisabled = role === "artist" || role === "business";
-  const isBusinessDisabled = role === "artist" || role === "fan";
+  const isPersonalDisabledBase = role === "artist" || role === "business";
+  const isBusinessDisabledBase = role === "artist" || role === "fan";
   const isMoreDisabled = role === "artist";
+
+  // if tiers are empty (and not loading), treat Business Playlist as unavailable
+  const noPersonalTiers = !isLoading && personalTiers.length === 0;
+  const isPersonalDisabled = isPersonalDisabledBase || noPersonalTiers;
+
+  const noBusinessTiers = !isLoading && businessTiers.length === 0;
+  const isBusinessDisabled = isBusinessDisabledBase || noBusinessTiers;
 
   const guardClick = (disabled: boolean) => (e: MouseEvent) => {
     if (disabled) e.preventDefault();
@@ -65,55 +83,99 @@ const ArtistWhatOffer = () => {
       <h4 className="text-lg font-semibold mb-2">What I Offer</h4>
 
       {/* Personal Playlist */}
-      <div className="mb-4 card p-4">
-        <h5 className="font-medium mb-2 flex items-center gap-2">
-          <HeadphonesIcon className="w-5 h-5" /> Personal Playlist
-        </h5>
-        <ul className="list-disc list-inside text-sm space-y-1 text-muted">
-          <li>Customized to your mood &amp; taste</li>
-          <li>Handpicked by top artists</li>
-          <li>Perfect for daily listening</li>
-        </ul>
-        <Link {...linkProps(`/artists/${userName}/book`, isPersonalDisabled)}>
-          Request Personal Playlist
-        </Link>
-        {isPersonalDisabled && (
-          <DisabledMsg
-            message="Sorry, you cannot request personal playlist using this account"
-            cta={{ href: "/register", label: "Click here" }}
-          />
+      <div className="relative mb-4">
+        <div className={`card p-4 ${noPersonalTiers ? "blur-[2px] select-none" : ""}`}>
+          <h5 className="font-medium mb-2 flex items-center gap-2">
+            <HeadphonesIcon className="w-5 h-5" /> Personal Playlist
+          </h5>
+          <ul className="list-disc list-inside text-sm space-y-1 text-muted">
+            <li>Customized to your mood &amp; taste</li>
+            <li>Handpicked by top artists</li>
+            <li>Perfect for daily listening</li>
+          </ul>
+          <Link {...linkProps(`/artists/${userName}/book`, isPersonalDisabled)}>
+            Request Personal Playlist
+          </Link>
+          {isPersonalDisabled && (
+            <DisabledMsg
+              message="Sorry, you cannot request personal playlist using this account"
+              cta={{ href: "/register", label: "Click here" }}
+            />
+          )}
+        </div>
+
+        {/* Overlay when the artist doesn't offer business tiers */}
+        {noPersonalTiers && (
+          <div className="absolute inset-0 z-10 grid place-items-center rounded-xl bg-black/40 backdrop-blur-sm">
+            <div className="text-center px-6 py-4">
+              <p className="text-white font-medium">
+                This artist doesn&apos;t offer a personal playlist
+              </p>
+              <p className="text-white/80 text-xs mt-1">
+                Try another artist or{" "}
+                <Link href="/business/contact" className="underline">
+                  contact us
+                </Link>{" "}
+                for custom options.
+              </p>
+            </div>
+          </div>
         )}
       </div>
 
-      {/* Business Playlist */}
-      <div className="card p-4 mb-4">
-        <h5 className="font-medium mb-2 flex items-center gap-2">
-          <MusicIcon className="w-5 h-5" /> Business Playlist
-        </h5>
-        <ul className="text-sm space-y-1 text-muted">
-          <li className="flex gap-2">
-            <Check className="w-3 h-3 text-brand-4 mt-[2px]" /> Curated for restaurants,
-            cafés &amp; events
-          </li>
-          <li className="flex gap-2">
-            <Check className="w-3 h-3 text-brand-4 mt-[2px]" /> Enhance your brand
-            identity with music
-          </li>
-          <li className="flex gap-2">
-            <Check className="w-3 h-3 text-brand-4 mt-[2px]" /> Licensed &amp; ready for
-            commercial use
-          </li>
-        </ul>
-        <Link
-          {...linkProps(`/artists-for-business/${userName}/checkout`, isBusinessDisabled)}
-        >
-          Request Business Playlist
-        </Link>
-        {isBusinessDisabled && (
-          <DisabledMsg
-            message="Sorry, you cannot request business playlist using this account. To get access to this feature,"
-            cta={{ href: "/business-form", label: "Click here" }}
-          />
+      {/* Business Playlist (with blur + overlay if no tiers) */}
+      <div className="relative mb-4">
+        {/* Card content */}
+        <div className={`card p-4 ${noBusinessTiers ? "blur-[2px] select-none" : ""}`}>
+          <h5 className="font-medium mb-2 flex items-center gap-2">
+            <MusicIcon className="w-5 h-5" /> Business Playlist
+          </h5>
+          <ul className="text-sm space-y-1 text-muted">
+            <li className="flex gap-2">
+              <Check className="w-3 h-3 text-brand-4 mt-[2px]" /> Curated for restaurants,
+              cafés &amp; events
+            </li>
+            <li className="flex gap-2">
+              <Check className="w-3 h-3 text-brand-4 mt-[2px]" /> Enhance your brand
+              identity with music
+            </li>
+            <li className="flex gap-2">
+              <Check className="w-3 h-3 text-brand-4 mt-[2px]" /> Licensed &amp; ready for
+              commercial use
+            </li>
+          </ul>
+          <Link
+            {...linkProps(
+              `/artists-for-business/${userName}/checkout`,
+              isBusinessDisabled
+            )}
+          >
+            Request Business Playlist
+          </Link>
+          {isBusinessDisabledBase && (
+            <DisabledMsg
+              message="Sorry, you cannot request business playlist using this account. To get access to this feature,"
+              cta={{ href: "/business-form", label: "Click here" }}
+            />
+          )}
+        </div>
+
+        {/* Overlay when the artist doesn't offer business tiers */}
+        {noBusinessTiers && (
+          <div className="absolute inset-0 z-10 grid place-items-center rounded-xl bg-black/40 backdrop-blur-sm">
+            <div className="text-center px-6 py-4">
+              <p className="text-white font-medium">
+                This artist doesn&apos;t offer a business playlist
+              </p>
+              <p className="text-white/80 text-xs mt-1">
+                Try another artist or{" "}
+                <Link href="/business/contact" className="underline">
+                  contact us
+                </Link>{" "}
+                for custom options.
+              </p>
+            </div>
+          </div>
         )}
       </div>
 

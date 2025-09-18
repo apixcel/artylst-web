@@ -4,9 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
 import {
-  useCreatePricingTierMutation,
-  useGetMyPricingTierQuery,
-  useUpdatePricingTierMutation,
+  useCreateBusinessPricingTierMutation,
+  useGetMyBusinessPricingTierQuery,
+  useUpdateBusinessPricingTierMutation,
 } from "@/redux/features/artist/pricingTier.api";
 import {
   IArtistPricingTier,
@@ -19,14 +19,14 @@ import {
 import { TiersPricingForm, TiersSkeleton, UnauthorizedMsgBox } from "@/components";
 import { useAppSelector } from "@/hooks";
 
-const ArtistTiersView = () => {
+const ArtistBusinessTiersView = () => {
   const { user } = useAppSelector((state) => state.user);
   const role = user?.role;
 
-  const [createTier, { isLoading: isCreating }] = useCreatePricingTierMutation();
-  const [updateTier, { isLoading: isUpdating }] = useUpdatePricingTierMutation();
+  const [createTier, { isLoading: isCreating }] = useCreateBusinessPricingTierMutation();
+  const [updateTier, { isLoading: isUpdating }] = useUpdateBusinessPricingTierMutation();
 
-  const { data: myTierResp, isLoading, isFetching } = useGetMyPricingTierQuery();
+  const { data: myTierResp, isLoading, isFetching } = useGetMyBusinessPricingTierQuery();
   const myTier = myTierResp?.data;
 
   const mini = myTier?.find((tier) => tier.name === "Mini");
@@ -145,9 +145,9 @@ const ArtistTiersView = () => {
   return (
     <section className="space-y-6">
       <div>
-        <h1 className="text-2xl md:text-3xl">Pricing Tiers</h1>
+        <h1 className="text-2xl md:text-3xl">Pricing Tiers for Business Playlists</h1>
         <p className="text-muted text-sm mt-1">
-          Fans choose between tiers when commissioning a playlist
+          Fans choose between tiers when commissioning a business playlist
         </p>
       </div>
 
@@ -169,4 +169,4 @@ const ArtistTiersView = () => {
   );
 };
 
-export default ArtistTiersView;
+export default ArtistBusinessTiersView;

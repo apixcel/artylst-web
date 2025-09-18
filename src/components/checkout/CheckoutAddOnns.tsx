@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/utils";
-import { X } from "lucide-react";
 
 type AddOn = {
   value: string;
@@ -38,7 +37,7 @@ const ADDONS: AddOn[] = [
 ];
 
 type Props = {
-  selected: string | undefined;
+  selected: string | undefined; // still single-select
   onChange: (value: AddOn | undefined) => void;
 };
 
@@ -51,47 +50,33 @@ const CheckoutAddOnns = ({ selected, onChange }: Props) => {
         {ADDONS.map((o) => {
           const active = selected === o.title;
           return (
-            <label
-              key={o.value}
-              className={cn(
-                "card p-4 flex flex-col gap-2 cursor-pointer transition border relative group",
-                active
-                  ? "ring-1 ring-light/60 border-light bg-white/5"
-                  : "border-white/10 hover:border-white/30"
-              )}
-            >
-              <input
-                type="radio"
-                name="checkout-addon"
-                className="sr-only"
-                checked={active}
-                onChange={() => onChange(o)}
-              />
-
-              <div className="flex items-center gap-3 w-full">
-                <div>
-                  <div className="font-heading">{o.title}</div>
-                  <div className="text-white/70 text-xs">{o.desc}</div>
+            <div key={o.value} className="relative">
+              <button
+                type="button"
+                aria-pressed={active}
+                onClick={() => onChange(active ? undefined : o)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onChange(active ? undefined : o);
+                  }
+                }}
+                className={cn(
+                  "card p-4 w-full text-left flex flex-col gap-2 transition border cursor-pointer",
+                  active
+                    ? "ring-1 ring-light/60 border-light bg-white/5"
+                    : "border-white/10 hover:border-white/30"
+                )}
+              >
+                <div className="flex items-center gap-3 w-full">
+                  <div>
+                    <div className="font-heading">{o.title}</div>
+                    <div className="text-white/70 text-xs">{o.desc}</div>
+                  </div>
+                  <div className="ml-auto">${o.price}</div>
                 </div>
-                <div className="ml-auto">${o.price}</div>
-              </div>
-
-              {active && (
-                <div className="absolute top-2 right-2 group-hover:opacity-100 opacity-0 transition-opacity duration-300">
-                  <button
-                    type="button"
-                    className="text-xs text-light border bg-gray-40 border-white/10 flex items-center justify-end gap-2 py-1 px-2 rounded"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      onChange(undefined);
-                    }}
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                </div>
-              )}
-            </label>
+              </button>
+            </div>
           );
         })}
       </fieldset>

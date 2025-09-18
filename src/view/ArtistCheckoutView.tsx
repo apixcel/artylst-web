@@ -23,7 +23,7 @@ import { toast } from "sonner";
 import Image from "next/image";
 import { businessAvatarFallback } from "@/constants/fallBack";
 import Cookies from "js-cookie";
-import { useGetPricingTierByUserNameQuery } from "@/redux/features/artist/pricingTier.api";
+import { useGetBusinessPricingTierByUserNameQuery } from "@/redux/features/artist/pricingTier.api";
 
 // ---- Types
 type FormValues = {
@@ -87,9 +87,10 @@ const ArtistCheckoutView = ({ user }: { user: IUser }) => {
 
   const { data, isLoading } = useGetArtistProfileByUserNameQuery({ userName });
   const [createOrder, { isLoading: isCreating }] = useCreateBusinessOrderMutation();
-  const { data: tiersData, isLoading: tiersLoading } = useGetPricingTierByUserNameQuery({
-    userName,
-  });
+  const { data: tiersData, isLoading: tiersLoading } =
+    useGetBusinessPricingTierByUserNameQuery({
+      userName,
+    });
   const tiers = tiersData?.data || [];
 
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
