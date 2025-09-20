@@ -15,17 +15,21 @@ import { toast } from "sonner";
 import ArtistMediaSkeleton from "./ArtistMediaSkeleton";
 
 const MAX_MB = 5;
+const MAX_MB_VIDEO = 200;
 
 const ArtistMedia = () => {
   const [avatarFile, setAvatarFile] = useState<File | null>(null);
   const [coverFile, setCoverFile] = useState<File | null>(null);
+  const [introFile, setIntroFile] = useState<File | null>(null);
 
   const [avatarBusy, setAvatarBusy] = useState(false);
   const [coverBusy, setCoverBusy] = useState(false);
+  const [introBusy, setIntroBusy] = useState(false);
   const [saving, setSaving] = useState(false);
 
   const avatarInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
+  const introInputRef = useRef<HTMLInputElement>(null);
 
   const { data, isLoading, refetch } = useGetMyArtistProfileQuery(undefined);
   const profile = data?.data as IArtist | undefined;
@@ -48,12 +52,18 @@ const ArtistMedia = () => {
     [coverFile, profile?.coverPhoto]
   );
 
+  const introPreview = useMemo(
+    () => (introFile ? URL.createObjectURL(introFile) : profile?.introVideo || ""),
+    [introFile, profile?.introVideo]
+  );
+
   useEffect(() => {
     return () => {
       if (avatarPreview?.startsWith("blob:")) URL.revokeObjectURL(avatarPreview);
       if (coverPreview?.startsWith("blob:")) URL.revokeObjectURL(coverPreview);
+      if (introPreview?.startsWith("blob:")) URL.revokeObjectURL(introPreview);
     };
-  }, [avatarPreview, coverPreview]);
+  }, [avatarPreview, coverPreview, introPreview]);
 
   const validateImage = (file: File | null) => {
     if (!file) return false;
@@ -70,6 +80,21 @@ const ArtistMedia = () => {
     return true;
   };
 
+  const validateVideo = (file: File | null) => {
+    if (!file) return false;
+    const isVideo = file.type.startsWith("video/");
+    const isSmall = file.size / (1024 * 1024) <= MAX_MB_VIDEO;
+    if (!isVideo) {
+      toast.error("Please select a video file.");
+      return false;
+    }
+    if (!isSmall) {
+      toast.error(`Video must be less than ${MAX_MB_VIDEO}MB.`);
+      return false;
+    }
+    return true;
+  };
+
   const uploadAndGetUrl = async (file: File) => {
     const formData = new FormData();
     formData.append("file", file);
@@ -78,9 +103,9 @@ const ArtistMedia = () => {
   };
 
   const saveChanges = async () => {
-    if (!avatarFile && !coverFile) {
+    if (!avatarFile && !coverFile && !introFile) {
       toast.message("Nothing to upload", {
-        description: "Choose a new avatar or cover first.",
+        description: "Choose a new avatar, cover, or intro video first.",
       });
       return;
     }
@@ -89,16 +114,20 @@ const ArtistMedia = () => {
       setSaving(true);
       setAvatarBusy(!!avatarFile);
       setCoverBusy(!!coverFile);
+      setIntroBusy(!!introFile);
 
       let avatarUrl: string | undefined;
       let coverUrl: string | undefined;
+      let introUrl: string | undefined;
 
       if (avatarFile) avatarUrl = await uploadAndGetUrl(avatarFile);
       if (coverFile) coverUrl = await uploadAndGetUrl(coverFile);
+      if (introFile) introUrl = await uploadAndGetUrl(introFile);
 
       const payload: Partial<IArtist> = {};
       if (avatarUrl) payload.avatar = avatarUrl;
       if (coverUrl) payload.coverPhoto = coverUrl;
+      if (introUrl) payload.introVideo = introUrl;
 
       if (Object.keys(payload).length) {
         await updateProfile(payload as IUpdateArtistProfile);
@@ -113,6 +142,7 @@ const ArtistMedia = () => {
 
       setAvatarFile(null);
       setCoverFile(null);
+      setIntroFile(null);
       toast.success("Changes saved!");
     } catch (e) {
       const msg =
@@ -123,13 +153,14 @@ const ArtistMedia = () => {
       setSaving(false);
       setAvatarBusy(false);
       setCoverBusy(false);
+      setIntroBusy(false);
     }
   };
 
   if (isLoading) return <ArtistMediaSkeleton />;
 
-  const anythingSelected = !!avatarFile || !!coverFile;
-  const isBusy = saving || avatarBusy || coverBusy;
+  const anythingSelected = !!avatarFile || !!coverFile || !!introFile;
+  const isBusy = saving || avatarBusy || coverBusy || introBusy;
 
   return (
     <div className="border-b border-white/10 pb-4 space-y-4">
@@ -140,28 +171,25 @@ const ArtistMedia = () => {
       </div>
 
       {/* content grid */}
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 desktop:grid-cols-5 gap-6">
         {/* avatar card */}
-        <div className="md:col-span-2">
-          <div className="rounded-xl bg-white/5 border border-white/10 p-4 h-full">
+        <div className="desktop:col-span-1">
+          <div className="rounded-xl bg-white/5 border border-white/10 p-4 h-full flex flex-col">
             <label className="text-sm text-muted">Avatar</label>
-            <div className="mt-4 flex flex-col items-center gap-3">
-              <div className="w-20 h-20 rounded-full bg-white/10 border border-white/10 overflow-hidden group/avatar relative">
+            <div className="flex flex-col justify-center items-center gap-3 h-full">
+              <div className="w-28 h-28 rounded-full bg-white/10 border border-white/10 overflow-hidden group/avatar relative">
                 <Image
                   src={avatarPreview}
                   alt="avatar"
-                  width={80}
-                  height={80}
+                  width={100}
+                  height={100}
                   className="w-full h-full object-cover"
                 />
-
-                {/* lock overlay while avatar busy or global busy */}
                 {(avatarBusy || isBusy) && (
                   <div className="absolute inset-0 bg-black/40 grid place-items-center rounded-full pointer-events-none">
                     <span className="text-[10px] text-white/90">Uploading…</span>
                   </div>
                 )}
-
                 <button
                   type="button"
                   onClick={() => {
@@ -222,12 +250,12 @@ const ArtistMedia = () => {
         </div>
 
         {/* cover card */}
-        <div className="md:col-span-3">
+        <div className="desktop:col-span-2">
           <div className="rounded-xl bg-white/5 border border-white/10 p-4 h-full">
             <label className="text-sm text-muted">Cover image</label>
 
             <div
-              className={`mt-3 h-32 md:h-36 rounded-lg bg-black/30 border border-white/10 relative overflow-hidden group/cover ${
+              className={`mt-3 h-40 md:h-48 rounded-lg bg-black/30 border border-white/10 relative overflow-hidden group/cover flex justify-center items-center ${
                 isBusy ? "cursor-not-allowed opacity-60" : "cursor-pointer"
               }`}
               onClick={() => {
@@ -255,7 +283,6 @@ const ArtistMedia = () => {
                 </div>
               )}
 
-              {/* lock overlay while cover busy or global busy */}
               {(coverBusy || isBusy) && (
                 <div className="absolute inset-0 bg-black/40 grid place-items-center">
                   <span className="text-xs text-white/90">Uploading…</span>
@@ -318,6 +345,92 @@ const ArtistMedia = () => {
             </div>
 
             <p className="mt-2 text-xs text-white/50">Recommended: wide image</p>
+          </div>
+        </div>
+
+        {/* intro video card */}
+        <div className="desktop:col-span-2">
+          <div className="rounded-xl bg-white/5 border border-white/10 p-4 h-full">
+            <label className="text-sm text-muted">Intro video</label>
+
+            <div
+              className={`mt-3 h-40 md:h-48 rounded-lg bg-black/30 border border-white/10 relative overflow-hidden group/intro ${
+                isBusy ? "cursor-not-allowed opacity-60" : "cursor-pointer"
+              }`}
+              onClick={() => {
+                if (!isBusy) introInputRef.current?.click();
+              }}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (isBusy) return;
+                if (e.key === "Enter" || e.key === " ") introInputRef.current?.click();
+              }}
+              aria-label="Change intro video"
+              aria-disabled={isBusy}
+            >
+              {introPreview ? (
+                // eslint-disable-next-line jsx-a11y/media-has-caption
+                <video
+                  src={introPreview}
+                  className="w-full h-full object-cover"
+                  controls
+                />
+              ) : (
+                <div className="w-full h-full grid place-items-center text-white/60">
+                  No intro video
+                </div>
+              )}
+
+              {(introBusy || isBusy) && (
+                <div className="absolute inset-0 bg-black/40 grid place-items-center">
+                  <span className="text-xs text-white/90">Uploading…</span>
+                </div>
+              )}
+            </div>
+
+            <input
+              type="file"
+              ref={introInputRef}
+              accept="video/*"
+              className="hidden"
+              disabled={isBusy}
+              onChange={(e) => {
+                if (isBusy) return;
+                const f = e.target.files?.[0] || null;
+                if (validateVideo(f)) setIntroFile(f);
+              }}
+            />
+
+            <div className="mt-3 flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  if (!isBusy) introInputRef.current?.click();
+                }}
+                className={`text-sm inline-flex justify-center items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/15 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 ${isBusy ? "cursor-not-allowed" : "cursor-pointer"}`}
+                disabled={isBusy}
+              >
+                <Upload className="h-4 w-4" /> Upload Intro Video
+              </button>
+              {introFile ? (
+                <button
+                  type="button"
+                  className="btn btn-sm hover:text-muted disabled:cursor-not-allowed disabled:opacity-60"
+                  onClick={() => {
+                    if (isBusy) return;
+                    setIntroFile(null);
+                  }}
+                  disabled={isBusy}
+                >
+                  Remove Video
+                </button>
+              ) : null}
+            </div>
+
+            <p className="mt-2 text-xs text-white/50">
+              Max size {MAX_MB_VIDEO}MB • MP4, WebM (recommended)
+            </p>
           </div>
         </div>
       </div>

@@ -140,6 +140,17 @@ const userApi = api.injectEndpoints({
       }),
       invalidatesTags: ["user"],
     }),
+    revokeAllSessionsByAccountPassword: builder.mutation<
+      { data: null },
+      { email: string; password: string }
+    >({
+      query: (body) => ({
+        url: "/auth/session/revoke-by-account-password",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["user"],
+    }),
     getAuthor: builder.query<{ data: IUser }, undefined>({
       query: () => {
         return {
@@ -167,4 +178,5 @@ export const {
   useChangePasswordMutation,
   useGetAuthorQuery,
   useRegisterFanMutation,
+  useRevokeAllSessionsByAccountPasswordMutation,
 } = userApi;

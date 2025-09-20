@@ -16,7 +16,7 @@ import {
   TiktokIcon,
   YTMusicIcon,
 } from "@/icons";
-import { GlobeIcon, Youtube } from "lucide-react";
+import { GlobeIcon, PlayCircle, Youtube } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -217,6 +217,18 @@ const ArtistDetailsView = async ({ userName }: { userName: string }) => {
                     >
                       <GlobeIcon className="max-h-4.5 max-w-4.5 w-full h-full" />
                       Website
+                    </Link>
+                  </li>
+                )}
+                {socials.playlist && (
+                  <li className="inline-flex items-center gap-2">
+                    <Link
+                      className="hover:text-brand-4/70 transition-all duration-300 flex items-center gap-2"
+                      href={socials.playlist}
+                      target="_blank"
+                    >
+                      <PlayCircle className="max-h-4.5 max-w-4.5 w-full h-full" />
+                      Playlist
                     </Link>
                   </li>
                 )}

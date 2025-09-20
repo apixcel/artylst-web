@@ -412,4 +412,44 @@
     width: max-content;
     animation: slide 20s linear infinite;
   }
+
+  .rmdp-input {
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+  }
+
+  .rmdp-week .sd {
+    color: #ffffff !important;
+  }
+
+  .rmdp-week-day {
+    color: #87dbe9 !important;
+    font-weight: 700 !important;
+  }
+
+  .rmdp-day.rmdp-selected span:not(.highlight) {
+    background-color: var(--color-primary) !important;
+  }
+
+  .rmdp-day.rmdp-today span {
+    background-color: rgb(255, 255, 255) !important;
+    color: var(--color-primary) !important;
+  }
+
+  .rmdp-header-values {
+    color: #ffffff !important;
+  }
+
+  .rmdp-shadow {
+    box-shadow: none !important;
+  }
+
+  .rmdp-range {
+    background-color: #ffffff38 !important;
+  }
+
+  .rmdp-day.rmdp-selected span:not(.highlight) {
+    color: #ffffff !important;
+  }
 }

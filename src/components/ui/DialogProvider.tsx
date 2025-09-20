@@ -38,9 +38,9 @@ const DialogProvider: React.FC<PropsType> = ({
   if (!state) return null;
 
   return createPortal(
-    <div className="flex items-center justify-center fixed top-0 left-0 z-[999] h-full w-full overflow-y-auto">
+    <div className="flex items-center justify-center fixed top-0 left-0 z-[999] h-full w-full overflow-y-auto backdrop-blur-[8px]">
       <div
-        className="absolute top-0 left-0 z-[99] h-full w-full bg-black/40"
+        className="absolute top-0 left-0 z-[99] h-full w-full bg-black/60"
         onClick={() => setState(false)}
       ></div>
       <div

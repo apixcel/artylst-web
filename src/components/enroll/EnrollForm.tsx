@@ -8,7 +8,7 @@ import { DateObject } from "react-multi-date-picker";
 import { toast } from "sonner";
 import * as Yup from "yup";
 
-import { DateSelector, Dropdown, Input } from "@/components";
+import { DateSelector, Dropdown, Input, MultiDropdown } from "@/components";
 import { useAppDispatch, useDebounce } from "@/hooks";
 import { DropdownOption, IQueryMutationErrorResponse } from "@/interface";
 import { TGender } from "@/interface/user.interface";
@@ -17,6 +17,7 @@ import {
   useRegisterArtistMutation,
 } from "@/redux/features/auth/auth.api";
 import { setUser } from "@/redux/features/auth/user.slice";
+import { useGetGenresQuery } from "@/redux/features/meta/meta.api";
 
 const genderOptions: DropdownOption<TGender>[] = [
   { label: "He/him", value: "male" },
@@ -32,6 +33,7 @@ interface FormValues {
   email: string;
   password: string;
   confirmPassword: string;
+  genre: DropdownOption<string>[];
 }
 
 const usernameRegex = /^[a-zA-Z0-9._-]+$/;
@@ -45,6 +47,7 @@ const initialValues: FormValues = {
   email: "",
   password: "",
   confirmPassword: "",
+  genre: [],
 };
 
 const validationSchema = Yup.object({
@@ -101,12 +104,27 @@ const validationSchema = Yup.object({
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password")], "Passwords must match")
     .required("Please confirm your password"),
+  genre: Yup.array()
+    .of(
+      Yup.object({
+        label: Yup.string().required(),
+        value: Yup.string().required(),
+      })
+    )
+    .min(1, "Please choose at least one genre")
+    .required("Please choose at least one genre"),
 });
 
 const EnrollForm = () => {
   const [registerArtist, { isLoading }] = useRegisterArtistMutation();
   const [checkUsernameTrigger, { isLoading: isUsernameChecking }] =
     useCheckArtistUserNameMutation();
+
+  const { data: genresData } = useGetGenresQuery({});
+  const genreOptions: DropdownOption<string>[] = (genresData?.data || []).map((g) => ({
+    label: g.label,
+    value: g._id,
+  }));
 
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -165,6 +183,7 @@ const EnrollForm = () => {
       email: values.email.trim().toLowerCase(),
       password: values.password,
       isEmailVerified: false,
+      genre: values.genre.map((g) => g.value),
     };
 
     const res = await registerArtist(payload);
@@ -192,7 +211,16 @@ const EnrollForm = () => {
         onSubmit={handleSubmit}
         validateOnMount
       >
-        {({ values, errors, touched, handleChange, handleBlur, setFieldValue }) => (
+        {({
+          values,
+          errors,
+          touched,
+          handleChange,
+          handleBlur,
+          setFieldValue,
+          setFieldTouched,
+          submitCount,
+        }) => (
           <Form className="flex flex-col gap-4">
             <div className="sm:grid-cols-2 grid gap-4">
               {/* full name */}
@@ -337,6 +365,24 @@ const EnrollForm = () => {
                 />
                 {touched.email && errors.email && (
                   <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+                )}
+              </div>
+
+              {/* genres */}
+              <div className="col-span-2">
+                <label className="text-[16px] font-[500] block mb-[8px]">Genres</label>
+                <MultiDropdown
+                  options={genreOptions}
+                  values={values.genre}
+                  onChange={(e) => {
+                    setFieldValue("genre", e);
+                    setFieldTouched("genre", true, false);
+                  }}
+                  className="w-full"
+                  buttonClassName="!bg-brand-2/10 !py-3 !rounded-2xl"
+                />
+                {errors.genre && (touched.genre || submitCount > 0) && (
+                  <p className="text-red-400 text-sm mt-1">{errors.genre as string}</p>
                 )}
               </div>
 
