@@ -54,15 +54,20 @@ export default function NotificationDropdown({
 
   useEffect(() => {
     if (!isOpen) return;
+    const IGNORE_SELECTORS = ["#notif-dialog"];
 
     const onDocClick = (e: MouseEvent) => {
-      if (!containerRef.current?.contains(e.target as Node)) setOpen(false);
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
+      if (containerRef.current?.contains(target)) return;
+      if (IGNORE_SELECTORS.some((sel) => target.closest(sel))) return;
+
+      setOpen(false);
     };
 
     document.addEventListener("mousedown", onDocClick);
-    return () => {
-      document.removeEventListener("mousedown", onDocClick);
-    };
+    return () => document.removeEventListener("mousedown", onDocClick);
   }, [isOpen, setOpen]);
 
   return (

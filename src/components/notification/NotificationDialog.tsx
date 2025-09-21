@@ -34,8 +34,7 @@ const NotificationDialog: React.FC<IProps> = ({ isOpen, setIsOpen, notification 
       <DialogProvider state={state} setState={setState} className="w-full max-w-lg">
         {notification && (
           <div
-            role="dialog"
-            aria-modal="true"
+            id="notif-dialog"
             className="rounded-2xl border border-white/10 bg-white/10 p-5 md:p-6 shadow-2xl backdrop-saturate-150"
           >
             {/* Header */}
