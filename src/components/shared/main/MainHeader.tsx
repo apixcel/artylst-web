@@ -1,6 +1,6 @@
 "use client";
 
-import { MobileNav, NavSearch, UserDropdown } from "@/components";
+import { MobileNav, NavSearch, NotificationDropdown, UserDropdown } from "@/components";
 import { mainNavLinks } from "@/constants";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { IUser } from "@/interface";
@@ -92,9 +92,11 @@ const MainHeader = () => {
 
           <div className="flex items-center justify-end gap-4 lg:flex-1">
             {/* search */}
-            <div className="lg:block hidden max-w-[480px] w-full">
-              <NavSearch />
+            <div className="flex items-center gap-1">
+              <NavSearch className="lg:block hidden max-w-[480px] w-full" />
             </div>
+
+            {isProfilePage ? "" : <NotificationDropdown />}
 
             {/* login */}
             {user ? (

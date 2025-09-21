@@ -1,8 +1,9 @@
 import { Search } from "lucide-react";
+import { twMerge } from "tailwind-merge";
 
-const NavSearch = () => {
+const NavSearch = ({ className }: { className?: string }) => {
   return (
-    <div className="relative">
+    <div className={twMerge("relative", className)}>
       <Search className="absolute w-4.5 h-4.5 left-3 top-1/2 -translate-y-1/2 text-white/40" />
       <input
         type="text"

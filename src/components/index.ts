@@ -14,7 +14,7 @@ export { default as DialogProvider } from "./ui/DialogProvider";
 export { default as NavSearch } from "./shared/header/NavSearch";
 export { default as BrowseSlider } from "./shared/BrowseSlider";
 export { default as Dropdown } from "./shared/Dropdown";
-export { default as NotificationDropdown } from "./shared/NotificationDropdown";
+export { default as NotificationDropdown } from "./notification/NotificationDropdown";
 export { default as Review } from "./shared/Review";
 export { default as MobileNav } from "./shared/MobileNav";
 export { default as DashboardMobileNav } from "./shared/DashboardMobileNav";
