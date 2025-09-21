@@ -1,11 +1,47 @@
 "use client";
 
-import { ProfileCompletenessMeter, UserDropdown } from "@/components";
+import {
+  NotificationDropdown,
+  ProfileCompletenessMeter,
+  UserDropdown,
+} from "@/components";
+import { businessAvatarFallback } from "@/constants/fallBack";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { IUser } from "@/interface/user.interface";
 import { useLogoutMutation } from "@/redux/features/auth/auth.api";
 import { logout as logoutAction } from "@/redux/features/auth/user.slice";
 import { AlignJustify } from "lucide-react";
+
+const sample = [
+  {
+    _id: "1",
+    title: "Jonathan Smith place order #123456",
+    user: { name: "Jonathon Smith", avatar: "/avatars/1.jpg" },
+    timeAgo: "9 hours ago",
+    read: false,
+  },
+  {
+    _id: "2",
+    title: "Welcome to the app",
+    user: { name: "Jonathon Smith", avatar: businessAvatarFallback },
+    read: true,
+    timeAgo: "9 hours ago",
+  },
+  {
+    _id: "3",
+    title: "Billing updated",
+    user: { name: "Jonathon Smith", avatar: businessAvatarFallback },
+    read: false,
+    timeAgo: "9 hours ago",
+  },
+  {
+    _id: "4",
+    title: "New comment on your post",
+    user: { name: "Jonathon Smith", avatar: businessAvatarFallback },
+    read: false,
+    timeAgo: "9 hours ago",
+  },
+];
 
 const ArtistDeskTopBar = ({
   isMobileMenuOpen,
@@ -58,8 +94,19 @@ const ArtistDeskTopBar = ({
             </div>
           </div>
 
-          {user && (
-            <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4">
+            <NotificationDropdown
+              items={sample}
+              align="right"
+              allHref="/dashboard/notifications"
+              onMarkAllRead={() => Promise.resolve()}
+              footer={[
+                { type: "separator" },
+                { type: "button", label: "Clear all", onClick: () => {} },
+              ]}
+            />
+
+            {user && (
               <UserDropdown
                 user={user as IUser}
                 align="right"
@@ -70,8 +117,8 @@ const ArtistDeskTopBar = ({
                 ]}
                 className="ml-auto"
               />
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </header>
       <ProfileCompletenessMeter />

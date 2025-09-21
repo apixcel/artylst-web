@@ -3,6 +3,7 @@ export * from "./queryMutationErrorResponse";
 export * from "./meta";
 export * from "./dropdown.interface";
 export * from "./meta/meta.interface";
+export * from "./notification.interface";
 
 // user
 export * from "./user.interface";

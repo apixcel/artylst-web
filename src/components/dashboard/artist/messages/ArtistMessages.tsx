@@ -13,6 +13,8 @@ import {
   AlertTriangle,
   FileText,
 } from "lucide-react";
+import { businessAvatarFallback } from "@/constants/fallBack";
+import Image from "next/image";
 
 // -------------------------------------------------
 // Demo data (swap with your API)
@@ -226,18 +228,11 @@ const ArtistMessages = () => {
       <div className="grid xl:grid-cols-3 gap-4">
         {/* LEFT: Thread list */}
         <div className="rounded-2xl p-4 border border-white/10 bg-white/5 flex flex-col">
-          <div className="flex items-center justify-between">
-            <div className="text-sm text-white/60">Threads</div>
-            <button className="px-2 py-1 rounded-lg bg-white/10 text-xs inline-flex items-center gap-2">
-              <Filter className="h-3.5 w-3.5" /> Filters
-            </button>
-          </div>
-
           <div className="mt-2 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
             <Search className="h-4 w-4 text-white/60" />
             <input
               className="bg-transparent flex-1 py-2 outline-none text-sm"
-              placeholder="Search by order, artist, message"
+              placeholder="Search messages"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
             />
@@ -301,118 +296,135 @@ const ArtistMessages = () => {
         </div>
 
         {/* RIGHT: Active conversation */}
-        <div className="xl:col-span-2 rounded-2xl p-4 border border-white/10 bg-white/5 flex flex-col min-h-[620px]">
+        <div className="xl:col-span-2 rounded-2xl border border-white/10 bg-white/5 flex flex-col min-h-[620px]">
           {/* Header */}
-          <div className="flex items-start justify-between">
+          <div className="flex items-start justify-between bg-white/10 rounded-t-2xl p-4">
             <div>
-              <div className="text-sm text-white/60">
-                #{activeThread.orderId} • {activeThread.artist}
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10">
+                  <Image
+                    src={businessAvatarFallback}
+                    alt="avatar"
+                    width={60}
+                    height={60}
+                    className="rounded-full w-full h-full object-cover"
+                  />
+                </div>
+                <h4>Jonathan Smith</h4>
               </div>
-              <div className="mt-1 flex items-center gap-2">
-                <StatusChip status={activeThread.status} />
-                <Link
-                  href={`/orders/${activeThread.orderId}`}
-                  className="text-xs underline inline-flex items-center gap-1"
-                >
-                  <FileText className="h-3.5 w-3.5" /> View order
-                </Link>
-                {activeThread.status === "delivered" && (
-                  <button className="text-xs underline inline-flex items-center gap-1">
-                    <AlertTriangle className="h-3.5 w-3.5" /> Request revision
-                  </button>
-                )}
+
+              <div>
+                <div className="text-sm text-white/60">
+                  #{activeThread.orderId} • {activeThread.artist}
+                </div>
+                <div className="mt-1 flex items-center gap-2">
+                  <StatusChip status={activeThread.status} />
+                  <Link
+                    href={`/orders/${activeThread.orderId}`}
+                    className="text-xs underline inline-flex items-center gap-1"
+                  >
+                    <FileText className="h-3.5 w-3.5" /> View order
+                  </Link>
+                  {activeThread.status === "delivered" && (
+                    <button className="text-xs underline inline-flex items-center gap-1">
+                      <AlertTriangle className="h-3.5 w-3.5" /> Request revision
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
             <button className="px-2 py-1 rounded-lg bg-white/10 border border-white/10 text-xs inline-flex items-center gap-1">
-              <MoreVertical className="h-3.5 w-3.5" /> More
+              <MoreVertical className="h-3.5 w-3.5" />
             </button>
           </div>
 
-          {/* Messages list */}
-          <div ref={listRef} className="mt-5 flex-1 overflow-auto space-y-1 text-sm">
-            {messages.map((m) => (
-              <div
-                key={m.id}
-                className={`max-w-[80%] flex gap-2 ${m.from === "me" ? "justify-end ml-auto" : ""}`}
-              >
+          <div className="p-4">
+            {/* Messages list */}
+            <div ref={listRef} className="mt-5 flex-1 overflow-auto space-y-1 text-sm">
+              {messages.map((m) => (
                 <div
-                  className={`p-3 rounded-lg border w-max ${
-                    m.from === "me"
-                      ? "bg-brand-4/20 border-white/10"
-                      : "bg-white/5 border-white/10"
-                  }`}
+                  key={m.id}
+                  className={`max-w-[80%] flex gap-2 ${m.from === "me" ? "justify-end ml-auto" : ""}`}
                 >
-                  {m.text && <div>{m.text}</div>}
-                  {m.fileName && (
-                    <div className="flex items-center gap-2">
-                      <Paperclip className="h-4 w-4" />
-                      <span>{m.fileName}</span>
-                    </div>
-                  )}
-                </div>
-                <div className="text-[11px] text-white/50 mt-1 flex items-center gap-1 justify-end">
-                  {m.from === "me" &&
-                    (m.read ? (
-                      <CheckCheck className="h-3 w-3" />
-                    ) : (
-                      <Check className="h-3 w-3" />
-                    ))}
-                  <span>{m.ts}</span>
-                </div>
-              </div>
-            ))}
-
-            {typing && (
-              <div className="max-w-[80%]">
-                <div className="p-3 rounded-lg border bg-white/5 border-white/10 w-max">
-                  <div className="flex items-center gap-1">
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/60 animate-bounce [animation-delay:-0.2s]" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/60 animate-bounce" />
-                    <span className="h-1.5 w-1.5 rounded-full bg-white/60 animate-bounce [animation-delay:0.2s]" />
+                  <div
+                    className={`p-3 rounded-lg border w-max ${
+                      m.from === "me"
+                        ? "bg-brand-4/20 border-white/10"
+                        : "bg-white/5 border-white/10"
+                    }`}
+                  >
+                    {m.text && <div>{m.text}</div>}
+                    {m.fileName && (
+                      <div className="flex items-center gap-2">
+                        <Paperclip className="h-4 w-4" />
+                        <span>{m.fileName}</span>
+                      </div>
+                    )}
+                  </div>
+                  <div className="text-[11px] text-white/50 mt-1 flex items-center gap-1 justify-end">
+                    {m.from === "me" &&
+                      (m.read ? (
+                        <CheckCheck className="h-3 w-3" />
+                      ) : (
+                        <Check className="h-3 w-3" />
+                      ))}
+                    <span>{m.ts}</span>
                   </div>
                 </div>
-                <div className="text-[11px] text-white/50 mt-1">Typing…</div>
-              </div>
-            )}
-          </div>
+              ))}
 
-          {/* Quick replies */}
-          <div className="mt-3 flex flex-wrap gap-2">
-            {quickReplies.map((t) => (
+              {typing && (
+                <div className="max-w-[80%]">
+                  <div className="p-3 rounded-lg border bg-white/5 border-white/10 w-max">
+                    <div className="flex items-center gap-1">
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/60 animate-bounce [animation-delay:-0.2s]" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/60 animate-bounce" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/60 animate-bounce [animation-delay:0.2s]" />
+                    </div>
+                  </div>
+                  <div className="text-[11px] text-white/50 mt-1">Typing…</div>
+                </div>
+              )}
+            </div>
+
+            {/* Quick replies */}
+            <div className="mt-3 flex flex-wrap gap-2">
+              {quickReplies.map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setComposer((prev) => (prev ? prev + " " : "") + t)}
+                  className="px-2.5 py-1 rounded-full text-xs border border-white/10 bg-white/5 hover:bg-white/10"
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+
+            {/* Composer */}
+            <div className="mt-3 flex items-end gap-2">
+              <label className="h-10 w-10 grid place-items-center rounded-lg bg-white/10 border border-white/10 cursor-pointer">
+                <input type="file" multiple className="hidden" />
+                <Paperclip className="h-4 w-4" />
+              </label>
+              <textarea
+                className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2 resize-y custom-scrollbar"
+                placeholder="Type a message…"
+                value={composer}
+                onChange={(e) => setComposer(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    sendMessage();
+                  }
+                }}
+              />
               <button
-                key={t}
-                onClick={() => setComposer((prev) => (prev ? prev + " " : "") + t)}
-                className="px-2.5 py-1 rounded-full text-xs border border-white/10 bg-white/5 hover:bg-white/10"
+                onClick={sendMessage}
+                className="px-3 py-2 rounded-lg bg-brand-4/60 inline-flex items-center gap-2"
               >
-                {t}
+                <Send className="h-4 w-4" /> Send
               </button>
-            ))}
-          </div>
-
-          {/* Composer */}
-          <div className="mt-3 flex items-end gap-2">
-            <label className="h-10 w-10 grid place-items-center rounded-lg bg-white/10 border border-white/10 cursor-pointer">
-              <input type="file" multiple className="hidden" />
-              <Paperclip className="h-4 w-4" />
-            </label>
-            <textarea
-              className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2 min-h-[44px] max-h-40 resize-y custom-scrollbar"
-              placeholder="Type a message…"
-              value={composer}
-              onChange={(e) => setComposer(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  sendMessage();
-                }
-              }}
-            />
-            <button
-              onClick={sendMessage}
-              className="px-3 py-2 rounded-lg bg-brand-4/60 inline-flex items-center gap-2"
-            >
-              <Send className="h-4 w-4" /> Send
-            </button>
+            </div>
           </div>
         </div>
       </div>

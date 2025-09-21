@@ -336,7 +336,7 @@ export default function ArtistProfileView() {
       </div>
 
       {/* Content card */}
-      <div className="xl:col-span-2 rounded-2xl p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-6">
+      <div className="xl:col-span-2 rounded-2xl p-4 sm:p-6 border border-white/10 bg-gradient-to-b from-brand-2/10 to-brand-1/10 backdrop-blur-2xl space-y-6">
         {/* avatar and cover image */}
         <ArtistMedia />
 
@@ -404,7 +404,9 @@ export default function ArtistProfileView() {
               isSaving={saving.genre}
             />
           </div>
-          <div className="text-xs text-muted mt-2">Pick up to {MAX_GENRES} genres.</div>
+          <div className="text-xs text-muted mt-2">
+            Pick up to {MIN_GENRES} to {MAX_GENRES} genres.
+          </div>
         </div>
 
         {/* Locale */}
@@ -413,7 +415,7 @@ export default function ArtistProfileView() {
             {/* Language */}
             <div>
               <label className="text-sm text-white/60">Language</label>
-              <Dropdown<string>
+              <Dropdown
                 value={
                   languageOptions.find((o) => o.value === form.language.value) ?? null
                 }
@@ -424,7 +426,7 @@ export default function ArtistProfileView() {
                 placeholder="Select language"
                 className="w-full mt-1"
                 buttonClassName="w-full"
-                panelClassName="w-full"
+                panelClassName="w-full bg-black !backdrop-blur-2xl"
               />
             </div>
             <div>
@@ -487,15 +489,15 @@ export default function ArtistProfileView() {
           </div>
           <div className="mt-3 text-xs text-white/60">
             Manage at{" "}
-            <Link href="/streaming" className="underline">
+            <Link href="/dashboard/streaming" className="underline">
               /streaming
             </Link>{" "}
             •{" "}
-            <Link href="/kyc" className="underline">
+            <Link href="/dashboard/kyc" className="underline">
               /kyc
             </Link>{" "}
             •{" "}
-            <Link href="/availability" className="underline">
+            <Link href="/dashboard/availability" className="underline">
               /availability
             </Link>
           </div>

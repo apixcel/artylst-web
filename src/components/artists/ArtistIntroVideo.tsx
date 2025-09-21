@@ -87,12 +87,23 @@ export default function ArtistIntroVideo({ introVideo }: { introVideo: string })
 
                 <div className="aspect-video w-full overflow-hidden rounded-2xl shadow-2xl bg-black">
                   <video
-                    src={introVideo || "/videos/home-hero.mp4"}
+                    // src={introVideo || "/videos/home-hero.mp4"}
                     className="w-full h-full"
                     autoPlay
                     loop
                     controls
-                  />
+                    playsInline
+                    muted
+                    poster="/videos/home-hero.jpg"
+                  >
+                    <source
+                      src={(introVideo || "/videos/home-hero.mp4").replace(
+                        "/upload/",
+                        "/upload/f_mp4,vc_h264,q_auto/"
+                      )}
+                      type="video/mp4"
+                    />
+                  </video>
                 </div>
               </div>
             </div>,

@@ -2,7 +2,6 @@
 
 import { CheckCircle2, Sparkles, X } from "lucide-react";
 import { useGetArtistProfileCompletenessQuery } from "@/redux/features/artist/artist.api";
-import ProfileCompletenessSkeleton from "./ProfileCompletenessSkeleton";
 import { useEffect, useState } from "react";
 import { cn } from "@/utils";
 
@@ -55,6 +54,13 @@ const ProfileCompletenessMeter = () => {
     document.title = `Profile Completeness - ${completedPercent}%`;
   }, [completedPercent]);
 
+  if (isLoading) return <></>;
+
+  const ordered = (
+    requiredFields?.length ? requiredFields : [...completed, ...pending]
+  ) as string[];
+  const completedSet = new Set(completed);
+
   const renderField = (field: string, isCompleted: boolean) => {
     const { label, description } = getLabel(field);
 
@@ -94,13 +100,6 @@ const ProfileCompletenessMeter = () => {
       </li>
     );
   };
-
-  if (isLoading) return <ProfileCompletenessSkeleton />;
-
-  const ordered = (
-    requiredFields?.length ? requiredFields : [...completed, ...pending]
-  ) as string[];
-  const completedSet = new Set(completed);
 
   return (
     <div
