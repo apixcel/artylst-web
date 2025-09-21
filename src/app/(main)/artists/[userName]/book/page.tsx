@@ -1,6 +1,5 @@
 "use client";
 import { useAppSelector } from "@/hooks";
-import { IUser } from "@/interface";
 import { ArtistBookView } from "@/view";
 import { useRouter } from "next/navigation";
 
@@ -11,7 +10,7 @@ const ArtistBookPage = () => {
 
   if (role === "artist") return router.push("/");
 
-  return <ArtistBookView user={user as IUser} />;
+  return <ArtistBookView />;
 };
 
 export default ArtistBookPage;

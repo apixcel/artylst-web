@@ -127,7 +127,9 @@ const FanOrdersView = () => {
                 <tr key={row._id} className="border-b border-white/5">
                   <td className="py-3 pr-6">#{row.orderId}</td>
                   <td className="py-3 pr-6">
-                    {typeof row.artist === "string" ? row.artist : row.artist.fullName}
+                    {typeof row.artist === "string"
+                      ? row.artist
+                      : row.artist?.fullName || "-"}
                   </td>
                   <td className="py-3 pr-6">{row.tier}</td>
                   <td className="py-3 pr-6 capitalize">{row.platform}</td>
@@ -192,7 +194,9 @@ const FanOrdersView = () => {
               <div className="mt-2 grid grid-cols-2 gap-y-1 gap-x-3 text-sm">
                 <div className="text-white/60">Artist</div>
                 <div>
-                  {typeof row.artist === "string" ? row.artist : row.artist.fullName}
+                  {typeof row.artist === "string"
+                    ? row.artist
+                    : row.artist?.fullName || "-"}
                 </div>
 
                 <div className="text-white/60">Tier</div>

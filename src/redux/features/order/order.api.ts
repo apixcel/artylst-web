@@ -43,7 +43,7 @@ const orderApi = api.injectEndpoints({
       providesTags: ["order"],
     }),
     createFanOrder: builder.mutation<
-      { data: { order: IOrder; fan?: IFan; accessToken?: string } },
+      { data: { order: IOrder; fan?: IFan; accessToken?: string; sessionUrl: string } },
       Partial<IOrder>
     >({
       query: (payload) => {

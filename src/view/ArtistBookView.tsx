@@ -13,17 +13,18 @@ import {
   CheckoutTier,
 } from "@/components";
 import CheckoutSkeleton from "@/components/shared/CheckoutSkeleton";
-import { IQueryMutationErrorResponse, IUser } from "@/interface";
+import { businessAvatarFallback } from "@/constants/fallBack";
+import { useAppSelector } from "@/hooks";
+import { IQueryMutationErrorResponse } from "@/interface";
 import { IOrder } from "@/interface/order.interface";
 import { useGetArtistProfileByUserNameQuery } from "@/redux/features/artist/artist.api";
+import { useGetPricingTierByUserNameQuery } from "@/redux/features/artist/pricingTier.api";
 import { useCreateFanOrderMutation } from "@/redux/features/order/order.api";
 import numberUtils from "@/utils/number";
+import Cookies from "js-cookie";
+import Image from "next/image";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import Image from "next/image";
-import { businessAvatarFallback } from "@/constants/fallBack";
-import Cookies from "js-cookie";
-import { useGetPricingTierByUserNameQuery } from "@/redux/features/artist/pricingTier.api";
 
 // ---- Types
 type FormValues = {
@@ -75,7 +76,9 @@ const stepSchemas = [
 
 const stepsLabels = ["1. Choose tier", "2. Brief", "3. Add-ons", "4. Pay"] as const;
 
-const ArtistBookView = ({ user }: { user: IUser }) => {
+const ArtistBookView = () => {
+  const { user } = useAppSelector((state) => state.user);
+
   const params = useParams();
   const userName = params.userName as string;
   const router = useRouter();
@@ -167,13 +170,19 @@ const ArtistBookView = ({ user }: { user: IUser }) => {
 
     const res = await createOrder(payload);
     const error = res.error as IQueryMutationErrorResponse;
+    const responseData = res.data;
 
     if (error) {
-      toast.error(error.data.message);
+      toast.error(error.data?.message);
       return;
     }
-    router.push(`/profile/orders`);
-    toast.success("Order created successfully");
+
+    if (responseData?.data?.sessionUrl) {
+      window.location.href = responseData.data.sessionUrl;
+    } else {
+      router.push(`/profile/orders`);
+      toast.success("Order created successfully");
+    }
   };
 
   return (
