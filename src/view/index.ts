@@ -11,6 +11,7 @@ export { default as OrdersPageView } from "./dashboard/OrderView";
 export { default as SettingsView } from "./dashboard/SettingsView";
 export { default as MessagesView } from "./dashboard/MessagesView";
 export { default as DashboardHomeView } from "./dashboard/DashboardHomeView";
+export { default as NotificationsView } from "./dashboard/NotificationsView";
 
 //dashboard/artist
 export { default as ArtistBusinessTiersView } from "./dashboard/artist/ArtistBusinessTiersView";

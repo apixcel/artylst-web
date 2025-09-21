@@ -8,11 +8,13 @@ export { default as RichTextArea } from "./ui/RichTextArea";
 export { default as Textarea } from "./ui/Textarea";
 export { default as Loader } from "./ui/Loader";
 export { default as FormErrorMessage } from "./ui/FormErrorMessage";
+export { default as DialogProvider } from "./ui/DialogProvider";
 
 /* shared */
 export { default as NavSearch } from "./shared/header/NavSearch";
 export { default as BrowseSlider } from "./shared/BrowseSlider";
 export { default as Dropdown } from "./shared/Dropdown";
+export { default as NotificationDropdown } from "./shared/NotificationDropdown";
 export { default as Review } from "./shared/Review";
 export { default as MobileNav } from "./shared/MobileNav";
 export { default as DashboardMobileNav } from "./shared/DashboardMobileNav";
