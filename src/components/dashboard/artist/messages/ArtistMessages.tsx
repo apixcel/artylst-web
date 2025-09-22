@@ -1,24 +1,9 @@
 "use client";
 
-import React, { useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
-import {
-  Search,
-  Filter,
-  Paperclip,
-  Send,
-  MoreVertical,
-  CheckCheck,
-  Check,
-  AlertTriangle,
-  FileText,
-} from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { Search, Paperclip, Send, MoreVertical, CheckCheck, Check } from "lucide-react";
 import { businessAvatarFallback } from "@/constants/fallBack";
 import Image from "next/image";
-
-// -------------------------------------------------
-// Demo data (swap with your API)
-// -------------------------------------------------
 
 type Status = "in_progress" | "delivered" | "revisions" | "disputed";
 
@@ -107,62 +92,17 @@ const MESSAGES: Record<number, Message[]> = {
   ],
 };
 
-// -------------------------------------------------
-// Small UI helpers
-// -------------------------------------------------
-
-const Chip = ({
-  children,
-  className = "",
-}: React.PropsWithChildren<{ className?: string }>) => (
-  <span
-    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs border border-white/10 bg-white/5 ${className}`}
-  >
-    {children}
-  </span>
-);
-
-const StatusChip = ({ status }: { status: Status }) => {
-  const map: Record<Status, { label: string; cls: string }> = {
-    in_progress: {
-      label: "In progress",
-      cls: "bg-yellow-500/10 text-yellow-500 border-yellow-500/20",
-    },
-    delivered: {
-      label: "Delivered",
-      cls: "bg-green-500/10 text-green-500 border-green-500/20",
-    },
-    revisions: {
-      label: "Revisions",
-      cls: "bg-blue-500/10 text-blue-400 border-blue-500/20",
-    },
-    disputed: { label: "Disputed", cls: "bg-red-500/10 text-red-500 border-red-500/20" },
-  };
-  const s = map[status];
-  return <Chip className={s.cls}>{s.label}</Chip>;
-};
-
-// -------------------------------------------------
-// Main component
-// -------------------------------------------------
-
 const ArtistMessages = () => {
   const [threads] = useState<Thread[]>(THREADS);
   const [activeId, setActiveId] = useState<number>(threads[0]?.id ?? 1);
   const [query, setQuery] = useState("");
-  const [showUnreadOnly, setShowUnreadOnly] = useState(false);
   const [composer, setComposer] = useState("");
-  const [typing, setTyping] = useState(false); // fake typing indicator demo
+  const [typing, setTyping] = useState(false);
 
   const listRef = useRef<HTMLDivElement>(null);
 
-  const activeThread = useMemo(
-    () => threads.find((t) => t.id === activeId)!,
-    [threads, activeId]
-  );
   const [messages, setMessages] = useState<Message[]>(MESSAGES[activeId] || []);
 
-  // When switching threads, load messages and scroll to bottom
   useEffect(() => {
     setMessages(MESSAGES[activeId] || []);
     setTimeout(
@@ -175,23 +115,12 @@ const ArtistMessages = () => {
     );
   }, [activeId]);
 
-  // Simulate artist typing briefly when you focus composer
   useEffect(() => {
     if (!composer) return;
     setTyping(true);
     const t = setTimeout(() => setTyping(false), 1200);
     return () => clearTimeout(t);
   }, [composer]);
-
-  const filteredThreads = useMemo(() => {
-    return threads.filter((t) => {
-      const hit = `${t.orderId} ${t.artist} ${t.lastMessage}`
-        .toLowerCase()
-        .includes(query.toLowerCase());
-      const unreadOk = !showUnreadOnly || t.unread > 0;
-      return hit && unreadOk;
-    });
-  }, [threads, query, showUnreadOnly]);
 
   const quickReplies = [
     "Thanks for the update!",
@@ -222,10 +151,10 @@ const ArtistMessages = () => {
   };
 
   return (
-    <section className="space-y-6">
+    <section className="space-y-6 flex flex-col h-full">
       <h1 className="text-2xl md:text-3xl font-heading">Messages</h1>
 
-      <div className="grid xl:grid-cols-3 gap-4">
+      <div className="flex xl:flex-row flex-col gap-4 xl:h-[78vh]">
         {/* LEFT: Thread list */}
         <div className="rounded-2xl p-4 border border-white/10 bg-white/5 flex flex-col">
           <div className="mt-2 flex items-center gap-2 bg-white/10 border border-white/10 rounded-lg px-3">
@@ -238,18 +167,8 @@ const ArtistMessages = () => {
             />
           </div>
 
-          <label className="mt-2 inline-flex items-center gap-2 text-xs text-white/70 cursor-pointer select-none">
-            <input
-              type="checkbox"
-              className="accent-white/80"
-              checked={showUnreadOnly}
-              onChange={(e) => setShowUnreadOnly(e.target.checked)}
-            />
-            Unread only
-          </label>
-
           <div className="mt-3 space-y-2 overflow-auto max-h-[540px] pr-1">
-            {filteredThreads.map((t) => (
+            {threads.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setActiveId(t.id)}
@@ -265,20 +184,10 @@ const ArtistMessages = () => {
                 />
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between gap-2">
-                    <div className="font-heading truncate">
-                      #{t.orderId} • {t.artist}
-                    </div>
+                    <div className="font-heading truncate">{t.artist}</div>
                     <div className="text-[11px] text-white/50 whitespace-nowrap">
                       {t.updatedAt}
                     </div>
-                  </div>
-                  <div className="flex items-center gap-2 mt-0.5">
-                    <StatusChip status={t.status} />
-                    {t.unread > 0 && (
-                      <span className="ml-auto text-[10px] px-1.5 py-0.5 rounded-full bg-brand-500/30 border border-white/10">
-                        {t.unread}
-                      </span>
-                    )}
                   </div>
                   <div className="text-xs text-white/60 mt-1 truncate">
                     {t.lastMessage}
@@ -287,7 +196,7 @@ const ArtistMessages = () => {
               </button>
             ))}
 
-            {filteredThreads.length === 0 && (
+            {threads.length === 0 && (
               <div className="py-10 text-center text-white/70 text-sm">
                 No threads found
               </div>
@@ -296,10 +205,10 @@ const ArtistMessages = () => {
         </div>
 
         {/* RIGHT: Active conversation */}
-        <div className="xl:col-span-2 rounded-2xl border border-white/10 bg-white/5 flex flex-col min-h-[620px]">
+        <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 flex flex-col h-full">
           {/* Header */}
           <div className="flex items-start justify-between bg-white/10 rounded-t-2xl p-4">
-            <div>
+            <div className="flex gap-2">
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10">
                   <Image
@@ -310,42 +219,43 @@ const ArtistMessages = () => {
                     className="rounded-full w-full h-full object-cover"
                   />
                 </div>
-                <h4>Jonathan Smith</h4>
-              </div>
+                <div className="flex gap-2 items-start">
+                  <div>
+                    <h4>Jonathan Smith</h4>
+                    <p>@jsmith</p>
+                  </div>
 
-              <div>
-                <div className="text-sm text-white/60">
-                  #{activeThread.orderId} • {activeThread.artist}
-                </div>
-                <div className="mt-1 flex items-center gap-2">
-                  <StatusChip status={activeThread.status} />
-                  <Link
-                    href={`/orders/${activeThread.orderId}`}
-                    className="text-xs underline inline-flex items-center gap-1"
-                  >
-                    <FileText className="h-3.5 w-3.5" /> View order
-                  </Link>
-                  {activeThread.status === "delivered" && (
-                    <button className="text-xs underline inline-flex items-center gap-1">
-                      <AlertTriangle className="h-3.5 w-3.5" /> Request revision
-                    </button>
-                  )}
+                  <span className="text-xs text-brand-4 flex items-center gap-1 border border-brand-4 rounded-full px-2 py-[2px]">
+                    <span className="w-[5px] h-[5px] bg-brand-4 rounded-full" />
+                    Online
+                  </span>
                 </div>
               </div>
             </div>
-            <button className="px-2 py-1 rounded-lg bg-white/10 border border-white/10 text-xs inline-flex items-center gap-1">
-              <MoreVertical className="h-3.5 w-3.5" />
+            <button>
+              <MoreVertical className="h-4 w-4" />
             </button>
           </div>
 
-          <div className="p-4">
+          <div className="p-4 flex flex-col flex-1">
             {/* Messages list */}
             <div ref={listRef} className="mt-5 flex-1 overflow-auto space-y-1 text-sm">
               {messages.map((m) => (
                 <div
                   key={m.id}
-                  className={`max-w-[80%] flex gap-2 ${m.from === "me" ? "justify-end ml-auto" : ""}`}
+                  className={`max-w-[80%] flex gap-2 items-center ${m.from === "me" ? "justify-end ml-auto" : ""}`}
                 >
+                  {m.from === "them" && (
+                    <div className="w-6 h-6">
+                      <Image
+                        src={businessAvatarFallback}
+                        alt="avatar"
+                        width={60}
+                        height={60}
+                        className="rounded-full w-full h-full object-cover"
+                      />
+                    </div>
+                  )}
                   <div
                     className={`p-3 rounded-lg border w-max ${
                       m.from === "me"
@@ -401,26 +311,28 @@ const ArtistMessages = () => {
             </div>
 
             {/* Composer */}
-            <div className="mt-3 flex items-end gap-2">
-              <label className="h-10 w-10 grid place-items-center rounded-lg bg-white/10 border border-white/10 cursor-pointer">
-                <input type="file" multiple className="hidden" />
-                <Paperclip className="h-4 w-4" />
-              </label>
-              <textarea
-                className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2 resize-y custom-scrollbar"
-                placeholder="Type a message…"
-                value={composer}
-                onChange={(e) => setComposer(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey) {
-                    e.preventDefault();
-                    sendMessage();
-                  }
-                }}
-              />
+            <div className="mt-3 flex sm:flex-row flex-col sm:items-end gap-2">
+              <div className="flex gap-2 flex-1">
+                <label className="py-2.5 !w-10 grid place-items-center rounded-lg bg-white/10 border border-white/10 cursor-pointer">
+                  <input type="file" multiple className="hidden" />
+                  <Paperclip className="h-4 w-4" />
+                </label>
+                <input
+                  className="flex-1 bg-white/10 border border-white/10 rounded-lg px-3 py-2 resize-y custom-scrollbar w-full"
+                  placeholder="Type a message…"
+                  value={composer}
+                  onChange={(e) => setComposer(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      sendMessage();
+                    }
+                  }}
+                />
+              </div>
               <button
                 onClick={sendMessage}
-                className="px-3 py-2 rounded-lg bg-brand-4/60 inline-flex items-center gap-2"
+                className="px-3 py-[9px] rounded-lg bg-brand-4/60 inline-flex items-center gap-2 sm:justify-start justify-center"
               >
                 <Send className="h-4 w-4" /> Send
               </button>
