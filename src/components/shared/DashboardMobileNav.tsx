@@ -99,15 +99,6 @@ const Drawer = forwardRef<HTMLDivElement, DashboardMobileNavProps>(
       {/* Footer */}
       <div className="mt-auto p-3">
         <SidebarUserCard isOpen={isOpen} user={user} />
-
-        <div
-          className={cn(
-            "text-[11px] text-center text-white/50 mt-3",
-            !isOpen && "text-center"
-          )}
-        >
-          {isOpen ? "© 2025 ARTYLST" : "© 2025"}
-        </div>
       </div>
     </aside>
   )

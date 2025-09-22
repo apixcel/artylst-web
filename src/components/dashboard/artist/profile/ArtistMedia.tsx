@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { toast } from "sonner";
 import ArtistMediaSkeleton from "./ArtistMediaSkeleton";
+import { VideoUploader } from "@/components";
 
 const MAX_MB = 5;
 const MAX_MB_VIDEO = 200;
@@ -29,7 +30,6 @@ const ArtistMedia = () => {
 
   const avatarInputRef = useRef<HTMLInputElement>(null);
   const coverInputRef = useRef<HTMLInputElement>(null);
-  const introInputRef = useRef<HTMLInputElement>(null);
 
   const { data, isLoading, refetch } = useGetMyArtistProfileQuery(undefined);
   const profile = data?.data as IArtist | undefined;
@@ -75,21 +75,6 @@ const ArtistMedia = () => {
     }
     if (!isSmall) {
       toast.error(`Image must be less than ${MAX_MB}MB.`);
-      return false;
-    }
-    return true;
-  };
-
-  const validateVideo = (file: File | null) => {
-    if (!file) return false;
-    const isVideo = file.type.startsWith("video/");
-    const isSmall = file.size / (1024 * 1024) <= MAX_MB_VIDEO;
-    if (!isVideo) {
-      toast.error("Please select a video file.");
-      return false;
-    }
-    if (!isSmall) {
-      toast.error(`Video must be less than ${MAX_MB_VIDEO}MB.`);
       return false;
     }
     return true;
@@ -350,88 +335,20 @@ const ArtistMedia = () => {
 
         {/* intro video card */}
         <div className="desktop:col-span-2">
-          <div className="rounded-xl bg-white/5 border border-white/10 p-4 h-full">
-            <label className="text-sm text-muted">Intro video</label>
-
-            <div
-              className={`mt-3 h-40 md:h-48 rounded-lg bg-black/30 border border-white/10 relative overflow-hidden group/intro ${
-                isBusy ? "cursor-not-allowed opacity-60" : "cursor-pointer"
-              }`}
-              onClick={() => {
-                if (!isBusy) introInputRef.current?.click();
-              }}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => {
-                if (isBusy) return;
-                if (e.key === "Enter" || e.key === " ") introInputRef.current?.click();
-              }}
-              aria-label="Change intro video"
-              aria-disabled={isBusy}
-            >
-              {introPreview ? (
-                // eslint-disable-next-line jsx-a11y/media-has-caption
-                <video
-                  src={introPreview}
-                  className="w-full h-full object-cover"
-                  controls
-                />
-              ) : (
-                <div className="w-full h-full grid place-items-center text-white/60">
-                  No intro video
-                </div>
-              )}
-
-              {(introBusy || isBusy) && (
-                <div className="absolute inset-0 bg-black/40 grid place-items-center">
-                  <span className="text-xs text-white/90">Uploading…</span>
-                </div>
-              )}
-            </div>
-
-            <input
-              type="file"
-              ref={introInputRef}
-              accept="video/*"
-              className="hidden"
-              disabled={isBusy}
-              onChange={(e) => {
-                if (isBusy) return;
-                const f = e.target.files?.[0] || null;
-                if (validateVideo(f)) setIntroFile(f);
-              }}
-            />
-
-            <div className="mt-3 flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  if (!isBusy) introInputRef.current?.click();
-                }}
-                className={`text-sm inline-flex justify-center items-center gap-2 px-3 py-1.5 rounded-md bg-white/10 hover:bg-white/15 cursor-pointer disabled:cursor-not-allowed disabled:opacity-60 ${isBusy ? "cursor-not-allowed" : "cursor-pointer"}`}
-                disabled={isBusy}
-              >
-                <Upload className="h-4 w-4" /> Upload Intro Video
-              </button>
-              {introFile ? (
-                <button
-                  type="button"
-                  className="btn btn-sm hover:text-muted disabled:cursor-not-allowed disabled:opacity-60"
-                  onClick={() => {
-                    if (isBusy) return;
-                    setIntroFile(null);
-                  }}
-                  disabled={isBusy}
-                >
-                  Remove Video
-                </button>
-              ) : null}
-            </div>
-
-            <p className="mt-2 text-xs text-white/50">
-              Max size {MAX_MB_VIDEO}MB • MP4, WebM (recommended)
-            </p>
-          </div>
+          <VideoUploader
+            label="Intro video"
+            file={introFile}
+            onChange={(f) => {
+              if (isBusy) return;
+              setIntroFile(f);
+            }}
+            defaultUrl={profile?.introVideo || ""}
+            maxMB={MAX_MB_VIDEO}
+            disabled={isBusy}
+            busy={introBusy || isBusy}
+            helperText={`MP4, WebM (recommended)`}
+            onError={(msg) => toast.error(msg)}
+          />
         </div>
       </div>
 

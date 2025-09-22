@@ -168,9 +168,11 @@ export default function UserDropdown({
               {user?.displayName && (
                 <p className="text-sm font-medium text-white">{user.displayName}</p>
               )}
-              {showEmail && user?.email && (
-                <p className="text-xs text-white/70">{user.email}</p>
-              )}
+              {showEmail
+                ? user?.email && <p className="text-xs text-white/70">{user.email}</p>
+                : user?.userName && (
+                    <p className="text-xs text-white/70">@{user.userName}</p>
+                  )}
             </div>
           )}
 

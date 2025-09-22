@@ -6,6 +6,7 @@ export { default as BusinessHomeView } from "./BusinessHomeView";
 export { default as BusinessFormView } from "./BusinessFormView";
 export { default as ContactSalesView } from "./ContactSalesView";
 export { default as JoinAsArtistView } from "./JoinAsArtistView";
+export { default as ArtistCheckoutView } from "./ArtistCheckoutView";
 //dashboard
 export { default as OrdersPageView } from "./dashboard/OrderView";
 export { default as SettingsView } from "./dashboard/SettingsView";
@@ -19,6 +20,6 @@ export { default as ArtistPersonalTiersView } from "./dashboard/artist/ArtistPer
 export { default as ArtistAvailabilityView } from "./dashboard/artist/ArtistAvailabilityView";
 export { default as ArtistProfileView } from "./dashboard/artist/ArtistProfileView";
 export { default as ArtistSocialLinks } from "./dashboard/artist/ArtistSocialLinks";
-export { default as ArtistCheckoutView } from "./ArtistCheckoutView";
+export { default as ArtistOrderDetailsView } from "./dashboard/artist/ArtistOrderDetailsView";
 // fan
 export { default as FanRegisterView } from "./FanRegisterView";
