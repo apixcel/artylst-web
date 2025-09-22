@@ -96,7 +96,7 @@ const MainHeader = () => {
               <NavSearch className="lg:block hidden max-w-[480px] w-full" />
             </div>
 
-            {isProfilePage ? "" : <NotificationDropdown />}
+            {!isProfilePage && user ? <NotificationDropdown /> : ""}
 
             {/* login */}
             {user ? (
