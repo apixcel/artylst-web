@@ -11,13 +11,12 @@ import Image from "next/image";
 import { useMemo, useRef, useState } from "react";
 import BusinessProfileSettingsSkeleton from "./BusinessProfileSettingsSkeleton";
 
+import { useAppDispatch, useAppSelector } from "@/hooks";
+import { IQueryMutationErrorResponse } from "@/interface";
+import { updateUser } from "@/redux/features/auth/user.slice";
 import { FormikHelpers, useFormik } from "formik";
 import { toast } from "sonner";
 import * as Yup from "yup";
-import { IQueryMutationErrorResponse } from "@/interface";
-import { updateUser } from "@/redux/features/auth/user.slice";
-import { useAppSelector } from "@/hooks";
-import { useAppDispatch } from "@/hooks";
 
 const validationSchema = Yup.object({
   fullName: Yup.string()
@@ -285,7 +284,7 @@ const BusinessProfileSettings = () => {
             </button>
             <button
               type="submit"
-              className="btn btn-primary disabled:opacity-60 disabled:cursor-not-allowed"
+              className="btn btn-primary disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
               disabled={saveDisabled}
             >
               {isUploading || isUpdating || formik.isSubmitting
