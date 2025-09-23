@@ -35,8 +35,8 @@ const SidebarUserCard = ({ isOpen, user }: { isOpen: boolean; user: IUser }) => 
               </div>
             </div>
             <div className="flex flex-col gap-1 truncate">
-              <div className="text-xs text-white/60">{user?.fullName}</div>
-              <div className="text-sm font-heading">{user?.email}</div>
+              <div className="text-sm">{user?.fullName}</div>
+              <div className="text-xs text-white/60">@{user?.userName}</div>
             </div>
           </div>
         </>

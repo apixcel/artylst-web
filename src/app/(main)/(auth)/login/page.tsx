@@ -51,48 +51,49 @@ const Login = () => {
     }
   };
 
+  const handleSubmit = async (values: FormValues) => {
+    if (isLoading) return;
+
+    const response = await login(values as FormValues);
+    const error = response.error as IQueryMutationErrorResponse;
+
+    if (error) {
+      if (error.data?.message === "SESSION_MAX_OUT") {
+        setSessionMaxReached(true);
+        return;
+      }
+      if (error.data?.message) toast.error(error.data.message || "Something went wrong");
+      return;
+    }
+
+    const result = response.data?.data;
+    const user = result?.profile;
+    const token = result?.accessToken;
+
+    if (user && token) {
+      dispatch(updateAuthState({ user, token, isLoading: false }));
+      toast.success("Login successful");
+
+      const cookieRedirect = Cookies.get("redirect_after_login");
+      const redirectUrl = safeRedirect(cookieRedirect);
+
+      if (redirectUrl) {
+        Cookies.remove("redirect_after_login");
+        router.push(redirectUrl);
+        return;
+      }
+
+      router.push(user.role === "fan" ? "/profile" : "/dashboard");
+    }
+  };
+
   return (
     <Formik<FormValues>
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={async (values) => {
-        if (isLoading) return;
-
-        const response = await login(values as FormValues);
-        const error = response.error as IQueryMutationErrorResponse;
-
-        if (error) {
-          if (error.data?.message === "SESSION_MAX_OUT") {
-            setSessionMaxReached(true);
-            return;
-          }
-          if (error.data?.message)
-            toast.error(error.data.message || "Something went wrong");
-          return;
-        }
-
-        const result = response.data?.data;
-        const user = result?.profile;
-        const token = result?.accessToken;
-
-        if (user && token) {
-          dispatch(updateAuthState({ user, token, isLoading: false }));
-          toast.success("Login successful");
-
-          const cookieRedirect = Cookies.get("redirect_after_login");
-          const redirectUrl = safeRedirect(cookieRedirect);
-
-          if (redirectUrl) {
-            Cookies.remove("redirect_after_login");
-            router.push(redirectUrl);
-            return;
-          }
-
-          router.push(user.role === "fan" ? "/profile" : "/dashboard");
-        }
-      }}
+      onSubmit={handleSubmit}
     >
-      {({ values, errors, touched, handleChange, handleBlur }) => {
+      {({ values, errors, touched, handleChange, handleBlur, resetForm }) => {
         const handleLogOutFromAllDevices = async () => {
           if (isLoading || isRevokingAllSessions) return;
           const res = await revokeAllSessionsByAccountPassword({
@@ -110,6 +111,7 @@ const Login = () => {
             description: "Please login again!",
           });
           setSessionMaxReached(false);
+          resetForm();
         };
 
         const handleCancel = () => setSessionMaxReached(false);

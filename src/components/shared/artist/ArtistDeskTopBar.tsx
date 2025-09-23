@@ -67,6 +67,7 @@ const ArtistDeskTopBar = ({
 
             {user && (
               <UserDropdown
+                showEmail={false}
                 user={user as IUser}
                 align="right"
                 onLogout={handleLogout}

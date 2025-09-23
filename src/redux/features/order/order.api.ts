@@ -42,6 +42,15 @@ const orderApi = api.injectEndpoints({
       },
       providesTags: ["order"],
     }),
+    getMyArtistOrderById: builder.query<{ data: IOrder }, string>({
+      query: (id) => {
+        return {
+          url: `/order/my/artist/${id}`,
+          method: "GET",
+        };
+      },
+      providesTags: ["order"],
+    }),
     createFanOrder: builder.mutation<
       { data: { order: IOrder; fan?: IFan; accessToken?: string; sessionUrl: string } },
       Partial<IOrder>
@@ -75,6 +84,7 @@ export const {
   useCreateBusinessOrderMutation,
   useGetMyBusinessOrderQuery,
   useGetMyArtistOrdersQuery,
+  useGetMyArtistOrderByIdQuery,
   useCreateFanOrderMutation,
   useGetMyFanOrderQuery,
 } = orderApi;

@@ -28,6 +28,7 @@ export { default as UnauthorizedMsgBox } from "./shared/UnauthorizedMsgBox";
 export { default as CheckoutSkeleton } from "./shared/CheckoutSkeleton";
 export { default as CheckoutProgressSkeleton } from "./shared/CheckoutProgressSkeleton";
 export { default as TableSkeleton } from "./shared/TableSkeleton";
+export { default as VideoUploader } from "./shared/VideoUploader";
 
 // shared/main
 export { default as MainHeader } from "./shared/main/MainHeader";

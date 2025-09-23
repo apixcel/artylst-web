@@ -68,7 +68,7 @@ const artistApi = api.injectEndpoints({
           method: "GET",
         };
       },
-      providesTags: ["artist"],
+      providesTags: ["artist", "pricingTier"],
     }),
     getWeeklyPopulerArtist: builder.query<{ data: IArtist[] }, undefined>({
       query: () => {
