@@ -13,17 +13,17 @@ import {
   CheckoutTier,
 } from "@/components";
 import CheckoutSkeleton from "@/components/shared/CheckoutSkeleton";
+import { businessAvatarFallback } from "@/constants/fallBack";
 import { IQueryMutationErrorResponse, IUser } from "@/interface";
 import { IOrder } from "@/interface/order.interface";
 import { useGetArtistProfileByUserNameQuery } from "@/redux/features/artist/artist.api";
+import { useGetBusinessPricingTierByUserNameQuery } from "@/redux/features/artist/pricingTier.api";
 import { useCreateBusinessOrderMutation } from "@/redux/features/order/order.api";
 import numberUtils from "@/utils/number";
+import Cookies from "js-cookie";
+import Image from "next/image";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import Image from "next/image";
-import { businessAvatarFallback } from "@/constants/fallBack";
-import Cookies from "js-cookie";
-import { useGetBusinessPricingTierByUserNameQuery } from "@/redux/features/artist/pricingTier.api";
 
 // ---- Types
 type FormValues = {
@@ -174,8 +174,14 @@ const ArtistCheckoutView = ({ user }: { user: IUser }) => {
       toast.error(error.data.message);
       return;
     }
-    router.push(`/dashboard/orders`);
-    toast.success("Order created successfully");
+
+    const responseData = res.data;
+    if (responseData?.data?.sessionUrl) {
+      window.location.href = responseData.data.sessionUrl;
+    } else {
+      router.push(`/profile/orders`);
+      toast.success("Order created successfully");
+    }
   };
 
   return (

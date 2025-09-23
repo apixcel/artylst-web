@@ -41,7 +41,9 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
               setIsMobileMenuOpen={setIsMobileMenuOpen}
             />
           )}
-          <main className="p-6">{children}</main>
+          <main className="p-6" id="dashboard_main_content">
+            {children}
+          </main>
         </div>
 
         {/* mobile sidebar */}

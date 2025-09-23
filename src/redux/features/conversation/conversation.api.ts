@@ -1,3 +1,4 @@
+import { IMeta } from "@/interface";
 import { IConversation, IMessage } from "@/interface/conversation.interface";
 import { api } from "@/redux/api/api";
 import { generateQueryParams } from "@/utils";
@@ -14,7 +15,7 @@ const conversationApi = api.injectEndpoints({
       providesTags: ["conversation"],
     }),
     getMessagesByConversationId: builder.query<
-      { data: IMessage[] },
+      { data: IMessage[]; meta: IMeta },
       { conversationId: string; query: Record<string, string | number> }
     >({
       query: ({ query, conversationId }) => {
@@ -25,6 +26,7 @@ const conversationApi = api.injectEndpoints({
         };
       },
       providesTags: ["conversation-message"],
+      keepUnusedDataFor: 0,
     }),
     sendMessageByConversation: builder.mutation<
       { data: IMessage[] },
@@ -39,6 +41,24 @@ const conversationApi = api.injectEndpoints({
       },
       invalidatesTags: ["conversation-message-send"],
     }),
+    deleteMessageByMessageId: builder.mutation<{ data: IMessage[] }, string>({
+      query: (messageId) => {
+        return {
+          url: `/conversation/messages/${messageId}`,
+          method: "DELETE",
+        };
+      },
+      invalidatesTags: ["conversation-message-send"],
+    }),
+    readMessageByMessageId: builder.mutation<{ data: IMessage[] }, string>({
+      query: (messageId) => {
+        return {
+          url: `/conversation/read/${messageId}`,
+          method: "PATCH",
+        };
+      },
+      invalidatesTags: ["conversation-message-send"],
+    }),
   }),
 });
 
@@ -46,4 +66,6 @@ export const {
   useGetMyConversationListQuery,
   useGetMessagesByConversationIdQuery,
   useSendMessageByConversationMutation,
+  useDeleteMessageByMessageIdMutation,
+  useReadMessageByMessageIdMutation,
 } = conversationApi;

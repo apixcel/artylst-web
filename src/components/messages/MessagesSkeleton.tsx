@@ -1,6 +1,6 @@
 import Skeleton from "../ui/Skeleton";
 
-const LeftMessageSkeleton = () => {
+export const LeftMessageSkeleton = () => {
   return (
     <div className="flex items-start space-x-2">
       <Skeleton className="h-8 w-8 rounded-full" /> {/* avatar */}
@@ -12,7 +12,7 @@ const LeftMessageSkeleton = () => {
   );
 };
 
-const RightMessageSkeleton = () => {
+export const RightMessageSkeleton = () => {
   return (
     <div className="flex justify-end">
       <div className="space-y-2 text-right">
