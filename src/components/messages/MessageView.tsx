@@ -4,7 +4,7 @@ import { fanAvatarFallback } from "@/constants/fallBack";
 import { IConversation } from "@/interface/conversation.interface";
 import { useGetMyConversationListQuery } from "@/redux/features/conversation/conversation.api";
 import dateUtils from "@/utils/date";
-import { Search } from "lucide-react";
+import { MessageCircle, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import ConversationContainer from "./ConversationContainer";
 import { LeftMessageSkeleton } from "./MessagesSkeleton";
@@ -195,7 +195,18 @@ const MessageView = () => {
             conversation={selectedConversation}
           />
         ) : (
-          <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 flex-col h-full hidden lg:flex"></div>
+          <div className="flex-1 rounded-2xl border border-white/10 bg-white/5 flex-col items-center justify-center h-full text-center px-4 hidden lg:flex">
+            <span className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
+              <MessageCircle className="w-8 h-8" />
+            </span>
+
+            <h2 className="text-lg font-semibold text-white/80">
+              No conversation selected
+            </h2>
+            <p className="mt-2 text-sm text-white/60">
+              Select a conversation from the sidebar to start chatting.
+            </p>
+          </div>
         )}
       </div>
     </section>
