@@ -1,13 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import { AlertCircle, MessageSquare } from "lucide-react";
-import type { IOrder } from "@/interface";
-import { useMemo, useState } from "react";
-import { Form, Formik } from "formik";
-import * as Yup from "yup";
 import { VideoUploader } from "@/components";
+import type { IOrder } from "@/interface";
 import { useUploadSingleFileMutation } from "@/redux/features/upload/upload.api";
+import { Form, Formik } from "formik";
+import { AlertCircle, MessageSquare } from "lucide-react";
+import Link from "next/link";
+import { useMemo, useState } from "react";
+import * as Yup from "yup";
 
 const initialValues = { playlist: "", video: "" };
 
@@ -24,7 +24,7 @@ const MOCK_ORDER: OrderWithBrief = {
   eta: "tomorrow",
   platform: "Apple Music",
   revision: 0,
-  status: "in_progress",
+  status: [{ status: "delivered", createdAt: new Date().toISOString() }],
   deliveryInfo: { email: "mila@gmail.com", name: "Mila" },
   tierId: "tier_b",
   tier: "Pro",

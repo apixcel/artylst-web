@@ -164,57 +164,64 @@ const BusinessOrder = () => {
             {isLoading ? (
               <TableSkeleton row={4} columns={10} />
             ) : (
-              orderData?.map((row) => (
-                <tr key={row._id} className="border-b border-white/5">
-                  <td className="py-3 px-2">
-                    <input
-                      type="checkbox"
-                      className="accent-brand-4 w-4 h-4"
-                      checked={selected.includes(row._id)}
-                      onChange={(e) => toggleOne(row._id, e.target.checked)}
-                    />
-                  </td>
-                  <td className="py-3 pr-6">#{row.orderId}</td>
-                  <td className="py-3 pr-6">
-                    {typeof row.artist === "string" ? row.artist : row.artist.displayName}
-                  </td>
-                  <td className="py-3 pr-6">{row.tier}</td>
-                  <td className="py-3 pr-6 capitalize">{row.platform}</td>
-                  <td className="py-3 pr-6">${row.price}</td>
-                  <td className="py-3 pr-6">
-                    {row.eta ? dateUtils.formatDate(row.eta) : "-"}
-                  </td>
-                  <td className="py-3 pr-6">
-                    {row.revision}/{row.maxRevision || 0}
-                  </td>
-                  <td className="py-3 pr-6">
-                    <span
-                      className={`capitalize chip min-w-22 inline-block text-center ${statusOption[row.status as keyof typeof statusOption]?.className || "bg-white/10 text-white"}`}
-                    >
-                      {row.status}
-                    </span>
-                  </td>
-                  <td className="py-3">
-                    <div className="flex items-center gap-2">
-                      <Link
-                        className="px-2 py-1 rounded bg-white/10 text-xs"
-                        href={`/dashboard/business/orders/${row._id}`}
+              orderData?.map((row) => {
+                const lastStatusIndex = (row.status || []).length - 1;
+                const status = row.status?.[lastStatusIndex] || {};
+
+                return (
+                  <tr key={row._id} className="border-b border-white/5">
+                    <td className="py-3 px-2">
+                      <input
+                        type="checkbox"
+                        className="accent-brand-4 w-4 h-4"
+                        checked={selected.includes(row._id)}
+                        onChange={(e) => toggleOne(row._id, e.target.checked)}
+                      />
+                    </td>
+                    <td className="py-3 pr-6">#{row.orderId}</td>
+                    <td className="py-3 pr-6">
+                      {typeof row.artist === "string"
+                        ? row.artist
+                        : row.artist.displayName}
+                    </td>
+                    <td className="py-3 pr-6">{row.tier}</td>
+                    <td className="py-3 pr-6 capitalize">{row.platform}</td>
+                    <td className="py-3 pr-6">${row.price}</td>
+                    <td className="py-3 pr-6">
+                      {row.eta ? dateUtils.formatDate(row.eta) : "-"}
+                    </td>
+                    <td className="py-3 pr-6">
+                      {row.revision}/{row.maxRevision || 0}
+                    </td>
+                    <td className="py-3 pr-6">
+                      <span
+                        className={`capitalize chip min-w-22 inline-block text-center ${statusOption[status.status as keyof typeof statusOption]?.className || "bg-white/10 text-white"}`}
                       >
-                        Open
-                      </Link>
-                      <Link
-                        className="px-2 py-1 rounded bg-white/10 text-xs"
-                        href={`/dashboard/business/messages?order=${row._id}`}
-                      >
-                        Message
-                      </Link>
-                      <button className="px-2 py-1 rounded bg-white/10 text-xs">
-                        Dispute
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))
+                        {status.status}
+                      </span>
+                    </td>
+                    <td className="py-3">
+                      <div className="flex items-center gap-2">
+                        <Link
+                          className="px-2 py-1 rounded bg-white/10 text-xs"
+                          href={`/dashboard/business/orders/${row._id}`}
+                        >
+                          Open
+                        </Link>
+                        <Link
+                          className="px-2 py-1 rounded bg-white/10 text-xs"
+                          href={`/dashboard/business/messages?order=${row._id}`}
+                        >
+                          Message
+                        </Link>
+                        <button className="px-2 py-1 rounded bg-white/10 text-xs">
+                          Dispute
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>

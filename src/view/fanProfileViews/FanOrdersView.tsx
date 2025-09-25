@@ -123,35 +123,40 @@ const FanOrdersView = () => {
             {isLoading ? (
               <TableSkeleton row={4} columns={8} />
             ) : (
-              orderData.map((row) => (
-                <tr key={row._id} className="border-b border-white/5">
-                  <td className="py-3 pr-6">#{row.orderId}</td>
-                  <td className="py-3 pr-6">
-                    {typeof row.artist === "string"
-                      ? row.artist
-                      : row.artist?.fullName || "-"}
-                  </td>
-                  <td className="py-3 pr-6">{row.tier}</td>
-                  <td className="py-3 pr-6 capitalize">{row.platform}</td>
-                  <td className="py-3 pr-6">${row.price}</td>
-                  <td className="py-3 pr-6">
-                    {row.eta ? dateUtils.formatDate(row.eta) : "-"}
-                  </td>
-                  <td className="py-3 pr-6">
-                    {row.revision}/{row.maxRevision || 0}
-                  </td>
-                  <td className="py-3 pr-6">
-                    <span
-                      className={`capitalize chip min-w-22 inline-block text-center ${
-                        statusOption[row.status as keyof typeof statusOption]
-                          ?.className || "bg-white/10 text-white"
-                      }`}
-                    >
-                      {row.status}
-                    </span>
-                  </td>
-                </tr>
-              ))
+              orderData.map((row) => {
+                const lastOrderIndex = (row.status || []).length - 1;
+                const status = (row.status || [])[lastOrderIndex];
+
+                return (
+                  <tr key={row._id} className="border-b border-white/5">
+                    <td className="py-3 pr-6">#{row.orderId}</td>
+                    <td className="py-3 pr-6">
+                      {typeof row.artist === "string"
+                        ? row.artist
+                        : row.artist?.fullName || "-"}
+                    </td>
+                    <td className="py-3 pr-6">{row.tier}</td>
+                    <td className="py-3 pr-6 capitalize">{row.platform}</td>
+                    <td className="py-3 pr-6">${row.price}</td>
+                    <td className="py-3 pr-6">
+                      {row.eta ? dateUtils.formatDate(row.eta) : "-"}
+                    </td>
+                    <td className="py-3 pr-6">
+                      {row.revision}/{row.maxRevision || 0}
+                    </td>
+                    <td className="py-3 pr-6">
+                      <span
+                        className={`capitalize chip min-w-22 inline-block text-center ${
+                          statusOption[status.status as keyof typeof statusOption]
+                            ?.className || "bg-white/10 text-white"
+                        }`}
+                      >
+                        {status.status}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
@@ -174,50 +179,54 @@ const FanOrdersView = () => {
       {/* Mobile list (under md) */}
       <div className="md:hidden space-y-3">
         {orderData.length > 0 ? (
-          orderData.map((row) => (
-            <div
-              key={row._id}
-              className="rounded-2xl p-4 border border-white/10 bg-white/5"
-            >
-              <div className="flex items-center justify-between">
-                <div className="font-medium">#{row.orderId}</div>
-                <span
-                  className={`capitalize chip px-2 py-1 rounded-md text-xs ${
-                    statusOption[row.status as keyof typeof statusOption]?.className ||
-                    "bg-white/10 text-white"
-                  }`}
-                >
-                  {row.status}
-                </span>
-              </div>
-
-              <div className="mt-2 grid grid-cols-2 gap-y-1 gap-x-3 text-sm">
-                <div className="text-white/60">Artist</div>
-                <div>
-                  {typeof row.artist === "string"
-                    ? row.artist
-                    : row.artist?.fullName || "-"}
+          orderData.map((row) => {
+            const lastOrderIndex = (row.status || []).length - 1;
+            const status = (row.status || [])[lastOrderIndex];
+            return (
+              <div
+                key={row._id}
+                className="rounded-2xl p-4 border border-white/10 bg-white/5"
+              >
+                <div className="flex items-center justify-between">
+                  <div className="font-medium">#{row.orderId}</div>
+                  <span
+                    className={`capitalize chip px-2 py-1 rounded-md text-xs ${
+                      statusOption[status.status as keyof typeof statusOption]
+                        ?.className || "bg-white/10 text-white"
+                    }`}
+                  >
+                    {status.status}
+                  </span>
                 </div>
 
-                <div className="text-white/60">Tier</div>
-                <div>{row.tier}</div>
+                <div className="mt-2 grid grid-cols-2 gap-y-1 gap-x-3 text-sm">
+                  <div className="text-white/60">Artist</div>
+                  <div>
+                    {typeof row.artist === "string"
+                      ? row.artist
+                      : row.artist?.fullName || "-"}
+                  </div>
 
-                <div className="text-white/60">Platform</div>
-                <div className="capitalize">{row.platform}</div>
+                  <div className="text-white/60">Tier</div>
+                  <div>{row.tier}</div>
 
-                <div className="text-white/60">Price</div>
-                <div>${row.price}</div>
+                  <div className="text-white/60">Platform</div>
+                  <div className="capitalize">{row.platform}</div>
 
-                <div className="text-white/60">ETA</div>
-                <div>{row.eta ? dateUtils.formatDate(row.eta) : "-"}</div>
+                  <div className="text-white/60">Price</div>
+                  <div>${row.price}</div>
 
-                <div className="text-white/60">Revisions</div>
-                <div>
-                  {row.revision}/{row.maxRevision || 0}
+                  <div className="text-white/60">ETA</div>
+                  <div>{row.eta ? dateUtils.formatDate(row.eta) : "-"}</div>
+
+                  <div className="text-white/60">Revisions</div>
+                  <div>
+                    {row.revision}/{row.maxRevision || 0}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
+            );
+          })
         ) : (
           <div className="rounded-2xl p-8 border border-white/10 bg-white/5 text-center text-white/70">
             <div className="text-base font-heading">No orders found</div>

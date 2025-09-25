@@ -1,8 +1,9 @@
 "use client";
 
+import { statusOption } from "@/constants/orderStatus";
 import { useGetMyArtistOrderByIdQuery } from "@/redux/features/order/order.api";
-import { useParams, useRouter } from "next/navigation";
-import Link from "next/link";
+import dateUtils from "@/utils/date";
+import { format } from "date-fns";
 import {
   AlertTriangle,
   ArrowLeft,
@@ -13,8 +14,8 @@ import {
   User,
   Wallet,
 } from "lucide-react";
-import dateUtils from "@/utils/date";
-import { statusOption } from "@/constants/orderStatus";
+import Link from "next/link";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const chipClass = (status?: string) => {
@@ -104,13 +105,14 @@ const ArtistOrderDetailsView = () => {
     );
   }
 
-  const status = order.status as string | undefined;
+  const lastStatusIndex = (order.status?.length || 1) - 1;
+  const status = order.status?.[lastStatusIndex].status;
   const statusCfg = status
     ? statusOption[status as keyof typeof statusOption]
     : undefined;
   const eta = order.eta ? dateUtils.formatDate(order.eta) : "-";
   const created = order.createdAt ? dateUtils.formatDate(order.createdAt) : "-";
-  const deliveryWindow = order.deliveryWindow ? `${order.deliveryWindow} hrs` : "-";
+  const deliveryWindow = order.deliveryWindow ? `${order.deliveryWindow}` : "-";
 
   return (
     <section className="space-y-6">
@@ -204,9 +206,37 @@ const ArtistOrderDetailsView = () => {
           {/* Notes / Activity placeholder (extend later) */}
           <Card>
             <h2 className="font-heading text-lg mb-3">Activity</h2>
-            <div className="text-white/60 text-sm">
-              No activity yet. Updates will appear here.
-            </div>
+            {order.status.length ? (
+              <div className="flex flex-col gap-1">
+                {order.status.map((s, i) => (
+                  <div key={i} className="mb-3">
+                    <div className="flex items-center gap-2 mb-1">
+                      <span className={`chip capitalize ${chipClass(s.status)}`}>
+                        {s.status}
+                      </span>
+                      {s.createdAt ? (
+                        <span className="text-white/60 text-sm">
+                          {format(s.createdAt, "MMM do, h:mm a")}
+                        </span>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                    {!s.note ? (
+                      <div className="text-sm">
+                        {s.note} adf asdf sadf asdf as df as dfa s
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="text-white/60 text-sm">
+                No activity yet. Updates will appear here.
+              </div>
+            )}
           </Card>
         </div>
 

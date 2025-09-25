@@ -1,5 +1,17 @@
 import { IArtist } from "./artist/artist.interface";
-
+export type OrderStatusType =
+  | "pending"
+  | "accepted"
+  | "rejected"
+  | "in-revision"
+  | "completed"
+  | "disputed"
+  | "delivered";
+export interface IOrderStatus {
+  status: OrderStatusType;
+  createdAt?: string;
+  note?: string;
+}
 export interface IOrder {
   _id: string;
   orderId: string;
@@ -10,7 +22,7 @@ export interface IOrder {
   eta: string;
   platform: string;
   revision: number;
-  status: string;
+  status: [IOrderStatus];
   deliveryWindow?: string;
   deliveryInfo: IDeliveryInfo;
   addOn?: IAddOn;

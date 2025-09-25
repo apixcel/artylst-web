@@ -74,15 +74,16 @@ const ConversationList: React.FC<IConversationListProps> = ({
                   <span className="line-clamp-1">
                     {t.lastMessage?.isMe
                       ? `You: ${t.lastMessage?.text}`
-                      : t.lastMessage?.text}
+                      : t.lastMessage?.text || "Start a conversation"}
                   </span>
 
-                  <span className="text-[10px] shrink-0">
-                    •{" "}
-                    {t.lastMessage?.createdAt
-                      ? dateUtils.compareDistanceFromNow(t.lastMessage?.createdAt)
-                      : ""}
-                  </span>
+                  {t.lastMessage?.createdAt ? (
+                    <span className="text-[10px] shrink-0">
+                      • {dateUtils.compareDistanceFromNow(t.lastMessage?.createdAt)}
+                    </span>
+                  ) : (
+                    ""
+                  )}
                 </p>
               </div>
             </div>
