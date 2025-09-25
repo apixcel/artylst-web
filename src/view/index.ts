@@ -21,5 +21,6 @@ export { default as ArtistAvailabilityView } from "./dashboard/artist/ArtistAvai
 export { default as ArtistProfileView } from "./dashboard/artist/ArtistProfileView";
 export { default as ArtistSocialLinks } from "./dashboard/artist/ArtistSocialLinks";
 export { default as ArtistOrderDetailsView } from "./dashboard/artist/ArtistOrderDetailsView";
+export { default as ArtistStreamingView } from "./dashboard/artist/ArtistStreamingView";
 // fan
 export { default as FanRegisterView } from "./FanRegisterView";

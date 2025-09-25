@@ -128,6 +128,10 @@ export { default as ArtistMedia } from "./dashboard/artist/profile/ArtistMedia";
 export { default as ArtistProfileSettingsSkeleton } from "./dashboard/artist/settings/ArtistProfileSettingsSkeleton";
 export { default as ProfileCompletenessMeter } from "./dashboard/artist/profile/ProfileCompletenessMeter";
 export { default as ManageTiersButton } from "./dashboard/artist/profile/ManageTiersButton";
+export { default as ServiceCard } from "./dashboard/artist/streaming/ServiceCard";
+export { default as SpotifyConnectModal } from "./dashboard/artist/streaming/SpotifyConnectModal";
+export { default as AppleMusicConnectModal } from "./dashboard/artist/streaming/AppleMusicConnectModal";
+export { default as SoundCloudConnectModal } from "./dashboard/artist/streaming/SoundCloudConnectModal";
 
 // tiers
 export { default as TiersPricingForm } from "./dashboard/artist/tiers/TiersPricingForm";
