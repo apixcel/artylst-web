@@ -197,7 +197,7 @@ const EnrollForm = () => {
     const email = res.data?.data.email;
     dispatch(setUser({ email }));
 
-    router.push("/join-as-artist/verification");
+    router.push("/verification");
     toast.success("Account created successfully!", {
       description: "Verify your email to continue.",
     });

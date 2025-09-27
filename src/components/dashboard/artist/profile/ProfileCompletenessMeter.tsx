@@ -23,6 +23,10 @@ const labelMap: Record<string, { label: string; description: string }> = {
     description:
       "Create at least 3 Business or Personal tiers to start offering playlists.",
   },
+  stripe: {
+    label: "Stripe",
+    description: "Connect your Stripe account to start receiving payouts.",
+  },
 };
 
 const startCase = (str: string) =>
@@ -42,6 +46,7 @@ const getLabel = (field: string) =>
 const ProfileCompletenessMeter = () => {
   const [isOpen, setIsOpen] = useState(true);
   const { data, isLoading } = useGetArtistProfileCompletenessQuery(undefined);
+  console.log(data);
 
   const { completedPercent, completed, pending, requiredFields } = data?.data || {
     completedPercent: 0,

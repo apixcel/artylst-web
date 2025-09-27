@@ -3,6 +3,7 @@ export { default as DateSelector } from "./ui/DateSelector";
 export { default as DialogProvider } from "./ui/DialogProvider";
 export { default as FormErrorMessage } from "./ui/FormErrorMessage";
 export { default as Input } from "./ui/Input";
+export { default as Loading } from "./ui/Loading";
 export { default as Loader } from "./ui/Loader";
 export { default as Pagination } from "./ui/Pagination";
 export { default as QueryPagination } from "./ui/QueryPagination";
@@ -118,8 +119,9 @@ export { default as BusinessSettings } from "./dashboard/business/settings/Busin
 
 // dashboard/artist
 export { default as DashboardArtistHome } from "./dashboard/artist/DashboardArtistHome";
-export { default as DashboardArtistDeliverStepProgress } from "./dashboard/artist/deliver/DashboardArtistDeliverStepProgress";
+export { default as DeliverForm } from "./dashboard/artist/deliver/DeliverForm";
 export { default as ArtistOrder } from "./dashboard/artist/orders/ArtistOrder";
+export { default as ArtistOrderDetailsSkeleton } from "./dashboard/artist/orders/ArtistOrderDetailsSkeleton";
 export { default as ArtistMedia } from "./dashboard/artist/profile/ArtistMedia";
 export { default as ManageTiersButton } from "./dashboard/artist/profile/ManageTiersButton";
 export { default as ServiceCard } from "./dashboard/artist/streaming/ServiceCard";
@@ -132,6 +134,8 @@ export { default as ArtistProfileSettings } from "./dashboard/artist/settings/Ar
 export { default as ArtistProfileSettingsSkeleton } from "./dashboard/artist/settings/ArtistProfileSettingsSkeleton";
 export { default as ArtistSettings } from "./dashboard/artist/settings/ArtistSettings";
 export { default as MessageView } from "./messages/MessageView";
+export { default as ArtistIdentity } from "./dashboard/artist/kyc/ArtistIdentity";
+export { default as ArtistWithdrawAmount } from "./dashboard/artist/earnings/ArtistWithdrawAmount";
 
 // tiers
 export { default as TiersPricingForm } from "./dashboard/artist/tiers/TiersPricingForm";

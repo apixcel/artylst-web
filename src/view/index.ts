@@ -22,5 +22,9 @@ export { default as ArtistProfileView } from "./dashboard/artist/ArtistProfileVi
 export { default as ArtistSocialLinks } from "./dashboard/artist/ArtistSocialLinks";
 export { default as ArtistOrderDetailsView } from "./dashboard/artist/ArtistOrderDetailsView";
 export { default as ArtistStreamingView } from "./dashboard/artist/ArtistStreamingView";
+export { default as ArtistKYCPayoutView } from "./dashboard/artist/ArtistKYCPayoutView";
+export { default as ArtistEarningsView } from "./dashboard/artist/ArtistEarningsView";
+export { default as ArtistDeliverView } from "./dashboard/artist/ArtistDeliverView";
 // fan
 export { default as FanRegisterView } from "./FanRegisterView";
+export { default as VerificationView } from "./VerificationView";

@@ -64,6 +64,7 @@ export const api = createApi({
     "conversation-message",
     "conversation-message-send",
     "streaming",
+    "stripe",
   ],
   endpoints: () => ({}),
 });

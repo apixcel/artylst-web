@@ -18,6 +18,19 @@ const formatDate = (dateString?: string | Date | undefined) => {
   });
 };
 
+const formatDateWithTime = (dateString?: string | Date | undefined) => {
+  if (!dateString) return "";
+  const date = new Date(dateString);
+  return date.toLocaleString("en-US", {
+    month: "long",
+    year: "numeric",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  });
+};
+
 function compareDistanceFromNow(dateString: string | Date): string {
   const now = new Date();
   const past = new Date(dateString);
@@ -47,6 +60,7 @@ function compareDistanceFromNow(dateString: string | Date): string {
 const dateUtils = {
   formatSecondsToMMSS,
   formatDate,
+  formatDateWithTime,
   compareDistanceFromNow,
 };
 export default dateUtils;

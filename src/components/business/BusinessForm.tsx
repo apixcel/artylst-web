@@ -147,7 +147,7 @@ const BusinessForm = () => {
     const email = res.data?.data.email;
     dispatch(setUser({ email }));
 
-    router.push("/business-form/verification");
+    router.push("/verification");
     toast.success("Business Account registered successfully!", {
       description: "Verify your email to continue.",
     });

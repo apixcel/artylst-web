@@ -99,15 +99,16 @@ const FanRegisterView = () => {
 
     const response = await registerFan(payload);
     const error = response.error as IQueryMutationErrorResponse;
+    console.log(response.data);
 
     if (error) {
       if (error.data?.message) toast.error(error.data.message || "Something went wrong");
       return;
     }
     const email = response.data?.data.email;
+    console.log(email);
     dispatch(setUser({ email }));
-
-    router.push("/register/verification");
+    router.push("/verification");
     toast.success("Account registered successfully!", {
       description: "Verify your email to continue.",
     });

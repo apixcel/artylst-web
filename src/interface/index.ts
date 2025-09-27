@@ -5,6 +5,7 @@ export * from "./dropdown.interface";
 export * from "./meta/meta.interface";
 export * from "./notification.interface";
 export * from "./order.interface";
+export * from "./stripe.interface";
 
 // user
 export * from "./user.interface";

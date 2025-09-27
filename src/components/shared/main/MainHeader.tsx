@@ -14,7 +14,7 @@ import { useState } from "react";
 
 const MainHeader = () => {
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  const { user } = useAppSelector((state) => state.user);
+  const { user, token } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const [logout] = useLogoutMutation();
   const pathname = usePathname();
@@ -96,7 +96,7 @@ const MainHeader = () => {
               <NavSearch className="lg:block hidden max-w-[480px] w-full" />
             </div>
 
-            {!isProfilePage && user ? <NotificationDropdown /> : ""}
+            {!isProfilePage && user && token ? <NotificationDropdown /> : ""}
 
             {/* login */}
             {user ? (

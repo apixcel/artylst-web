@@ -1,4 +1,9 @@
-export const statusOption = {
+import { OrderStatusType } from "@/interface";
+
+export const statusOption: Record<
+  OrderStatusType,
+  { className: string; label: string; description: string }
+> = {
   pending: {
     className: "bg-yellow-500/10 text-yellow-500",
     label: "Pending",

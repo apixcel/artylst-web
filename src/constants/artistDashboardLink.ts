@@ -5,7 +5,6 @@ import {
   Settings,
   ShoppingBag,
   User,
-  Truck,
   DollarSign,
   Layers,
   Clock,
@@ -25,11 +24,6 @@ export const artistDashboardLink = [
     label: "Orders",
     route: "/dashboard/orders",
     icon: ShoppingBag,
-  },
-  {
-    label: "Deliver",
-    route: "/dashboard/deliver",
-    icon: Truck,
   },
   {
     label: "Messages",

@@ -1,5 +1,5 @@
 import { IMeta } from "@/interface";
-import { IOrder } from "@/interface/order.interface";
+import { IDeliverOrder, IOrder } from "@/interface/order.interface";
 import { api } from "@/redux/api/api";
 import { generateQueryParams } from "@/utils";
 
@@ -79,6 +79,19 @@ const orderApi = api.injectEndpoints({
       },
       providesTags: ["order"],
     }),
+    deliverOrder: builder.mutation<
+      { data: IOrder; authVideo: string; playlistUrl: string },
+      IDeliverOrder
+    >({
+      query: (body) => {
+        return {
+          url: `/order/deliver`,
+          method: "POST",
+          body,
+        };
+      },
+      invalidatesTags: ["order"],
+    }),
   }),
 });
 
@@ -89,4 +102,5 @@ export const {
   useGetMyArtistOrderByIdQuery,
   useCreateFanOrderMutation,
   useGetMyFanOrderQuery,
+  useDeliverOrderMutation,
 } = orderApi;

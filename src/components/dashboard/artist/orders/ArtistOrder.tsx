@@ -1,6 +1,6 @@
 "use client";
 
-import { Dropdown, Pagination } from "@/components";
+import { Dropdown, Pagination, TableSkeleton } from "@/components";
 import { statusOption } from "@/constants/orderStatus";
 import { useDebounce } from "@/hooks";
 import { DropdownOption } from "@/interface";
@@ -8,9 +8,8 @@ import { useGetMyArtistOrdersQuery } from "@/redux/features/order/order.api";
 import dateUtils from "@/utils/date";
 import { Search } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
-import { TableSkeleton } from "@/components";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 // --- Filters ---
 const statusOptions: DropdownOption<string>[] = [
@@ -133,32 +132,36 @@ const ArtistOrder = () => {
             {isLoading ? (
               <TableSkeleton row={4} columns={tableHeads.length} />
             ) : (
-              orderData?.map((row) => (
-                <tr
-                  key={row._id}
-                  className="last:border-b-0 border-b border-white/5 cursor-pointer hover:bg-white/5"
-                  onClick={() => router.push(`/dashboard/orders/${row._id}`)}
-                >
-                  <td className="py-3 pr-6">#{row.orderId}</td>
-                  <td className="py-3 pr-6">{row.deliveryInfo.name}</td>
-                  <td className="py-3 pr-6">{row.tier || "-"}</td>
-                  <td className="py-3 pr-6 capitalize">{row.platform}</td>
-                  <td className="py-3 pr-6">${row.price}</td>
-                  <td className="py-3 pr-6">
-                    {row.eta ? dateUtils.formatDate(row.eta) : "-"}
-                  </td>
-                  <td className="py-3 pr-6">
-                    {row.revision}/{row.maxRevision || 0}
-                  </td>
-                  <td className="py-3 pr-6">
-                    <span
-                      className={`capitalize chip min-w-22 inline-block text-center ${statusOption[row.status as keyof typeof statusOption]?.className || "bg-white/10 text-white"}`}
-                    >
-                      {row.status}
-                    </span>
-                  </td>
-                </tr>
-              ))
+              orderData?.map((row) => {
+                const lastStatusIndex = (row.status || []).length - 1;
+                const status = row.status?.[lastStatusIndex];
+                return (
+                  <tr
+                    key={row._id}
+                    className="last:border-b-0 border-b border-white/5 cursor-pointer hover:bg-white/5"
+                    onClick={() => router.push(`/dashboard/orders/${row._id}`)}
+                  >
+                    <td className="py-3 pr-6">#{row.orderId}</td>
+                    <td className="py-3 pr-6">{row.deliveryInfo.name}</td>
+                    <td className="py-3 pr-6">{row.tier || "-"}</td>
+                    <td className="py-3 pr-6 capitalize">{row.platform}</td>
+                    <td className="py-3 pr-6">${row.price}</td>
+                    <td className="py-3 pr-6">
+                      {row.eta ? dateUtils.formatDate(row.eta) : "-"}
+                    </td>
+                    <td className="py-3 pr-6">
+                      {row.revision}/{row.maxRevision || 0}
+                    </td>
+                    <td className="py-3 pr-6">
+                      <span
+                        className={`capitalize chip min-w-22 inline-block text-center ${statusOption[status?.status as keyof typeof statusOption]?.className || "bg-white/10 text-white"}`}
+                      >
+                        {status.status}
+                      </span>
+                    </td>
+                  </tr>
+                );
+              })
             )}
           </tbody>
         </table>
@@ -167,12 +170,6 @@ const ArtistOrder = () => {
           <div className="py-12 text-center text-white/70">
             <div className="text-lg font-heading">No orders found</div>
             <div className="text-sm mt-1">Try adjusting filters or search terms</div>
-            <Link
-              href="/artists"
-              className="inline-block mt-4 px-4 py-2 rounded-lg bg-white/10 border border-white/10"
-            >
-              Browse artists
-            </Link>
           </div>
         )}
       </div>
