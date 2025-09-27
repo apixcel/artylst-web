@@ -60,6 +60,10 @@ export const api = createApi({
     "availability",
     "fan",
     "notification",
+    "conversation",
+    "conversation-message",
+    "conversation-message-send",
+    "streaming",
   ],
   endpoints: () => ({}),
 });

@@ -1,12 +1,14 @@
 import { IMeta } from "@/interface";
-import { IFan } from "@/interface/fan.interface";
 import { IOrder } from "@/interface/order.interface";
 import { api } from "@/redux/api/api";
 import { generateQueryParams } from "@/utils";
 
 const orderApi = api.injectEndpoints({
   endpoints: (builder) => ({
-    createBusinessOrder: builder.mutation<{ data: IOrder }, Partial<IOrder>>({
+    createBusinessOrder: builder.mutation<
+      { data: { order: IOrder; sessionUrl: string } },
+      Partial<IOrder>
+    >({
       query: (payload) => {
         return {
           url: `/order/business`,
@@ -52,7 +54,7 @@ const orderApi = api.injectEndpoints({
       providesTags: ["order"],
     }),
     createFanOrder: builder.mutation<
-      { data: { order: IOrder; fan?: IFan; accessToken?: string; sessionUrl: string } },
+      { data: { order: IOrder; sessionUrl: string } },
       Partial<IOrder>
     >({
       query: (payload) => {

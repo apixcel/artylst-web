@@ -13,6 +13,7 @@ import {
   AlertTriangle,
   FileText,
 } from "lucide-react";
+import Chip from "@/components/ui/Chip";
 
 // -------------------------------------------------
 // Demo data (swap with your API)
@@ -104,21 +105,6 @@ const MESSAGES: Record<number, Message[]> = {
     },
   ],
 };
-
-// -------------------------------------------------
-// Small UI helpers
-// -------------------------------------------------
-
-const Chip = ({
-  children,
-  className = "",
-}: React.PropsWithChildren<{ className?: string }>) => (
-  <span
-    className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs border border-white/10 bg-white/5 ${className}`}
-  >
-    {children}
-  </span>
-);
 
 const StatusChip = ({ status }: { status: Status }) => {
   const map: Record<Status, { label: string; cls: string }> = {

@@ -1,12 +1,13 @@
 "use client";
 
-import { ArtistMessages, BusinessMessages } from "@/components";
-import { useAppSelector } from "@/hooks";
+import { MessageView } from "@/components";
 
 const MessagesView = () => {
-  const { user } = useAppSelector((state) => state.user);
-  const role = user?.role;
-  return <>{role === "artist" ? <ArtistMessages /> : <BusinessMessages />}</>;
+  return (
+    <>
+      <MessageView />
+    </>
+  );
 };
 
 export default MessagesView;
